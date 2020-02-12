@@ -1,11 +1,19 @@
 import { HttpClient } from '@angular/common/http';
+import { OnInit } from '@angular/core';
 
+import { DebugConsole } from '../core';
 import { RequestData } from '../models';
 
-export abstract class ApiBaseService {
+export abstract class ApiBaseService implements OnInit {
   protected baseUrl: string;
 
   protected constructor(protected http: HttpClient) {
+  }
+
+  public ngOnInit(): void {
+    if (!this.baseUrl) {
+      DebugConsole.raiseTypeError('baseUrl no puede estar vacío.');
+    }
   }
 
   protected prepareQueryParams<TModel>(requestData: RequestData<TModel>): string {

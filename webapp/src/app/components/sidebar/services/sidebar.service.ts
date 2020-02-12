@@ -74,9 +74,6 @@ export class SidebarService {
     // },
   ];
 
-  constructor() {
-  }
-
   public toggle(): void {
     this.toggled = !this.toggled;
   }

@@ -7,4 +7,12 @@ export class DebugConsole {
       errors.forEach((error) => console.log(error));
     }
   }
+
+  public static raiseTypeError(message: string): void {
+    if (settings.isDebug === true) {
+      message = '';
+    }
+
+    throw new TypeError(message);
+  }
 }

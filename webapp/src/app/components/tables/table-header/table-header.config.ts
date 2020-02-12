@@ -4,7 +4,7 @@ import { TableOrdering } from './table-ordering.enum';
 
 export class TableHeaderConfig<T> {
   public requestData: RequestData<T>;
-  public headers: TableHeader[];
+  public headers = Array<TableHeader>();
 
   constructor() {
     this.headers = [];

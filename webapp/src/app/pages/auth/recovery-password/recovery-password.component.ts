@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { finalize } from 'rxjs/operators';
 
 import { urlsApp } from '../../../config';
 import { AuthService } from '../services/auth.service';
@@ -43,15 +44,8 @@ export class RecoveryPasswordComponent implements OnInit {
       return;
     }
 
-    this.authenticationService.recoveryPassword(this.form.value).subscribe(
-      () => {
-        this.router.navigate([urlsApp.recoveryPasswordSuccess]);
-      },
-      (error) => {
-        // Se omite para no ser explicito que no existe el email...
-        this.router.navigate([urlsApp.recoveryPasswordSuccess]);
-      }
-    );
+    this.authenticationService.recoveryPassword(this.form.value)
+      .pipe(finalize(() => this.router.navigate([urlsApp.recoveryPasswordSuccess])));
   }
 
   private buildForm(): void {

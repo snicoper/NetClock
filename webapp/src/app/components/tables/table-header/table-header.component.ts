@@ -17,7 +17,7 @@ export class TableHeaderComponent<T> {
   @Output() clickOrdering = new EventEmitter<RequestData<T>>();
 
   public orderings = TableOrdering;
-  public orderPrecedence: OrderPrecedence[];
+  public orderPrecedence = Array<OrderPrecedence>();
 
   public onClickSort(header: TableHeader): void {
     this.removeSortItemIfExists(header);

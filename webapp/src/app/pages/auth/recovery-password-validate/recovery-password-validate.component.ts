@@ -13,7 +13,7 @@ import { AuthService } from '../services/auth.service';
 })
 export class RecoveryPasswordValidateComponent {
   public form: FormGroup;
-  public errors: object;
+  public errors = {};
   public loading = false;
   public submitted = false;
   public errorChangePassword = false;
