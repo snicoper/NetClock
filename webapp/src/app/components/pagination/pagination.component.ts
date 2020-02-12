@@ -13,20 +13,10 @@ export class PaginationComponent<T> {
   /** Mostrar solo botones de siguiente y previo. */
   @Input() small = false;
 
-  /** Emitir cuando cambia el numero de elementos a mostrar. */
-  @Output() public changePageListNumber = new EventEmitter<RequestData<T>>();
-
   /** Emitir al cambiar de pagina. */
   @Output() public changePage = new EventEmitter<RequestData<T>>();
-
-  public get pageRange(): number[] {
-    const pages = [];
-    for (let i = 1; i <= this.requestData.totalPages; i++) {
-      pages.push(i);
-    }
-
-    return pages;
-  }
+  /** Emitir cuando cambia el numero de elementos a mostrar. */
+  @Output() public changePageListNumber = new EventEmitter<RequestData<T>>();
 
   public onChangePage(page: number): void {
     this.requestData.pageNumber = page;
@@ -37,5 +27,18 @@ export class PaginationComponent<T> {
     this.requestData.pageNumber = 1;
     this.requestData.pageSize = num;
     this.changePageListNumber.emit(this.requestData);
+  }
+
+  public showPageList(): boolean {
+    return !(this.requestData.pageSize >= this.itemsPageList[0]);
+  }
+
+  private pageRange(): number[] {
+    const pages = [];
+    for (let i = 1; i <= this.requestData.totalPages; i++) {
+      pages.push(i);
+    }
+
+    return pages;
   }
 }
