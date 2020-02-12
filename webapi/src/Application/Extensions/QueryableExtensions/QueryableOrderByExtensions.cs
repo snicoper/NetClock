@@ -28,14 +28,11 @@ namespace NetClock.Application.Extensions.QueryableExtensions
 
             var fields = sorts.Split(',');
             var firstField = fields.FirstOrDefault();
-            if (string.IsNullOrEmpty(firstField))
-            {
-                return source;
-            }
-
             source = HandleCommandOrderBy(source, firstField, OrderByCommandType.OrderBy);
 
-            return fields.Skip(1).Aggregate(source, (current, field) => HandleCommandOrderBy(current, field));
+            return string.IsNullOrEmpty(firstField)
+                ? source
+                : fields.Skip(1).Aggregate(source, (current, field) => HandleCommandOrderBy(current, field));
         }
 
         private static IOrderedQueryable<TEntity> HandleCommandOrderBy<TEntity>(
