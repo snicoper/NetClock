@@ -70,7 +70,8 @@ namespace NetClock.Application.Localizations.Identity
             {
                 Code = nameof(DuplicateEmail),
                 Description =
-                    $"La dirección de email '{email}' ya se encuentra registrada. Puede recuperar su contraseña para ingresar nuevamente al sistema."
+                    $"La dirección de email '{email}' ya se encuentra registrada. Puede recuperar su contraseña para "
+                    + "ingresar nuevamente al sistema."
             };
         }
 

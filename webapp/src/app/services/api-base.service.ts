@@ -28,10 +28,19 @@ export abstract class ApiBaseService implements OnInit {
     queryParams += `&pageSize=${requestData.pageSize}`;
 
     if (requestData.sorts) {
-      queryParams += queryParams !== '' ? '&' : '';
+      queryParams += this.concatQueryParam(queryParams);
       queryParams += `sorts=${requestData.sorts}`;
     }
 
+    if (requestData.filters) {
+      queryParams += this.concatQueryParam(queryParams);
+      queryParams += `filters=${requestData.filters}`;
+    }
+
     return queryParams;
+  }
+
+  protected concatQueryParam(queryParams: string): string {
+    return queryParams !== '' ? '&' : '';
   }
 }
