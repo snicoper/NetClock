@@ -1,0 +1,92 @@
+using System.Net;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.DependencyInjection;
+using NetClock.Application.Cqrs.Accounts.Accounts.Commands.ChangePassword;
+using NetClock.Domain.Entities.Identity;
+using NetClock.WebApi.IntegrationTests.Helpers;
+using Shouldly;
+using Xunit;
+
+namespace NetClock.WebApi.IntegrationTests.Controllers.Accounts.AccountsController
+{
+    public class ChangePasswordTest : BaseControllerTest
+    {
+        public ChangePasswordTest(CustomWebApplicationFactory<Startup> factory)
+            : base(factory)
+        {
+        }
+
+        [Fact]
+        public async Task Post_cambia_contrasena_correctamente_200Ok()
+        {
+            // Arrange
+            await GetAuthenticatedClientAsync();
+            var userManager = ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+            var user = await userManager.FindByNameAsync("Admin");
+            var uri = Utilities.ComposeUri("accounts/change-password");
+            var data = new ChangePasswordCommand(user.Id, "123456", "1234567", "1234567");
+            var requestContent = Utilities.GetRequestContent(data);
+
+            // Act
+            var response = await Client.PostAsync(uri, requestContent);
+            var responseContent = Utilities.GetResponseContentAsync<ChangePasswordViewModel>(response);
+
+            // Assert
+            response.EnsureSuccessStatusCode();
+            responseContent.Result.ShouldBeOfType<ChangePasswordViewModel>();
+        }
+
+        [Fact]
+        public async Task Post_OldPassword_incorrecto_400BadRequest()
+        {
+            // Arrange
+            await GetAuthenticatedClientAsync();
+            var userManager = ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+            var user = await userManager.FindByNameAsync("Admin");
+            var uri = Utilities.ComposeUri("accounts/change-password");
+            var data = new ChangePasswordCommand(user.Id, "123456789", "1234567", "1234567");
+            var requestContent = Utilities.GetRequestContent(data);
+
+            // Act
+            var response = await Client.PostAsync(uri, requestContent);
+
+            // Assert
+            response.StatusCode.ShouldBe(HttpStatusCode.BadRequest);
+        }
+
+        [Fact]
+        public async Task Post_nuevos_passwords_diferentes_400BadRequest()
+        {
+            // Arrange
+            await GetAuthenticatedClientAsync();
+            var userManager = ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+            var user = await userManager.FindByNameAsync("Admin");
+            var uri = Utilities.ComposeUri("accounts/change-password");
+            var data = new ChangePasswordCommand(user.Id, "123456", "1234567", "1234567999");
+            var requestContent = Utilities.GetRequestContent(data);
+
+            // Act
+            var response = await Client.PostAsync(uri, requestContent);
+
+            // Assert
+            response.StatusCode.ShouldBe(HttpStatusCode.BadRequest);
+        }
+
+        [Fact]
+        public async Task Post_usuarios_no_existe_404NotFound()
+        {
+            // Arrange
+            await GetAuthenticatedClientAsync();
+            var uri = Utilities.ComposeUri("accounts/change-password");
+            var data = new ChangePasswordCommand("99999999", "123456", "1234567", "1234567");
+            var requestContent = Utilities.GetRequestContent(data);
+
+            // Act
+            var response = await Client.PostAsync(uri, requestContent);
+
+            // Assert
+            response.StatusCode.ShouldBe(HttpStatusCode.NotFound);
+        }
+    }
+}

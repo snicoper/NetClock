@@ -1,0 +1,19 @@
+.page-wrapper.toggled .sidebar {
+  left: -270px;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.shadow-md {
+  box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.15);
+}
+
+.unfocus:focus {
+  box-shadow: none;
+
+  &.active {
+    box-shadow: none !important;
+  }
+}

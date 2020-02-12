@@ -1,0 +1,11 @@
+<nc-navbar></nc-navbar>
+
+<div class="page-wrapper" [ngClass]="{'toggled' : getSideBarState()}">
+  <nc-sidebar></nc-sidebar>
+
+  <main class="page-content">
+    <router-outlet></router-outlet>
+  </main>
+
+  <nc-footer></nc-footer>
+</div>

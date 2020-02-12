@@ -1,0 +1,12 @@
+<nc-page-base [breadcrumb]="breadcrumb">
+  <nc-card [loading]="loading">
+    <nc-card-title *ngIf="!loading">
+      <h1>Detalles {{user.userName}}</h1>
+    </nc-card-title>
+
+    <pre class="mt-5">
+{{user | json}}
+        </pre>
+    <div *ngIf="!user">El usuario no existe</div>
+  </nc-card>
+</nc-page-base>

@@ -1,0 +1,15 @@
+.spinner-border {
+  &.opacity5 {
+    opacity: 0.5;
+  }
+
+  &.spinner-border-lg {
+    height: 4rem;
+    width: 4rem;
+  }
+
+  &.spinner-border-xl {
+    height: 6rem;
+    width: 6rem;
+  }
+}

@@ -1,0 +1,19 @@
+@import "variables";
+
+.arrow {
+  position: relative;
+  top: 1px;
+  transition: all .3s ease-in-out;
+
+  &.rotate {
+    transform: rotate(180deg);
+  }
+}
+
+.opacity1 {
+  opacity: .1;
+}
+
+.opacity3 {
+  opacity: .3;
+}

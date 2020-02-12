@@ -1,0 +1,29 @@
+<th *ngFor="let header of headerConfig.headers" [ngClass]="{'cursor-pointer': header.sortable}">
+  <!-- sortable -->
+  <div *ngIf="header.sortable" (click)="onClickSort(header)" class="d-flex justify-content-start">
+    {{header.text}}
+
+    <!-- sort order -->
+    <span *ngIf="header.ordering !== orderings.none" class="ml-auto">
+      <span class="badge mr-2 opacity3">
+        {{getOrderPrecedence(header)}}
+      </span>
+
+      <span>
+        <i *ngIf="header.ordering !== orderings.none"
+           [ngClass]="{'fa-rotate-180': header.ordering === orderings.ascending}"
+           class="fas fa-angle-down arrow opacity3">
+        </i>
+      </span>
+    </span>
+
+    <span *ngIf="header.ordering === orderings.none" class="ml-auto opacity1">
+      <i class="fas fa-arrows-alt-v"></i>
+    </span><!-- end sort order -->
+  </div><!-- end sortable -->
+
+  <!-- no sortable -->
+  <span *ngIf="!header.sortable">
+    {{header.text}}
+  </span><!-- end no sortable -->
+</th>

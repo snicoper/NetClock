@@ -1,0 +1,49 @@
+<nc-page-base [breadcrumb]="breadcrumb">
+  <div class="row">
+    <div class="col-12">
+      <nc-card>
+        <nc-card-title>
+          <h1>Lista de usuarios</h1>
+        </nc-card-title>
+
+        <nc-pagination *ngIf="requestData"
+                        [requestData]="requestData"
+                        [small]="true"
+                        (changePage)="onChangePage($event)">
+        </nc-pagination>
+
+        <nc-table>
+          <thead>
+            <tr nc-table-header [headerConfig]="tableHeaderConfig" (clickOrdering)="onOrdering($event)"></tr>
+          </thead>
+
+          <tbody>
+            <ng-container *ngIf="!loading; else loadingData">
+              <tr *ngFor="let user of requestData.items" (click)="onSelectItem(user)" class="cursor-pointer">
+                <td>{{user.userName}}</td>
+                <td>{{user.fullName}}</td>
+                <td>{{user.email}}</td>
+                <td>{{user.createAt | date: 'dd/MM/yyyy'}}</td>
+                <td [innerHTML]="user.active | iconBoolean"></td>
+              </tr>
+            </ng-container>
+
+            <ng-template #loadingData>
+              <tr>
+                <td colspan="100%">
+                  <nc-spinner [loading]="loading"></nc-spinner>
+                </td>
+              </tr>
+            </ng-template>
+          </tbody>
+        </nc-table>
+
+        <nc-pagination *ngIf="requestData"
+                        [requestData]="requestData"
+                        (changePage)="onChangePage($event)"
+                        (changePageListNumber)="onChangePageListNumber($event)">
+        </nc-pagination>
+      </nc-card>
+    </div>
+  </div>
+</nc-page-base>

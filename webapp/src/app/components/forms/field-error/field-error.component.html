@@ -1,0 +1,12 @@
+<div *ngIf="submitted && formHasErrors() || controlHasErrors()" class="small text-danger">
+  <!-- Errores Angular. -->
+  <p *ngIf="control.errors?.required">Campo requerido</p>
+  <p *ngIf="control.errors?.email">No parece un correo eléctronico valido</p>
+  <p *ngIf="control.errors?.noPasswordMatch">Las contraseñas no coinciden</p>
+
+  <!-- Errores obtenidos del backend pertenecientes al campo concreto. -->
+  <div *ngIf="getBadRequestErrors()">
+    <p *ngFor="let error of getBadRequestErrors()">{{error}}</p>
+  </div>
+</div>
+

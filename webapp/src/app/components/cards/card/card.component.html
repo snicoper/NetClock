@@ -1,0 +1,15 @@
+<div class="card border-0 shadow-sm">
+  <div class="card-body">
+    <ng-content *ngIf="!loading" select="nc-card-title"></ng-content>
+    <hr>
+    <ng-container *ngIf="!loading; else loadingData">
+      <p class="card-text">
+        <ng-content></ng-content>
+      </p>
+    </ng-container>
+
+    <ng-template #loadingData>
+      <nc-spinner [loading]="loading" [size]="spinnerSize"></nc-spinner>
+    </ng-template>
+  </div>
+</div>

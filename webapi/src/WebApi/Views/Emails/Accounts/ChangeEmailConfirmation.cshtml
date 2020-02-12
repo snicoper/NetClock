@@ -1,0 +1,10 @@
+@model NetClock.Application.Cqrs.Accounts.Accounts.Commands.ChangeEmail.ChangeEmailViewModel
+
+@{
+  Layout = "_Layout";
+}
+
+<div>
+  Requiere de confirmación para cambiar el email.
+  <a href="@Html.Raw(Model.CallBack)">@Html.Raw(Model.CallBack)</a>
+</div>

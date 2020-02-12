@@ -1,0 +1,41 @@
+@import "variables";
+
+.form-control:focus {
+  border-color: $primary;
+  box-shadow: none !important;
+}
+
+.has-icon {
+  .has-icon-left {
+    color: #aaa;
+    display: block;
+    height: 2.375rem;
+    line-height: 2.375rem;
+    pointer-events: none;
+    position: absolute;
+    text-align: center;
+    width: 2.375rem;
+    z-index: 4;
+
+    +.form-control {
+      padding-left: 2.375rem;
+    }
+  }
+
+  .has-icon-right {
+    color: #aaa;
+    display: block;
+    height: 2.375rem;
+    line-height: 2.375rem;
+    pointer-events: none;
+    position: absolute;
+    right: 0;
+    text-align: center;
+    width: 2.375rem;
+    z-index: 4;
+
+    +.form-control {
+      padding-right: 2.375rem;
+    }
+  }
+}

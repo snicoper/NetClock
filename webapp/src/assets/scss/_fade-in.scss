@@ -1,0 +1,20 @@
+@mixin fade-in-variant($duration) {
+  animation-duration: $duration;
+  animation-iteration-count: 1;
+  animation-name: fadeInOpacity;
+  animation-timing-function: ease-in;
+  opacity: 1;
+}
+
+.fade-in { @include fade-in-variant(0.4s); }
+.fade-in-fast { @include fade-in-variant(0.2s); }
+.fade-in-slow { @include fade-in-variant(0.8s); }
+
+@keyframes fadeInOpacity {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
