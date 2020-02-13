@@ -16,13 +16,13 @@ export class UserDetailsComponent implements OnInit {
   user: AdminUserDetailsModel;
   loading = false;
 
-  private readonly userName: string;
+  private readonly userSlug: string;
 
   constructor(
     private adminAccountsService: AdminAccountsService,
     private route: ActivatedRoute
   ) {
-    this.userName = this.route.snapshot.paramMap.get('userName');
+    this.userSlug = this.route.snapshot.paramMap.get('slug');
     this.loadUser();
   }
 
@@ -35,12 +35,12 @@ export class UserDetailsComponent implements OnInit {
       .add('Inicio', UrlsApp.home, 'fas fa-home')
       .add('Administración', UrlsApp.admin, 'fas fa-user-shield')
       .add('Lista de usuarios', UrlsApp.adminUserList, 'fas fa-users')
-      .add(this.userName, UrlsApp.adminUserList, 'fas fa-user', false)
+      .add(this.userSlug, UrlsApp.adminUserList, 'fas fa-user', false)
   }
 
   private loadUser(): void {
     this.loading = true;
-    this.adminAccountsService.getUserByUserName(this.userName)
+    this.adminAccountsService.getUserBySlug(this.userSlug)
       .pipe(finalize(() => this.loading = false))
       .subscribe(
         (result: AdminUserDetailsModel) => {

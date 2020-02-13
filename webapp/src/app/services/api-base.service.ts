@@ -12,7 +12,7 @@ export abstract class ApiBaseService implements OnInit {
 
   ngOnInit(): void {
     if (!this.baseUrl) {
-      DebugConsole.raiseTypeError('baseUrl no puede estar vacío.');
+      DebugConsole.raiseError('baseUrl no puede estar vacío.');
     }
   }
 

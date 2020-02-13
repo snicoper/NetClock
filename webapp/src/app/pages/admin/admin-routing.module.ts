@@ -20,7 +20,7 @@ const routes: Routes = [
     data: { title: 'Lista de usuarios' }
   },
   {
-    path: 'accounts/:userName',
+    path: 'accounts/:slug',
     component: UserDetailsComponent,
     canActivate: [AuthGuard],
     data: { title: 'Detalle de usuario' }

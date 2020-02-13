@@ -23,8 +23,8 @@ export class AdminAccountsService extends ApiBaseService {
     return this.http.get<RequestData<AdminUserListModel>>(url);
   }
 
-  /** Obtener un usuario por su slug. */
-  getUserByUserName(slug: string): Observable<AdminUserDetailsModel> {
+  /** Obtener un usuario por slug. */
+  getUserBySlug(slug: string): Observable<AdminUserDetailsModel> {
     const url = `${this.baseUrl}/${slug}`;
 
     return this.http.get<AdminUserDetailsModel>(url);

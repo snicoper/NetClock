@@ -15,4 +15,12 @@ export class DebugConsole {
 
     throw new TypeError(message);
   }
+
+  static raiseError(message: string): void {
+    if (Settings.isDebug === true) {
+      message = '';
+    }
+
+    throw new Error(message);
+  }
 }
