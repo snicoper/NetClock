@@ -4,7 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { finalize } from 'rxjs/operators';
 
 import { BreadcrumbCollection } from '../../../components/breadcrumb/models/BreadcrumbCollection';
-import { urlsApp } from '../../../config';
+import { UrlsApp } from '../../../config';
 import { PasswordMustMatch } from '../../../validators';
 import { AuthService } from '../../auth/services/auth.service';
 import { ChangePasswordModel } from '../models';
@@ -15,11 +15,11 @@ import { AccountsService } from '../services/accounts.service';
   templateUrl: './change-password.component.html'
 })
 export class ChangePasswordComponent implements OnInit {
-  public breadcrumb = new BreadcrumbCollection();
-  public form: FormGroup;
-  public errors = {};
-  public submitted = false;
-  public loading = false;
+  breadcrumb = new BreadcrumbCollection();
+  form: FormGroup;
+  errors = {};
+  submitted = false;
+  loading = false;
 
   constructor(
     private fb: FormBuilder,
@@ -29,12 +29,12 @@ export class ChangePasswordComponent implements OnInit {
   ) {
   }
 
-  public ngOnInit(): void {
+  ngOnInit(): void {
     this.setBreadcrumb();
     this.buildForm();
   }
 
-  public onSubmit(): void {
+  onSubmit(): void {
     this.submitted = true;
     this.errors = {};
 
@@ -60,9 +60,9 @@ export class ChangePasswordComponent implements OnInit {
 
   private setBreadcrumb(): void {
     this.breadcrumb
-      .add('Inicio', urlsApp.home, 'fas fa-home')
-      .add('Perfil', urlsApp.accounts, 'fas fa-user-cog')
-      .add('Cambiar contraseña', urlsApp.changePassword, 'fas fa-user-lock', false)
+      .add('Inicio', UrlsApp.home, 'fas fa-home')
+      .add('Perfil', UrlsApp.accounts, 'fas fa-user-cog')
+      .add('Cambiar contraseña', UrlsApp.changePassword, 'fas fa-user-lock', false)
   }
 
   private buildForm(): void {

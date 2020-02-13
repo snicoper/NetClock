@@ -1,3 +1,3 @@
 export class RecoveryPasswordModel {
-  public email: string;
+  email: string;
 }

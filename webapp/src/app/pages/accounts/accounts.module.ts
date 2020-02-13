@@ -19,4 +19,5 @@ import { ProfileComponent } from './profile/profile.component';
     ReactiveFormsModule,
   ],
 })
-export class AccountsModule { }
+export class AccountsModule {
+}

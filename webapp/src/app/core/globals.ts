@@ -1,4 +1,4 @@
 /** Constantes globales. */
 export class Globals {
-  public static readonly NonFieldErrors = 'nonFieldErrors';
+  static readonly NonFieldErrors = 'nonFieldErrors';
 }

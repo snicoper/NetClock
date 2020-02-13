@@ -5,7 +5,7 @@ import { finalize } from 'rxjs/operators';
 
 import { BreadcrumbCollection } from '../../../../components/breadcrumb/models/BreadcrumbCollection';
 import { TableHeaderConfig } from '../../../../components/tables/table-header/table-header.config';
-import { urlsApp } from '../../../../config';
+import { UrlsApp } from '../../../../config';
 import { RequestData } from '../../../../models';
 import { AdminUserListModel } from '../models';
 import { AdminAccountsService } from '../services/admin-accounts.service';
@@ -15,12 +15,12 @@ import { AdminAccountsService } from '../services/admin-accounts.service';
   templateUrl: './user-list.component.html'
 })
 export class UserListComponent implements OnInit, OnDestroy {
-  public breadcrumb = new BreadcrumbCollection();
-  public requestData = new RequestData<AdminUserListModel>();
-  public loading = false;
-  public tableHeaderConfig = new TableHeaderConfig<AdminUserListModel>();
+  breadcrumb = new BreadcrumbCollection();
+  requestData = new RequestData<AdminUserListModel>();
+  loading = false;
+  tableHeaderConfig = new TableHeaderConfig<AdminUserListModel>();
 
-  private destroy$ = new Subject<void>();
+  private destroy$ = new Subject();
 
   constructor(
     private router: Router,
@@ -28,32 +28,32 @@ export class UserListComponent implements OnInit, OnDestroy {
   ) {
   }
 
-  public ngOnInit(): void {
+  ngOnInit(): void {
     this.configureTableHeaders();
     this.setBreadcrumb();
     this.loadUserList();
   }
 
-  public ngOnDestroy(): void {
+  ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
   }
 
-  public onSelectItem(user: AdminUserListModel): void {
-    this.router.navigate([urlsApp.adminUserDetails.replace('{slug}', user.slug)]);
+  onSelectItem(user: AdminUserListModel): void {
+    this.router.navigate([UrlsApp.adminUserDetails.replace('{slug}', user.slug)]);
   }
 
-  public onChangePage(requestData: RequestData<AdminUserListModel>): void {
+  onChangePage(requestData: RequestData<AdminUserListModel>): void {
     this.requestData = requestData;
     this.loadUserList();
   }
 
-  public onChangePageListNumber(requestData: RequestData<AdminUserListModel>): void {
+  onChangePageListNumber(requestData: RequestData<AdminUserListModel>): void {
     this.requestData = requestData;
     this.loadUserList();
   }
 
-  public onOrdering(requestData: RequestData<AdminUserListModel>): void {
+  onOrdering(requestData: RequestData<AdminUserListModel>): void {
     this.requestData = requestData;
     this.loadUserList();
   }
@@ -70,9 +70,9 @@ export class UserListComponent implements OnInit, OnDestroy {
 
   private setBreadcrumb(): void {
     this.breadcrumb
-      .add('Inicio', urlsApp.home, 'fas fa-home')
-      .add('Administración', urlsApp.admin, 'fas fa-user-shield')
-      .add('Lista de usuarios', urlsApp.adminUserList, 'fas fa-users', false)
+      .add('Inicio', UrlsApp.home, 'fas fa-home')
+      .add('Administración', UrlsApp.admin, 'fas fa-user-shield')
+      .add('Lista de usuarios', UrlsApp.adminUserList, 'fas fa-users', false)
   }
 
   private loadUserList(): void {

@@ -16,10 +16,10 @@ export class TableHeaderComponent<T> {
 
   @Output() clickOrdering = new EventEmitter<RequestData<T>>();
 
-  public orderings = TableOrdering;
-  public orderPrecedence = Array<OrderPrecedence>();
+  orderings = TableOrdering;
+  orderPrecedence = Array<OrderPrecedence>();
 
-  public onClickSort(header: TableHeader): void {
+  onClickSort(header: TableHeader): void {
     this.removeSortItemIfExists(header);
 
     switch (header.ordering) {
@@ -38,7 +38,7 @@ export class TableHeaderComponent<T> {
     this.clickOrdering.emit(this.headerConfig.requestData);
   }
 
-  public getOrderPrecedence(field: TableHeader): number {
+  getOrderPrecedence(field: TableHeader): number {
     const precedence = this.orderPrecedence.find((f) => f.fieldName === field.field);
 
     return precedence.position;

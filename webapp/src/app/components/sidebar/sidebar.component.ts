@@ -29,11 +29,11 @@ export class SidebarComponent implements OnInit {
   public ngOnInit(): void {
   }
 
-  public getSideBarState(): boolean {
+  getSideBarState(): boolean {
     return this.sidebarService.getSidebarState();
   }
 
-  public toggle(currentMenu): void {
+  toggle(currentMenu): void {
     if (currentMenu.type === 'dropdown') {
       this.menus.forEach(element => {
         if (element === currentMenu) {
@@ -45,7 +45,7 @@ export class SidebarComponent implements OnInit {
     }
   }
 
-  public getState(currentMenu): string {
+  getState(currentMenu): string {
     if (currentMenu.active) {
       return 'down';
     } else {
@@ -53,7 +53,7 @@ export class SidebarComponent implements OnInit {
     }
   }
 
-  public logout(): void {
+  logout(): void {
     this.authService.logout();
   }
 }

@@ -3,7 +3,7 @@ import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from
 import { ActivatedRoute, Router } from '@angular/router';
 import { finalize } from 'rxjs/operators';
 
-import { urlsApp } from '../../../config';
+import { UrlsApp } from '../../../config';
 import { AuthService } from '../services/auth.service';
 
 @Component({
@@ -11,11 +11,11 @@ import { AuthService } from '../services/auth.service';
   templateUrl: './recovery-password.component.html'
 })
 export class RecoveryPasswordComponent implements OnInit {
-  public form: FormGroup;
-  public loading = false;
-  public submitted = false;
-  public errors = {};
-  public urlsApp = urlsApp;
+  form: FormGroup;
+  loading = false;
+  submitted = false;
+  errors = {};
+  urlsApp = UrlsApp;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -24,19 +24,19 @@ export class RecoveryPasswordComponent implements OnInit {
     private authenticationService: AuthService
   ) {
     if (this.authenticationService.currentUserValue) {
-      this.router.navigate([urlsApp.home]);
+      this.router.navigate([UrlsApp.home]);
     }
   }
 
-  public ngOnInit(): void {
+  ngOnInit(): void {
     this.buildForm();
   }
 
-  public control(control: string): AbstractControl {
+  control(control: string): AbstractControl {
     return this.form.get(control);
   }
 
-  public onSubmit(): void {
+  onSubmit(): void {
     this.submitted = true;
     this.errors = {};
 
@@ -45,7 +45,7 @@ export class RecoveryPasswordComponent implements OnInit {
     }
 
     this.authenticationService.recoveryPassword(this.form.value)
-      .pipe(finalize(() => this.router.navigate([urlsApp.recoveryPasswordSuccess])));
+      .pipe(finalize(() => this.router.navigate([UrlsApp.recoveryPasswordSuccess])));
   }
 
   private buildForm(): void {

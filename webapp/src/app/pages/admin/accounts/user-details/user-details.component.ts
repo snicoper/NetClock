@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { finalize } from 'rxjs/operators';
 
 import { BreadcrumbCollection } from '../../../../components/breadcrumb/models/BreadcrumbCollection';
-import { urlsApp } from '../../../../config';
+import { UrlsApp } from '../../../../config';
 import { AdminUserDetailsModel } from '../models';
 import { AdminAccountsService } from '../services/admin-accounts.service';
 
@@ -12,9 +12,9 @@ import { AdminAccountsService } from '../services/admin-accounts.service';
   templateUrl: './user-details.component.html'
 })
 export class UserDetailsComponent implements OnInit {
-  public breadcrumb = new BreadcrumbCollection();
-  public user: AdminUserDetailsModel;
-  public loading = false;
+  breadcrumb = new BreadcrumbCollection();
+  user: AdminUserDetailsModel;
+  loading = false;
 
   private readonly userName: string;
 
@@ -26,16 +26,16 @@ export class UserDetailsComponent implements OnInit {
     this.loadUser();
   }
 
-  public ngOnInit(): void {
+  ngOnInit(): void {
     this.setBreadcrumb();
   }
 
   private setBreadcrumb(): void {
     this.breadcrumb
-      .add('Inicio', urlsApp.home, 'fas fa-home')
-      .add('Administración', urlsApp.admin, 'fas fa-user-shield')
-      .add('Lista de usuarios', urlsApp.adminUserList, 'fas fa-users')
-      .add(this.userName, urlsApp.adminUserList, 'fas fa-user', false)
+      .add('Inicio', UrlsApp.home, 'fas fa-home')
+      .add('Administración', UrlsApp.admin, 'fas fa-user-shield')
+      .add('Lista de usuarios', UrlsApp.adminUserList, 'fas fa-users')
+      .add(this.userName, UrlsApp.adminUserList, 'fas fa-user', false)
   }
 
   private loadUser(): void {

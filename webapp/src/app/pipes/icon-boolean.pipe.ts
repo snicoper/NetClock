@@ -9,7 +9,7 @@ import { Pipe, PipeTransform } from '@angular/core';
  */
 @Pipe({ name: 'iconBoolean' })
 export class IconBooleanPipe implements PipeTransform {
-  public transform(value: boolean): string {
+  transform(value: boolean): string {
     if (value) {
       return '<i class="fas fa-check text-success"></i>';
     }

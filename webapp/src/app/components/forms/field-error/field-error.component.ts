@@ -14,11 +14,11 @@ export class FieldErrorComponent implements OnInit {
 
   public control: AbstractControl;
 
-  public ngOnInit(): void {
+  ngOnInit(): void {
     this.control = this.form.get(this.fieldName);
   }
 
-  public formHasErrors(): boolean {
+  formHasErrors(): boolean {
     return this.submitted
       && this.form
       && this.form.dirty
@@ -27,11 +27,11 @@ export class FieldErrorComponent implements OnInit {
       && this.form[this.fieldName].errors;
   }
 
-  public controlHasErrors(): boolean {
+  controlHasErrors(): boolean {
     return !!(this.control && this.control.dirty || this.submitted && this.control.errors);
   }
 
-  public getBadRequestErrors(): string[] {
+  getBadRequestErrors(): string[] {
     if (this.errors) {
       return this.errors[this.fieldName];
     }

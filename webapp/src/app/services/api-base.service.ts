@@ -10,7 +10,7 @@ export abstract class ApiBaseService implements OnInit {
   protected constructor(protected http: HttpClient) {
   }
 
-  public ngOnInit(): void {
+  ngOnInit(): void {
     if (!this.baseUrl) {
       DebugConsole.raiseTypeError('baseUrl no puede estar vacío.');
     }

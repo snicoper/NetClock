@@ -6,21 +6,21 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class SpinnerComponent implements OnInit {
   /** Solo mostrara el spinner cuando loading sea true. */
-  @Input() public loading = false;
+  @Input() loading = false;
   /** Alineación del spinner, por defecto: 'justify-content-center'. */
-  @Input() public justify = 'justify-content-center';
+  @Input() justify = 'justify-content-center';
   /** Color del spinner, por defecto: 'text-primary'. */
-  @Input() public color = 'text-primary';
+  @Input() color = 'text-primary';
   /** Clases css extra para el spinner. */
-  @Input() public css = '';
+  @Input() css = '';
   /** Texto mostrado a la derecha del spinner. */
   @Input() text = '';
   /** Tamaño en px del spinner, por defecto 40px. */
   @Input() size = 40;
 
-  public style: string;
+  style: string;
 
-  public ngOnInit(): void {
+  ngOnInit(): void {
     this.style = `width: ${this.size}px; height: ${this.size}px;`;
   }
 }

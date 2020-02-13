@@ -3,7 +3,7 @@ import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from
 import { ActivatedRoute, Router } from '@angular/router';
 import { finalize, timeout } from 'rxjs/operators';
 
-import { urlsApp } from '../../../config';
+import { UrlsApp } from '../../../config';
 import { CurrentUserModel } from '../models';
 import { AuthService } from '../services/auth.service';
 
@@ -12,12 +12,12 @@ import { AuthService } from '../services/auth.service';
   templateUrl: './login.component.html'
 })
 export class LoginComponent implements OnInit {
-  public form: FormGroup;
-  public loading = false;
-  public submitted = false;
-  public returnUrl = '/';
-  public errors = {};
-  public urlsApp = urlsApp;
+  form: FormGroup;
+  loading = false;
+  submitted = false;
+  returnUrl = '/';
+  errors = {};
+  urlsApp = UrlsApp;
 
   constructor(
     private fb: FormBuilder,
@@ -26,11 +26,11 @@ export class LoginComponent implements OnInit {
     private authenticationService: AuthService
   ) {
     if (this.authenticationService.currentUserValue) {
-      this.router.navigate([urlsApp.home]);
+      this.router.navigate([UrlsApp.home]);
     }
   }
 
-  public ngOnInit(): void {
+  ngOnInit(): void {
     this.buildForm();
 
     if ('returnUrl' in this.route.snapshot.queryParams) {
@@ -38,11 +38,11 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  public control(control: string): AbstractControl {
+  control(control: string): AbstractControl {
     return this.form.get(control);
   }
 
-  public onSubmit(): void {
+  onSubmit(): void {
     this.submitted = true;
     this.errors = {};
 

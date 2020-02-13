@@ -1,8 +1,8 @@
 export class BreadcrumbItem {
-  public text: string;
-  public link: string;
-  public icon: string;
-  public active: boolean;
+  text: string;
+  link: string;
+  icon: string;
+  active: boolean;
 
   constructor(text: string, link: string, icon: string, activate?: boolean) {
     this.text = text;

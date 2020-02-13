@@ -3,7 +3,7 @@ import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
-import { urlsApp } from '../../../config';
+import { UrlsApp } from '../../../config';
 import { PasswordMustMatch } from '../../../validators';
 import { AuthService } from '../services/auth.service';
 
@@ -12,11 +12,11 @@ import { AuthService } from '../services/auth.service';
   templateUrl: './recovery-password-validate.component.html'
 })
 export class RecoveryPasswordValidateComponent {
-  public form: FormGroup;
-  public errors = {};
-  public loading = false;
-  public submitted = false;
-  public errorChangePassword = false;
+  form: FormGroup;
+  errors = {};
+  loading = false;
+  submitted = false;
+  errorChangePassword = false;
 
   constructor(
     private fb: FormBuilder,
@@ -36,11 +36,11 @@ export class RecoveryPasswordValidateComponent {
     );
   }
 
-  public control(fieldName: string): AbstractControl {
+  control(fieldName: string): AbstractControl {
     return this.form.get(fieldName);
   }
 
-  public onSubmit(): void {
+  onSubmit(): void {
     this.submitted = true;
 
     if (this.form.invalid) {
@@ -51,7 +51,7 @@ export class RecoveryPasswordValidateComponent {
     this.authService.recoveryPasswordValidate(this.form.value).subscribe(
       () => {
         this.toastr.success('Contraseña restablecida con éxito');
-        this.router.navigate([urlsApp.login]);
+        this.router.navigate([UrlsApp.login]);
       },
       () => {
         this.errorChangePassword = true;

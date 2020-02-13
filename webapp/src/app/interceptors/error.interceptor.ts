@@ -5,7 +5,7 @@ import * as HttpStatus from 'http-status-codes'
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
-import { urlsApp } from '../config';
+import { UrlsApp } from '../config';
 import { DebugConsole } from '../core';
 import { AuthService } from '../pages/auth/services/auth.service';
 
@@ -13,7 +13,9 @@ import { AuthService } from '../pages/auth/services/auth.service';
 export class ErrorInterceptor implements HttpInterceptor {
   constructor(
     private authenticationService: AuthService,
-    private router: Router) { }
+    private router: Router
+  ) {
+  }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(request).pipe(catchError(error => {
@@ -27,7 +29,7 @@ export class ErrorInterceptor implements HttpInterceptor {
           this.errorHandler();
           break;
         default:
-          // Nothing.
+        // Nothing.
       }
 
       return throwError(error);
@@ -36,7 +38,7 @@ export class ErrorInterceptor implements HttpInterceptor {
 
   private unauthorizedHandler(): void {
     this.authenticationService.logout();
-    this.router.navigate([urlsApp.login]);
+    this.router.navigate([UrlsApp.login]);
   }
 
   private errorHandler(): void {

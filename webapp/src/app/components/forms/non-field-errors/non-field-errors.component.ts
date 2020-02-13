@@ -5,5 +5,5 @@ import { Component, Input } from '@angular/core';
   templateUrl: './non-field-errors.component.html'
 })
 export class NonFieldErrorsComponent {
-  @Input() public errors = {};
+  @Input() errors = {};
 }

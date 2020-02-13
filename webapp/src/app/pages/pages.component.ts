@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import { SidebarService } from '../components/sidebar/services/sidebar.service';
 
 @Component({
@@ -10,7 +11,7 @@ export class PagesComponent {
   constructor(private sidebarService: SidebarService) {
   }
 
-  public getSideBarState(): boolean {
+  getSideBarState(): boolean {
     return this.sidebarService.getSidebarState();
   }
 }

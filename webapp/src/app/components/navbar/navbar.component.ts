@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 
-import { urlsApp } from '../../config';
+import { UrlsApp } from '../../config';
 import { CurrentUserModel } from '../../pages/auth/models';
 import { AuthService } from '../../pages/auth/services/auth.service';
 import { SidebarService } from '../sidebar/services/sidebar.service';
@@ -11,10 +11,10 @@ import { SidebarService } from '../sidebar/services/sidebar.service';
   templateUrl: './navbar.component.html'
 })
 export class NavbarComponent implements OnInit, OnDestroy {
-  public currentUser: CurrentUserModel;
-  public urlsApp = urlsApp;
+  currentUser: CurrentUserModel;
+  urlsApp = UrlsApp;
 
-  private destroy$ = new Subject<void>();
+  private destroy$ = new Subject();
 
   constructor(
     public authService: AuthService,
@@ -22,16 +22,16 @@ export class NavbarComponent implements OnInit, OnDestroy {
   ) {
   }
 
-  public ngOnInit(): void {
+  ngOnInit(): void {
     this.currentUser = this.authService.currentUserValue;
   }
 
-  public ngOnDestroy(): void {
+  ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
   }
 
-  public toggle(): void {
+  toggle(): void {
     this.sidebarService.toggle();
   }
 }

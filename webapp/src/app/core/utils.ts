@@ -1,6 +1,6 @@
 export abstract class Utils {
   /** Pasar bytes a una medida legible según el size. */
-  public static formatSizeUnit(value: number): string {
+  static formatSizeUnit(value: number): string {
     const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
     if (value === 0) {
       return '0 Byte';

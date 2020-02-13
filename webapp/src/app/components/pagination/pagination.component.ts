@@ -14,26 +14,26 @@ export class PaginationComponent<T> {
   @Input() small = false;
 
   /** Emitir al cambiar de pagina. */
-  @Output() public changePage = new EventEmitter<RequestData<T>>();
+  @Output() changePage = new EventEmitter<RequestData<T>>();
   /** Emitir cuando cambia el numero de elementos a mostrar. */
-  @Output() public changePageListNumber = new EventEmitter<RequestData<T>>();
+  @Output() changePageListNumber = new EventEmitter<RequestData<T>>();
 
-  public onChangePage(page: number): void {
+  onChangePage(page: number): void {
     this.requestData.pageNumber = page;
     this.changePage.emit(this.requestData);
   }
 
-  public onChangePageListNumber(num: number): void {
+  onChangePageListNumber(num: number): void {
     this.requestData.pageNumber = 1;
     this.requestData.pageSize = num;
     this.changePageListNumber.emit(this.requestData);
   }
 
-  public showPageList(): boolean {
+  showPageList(): boolean {
     return !(this.requestData.pageSize >= this.itemsPageList[0]);
   }
 
-  public pageRange(): Array<number> {
+  pageRange(): Array<number> {
     const pages = [];
     for (let i = 1; i <= this.requestData.totalPages; i++) {
       pages.push(i);

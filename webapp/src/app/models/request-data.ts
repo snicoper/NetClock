@@ -1,14 +1,14 @@
 export class RequestData<T> {
-  public hasPreviousPage: boolean;
-  public hasNextPage: boolean;
-  public totalItems: number;
-  public pageNumber: number;
-  public totalPages: number;
-  public pageSize: number;
-  public ratio: number;
-  public items: T[];
-  public sorts: string;
-  public filters: string;
+  hasPreviousPage: boolean;
+  hasNextPage: boolean;
+  totalItems: number;
+  pageNumber: number;
+  totalPages: number;
+  pageSize: number;
+  ratio: number;
+  items: T[];
+  sorts: string;
+  filters: string;
 
   constructor() {
     // @see: webapi/src/Application/Models/Http/RequestData.cs default values.

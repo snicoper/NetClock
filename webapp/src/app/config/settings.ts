@@ -1,7 +1,7 @@
 import { environment } from 'src/environments/environment';
 
 /** Configuración predeterminada del sitio. */
-export const settings = {
+export const Settings = {
   // Nombre del sitio.
   siteName: 'Net clock',
 
@@ -19,4 +19,4 @@ export const settings = {
 };
 
 /** Base URL a la API. */
-export const baseUrl = `${settings.apiUrl}/${settings.apiSegment}`;
+export const BaseUrl = `${Settings.apiUrl}/${Settings.apiSegment}`;

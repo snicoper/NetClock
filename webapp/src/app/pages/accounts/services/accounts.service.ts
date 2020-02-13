@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { baseUrl } from '../../../config';
+import { BaseUrl } from '../../../config';
 import { ApiBaseService } from '../../../services/api-base.service';
 import { ChangePasswordModel } from '../models';
 
@@ -12,11 +12,11 @@ import { ChangePasswordModel } from '../models';
 export class AccountsService extends ApiBaseService {
   constructor(protected http: HttpClient) {
     super(http);
-    this.baseUrl = `${baseUrl}/accounts`;
+    this.baseUrl = `${BaseUrl}/accounts`;
   }
 
   /** Cambiar contraseña actual del usuario. */
-  public changePassword(changePasswordModel: ChangePasswordModel): Observable<void> {
+  changePassword(changePasswordModel: ChangePasswordModel): Observable<void> {
     const url = `${this.baseUrl}/change-password`;
 
     return this.http.post<void>(url, changePasswordModel);

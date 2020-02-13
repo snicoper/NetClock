@@ -1,5 +1,5 @@
 /** URLs en la APP. */
-export const urlsApp = {
+export const UrlsApp = {
   /** Home. */
   home: '/',
 

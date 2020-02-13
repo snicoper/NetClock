@@ -4,8 +4,8 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class SidebarService {
-  public toggled = false;
-  public menus = [
+  toggled = false;
+  menus = [
     {
       title: '- Administración',
       type: 'header'
@@ -74,19 +74,19 @@ export class SidebarService {
     // },
   ];
 
-  public toggle(): void {
+  toggle(): void {
     this.toggled = !this.toggled;
   }
 
-  public getSidebarState(): boolean {
+  getSidebarState(): boolean {
     return this.toggled;
   }
 
-  public setSidebarState(state: boolean): void {
+  setSidebarState(state: boolean): void {
     this.toggled = state;
   }
 
-  public getMenuList(): Array<any> {
+  getMenuList(): Array<any> {
     return this.menus;
   }
 }

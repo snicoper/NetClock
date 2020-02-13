@@ -8,10 +8,11 @@ import { ClickStopPropagationDirective } from './click-stop-propagation.directiv
     ClickStopPropagationDirective,
   ],
   imports: [
-    CommonModule
+    CommonModule,
   ],
   exports: [
-    ClickStopPropagationDirective
+    ClickStopPropagationDirective,
   ],
 })
-export class DirectivesModule { }
+export class DirectivesModule {
+}
