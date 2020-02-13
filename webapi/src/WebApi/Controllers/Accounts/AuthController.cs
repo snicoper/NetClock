@@ -2,10 +2,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using NetClock.Application.Cqrs.Accounts.Auth.Commands.Login;
-using NetClock.Application.Cqrs.Accounts.Auth.Commands.Logout;
-using NetClock.Application.Cqrs.Accounts.Auth.Commands.RecoveryPassword;
-using NetClock.Application.Cqrs.Accounts.Auth.Commands.RecoveryPasswordValidate;
+using NetClock.Application.Accounts.Auth.Commands.Login;
+using NetClock.Application.Accounts.Auth.Commands.Logout;
+using NetClock.Application.Accounts.Auth.Commands.RecoveryPassword;
+using NetClock.Application.Accounts.Auth.Commands.RecoveryPasswordValidate;
 
 namespace NetClock.WebApi.Controllers.Accounts
 {

@@ -9,9 +9,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using NetClock.Application.Configurations;
-using NetClock.Application.Interfaces.Emails;
-using NetClock.Application.Interfaces.Views;
+using NetClock.Application.Common.Configurations;
+using NetClock.Application.Common.Interfaces.Emails;
+using NetClock.Application.Common.Interfaces.Views;
 
 namespace NetClock.Infrastructure.Services.Emails
 {

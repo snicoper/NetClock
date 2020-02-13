@@ -2,11 +2,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using NetClock.Application.Cqrs.Accounts.Accounts.Commands.ChangeEmail;
-using NetClock.Application.Cqrs.Accounts.Accounts.Commands.ChangeEmailValidate;
-using NetClock.Application.Cqrs.Accounts.Accounts.Commands.ChangePassword;
-using NetClock.Application.Cqrs.Accounts.Accounts.Commands.Register;
-using NetClock.Application.Cqrs.Accounts.Accounts.Commands.RegisterValidate;
+using NetClock.Application.Accounts.Accounts.Commands.ChangeEmail;
+using NetClock.Application.Accounts.Accounts.Commands.ChangeEmailValidate;
+using NetClock.Application.Accounts.Accounts.Commands.ChangePassword;
+using NetClock.Application.Accounts.Accounts.Commands.Register;
+using NetClock.Application.Accounts.Accounts.Commands.RegisterValidate;
 
 namespace NetClock.WebApi.Controllers.Accounts
 {

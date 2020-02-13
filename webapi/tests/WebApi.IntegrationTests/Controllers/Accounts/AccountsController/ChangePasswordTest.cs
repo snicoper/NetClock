@@ -2,7 +2,7 @@ using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
-using NetClock.Application.Cqrs.Accounts.Accounts.Commands.ChangePassword;
+using NetClock.Application.Accounts.Accounts.Commands.ChangePassword;
 using NetClock.Domain.Entities.Identity;
 using NetClock.WebApi.IntegrationTests.Helpers;
 using Shouldly;

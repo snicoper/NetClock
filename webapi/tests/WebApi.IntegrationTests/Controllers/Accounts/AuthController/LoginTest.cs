@@ -2,7 +2,7 @@ using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
-using NetClock.Application.Cqrs.Accounts.Auth.Commands.Login;
+using NetClock.Application.Accounts.Auth.Commands.Login;
 using NetClock.Domain.Entities.Identity;
 using NetClock.WebApi.IntegrationTests.Helpers;
 using Shouldly;

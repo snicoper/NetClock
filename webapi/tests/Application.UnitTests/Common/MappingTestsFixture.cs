@@ -1,5 +1,5 @@
 using AutoMapper;
-using NetClock.Application.Mappings;
+using NetClock.Application.Common.Mappings;
 
 namespace NetClock.Application.UnitTests.Common
 {

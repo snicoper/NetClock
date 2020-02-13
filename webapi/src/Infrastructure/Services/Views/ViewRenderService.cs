@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Routing;
-using NetClock.Application.Interfaces.Views;
+using NetClock.Application.Common.Interfaces.Views;
 
 namespace NetClock.Infrastructure.Services.Views
 {

@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using FluentValidation.Results;
-using NetClock.Application.Exceptions;
-using NetClock.Application.Interfaces.Validations;
+using NetClock.Application.Common.Exceptions;
+using NetClock.Application.Common.Interfaces.Validations;
 
 namespace NetClock.Infrastructure.Services.Validations
 {

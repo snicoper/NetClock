@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
-using NetClock.Application.Authorization;
+using NetClock.Application.Common.Authorization;
 
 namespace NetClock.WebApi.Controllers
 {

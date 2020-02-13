@@ -1,6 +1,6 @@
 using System;
 using AutoMapper;
-using NetClock.Application.Mappings;
+using NetClock.Application.Common.Mappings;
 using NetClock.Infrastructure.Persistence;
 using Xunit;
 

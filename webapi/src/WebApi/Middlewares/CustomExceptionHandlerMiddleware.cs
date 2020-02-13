@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
-using NetClock.Application.Exceptions;
+using NetClock.Application.Common.Exceptions;
 using Newtonsoft.Json;
 
 namespace NetClock.WebApi.Middlewares

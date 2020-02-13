@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
-using NetClock.Application.Cqrs.Admin.AdminAccounts.Queries.GetUsers;
+using NetClock.Application.Admin.AdminAccounts.Queries.GetUsers;
 using NetClock.Domain.Entities.Identity;
 using NetClock.WebApi.IntegrationTests.Helpers;
 using Shouldly;

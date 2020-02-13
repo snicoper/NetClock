@@ -2,8 +2,8 @@ using System.Collections.Generic;
 using System.Text;
 using System.Web;
 using Microsoft.Extensions.Options;
-using NetClock.Application.Configurations;
-using NetClock.Application.Interfaces.Common;
+using NetClock.Application.Common.Configurations;
+using NetClock.Application.Common.Interfaces.Common;
 
 namespace NetClock.Infrastructure.Services.Common
 {

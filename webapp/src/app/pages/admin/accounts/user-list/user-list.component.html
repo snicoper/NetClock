@@ -7,9 +7,9 @@
         </nc-card-title>
 
         <nc-pagination *ngIf="requestData"
-                        [requestData]="requestData"
-                        [small]="true"
-                        (changePage)="onChangePage($event)">
+                       [requestData]="requestData"
+                       [small]="true"
+                       (changePage)="onChangePage($event)">
         </nc-pagination>
 
         <nc-table>
@@ -39,9 +39,9 @@
         </nc-table>
 
         <nc-pagination *ngIf="requestData"
-                        [requestData]="requestData"
-                        (changePage)="onChangePage($event)"
-                        (changePageListNumber)="onChangePageListNumber($event)">
+                       [requestData]="requestData"
+                       (changePage)="onChangePage($event)"
+                       (changePageListNumber)="onChangePageListNumber($event)">
         </nc-pagination>
       </nc-card>
     </div>

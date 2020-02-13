@@ -3,7 +3,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using IdentityModel.Client;
 using Microsoft.Extensions.DependencyInjection;
-using NetClock.Application.Cqrs.Accounts.Auth.Commands.Login;
+using NetClock.Application.Accounts.Auth.Commands.Login;
 using NetClock.Infrastructure.Persistence;
 using NetClock.Infrastructure.Persistence.Seeds;
 using NetClock.WebApi.IntegrationTests.Helpers;

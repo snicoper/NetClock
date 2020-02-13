@@ -3,7 +3,7 @@ using IdentityServer4.EntityFramework.Options;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Moq;
-using NetClock.Application.Interfaces.Identity;
+using NetClock.Application.Common.Interfaces.Identity;
 using NetClock.Domain.Interfaces;
 using NetClock.Infrastructure.Persistence;
 

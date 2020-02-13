@@ -3,10 +3,10 @@ using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
-using NetClock.Application.Behaviours;
-using NetClock.Application.Interfaces.Http;
-using NetClock.Application.Services.Http;
-using NetClock.Application.Services.Identity;
+using NetClock.Application.Common.Behaviours;
+using NetClock.Application.Common.Interfaces.Http;
+using NetClock.Application.Common.Services.Http;
+using NetClock.Application.Common.Services.Identity;
 using NetCore.AutoRegisterDi;
 
 namespace NetClock.Application

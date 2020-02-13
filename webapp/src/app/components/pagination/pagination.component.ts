@@ -33,7 +33,7 @@ export class PaginationComponent<T> {
     return !(this.requestData.pageSize >= this.itemsPageList[0]);
   }
 
-  private pageRange(): number[] {
+  public pageRange(): Array<number> {
     const pages = [];
     for (let i = 1; i <= this.requestData.totalPages; i++) {
       pages.push(i);

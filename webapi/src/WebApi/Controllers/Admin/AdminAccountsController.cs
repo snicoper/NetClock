@@ -2,9 +2,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using NetClock.Application.Cqrs.Admin.AdminAccounts.Queries.GetBySlug;
-using NetClock.Application.Cqrs.Admin.AdminAccounts.Queries.GetUsers;
-using NetClock.Application.Models.Http;
+using NetClock.Application.Admin.AdminAccounts.Queries.GetBySlug;
+using NetClock.Application.Admin.AdminAccounts.Queries.GetUsers;
+using NetClock.Application.Common.Models.Http;
 
 namespace NetClock.WebApi.Controllers.Admin
 {

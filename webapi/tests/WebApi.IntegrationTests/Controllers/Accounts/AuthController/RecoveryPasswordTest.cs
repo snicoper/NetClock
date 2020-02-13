@@ -1,6 +1,6 @@
 using System.Net;
 using System.Threading.Tasks;
-using NetClock.Application.Cqrs.Accounts.Auth.Commands.RecoveryPassword;
+using NetClock.Application.Accounts.Auth.Commands.RecoveryPassword;
 using NetClock.WebApi.IntegrationTests.Helpers;
 using Shouldly;
 using Xunit;
