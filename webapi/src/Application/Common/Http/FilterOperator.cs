@@ -12,6 +12,8 @@ namespace NetClock.Application.Common.Http
         private const string LessThan = "lt";
         private const string LessThanOrEqualTo = "lte";
         private const string Contains = "con";
+        private const string StartsWith = "sw";
+        private const string EndsWith = "ew";
 
         // Logical Operators.
         private const string And = "and";
@@ -28,6 +30,8 @@ namespace NetClock.Application.Common.Http
                 LessThan => "<",
                 LessThanOrEqualTo => " <= ",
                 Contains => ".ToLower().Contains(@{0}) ",
+                StartsWith => ".ToLower().StartsWith(@{0}) ",
+                EndsWith => ".ToLower().EndsWith(@{0}) ",
                 _ => throw new NotImplementedException()
             };
         }
@@ -36,8 +40,8 @@ namespace NetClock.Application.Common.Http
         {
             return op switch
             {
-                And => "and",
-                Or => "or",
+                And => " and ",
+                Or => " or ",
                 _ => throw new NotImplementedException()
             };
         }
