@@ -9,7 +9,6 @@ import { UrlsApp } from '../../config';
 })
 export class HomeComponent {
   breadcrumb = new BreadcrumbCollection();
-  urlsApp = UrlsApp;
 
   constructor() {
     this.setBreadcrumb();

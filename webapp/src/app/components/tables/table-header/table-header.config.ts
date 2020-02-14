@@ -11,7 +11,7 @@ export class TableHeaderConfig<T> {
   }
 
   addField(field: string, text: string, sortable = false, ordering = TableOrdering.none): TableHeaderConfig<T> {
-    this.headers.push({ field: field, text: text, sortable: sortable, ordering: ordering });
+    this.headers.push({ field, text, sortable, ordering });
 
     return this;
   }

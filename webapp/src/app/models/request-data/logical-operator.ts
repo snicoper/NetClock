@@ -1,5 +1,5 @@
 export enum LogicalOperator {
-  none = '',
+  none = ' ',
   and = 'and',
-  or = "or"
+  or = 'or'
 }

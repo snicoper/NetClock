@@ -9,13 +9,13 @@ import { TruncatePipe } from './truncate.pipe';
   declarations: [
     FormatSizeUnitPipe,
     TruncatePipe,
-    IconBooleanPipe,
+    IconBooleanPipe
   ],
   exports: [
     IconBooleanPipe
   ],
   imports: [
-    CommonModule,
+    CommonModule
   ]
 })
 export class PipesModule {

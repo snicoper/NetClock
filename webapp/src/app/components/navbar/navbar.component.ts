@@ -1,7 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
-
-import { UrlsApp } from '../../config';
 import { CurrentUserModel } from '../../pages/auth/models';
 import { AuthService } from '../../pages/auth/services/auth.service';
 import { SidebarService } from '../sidebar/services/sidebar.service';
@@ -12,9 +10,8 @@ import { SidebarService } from '../sidebar/services/sidebar.service';
 })
 export class NavbarComponent implements OnInit, OnDestroy {
   currentUser: CurrentUserModel;
-  urlsApp = UrlsApp;
 
-  private destroy$ = new Subject();
+  private destroy$ = new Subject<void>();
 
   constructor(
     public authService: AuthService,

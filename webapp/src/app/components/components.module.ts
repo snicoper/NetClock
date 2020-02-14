@@ -35,7 +35,7 @@ import { TableComponent } from './tables/table/table.component';
     PaginationComponent,
     TableHeaderComponent,
     CardComponent,
-    TableComponent,
+    TableComponent
   ],
   imports: [
     CommonModule,
@@ -44,7 +44,7 @@ import { TableComponent } from './tables/table/table.component';
     FormsModule,
     BsDropdownModule.forRoot(),
     CollapseModule.forRoot(),
-    PerfectScrollbarModule,
+    PerfectScrollbarModule
   ],
   exports: [
     NavbarComponent,
@@ -60,7 +60,7 @@ import { TableComponent } from './tables/table/table.component';
     PaginationComponent,
     TableHeaderComponent,
     CardComponent,
-    TableComponent,
+    TableComponent
   ]
 })
 export class ComponentsModule {

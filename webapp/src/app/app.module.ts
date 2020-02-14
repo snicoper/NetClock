@@ -38,7 +38,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     HttpClientModule,
     ReactiveFormsModule,
     ToastrModule.forRoot(),
-    PerfectScrollbarModule,
+    PerfectScrollbarModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

@@ -5,14 +5,14 @@ import { ClickStopPropagationDirective } from './click-stop-propagation.directiv
 
 @NgModule({
   declarations: [
-    ClickStopPropagationDirective,
+    ClickStopPropagationDirective
   ],
   imports: [
-    CommonModule,
+    CommonModule
   ],
   exports: [
-    ClickStopPropagationDirective,
-  ],
+    ClickStopPropagationDirective
+  ]
 })
 export class DirectivesModule {
 }

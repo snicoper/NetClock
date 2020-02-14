@@ -10,14 +10,14 @@ import { ProfileComponent } from './profile/profile.component';
 @NgModule({
   declarations: [
     ProfileComponent,
-    ChangePasswordComponent,
+    ChangePasswordComponent
   ],
   imports: [
     AccountsRoutingModule,
     CommonModule,
     ComponentsModule,
-    ReactiveFormsModule,
-  ],
+    ReactiveFormsModule
+  ]
 })
 export class AccountsModule {
 }

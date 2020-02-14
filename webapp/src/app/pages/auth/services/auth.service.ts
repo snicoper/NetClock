@@ -14,7 +14,7 @@ import { CurrentUserModel, LoginModel, RecoveryPasswordModel, RecoveryPasswordVa
 export class AuthService extends ApiBaseService implements OnDestroy {
   readonly currentUser$: Observable<CurrentUserModel>;
 
-  private readonly destroy$ = new Subject();
+  private readonly destroy$ = new Subject<void>();
   private readonly currentUserSubject: BehaviorSubject<CurrentUserModel>;
 
   constructor(protected http: HttpClient, private router: Router) {

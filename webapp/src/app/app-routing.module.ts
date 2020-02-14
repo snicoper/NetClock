@@ -20,7 +20,7 @@ const routes: Routes = [
       {
         path: 'admin',
         loadChildren: () => import('./pages/admin/admin.module').then(m => m.AdminModule)
-      },
+      }
     ]
   },
 
@@ -31,7 +31,7 @@ const routes: Routes = [
   },
   {
     path: 'errors',
-    loadChildren: () => import('./pages/errors/errors.module').then(m => m.ErrorsModule),
+    loadChildren: () => import('./pages/errors/errors.module').then(m => m.ErrorsModule)
   },
   {
     path: '**',

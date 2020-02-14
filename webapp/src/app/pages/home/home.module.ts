@@ -15,7 +15,7 @@ import { HomeComponent } from './home.component';
     ComponentsModule,
     HomeRoutingModule,
     DirectivesModule
-  ],
+  ]
 })
 export class HomeModule {
 }

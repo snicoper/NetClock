@@ -13,7 +13,7 @@ import { ErrorsRoutingModule } from './errors-routing.module';
     CommonModule,
     ErrorsRoutingModule,
     ComponentsModule
-  ],
+  ]
 })
 export class ErrorsModule {
 }

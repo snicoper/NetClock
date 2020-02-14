@@ -57,7 +57,7 @@ export class SidebarService {
           link: '/accounts/change-password'
         }
       ]
-    },
+    }
     // {
     //   title: 'Extra',
     //   type: 'header'

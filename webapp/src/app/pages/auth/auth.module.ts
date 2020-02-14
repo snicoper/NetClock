@@ -24,7 +24,7 @@ import { RecoveryPasswordComponent } from './recovery-password/recovery-password
     FormsModule,
     HttpClientModule,
     ComponentsModule
-  ],
+  ]
 })
 export class AuthModule {
 }

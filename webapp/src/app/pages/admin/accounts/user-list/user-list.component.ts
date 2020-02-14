@@ -20,7 +20,7 @@ export class UserListComponent implements OnInit, OnDestroy {
   loading = false;
   tableHeaderConfig = new TableHeaderConfig<AdminUserListModel>();
 
-  private destroy$ = new Subject();
+  private destroy$ = new Subject<void>();
 
   constructor(
     private router: Router,

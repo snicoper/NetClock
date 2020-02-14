@@ -16,6 +16,7 @@ namespace NetClock.Application.Common.Http
         private const string EndsWith = "ew";
 
         // Logical Operators.
+        private const string None = " ";
         private const string And = "and";
         private const string Or = "or";
 
@@ -40,6 +41,7 @@ namespace NetClock.Application.Common.Http
         {
             return op switch
             {
+                None => " ",
                 And => " and ",
                 Or => " or ",
                 _ => throw new NotImplementedException()

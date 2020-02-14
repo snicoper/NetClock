@@ -71,7 +71,7 @@ export class LoginComponent implements OnInit {
     this.form = this.fb.group({
       userName: new FormControl('', [Validators.required]),
       password: new FormControl('', [Validators.required]),
-      rememberMe: new FormControl(false),
+      rememberMe: new FormControl(false)
     });
   }
 }

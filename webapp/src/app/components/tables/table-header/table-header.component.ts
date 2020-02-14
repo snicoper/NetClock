@@ -7,7 +7,7 @@ import { TableHeader } from './table-header.interface';
 import { TableOrdering } from './table-ordering.enum';
 
 @Component({
-  selector: '[nc-table-header]',
+  selector: 'nc-table-header',
   templateUrl: './table-header.component.html',
   styleUrls: ['./table-header.component.scss']
 })

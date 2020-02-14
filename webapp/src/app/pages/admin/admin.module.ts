@@ -12,13 +12,13 @@ import { AdminComponent } from './admin.component';
   declarations: [
     AdminComponent,
     UserListComponent,
-    UserDetailsComponent,
+    UserDetailsComponent
   ],
   imports: [
     CommonModule,
     AdminRoutingModule,
     ComponentsModule,
-    PipesModule,
+    PipesModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

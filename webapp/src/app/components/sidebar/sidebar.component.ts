@@ -24,7 +24,7 @@ export class SidebarComponent implements OnInit {
     public authService: AuthService
   ) {
     this.menus = sidebarService.getMenuList();
-   }
+  }
 
   public ngOnInit(): void {
   }

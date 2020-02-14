@@ -7,10 +7,10 @@ export class RequestItemFilter {
   value: string;
   logicalOperator: LogicalOperator;
 
-  constructor(propertyName: string, operator: RelationalOperator, value: string, concat = LogicalOperator.none) {
+  constructor(propertyName: string, operator: RelationalOperator, value: string, logicalOperator = LogicalOperator.none) {
     this.propertyName = propertyName;
     this.relationalOperator = operator;
     this.value = value;
-    this.logicalOperator = concat;
+    this.logicalOperator = logicalOperator;
   }
 }
