@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { OnInit } from '@angular/core';
 
 import { DebugConsole } from '../core';
-import { LogicalOperator, RelationalOperator, RequestData } from '../models';
+import { LogicalOperator, RelationalOperator, HttpTransferData } from '../models';
 
 export abstract class ApiBaseService implements OnInit {
   protected baseUrl: string;
@@ -16,29 +16,29 @@ export abstract class ApiBaseService implements OnInit {
     }
   }
 
-  protected prepareQueryParams<TModel>(requestData: RequestData<TModel>): string {
-    return this.requestDataToQueryParams(requestData);
+  protected prepareQueryParams<TModel>(transferData: HttpTransferData<TModel>): string {
+    return this.transferDataToQueryParams(transferData);
   }
 
-  protected requestDataToQueryParams<TModel>(requestData: RequestData<TModel>): string {
+  protected transferDataToQueryParams<TModel>(transferData: HttpTransferData<TModel>): string {
     // TODO: Test filter, delete.
-    requestData.addFilter('userName', RelationalOperator.contains, 'ad');
-    requestData.addFilter('userName', RelationalOperator.contains, 'o', LogicalOperator.or);
+    transferData.addFilter('userName', RelationalOperator.contains, 'ad');
+    transferData.addFilter('userName', RelationalOperator.contains, 'o', LogicalOperator.or);
 
     let queryParams = '';
-    queryParams += `totalItems=${requestData.totalItems}`;
-    queryParams += `&pageNumber=${requestData.pageNumber}`;
-    queryParams += `&totalPages=${requestData.totalPages}`;
-    queryParams += `&pageSize=${requestData.pageSize}`;
+    queryParams += `totalItems=${transferData.totalItems}`;
+    queryParams += `&pageNumber=${transferData.pageNumber}`;
+    queryParams += `&totalPages=${transferData.totalPages}`;
+    queryParams += `&pageSize=${transferData.pageSize}`;
 
-    if (requestData.sorts) {
+    if (transferData.sorts) {
       queryParams += this.concatQueryParam(queryParams);
-      queryParams += `sorts=${requestData.sorts}`;
+      queryParams += `sorts=${transferData.sorts}`;
     }
 
-    if (requestData.filters.length) {
+    if (transferData.filters.length) {
       queryParams += this.concatQueryParam(queryParams);
-      queryParams = `filters=${requestData.stringifyFilters()}`;
+      queryParams = `filters=${transferData.stringifyFilters()}`;
     }
 
     return queryParams;

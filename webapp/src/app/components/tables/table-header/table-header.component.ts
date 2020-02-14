@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
-import { RequestData } from '../../../models';
+import { HttpTransferData } from '../../../models';
 import { OrderPrecedence } from './order-precedence.interface';
 import { TableHeaderConfig } from './table-header.config';
 import { TableHeader } from './table-header.interface';
@@ -15,7 +15,7 @@ import { TableOrdering } from './table-ordering.enum';
 export class TableHeaderComponent<T> {
   @Input() headerConfig: TableHeaderConfig<T>;
 
-  @Output() clickOrdering = new EventEmitter<RequestData<T>>();
+  @Output() clickOrdering = new EventEmitter<HttpTransferData<T>>();
 
   orderings = TableOrdering;
   orderPrecedence: OrderPrecedence[] = [];
@@ -36,7 +36,7 @@ export class TableHeaderComponent<T> {
 
     this.sortItem(header);
     this.updateOrderPrecedence();
-    this.clickOrdering.emit(this.headerConfig.requestData);
+    this.clickOrdering.emit(this.headerConfig.transferData);
   }
 
   getOrderPrecedence(field: TableHeader): number {
@@ -47,12 +47,12 @@ export class TableHeaderComponent<T> {
 
   private removeSortItemIfExists(header: TableHeader): void {
     const sortString = this.getSortString(header);
-    this.headerConfig.requestData.sorts = this.headerConfig.requestData.sorts.replace(sortString, '');
+    this.headerConfig.transferData.sorts = this.headerConfig.transferData.sorts.replace(sortString, '');
   }
 
   private sortItem(header: TableHeader): void {
-    this.headerConfig.requestData.sorts = this.getSortString(header) + ',' + this.headerConfig.requestData.sorts;
-    this.headerConfig.requestData.sorts = this.headerConfig.requestData.sorts.replace(',,', ',');
+    this.headerConfig.transferData.sorts = this.getSortString(header) + ',' + this.headerConfig.transferData.sorts;
+    this.headerConfig.transferData.sorts = this.headerConfig.transferData.sorts.replace(',,', ',');
   }
 
   private getSortString(header: TableHeader): string {
@@ -66,7 +66,7 @@ export class TableHeaderComponent<T> {
 
   private updateOrderPrecedence(): void {
     this.orderPrecedence = [];
-    const fields = this.headerConfig.requestData.sorts.split(',').filter((field) => field !== '');
+    const fields = this.headerConfig.transferData.sorts.split(',').filter((field) => field !== '');
 
     for (let i = 0; i < fields.length; i += 1) {
       const fieldName = fields[i].split(':')[0];

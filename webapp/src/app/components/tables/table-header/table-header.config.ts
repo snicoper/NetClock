@@ -1,9 +1,9 @@
-import { RequestData } from '../../../models';
+import { HttpTransferData } from '../../../models';
 import { TableHeader } from './table-header.interface';
 import { TableOrdering } from './table-ordering.enum';
 
 export class TableHeaderConfig<T> {
-  requestData: RequestData<T>;
+  transferData: HttpTransferData<T>;
   headers: TableHeader[] = [];
 
   constructor() {

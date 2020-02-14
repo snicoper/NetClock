@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { BaseUrl } from '../../../../config';
-import { RequestData } from '../../../../models';
+import { HttpTransferData } from '../../../../models';
 import { ApiBaseService } from '../../../../services/api-base.service';
 import { AdminUserDetailsModel, AdminUserListModel } from '../models';
 
@@ -17,10 +17,10 @@ export class AdminAccountsService extends ApiBaseService {
   }
 
   /** Obtener lista de usuarios. */
-  getUsers(requestData: RequestData<AdminUserListModel>): Observable<RequestData<AdminUserListModel>> {
-    const url = `${this.baseUrl}?${this.prepareQueryParams<AdminUserListModel>(requestData)}`;
+  getUsers(transferData: HttpTransferData<AdminUserListModel>): Observable<HttpTransferData<AdminUserListModel>> {
+    const url = `${this.baseUrl}?${this.prepareQueryParams<AdminUserListModel>(transferData)}`;
 
-    return this.http.get<RequestData<AdminUserListModel>>(url);
+    return this.http.get<HttpTransferData<AdminUserListModel>>(url);
   }
 
   /** Obtener un usuario por slug. */

@@ -1,41 +1,41 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
-import { RequestData } from '../../models';
+import { HttpTransferData } from '../../models';
 
 @Component({
   selector: 'nc-pagination',
   templateUrl: './pagination.component.html'
 })
 export class PaginationComponent<T> {
-  @Input() requestData: RequestData<T>;
+  @Input() transferData: HttpTransferData<T>;
   @Input() justifyContent = 'justify-content-end';
   @Input() itemsPageList = [10, 25, 50, 100];
   /** Mostrar solo botones de siguiente y previo. */
   @Input() small = false;
 
   /** Emitir al cambiar de pagina. */
-  @Output() changePage = new EventEmitter<RequestData<T>>();
+  @Output() changePage = new EventEmitter<HttpTransferData<T>>();
   /** Emitir cuando cambia el numero de elementos a mostrar. */
-  @Output() changePageListNumber = new EventEmitter<RequestData<T>>();
+  @Output() changePageListNumber = new EventEmitter<HttpTransferData<T>>();
 
   onChangePage(page: number): void {
-    this.requestData.pageNumber = page;
-    this.changePage.emit(this.requestData);
+    this.transferData.pageNumber = page;
+    this.changePage.emit(this.transferData);
   }
 
   onChangePageListNumber(num: number): void {
-    this.requestData.pageNumber = 1;
-    this.requestData.pageSize = num;
-    this.changePageListNumber.emit(this.requestData);
+    this.transferData.pageNumber = 1;
+    this.transferData.pageSize = num;
+    this.changePageListNumber.emit(this.transferData);
   }
 
   showPageList(): boolean {
-    return !(this.requestData.pageSize >= this.itemsPageList[0]);
+    return !(this.transferData.pageSize >= this.itemsPageList[0]);
   }
 
   pageRange(): number[] {
     const pages = [];
-    for (let i = 1; i <= this.requestData.totalPages; i += 1) {
+    for (let i = 1; i <= this.transferData.totalPages; i += 1) {
       pages.push(i);
     }
 

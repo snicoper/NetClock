@@ -1,5 +1,5 @@
-export { LogicalOperator } from './request-data/logical-operator';
-export { RelationalOperator } from './request-data/relational-operator';
-export { RequestItemFilter } from './request-data/request-item-filter';
-export { RequestData } from './request-data/request-data';
+export { LogicalOperator } from './http-transfer-data/logical-operator';
+export { RelationalOperator } from './http-transfer-data/relational-operator';
+export { RequestItemFilter } from './http-transfer-data/request-item-filter';
+export { HttpTransferData } from './http-transfer-data/http-transfer-data';
 export { AuditableEntity } from './auditable-entity';

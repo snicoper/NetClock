@@ -6,8 +6,8 @@
           <h1>Lista de usuarios</h1>
         </nc-card-title>
 
-        <nc-pagination *ngIf="requestData"
-                       [requestData]="requestData"
+        <nc-pagination *ngIf="transferData"
+                       [transferData]="transferData"
                        [small]="true"
                        (changePage)="onChangePage($event)">
         </nc-pagination>
@@ -19,7 +19,7 @@
 
           <tbody>
             <ng-container *ngIf="!loading; else loadingData">
-              <tr *ngFor="let user of requestData.items" (click)="onSelectItem(user)" class="cursor-pointer">
+              <tr *ngFor="let user of transferData.items" (click)="onSelectItem(user)" class="cursor-pointer">
                 <td>{{user.userName}}</td>
                 <td>{{user.fullName}}</td>
                 <td>{{user.email}}</td>
@@ -38,8 +38,8 @@
           </tbody>
         </nc-table>
 
-        <nc-pagination *ngIf="requestData"
-                       [requestData]="requestData"
+        <nc-pagination *ngIf="transferData"
+                       [transferData]="transferData"
                        (changePage)="onChangePage($event)"
                        (changePageListNumber)="onChangePageListNumber($event)">
         </nc-pagination>

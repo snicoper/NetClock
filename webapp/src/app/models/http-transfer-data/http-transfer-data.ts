@@ -2,7 +2,8 @@ import { LogicalOperator } from './logical-operator';
 import { RelationalOperator } from './relational-operator';
 import { RequestItemFilter } from './request-item-filter';
 
-export class RequestData<T> {
+/** Request data actual como request y response. */
+export class HttpTransferData<T> {
   hasPreviousPage: boolean;
   hasNextPage: boolean;
   totalItems: number;
@@ -15,7 +16,7 @@ export class RequestData<T> {
   filters: RequestItemFilter[];
 
   constructor() {
-    // @see: webapi/src/Application/Models/Http/RequestData.cs default values.
+    // @see: webapi/src/Application/Models/Http/transferData.cs default values.
     this.totalItems = 0;
     this.pageNumber = 1;
     this.totalPages = 1;
@@ -26,14 +27,14 @@ export class RequestData<T> {
     this.filters = [];
   }
 
-  addFilter(propertyName: string, operator: RelationalOperator, value: string, concat = LogicalOperator.none): RequestData<T> {
+  addFilter(propertyName: string, operator: RelationalOperator, value: string, concat = LogicalOperator.none): HttpTransferData<T> {
     const filter = new RequestItemFilter(propertyName, operator, value, concat);
     this.filters.push(filter);
 
     return this;
   }
 
-  removeFilter(filter: RequestItemFilter): RequestData<T> {
+  removeFilter(filter: RequestItemFilter): HttpTransferData<T> {
     const item = this.filters.indexOf(filter);
     this.filters.splice(item, 1);
 
