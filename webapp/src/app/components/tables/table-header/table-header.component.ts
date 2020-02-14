@@ -7,7 +7,8 @@ import { TableHeader } from './table-header.interface';
 import { TableOrdering } from './table-ordering.enum';
 
 @Component({
-  selector: 'nc-table-header',
+  // tslint:disable-next-line:component-selector
+  selector: '[ncTableHeader]',
   templateUrl: './table-header.component.html',
   styleUrls: ['./table-header.component.scss']
 })
@@ -65,11 +66,11 @@ export class TableHeaderComponent<T> {
 
   private updateOrderPrecedence(): void {
     this.orderPrecedence = [];
-    let fields = this.headerConfig.requestData.sorts.split(',').filter((field) => field !== '');
+    const fields = this.headerConfig.requestData.sorts.split(',').filter((field) => field !== '');
 
-    for (let i = 0; i < fields.length; i++) {
+    for (let i = 0; i < fields.length; i += 1) {
       const fieldName = fields[i].split(':')[0];
-      this.orderPrecedence.push({ fieldName: fieldName, position: i + 1 });
+      this.orderPrecedence.push({ fieldName, position: i + 1 });
     }
   }
 }

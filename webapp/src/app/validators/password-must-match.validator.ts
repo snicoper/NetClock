@@ -15,5 +15,5 @@ export function PasswordMustMatch(controlName: string, matchingControlName: stri
     } else {
       matchingControl.setErrors(null);
     }
-  }
+  };
 }

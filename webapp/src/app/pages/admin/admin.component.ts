@@ -21,6 +21,6 @@ export class AdminComponent implements OnInit {
   private setBreadcrumb(): void {
     this.breadcrumb
       .add('Inicio', UrlsApp.home, 'fas fa-home')
-      .add('Administración', UrlsApp.admin, 'fas fa-user-shield', false)
+      .add('Administración', UrlsApp.admin, 'fas fa-user-shield', false);
   }
 }

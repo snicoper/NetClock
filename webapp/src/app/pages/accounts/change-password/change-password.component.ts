@@ -55,14 +55,14 @@ export class ChangePasswordComponent implements OnInit {
         (errors: any) => {
           this.errors = errors.error;
         }
-      )
+      );
   }
 
   private setBreadcrumb(): void {
     this.breadcrumb
       .add('Inicio', UrlsApp.home, 'fas fa-home')
       .add('Perfil', UrlsApp.accounts, 'fas fa-user-cog')
-      .add('Cambiar contraseña', UrlsApp.changePassword, 'fas fa-user-lock', false)
+      .add('Cambiar contraseña', UrlsApp.changePassword, 'fas fa-user-lock', false);
   }
 
   private buildForm(): void {

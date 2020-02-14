@@ -20,6 +20,6 @@ export class ProfileComponent implements OnInit {
   private setBreadcrumb(): void {
     this.breadcrumb
       .add('Inicio', UrlsApp.home, 'fas fa-home')
-      .add('Perfil', UrlsApp.accounts, 'fas fa-user-cog', false)
+      .add('Perfil', UrlsApp.accounts, 'fas fa-user-cog', false);
   }
 }

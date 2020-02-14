@@ -6,9 +6,28 @@
     "deprecation": {
       "severity": "warning"
     },
+    "no-parameter-reassignment": false,
+    "curly": true,
+    "no-duplicate-variable": true,
+    "no-shadowed-variable": true,
     "component-class-suffix": true,
     "contextual-lifecycle": true,
     "directive-class-suffix": true,
+    "triple-equals": true,
+    "unnecessary-constructor": true,
+    "max-file-line-count": [true, 500],
+    "no-duplicate-imports": [true, {"allow-namespace-imports": true}],
+    "no-unnecessary-callback-wrapper": true,
+    "one-variable-per-declaration": true,
+    "no-require-imports": true,
+    "class-name": true,
+    "increment-decrement": true,
+    "space-before-function-paren": [true, "never"],
+    "unnecessary-else": true,
+    "eofline": true,
+    "linebreak-style": [true, "LF"],
+    "no-irregular-whitespace": true,
+    "semicolon": [true, "always"],
     "directive-selector": [
       true,
       "attribute",
@@ -26,24 +45,35 @@
       "rxjs/Rx"
     ],
     "interface-name": false,
-    "max-classes-per-file": false,
+    "max-classes-per-file": [true, 1],
     "max-line-length": [
       true,
       140
     ],
-    "member-access": false,
+    "member-access": [true, "no-public"],
     "member-ordering": [
       true,
       {
         "order": [
-          "static-field",
-          "instance-field",
-          "static-method",
-          "instance-method"
+          "public-static-field",
+          "protected-static-field",
+          "private-static-field",
+
+          "public-instance-field",
+          "protected-instance-field",
+          "private-instance-field",
+
+          "public-constructor",
+          "protected-constructor",
+          "private-constructor",
+
+          "public-instance-method",
+          "protected-instance-method",
+          "private-instance-method"
         ]
       }
     ],
-    "no-consecutive-blank-lines": false,
+    "no-consecutive-blank-lines": true,
     "no-console": [
       true
     ],

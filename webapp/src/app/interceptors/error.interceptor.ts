@@ -1,7 +1,7 @@
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import * as HttpStatus from 'http-status-codes'
+import * as HttpStatus from 'http-status-codes';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
@@ -33,7 +33,7 @@ export class ErrorInterceptor implements HttpInterceptor {
       }
 
       return throwError(error);
-    }))
+    }));
   }
 
   private unauthorizedHandler(): void {

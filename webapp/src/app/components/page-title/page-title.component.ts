@@ -24,7 +24,7 @@ export class PageTitleComponent implements OnInit {
     } else if ('title' in this.route.snapshot.data) {
       this.setTitle(this.route.snapshot.data.title);
     } else {
-      this.setTitle()
+      this.setTitle();
     }
   }
 

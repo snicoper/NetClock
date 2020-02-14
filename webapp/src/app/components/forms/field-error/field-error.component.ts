@@ -12,7 +12,7 @@ export class FieldErrorComponent implements OnInit {
   @Input() errors = {};
   @Input() form: FormGroup;
 
-  public control: AbstractControl;
+  control: AbstractControl;
 
   ngOnInit(): void {
     this.control = this.form.get(this.fieldName);

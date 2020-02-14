@@ -72,7 +72,7 @@ export class UserListComponent implements OnInit, OnDestroy {
     this.breadcrumb
       .add('Inicio', UrlsApp.home, 'fas fa-home')
       .add('Administración', UrlsApp.admin, 'fas fa-user-shield')
-      .add('Lista de usuarios', UrlsApp.adminUserList, 'fas fa-users', false)
+      .add('Lista de usuarios', UrlsApp.adminUserList, 'fas fa-users', false);
   }
 
   private loadUserList(): void {

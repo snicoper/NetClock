@@ -15,6 +15,6 @@ export class HomeComponent {
   }
 
   private setBreadcrumb(): void {
-    this.breadcrumb.add('Inicio', UrlsApp.home, 'fas fa-home', false)
+    this.breadcrumb.add('Inicio', UrlsApp.home, 'fas fa-home', false);
   }
 }

@@ -17,7 +17,7 @@ import { SidebarService } from './services/sidebar.service';
   ]
 })
 export class SidebarComponent implements OnInit {
-  public menus = [];
+  menus = [];
 
   constructor(
     public sidebarService: SidebarService,
@@ -26,7 +26,7 @@ export class SidebarComponent implements OnInit {
     this.menus = sidebarService.getMenuList();
   }
 
-  public ngOnInit(): void {
+  ngOnInit(): void {
   }
 
   getSideBarState(): boolean {
@@ -46,11 +46,7 @@ export class SidebarComponent implements OnInit {
   }
 
   getState(currentMenu): string {
-    if (currentMenu.active) {
-      return 'down';
-    } else {
-      return 'up';
-    }
+    return currentMenu.active ? 'down': 'up';
   }
 
   logout(): void {
