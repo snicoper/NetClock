@@ -1,4 +1,4 @@
-namespace NetClock.Application.Common.Models.Http
+namespace NetClock.Application.Common.Http
 {
     public class RequestData
     {
@@ -9,6 +9,7 @@ namespace NetClock.Application.Common.Models.Http
             TotalPages = 1;
             PageSize = 10;
             Sorts = string.Empty;
+            Filters = string.Empty;
         }
 
         public int TotalItems { get; set; }

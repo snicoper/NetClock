@@ -2,8 +2,8 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
+using NetClock.Application.Common.Http;
 using NetClock.Application.Common.Interfaces.Http;
-using NetClock.Application.Common.Models.Http;
 
 namespace NetClock.Application.Common.Services.Http
 {

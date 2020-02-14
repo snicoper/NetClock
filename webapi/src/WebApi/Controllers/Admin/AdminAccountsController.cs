@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NetClock.Application.Admin.AdminAccounts.Queries.GetBySlug;
 using NetClock.Application.Admin.AdminAccounts.Queries.GetUsers;
-using NetClock.Application.Common.Models.Http;
+using NetClock.Application.Common.Http;
 
 namespace NetClock.WebApi.Controllers.Admin
 {

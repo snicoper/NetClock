@@ -1,8 +1,8 @@
 using System;
 
-namespace NetClock.Application.Common.Constants
+namespace NetClock.Application.Common.Http
 {
-    public static class FilterOperators
+    public static class FilterOperator
     {
         // Relational Operators.
         private const string EqualTo = "eq";
@@ -11,8 +11,6 @@ namespace NetClock.Application.Common.Constants
         private const string GreaterThanOrEqual = "gte";
         private const string LessThan = "lt";
         private const string LessThanOrEqualTo = "lte";
-
-        // TODO: Especial?
         private const string Contains = "con";
 
         // Logical Operators.

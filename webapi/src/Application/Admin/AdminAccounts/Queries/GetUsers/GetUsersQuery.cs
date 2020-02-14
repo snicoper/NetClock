@@ -2,8 +2,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
+using NetClock.Application.Common.Http;
 using NetClock.Application.Common.Interfaces.Http;
-using NetClock.Application.Common.Models.Http;
 using NetClock.Domain.Entities.Identity;
 
 namespace NetClock.Application.Admin.AdminAccounts.Queries.GetUsers

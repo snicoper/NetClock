@@ -8,7 +8,7 @@ using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
 using NetClock.Application.Common.Extensions.QueryableExtensions;
 
-namespace NetClock.Application.Common.Models.Http
+namespace NetClock.Application.Common.Http
 {
     public class ResponseData<TDto> : RequestData
     {

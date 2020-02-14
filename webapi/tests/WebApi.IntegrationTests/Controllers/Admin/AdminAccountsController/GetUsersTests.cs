@@ -2,7 +2,7 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using NetClock.Application.Admin.AdminAccounts.Queries.GetUsers;
-using NetClock.Application.Common.Models.Http;
+using NetClock.Application.Common.Http;
 using NetClock.WebApi.IntegrationTests.Helpers;
 using Shouldly;
 using Xunit;

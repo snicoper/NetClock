@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { OnInit } from '@angular/core';
 
 import { DebugConsole } from '../core';
-import { RequestData } from '../models';
+import { LogicalOperator, RelationalOperator, RequestData } from '../models';
 
 export abstract class ApiBaseService implements OnInit {
   protected baseUrl: string;
@@ -21,6 +21,10 @@ export abstract class ApiBaseService implements OnInit {
   }
 
   protected requestDataToQueryParams<TModel>(requestData: RequestData<TModel>): string {
+    // TODO: Test filter, delete.
+    requestData.addFilter('userName', RelationalOperator.contains, 'ad');
+    requestData.addFilter('userName', RelationalOperator.contains, 'o', LogicalOperator.or);
+
     let queryParams = '';
     queryParams += `totalItems=${requestData.totalItems}`;
     queryParams += `&pageNumber=${requestData.pageNumber}`;
@@ -32,9 +36,9 @@ export abstract class ApiBaseService implements OnInit {
       queryParams += `sorts=${requestData.sorts}`;
     }
 
-    if (requestData.filters) {
+    if (requestData.filters.length) {
       queryParams += this.concatQueryParam(queryParams);
-      queryParams += `filters=${requestData.filters}`;
+      queryParams = `filters=${requestData.stringifyFilters()}`
     }
 
     return queryParams;

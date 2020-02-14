@@ -1,7 +1,7 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using NetClock.Application.Common.Models.Http;
+using NetClock.Application.Common.Http;
 
 namespace NetClock.Application.Common.Interfaces.Http
 {

@@ -4,7 +4,7 @@ using System.Linq.Expressions;
 using NetClock.Application.Common.Constants;
 using NetClock.Application.Common.Enums;
 using NetClock.Application.Common.Exceptions;
-using NetClock.Application.Common.Models.Http;
+using NetClock.Application.Common.Http;
 
 namespace NetClock.Application.Common.Extensions.QueryableExtensions
 {
