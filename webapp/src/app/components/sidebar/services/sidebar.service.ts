@@ -86,7 +86,7 @@ export class SidebarService {
     this.toggled = state;
   }
 
-  getMenuList(): Array<any> {
+  getMenuList(): any[] {
     return this.menus;
   }
 }

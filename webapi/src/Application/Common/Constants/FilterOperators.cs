@@ -5,19 +5,19 @@ namespace NetClock.Application.Common.Constants
     public static class FilterOperators
     {
         // Relational Operators.
-        public const string EqualTo = "eq";
-        public const string NotEqualTo = "ne";
-        public const string GreaterThan = "gt";
-        public const string GreaterThanOrEqual = "gte";
-        public const string LessThan = "lt";
-        public const string LessThanOrEqualTo = "lte";
+        private const string EqualTo = "eq";
+        private const string NotEqualTo = "ne";
+        private const string GreaterThan = "gt";
+        private const string GreaterThanOrEqual = "gte";
+        private const string LessThan = "lt";
+        private const string LessThanOrEqualTo = "lte";
 
         // TODO: Especial?
-        public const string Contains = "con";
+        private const string Contains = "con";
 
         // Logical Operators.
-        public const string And = "and";
-        public const string Or = "or";
+        private const string And = "and";
+        private const string Or = "or";
 
         public static string GetRelationalOperator(string op)
         {
