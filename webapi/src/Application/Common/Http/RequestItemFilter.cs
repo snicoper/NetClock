@@ -4,10 +4,10 @@ namespace NetClock.Application.Common.Http
     {
         public string PropertyName { get; set; }
 
-        public string Operator { get; set; }
+        public string RelationalOperator { get; set; }
 
         public string Value { get; set; }
 
-        public string Concat { get; set; }
+        public string LogicalOperator { get; set; }
     }
 }

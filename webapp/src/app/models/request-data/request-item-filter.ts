@@ -3,14 +3,14 @@ import { RelationalOperator } from './relational-operator';
 
 export class RequestItemFilter {
   propertyName: string;
-  operator: RelationalOperator;
+  relationalOperator: RelationalOperator;
   value: string;
-  concat: LogicalOperator;
+  logicalOperator: LogicalOperator;
 
   constructor(propertyName: string, operator: RelationalOperator, value: string, concat = LogicalOperator.none) {
     this.propertyName = propertyName;
-    this.operator = operator;
+    this.relationalOperator = operator;
     this.value = value;
-    this.concat = concat;
+    this.logicalOperator = concat;
   }
 }

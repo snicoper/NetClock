@@ -32,12 +32,12 @@ namespace NetClock.Application.Common.Extensions.QueryableExtensions
 
         private static void ComposeQuery(RequestItemFilter filter, StringBuilder query, int valuePosition)
         {
-            var relationalOperator = FilterOperator.GetRelationalOperator(filter.Operator);
+            var relationalOperator = FilterOperator.GetRelationalOperator(filter.RelationalOperator);
 
             query.Append(
-                filter.Operator != "con"
-                    ? $"{filter.Concat} {filter.PropertyName} {relationalOperator} @{valuePosition}"
-                    : $"{filter.Concat} {string.Format(filter.PropertyName + relationalOperator, valuePosition)}");
+                filter.RelationalOperator != "con"
+                    ? $"{filter.LogicalOperator} {filter.PropertyName} {relationalOperator} @{valuePosition}"
+                    : $"{filter.LogicalOperator} {string.Format(filter.PropertyName + relationalOperator, valuePosition)}");
         }
     }
 }
