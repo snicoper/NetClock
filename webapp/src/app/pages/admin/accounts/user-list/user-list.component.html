@@ -9,7 +9,7 @@
         <nc-pagination *ngIf="transferData"
                        [transferData]="transferData"
                        [small]="true"
-                       (changePage)="onChangePage()">
+                       (changePage)="onReload()">
         </nc-pagination>
 
         <nc-table *ngIf="transferData">
@@ -17,7 +17,7 @@
             <tr ncTableHeader
                 [headerConfig]="tableHeaderConfig"
                 [transferData]="transferData"
-                (clickOrdering)="onOrdering()">
+                (clickOrdering)="onReload()">
             </tr>
           </thead>
 
@@ -44,8 +44,8 @@
 
         <nc-pagination *ngIf="transferData"
                        [transferData]="transferData"
-                       (changePage)="onChangePage()"
-                       (changePageListNumber)="onChangePageListNumber()">
+                       (changePage)="onReload()"
+                       (changePageListNumber)="onReload()">
         </nc-pagination>
       </nc-card>
     </div>

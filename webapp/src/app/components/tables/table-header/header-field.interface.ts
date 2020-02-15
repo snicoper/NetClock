@@ -1,6 +1,6 @@
 import { OrderType } from '../../../models';
 
-export interface TableHeader {
+export interface HeaderField {
   field: string;
   text: string;
   sortable: boolean;

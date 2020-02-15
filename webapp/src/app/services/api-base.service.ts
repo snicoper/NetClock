@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 
 import { DebugConsole } from '../core';
 import { HttpTransferData } from '../models';
@@ -14,6 +15,34 @@ export abstract class ApiBaseService implements OnInit {
     if (!this.baseUrl) {
       DebugConsole.raiseError('baseUrl no puede estar vacío.');
     }
+  }
+
+  getAllPaginated<TModel>(transferData: HttpTransferData<TModel>): Observable<HttpTransferData<TModel>> {
+    const url = `${this.baseUrl}?${this.prepareQueryParams(transferData)}`;
+
+    return this.http.get<HttpTransferData<TModel>>(url);
+  }
+
+  getBy<TModel>(param: any): Observable<TModel> {
+    const url = `${this.baseUrl}/${param}`;
+
+    return this.http.get<TModel>(url);
+  }
+
+  create<TModel>(model: TModel): Observable<TModel> {
+    return this.http.post<TModel>(this.baseUrl, model);
+  }
+
+  update<TModel>(id: number | string, model: TModel): Observable<TModel> {
+    const url = `${this.baseUrl}/${id}`;
+
+    return this.http.put<TModel>(url, model);
+  }
+
+  delete<TModel>(id: number | string, model: TModel): Observable<void> {
+    const url = `${this.baseUrl}/${id}`;
+
+    return this.http.delete<void>(url, model);
   }
 
   protected prepareQueryParams<TModel>(transferData: HttpTransferData<TModel>): string {

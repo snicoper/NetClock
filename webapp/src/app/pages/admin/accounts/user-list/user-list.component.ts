@@ -31,7 +31,7 @@ export class UserListComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.configureTableHeaders();
     this.setBreadcrumb();
-    this.loadUserList();
+    this.loadUsers();
   }
 
   ngOnDestroy(): void {
@@ -43,25 +43,17 @@ export class UserListComponent implements OnInit, OnDestroy {
     this.router.navigate([UrlsApp.adminUserDetails.replace('{slug}', user.slug)]);
   }
 
-  onChangePage(): void {
-    this.loadUserList();
-  }
-
-  onChangePageListNumber(): void {
-    this.loadUserList();
-  }
-
-  onOrdering(): void {
-    this.loadUserList();
+  onReload(): void {
+    this.loadUsers();
   }
 
   private configureTableHeaders(): void {
     this.tableHeaderConfig
-      .addField('userName', 'Usuario', true)
-      .addField('fullName', 'Nombre')
-      .addField('email', 'Email', true)
-      .addField('createAt', 'Fecha de registro', true)
-      .addField('active', 'Activo', true);
+      .add('userName', 'Usuario', true)
+      .add('fullName', 'Nombre')
+      .add('email', 'Email', true)
+      .add('createAt', 'Fecha de registro', true)
+      .add('active', 'Activo', true);
   }
 
   private setBreadcrumb(): void {
@@ -71,13 +63,12 @@ export class UserListComponent implements OnInit, OnDestroy {
       .add('Lista de usuarios', UrlsApp.adminUserList, 'fas fa-users', false);
   }
 
-  private loadUserList(): void {
+  private loadUsers(): void {
     this.loading = true;
-    this.adminAccountsService.getUsers(this.transferData)
+    this.adminAccountsService.getAllPaginated(this.transferData)
       .pipe(finalize(() => this.loading = false))
-      .subscribe(
-        (result: HttpTransferData<AdminUserListModel>) => {
-          this.transferData = result;
-        });
+      .subscribe((result: HttpTransferData<AdminUserListModel>) => {
+        this.transferData = result;
+      });
   }
 }

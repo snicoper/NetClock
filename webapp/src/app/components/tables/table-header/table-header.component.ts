@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 import { HttpTransferData, HttpTransferDataItemOrderBy, OrderType } from '../../../models';
 import { TableHeaderConfig } from './table-header.config';
-import { TableHeader } from './table-header.interface';
+import { HeaderField } from './table-header.interface';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -18,7 +18,7 @@ export class TableHeaderComponent<T> {
 
   orderings = OrderType;
 
-  onClickOrder(header: TableHeader): void {
+  onClickOrder(header: HeaderField): void {
     this.removeOrderItemIfExists(header);
 
     switch (header.orderType) {
@@ -37,18 +37,18 @@ export class TableHeaderComponent<T> {
     this.clickOrdering.emit();
   }
 
-  getOrderPrecedence(header: TableHeader): number {
+  getOrderPrecedence(header: HeaderField): number {
     const item = this.getHttpTransferDataItemByHeader(header);
 
     return item ? item.precedence : undefined;
   }
 
-  private updateOrderItem(header: TableHeader): void {
+  private updateOrderItem(header: HeaderField): void {
     this.transferData = Object.assign(new HttpTransferData<T>(), this.transferData);
     this.transferData.addOrder(header.field, header.orderType, 1);
   }
 
-  private removeOrderItemIfExists(header: TableHeader): void {
+  private removeOrderItemIfExists(header: HeaderField): void {
     this.transferData = Object.assign(new HttpTransferData<T>(), this.transferData);
     const item = this.getHttpTransferDataItemByHeader(header);
     if (item) {
@@ -62,7 +62,7 @@ export class TableHeaderComponent<T> {
     }
   }
 
-  private getHttpTransferDataItemByHeader(header: TableHeader): HttpTransferDataItemOrderBy {
+  private getHttpTransferDataItemByHeader(header: HeaderField): HttpTransferDataItemOrderBy {
     return this.transferData.orders.find((field) => field.propertyName === header.field);
   }
 }

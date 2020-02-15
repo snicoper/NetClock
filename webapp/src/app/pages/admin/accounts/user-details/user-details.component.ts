@@ -40,11 +40,10 @@ export class UserDetailsComponent implements OnInit {
 
   private loadUser(): void {
     this.loading = true;
-    this.adminAccountsService.getUserBySlug(this.userSlug)
+    this.adminAccountsService.getBy(this.userSlug)
       .pipe(finalize(() => this.loading = false))
-      .subscribe(
-        (result: AdminUserDetailsModel) => {
-          this.user = result;
-        });
+      .subscribe((result: AdminUserDetailsModel) => {
+        this.user = result;
+      });
   }
 }
