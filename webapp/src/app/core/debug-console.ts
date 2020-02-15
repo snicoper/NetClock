@@ -3,15 +3,15 @@ import { Settings } from '../config';
 
 /** Muestra los errores solo si se esta en desarrollo. */
 export class DebugConsole {
-  static errors(...errors): void {
+  static errors(...errors: string[]): void {
     if (Settings.isDebug === true) {
       errors.forEach((error) => console.log(error));
     }
   }
 
-  static error(key, error): void {
+  static consoleLog(key, message): void {
     if (Settings.isDebug === true) {
-      console.log(key.toLowerCase(), error);
+      console.log(key.toUpperCase(), message);
     }
   }
 

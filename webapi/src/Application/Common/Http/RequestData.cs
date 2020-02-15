@@ -8,7 +8,7 @@ namespace NetClock.Application.Common.Http
             PageNumber = 1;
             TotalPages = 1;
             PageSize = 10;
-            Sorts = string.Empty;
+            Orders = string.Empty;
             Filters = string.Empty;
         }
 
@@ -20,7 +20,7 @@ namespace NetClock.Application.Common.Http
 
         public int PageSize { get; set; }
 
-        public string Sorts { get; set; }
+        public string Orders { get; set; }
 
         public string Filters { get; set; }
     }

@@ -1,12 +1,13 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using NetClock.Application.Common.Constants;
-using NetClock.Application.Common.Enums;
 using NetClock.Application.Common.Exceptions;
-using NetClock.Application.Common.Http;
+using NetClock.Application.Common.Extensions;
+using Newtonsoft.Json;
 
-namespace NetClock.Application.Common.Extensions.QueryableExtensions
+namespace NetClock.Application.Common.Http.OrderBy
 {
     public static class QueryableOrderByExtensions
     {
@@ -20,35 +21,44 @@ namespace NetClock.Application.Common.Extensions.QueryableExtensions
         /// <returns>Queryable con el Order By.</returns>
         public static IQueryable<TEntity> DynamicOrdering<TEntity>(this IQueryable<TEntity> source, RequestData request)
         {
-            var sorts = string.IsNullOrEmpty(request.Sorts) ? string.Empty : request.Sorts.Trim(',');
-            if (string.IsNullOrEmpty(sorts))
+            if (string.IsNullOrEmpty(request.Orders))
             {
                 return source;
             }
 
-            var fields = sorts.Split(',');
-            var firstField = fields.FirstOrDefault();
+            var requestItemOrderBy = JsonConvert
+                .DeserializeObject<List<RequestOrderBy>>(request.Orders)
+                .OrderBy(o => o.Precedence)
+                .ToArray();
+
+            var firstField = requestItemOrderBy.FirstOrDefault();
+            if (!requestItemOrderBy.Any() || firstField is null)
+            {
+                return source;
+            }
+
             source = HandleCommandOrderBy(source, firstField, OrderByCommandType.OrderBy);
 
-            return string.IsNullOrEmpty(firstField)
+            return string.IsNullOrEmpty(firstField.PropertyName)
                 ? source
-                : fields.Skip(1).Aggregate(source, (current, field) => HandleCommandOrderBy(current, field));
+                : requestItemOrderBy
+                    .Skip(1)
+                    .Aggregate(source, (current, field) => HandleCommandOrderBy(current, field));
         }
 
         private static IOrderedQueryable<TEntity> HandleCommandOrderBy<TEntity>(
             IQueryable<TEntity> source,
-            string fieldOrder,
+            RequestOrderBy field,
             OrderByCommandType orderByCommandType = OrderByCommandType.ThenBy)
         {
-            var parts = fieldOrder.Split(':');
-            var fieldName = parts[0].UpperCaseFirst();
+            var fieldName = field.PropertyName.UpperCaseFirst();
 
             var command = orderByCommandType switch
             {
-                OrderByCommandType.OrderBy => parts[1] == "DESC"
+                OrderByCommandType.OrderBy => field.Order == OrderType.Asc
                     ? QueryableOrderByCommandType.OrderByDescending
                     : QueryableOrderByCommandType.OrderBy,
-                OrderByCommandType.ThenBy => parts[1] == "DESC"
+                OrderByCommandType.ThenBy => field.Order == OrderType.Desc
                     ? QueryableOrderByCommandType.ThenByDescending
                     : QueryableOrderByCommandType.ThenBy,
                 _ => throw new NotImplementedException()

@@ -15,8 +15,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ComponentsModule } from './components/components.module';
 import { GuardsModule } from './guards/guards.module';
-import { ErrorInterceptor, JwtInterceptor } from './interceptors';
-import { HttpTransferDataResponseInterceptor } from './interceptors/http-transfer-data-response.interceptor';
+import { ErrorInterceptor, HttpTransferDataInterceptor, JwtInterceptor } from './interceptors';
 import { PagesComponent } from './pages/pages.component';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -44,7 +43,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: HttpTransferDataResponseInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: HttpTransferDataInterceptor, multi: true },
     {
       provide: PERFECT_SCROLLBAR_CONFIG,
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG

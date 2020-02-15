@@ -1,6 +1,5 @@
-import { HttpTransferData } from '../../../models';
+import { HttpTransferData, OrderType } from '../../../models';
 import { TableHeader } from './table-header.interface';
-import { TableOrdering } from './table-ordering.enum';
 
 export class TableHeaderConfig<T> {
   transferData: HttpTransferData<T>;
@@ -10,7 +9,7 @@ export class TableHeaderConfig<T> {
     this.headers = [];
   }
 
-  addField(field: string, text: string, sortable = false, ordering = TableOrdering.none): TableHeaderConfig<T> {
+  addField(field: string, text: string, sortable = false, ordering = OrderType.none): TableHeaderConfig<T> {
     this.headers.push({ field, text, sortable, ordering });
 
     return this;

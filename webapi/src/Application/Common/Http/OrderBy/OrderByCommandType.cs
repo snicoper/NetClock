@@ -1,4 +1,4 @@
-namespace NetClock.Application.Common.Enums
+namespace NetClock.Application.Common.Http.OrderBy
 {
     public enum OrderByCommandType
     {

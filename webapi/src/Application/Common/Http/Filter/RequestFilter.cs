@@ -1,6 +1,6 @@
-namespace NetClock.Application.Common.Http
+namespace NetClock.Application.Common.Http.Filter
 {
-    public class RequestItemFilter
+    public class RequestFilter
     {
         public string PropertyName { get; set; }
 

@@ -2,10 +2,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Dynamic.Core;
 using System.Text;
-using NetClock.Application.Common.Http;
 using Newtonsoft.Json;
 
-namespace NetClock.Application.Common.Extensions.QueryableExtensions
+namespace NetClock.Application.Common.Http.Filter
 {
     public static class QueryableFilterExtensions
     {
@@ -17,14 +16,14 @@ namespace NetClock.Application.Common.Extensions.QueryableExtensions
             }
 
             var query = new StringBuilder();
-            var itemsFilter = JsonConvert.DeserializeObject<List<RequestItemFilter>>(request.Filters).ToArray();
+            var itemsFilter = JsonConvert.DeserializeObject<List<RequestFilter>>(request.Filters).ToArray();
             var values = itemsFilter
-                .Select(filter => filter.RelationalOperator == "con" ?  filter.Value.ToLower() : filter.Value )
+                .Select(filter => filter.RelationalOperator == "con" ? filter.Value.ToLower() : filter.Value )
                 .ToArray<object>();
 
-            for (var i = 0; i < itemsFilter.Length; i++)
+            for (var position = 0; position < itemsFilter.Length; position++)
             {
-                ComposeQuery(itemsFilter[i], query, i);
+                ComposeQuery(itemsFilter[position], query, position);
             }
 
             source = source.Where(query.ToString(), values.ToArray());
@@ -32,7 +31,7 @@ namespace NetClock.Application.Common.Extensions.QueryableExtensions
             return source;
         }
 
-        private static void ComposeQuery(RequestItemFilter filter, StringBuilder query, int valuePosition)
+        private static void ComposeQuery(RequestFilter filter, StringBuilder query, int valuePosition)
         {
             var relationalOperator = FilterOperator.GetRelationalOperator(filter.RelationalOperator);
             var logicalOperator = !string.IsNullOrEmpty(filter.LogicalOperator)

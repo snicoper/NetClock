@@ -1,10 +1,9 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { DebugConsole } from '../../../core';
 
-import { HttpTransferData } from '../../../models';
-import { OrderPrecedence } from './order-precedence.interface';
+import { HttpTransferData, HttpTransferDataItemOrderBy, OrderType } from '../../../models';
 import { TableHeaderConfig } from './table-header.config';
 import { TableHeader } from './table-header.interface';
-import { TableOrdering } from './table-ordering.enum';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -15,62 +14,56 @@ import { TableOrdering } from './table-ordering.enum';
 export class TableHeaderComponent<T> {
   @Input() headerConfig: TableHeaderConfig<T>;
 
-  @Output() clickOrdering = new EventEmitter<HttpTransferData<T>>();
+  @Output() clickOrdering = new EventEmitter<void>();
 
-  orderings = TableOrdering;
-  orderPrecedence: OrderPrecedence[] = [];
+  orderings = OrderType;
 
-  onClickSort(header: TableHeader): void {
-    this.removeSortItemIfExists(header);
+  onClickOrder(header: TableHeader): void {
+    this.removeOrderItemIfExists(header);
 
     switch (header.ordering) {
-      case TableOrdering.none:
-        header.ordering = TableOrdering.ascending;
+      case OrderType.none:
+        header.ordering = OrderType.ascending;
         break;
-      case TableOrdering.ascending:
-        header.ordering = TableOrdering.descending;
+      case OrderType.ascending:
+        header.ordering = OrderType.descending;
         break;
       default:
-        header.ordering = TableOrdering.none;
+        header.ordering = OrderType.none;
     }
 
-    this.sortItem(header);
+    this.updateOrderItem(header);
     this.updateOrderPrecedence();
-    this.clickOrdering.emit(this.headerConfig.transferData);
+    this.clickOrdering.emit();
   }
 
-  getOrderPrecedence(field: TableHeader): number {
-    const precedence = this.orderPrecedence.find((f) => f.fieldName === field.field);
+  getOrderPrecedence(header: TableHeader): number {
+    const item = this.getFieldByHeader(header);
 
-    return precedence.position;
+    return item ? item.precedence : undefined;
   }
 
-  private removeSortItemIfExists(header: TableHeader): void {
-    const sortString = this.getSortString(header);
-    this.headerConfig.transferData.sorts = this.headerConfig.transferData.sorts.replace(sortString, '');
+  private updateOrderItem(header: TableHeader): void {
+    this.headerConfig.transferData.addOrder(header.field, header.ordering, 1);
   }
 
-  private sortItem(header: TableHeader): void {
-    this.headerConfig.transferData.sorts = this.getSortString(header) + ',' + this.headerConfig.transferData.sorts;
-    this.headerConfig.transferData.sorts = this.headerConfig.transferData.sorts.replace(',,', ',');
-  }
-
-  private getSortString(header: TableHeader): string {
-    if (header.ordering === TableOrdering.none) {
-      return '';
+  private removeOrderItemIfExists(header: TableHeader): void {
+    const item = this.getFieldByHeader(header);
+    if (item) {
+      const remove = this.headerConfig.transferData.removeOrder(item);
+      DebugConsole.consoleLog('On remove', remove.orders);
     }
 
-    const order = header.ordering === TableOrdering.ascending ? 'ASC' : 'DESC';
-    return `${header.field}:${order}`;
+    DebugConsole.consoleLog('items order', this.headerConfig.transferData.orders);
   }
 
   private updateOrderPrecedence(): void {
-    this.orderPrecedence = [];
-    const fields = this.headerConfig.transferData.sorts.split(',').filter((field) => field !== '');
-
-    for (let i = 0; i < fields.length; i += 1) {
-      const fieldName = fields[i].split(':')[0];
-      this.orderPrecedence.push({ fieldName, position: i + 1 });
+    for (let i = 0; i < this.headerConfig.transferData.orders.length; i += 1) {
+      this.headerConfig.transferData.orders[i].precedence = i + 1;
     }
+  }
+
+  private getFieldByHeader(header: TableHeader): HttpTransferDataItemOrderBy {
+    return this.headerConfig.transferData.orders.find((f) => f.propertyName === header.field);
   }
 }

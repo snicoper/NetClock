@@ -6,10 +6,11 @@ import { map } from 'rxjs/operators';
 
 /** Comprueba si es un HttpTransferData y deserializa filters. */
 @Injectable()
-export class HttpTransferDataResponseInterceptor implements HttpInterceptor {
+export class HttpTransferDataInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(req).pipe(map(event => {
       if (event instanceof HttpResponse && event.status === HttpStatus.OK) {
+        // Filtros de HttpTransferData.
         if ('filters' in event.body && event.body.filters !== '') {
           event.body.filters = JSON.parse(event.body.filters);
         }

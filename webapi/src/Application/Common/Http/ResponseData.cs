@@ -6,13 +6,19 @@ using System.Threading.Tasks;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
-using NetClock.Application.Common.Extensions.QueryableExtensions;
+using NetClock.Application.Common.Http.Filter;
+using NetClock.Application.Common.Http.OrderBy;
 
 namespace NetClock.Application.Common.Http
 {
     public class ResponseData<TDto> : RequestData
     {
-        public IEnumerable<TDto> Items { get; set; }
+        public ResponseData()
+        {
+            Items = new HashSet<TDto>();
+        }
+
+        public IEnumerable<TDto> Items { get; private set; }
 
         public bool HasPreviousPage => PageNumber > 1;
 
@@ -35,18 +41,24 @@ namespace NetClock.Application.Common.Http
                 .ProjectTo<TDto>(mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken);
 
-            var responseData = new ResponseData<TDto>
+            return CreateResponseDataFromResult(items, totalItems, request);
+        }
+
+        private static ResponseData<TDto> CreateResponseDataFromResult(
+            IEnumerable<TDto> items,
+            int totalItems,
+            RequestData request)
+        {
+            return new ResponseData<TDto>
             {
                 TotalItems = totalItems,
                 PageNumber = request.PageNumber,
                 TotalPages = CalculateTotalPages(totalItems, request.PageSize),
                 PageSize = request.PageSize,
                 Items = items,
-                Sorts = request.Sorts,
+                Orders = request.Orders,
                 Filters = request.Filters
             };
-
-            return responseData;
         }
 
         private static int CalculateTotalPages(int totalItems, int pageSize)

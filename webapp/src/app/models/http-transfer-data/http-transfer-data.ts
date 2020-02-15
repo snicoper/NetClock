@@ -1,42 +1,31 @@
+import { HttpTransferDataItemFilter } from './http-transfer-data-item-filter';
+import { HttpTransferDataItemOrderBy } from './http-transfer-data-item-order-by';
 import { LogicalOperator } from './logical-operator';
+import { OrderType } from './order-type';
 import { RelationalOperator } from './relational-operator';
-import { RequestItemFilter } from './request-item-filter';
 
-/** Request data actual como request y response. */
 export class HttpTransferData<T> {
   hasPreviousPage: boolean;
   hasNextPage: boolean;
-  totalItems: number;
-  pageNumber: number;
-  totalPages: number;
-  pageSize: number;
-  ratio: number;
-  items: T[];
-  sorts: string;
-  filters: RequestItemFilter[];
-
-  constructor() {
-    // @see: webapi/src/Application/Models/Http/transferData.cs default values.
-    this.totalItems = 0;
-    this.pageNumber = 1;
-    this.totalPages = 1;
-    this.pageSize = 10;
-    this.ratio = 3;
-    this.items = [];
-    this.sorts = '';
-    this.filters = [];
-  }
+  totalItems = 0;
+  pageNumber = 1;
+  totalPages = 1;
+  pageSize = 10;
+  ratio = 3;
+  items: T[] = [];
+  orders: HttpTransferDataItemOrderBy[] = [];
+  filters: HttpTransferDataItemFilter[] = [];
 
   addFilter(propertyName: string, operator: RelationalOperator, value: string, concat = LogicalOperator.none): HttpTransferData<T> {
-    const filter = new RequestItemFilter(propertyName, operator, value, concat);
+    const filter = new HttpTransferDataItemFilter(propertyName, operator, value, concat);
     this.filters.push(filter);
 
     return this;
   }
 
-  removeFilter(filter: RequestItemFilter): HttpTransferData<T> {
-    const item = this.filters.indexOf(filter);
-    this.filters.splice(item, 1);
+  removeFilter(filter: HttpTransferDataItemFilter): HttpTransferData<T> {
+    const index = this.orders.findIndex((item) => item.propertyName === filter.propertyName);
+    this.filters.splice(index, 1);
 
     return this;
   }
@@ -49,7 +38,27 @@ export class HttpTransferData<T> {
     return JSON.stringify(this.filters);
   }
 
-  parseFilters(filters): void {
-    this.filters = JSON.parse(filters);
+  addOrder(propertyName: string, orderType: OrderType, precedence: number): HttpTransferData<T> {
+    if (orderType !== OrderType.none) {
+      const order = new HttpTransferDataItemOrderBy(propertyName, orderType, precedence);
+      this.orders.unshift(order);
+    }
+
+    return this;
+  }
+
+  removeOrder(filter: HttpTransferDataItemOrderBy): HttpTransferData<T> {
+    const index = this.orders.findIndex((item) => item.propertyName === filter.propertyName);
+    this.orders.splice(index, 1);
+
+    return this;
+  }
+
+  cleanOrders(): void {
+    this.orders = [];
+  }
+
+  stringifyOrders(): string {
+    return JSON.stringify(this.orders);
   }
 }

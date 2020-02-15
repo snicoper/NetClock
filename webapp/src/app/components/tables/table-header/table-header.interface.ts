@@ -1,8 +1,8 @@
-import { TableOrdering } from './table-ordering.enum';
+import { OrderType } from '../../../models';
 
 export interface TableHeader {
   field: string;
   text: string;
   sortable: boolean;
-  ordering: TableOrdering;
+  ordering: OrderType;
 }

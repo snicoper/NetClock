@@ -6,7 +6,7 @@ import { finalize } from 'rxjs/operators';
 import { BreadcrumbCollection } from '../../../../components/breadcrumb/models/BreadcrumbCollection';
 import { TableHeaderConfig } from '../../../../components/tables/table-header/table-header.config';
 import { UrlsApp } from '../../../../config';
-import { HttpTransferData } from '../../../../models';
+import { HttpTransferData, LogicalOperator, RelationalOperator } from '../../../../models';
 import { AdminUserListModel } from '../models';
 import { AdminAccountsService } from '../services/admin-accounts.service';
 
@@ -53,8 +53,7 @@ export class UserListComponent implements OnInit, OnDestroy {
     this.loadUserList();
   }
 
-  onOrdering(transferData: HttpTransferData<AdminUserListModel>): void {
-    this.transferData = transferData;
+  onOrdering(): void {
     this.loadUserList();
   }
 
@@ -76,6 +75,10 @@ export class UserListComponent implements OnInit, OnDestroy {
   }
 
   private loadUserList(): void {
+    // this.transferData.cleanFilters();
+    // TODO: Test filter, delete.
+    // this.transferData.addFilter('userName', RelationalOperator.contains, 'ad');
+    // this.transferData.addFilter('userName', RelationalOperator.contains, 'o', LogicalOperator.or);
     this.loading = true;
     this.adminAccountsService.getUsers(this.transferData)
       .pipe(finalize(() => this.loading = false))

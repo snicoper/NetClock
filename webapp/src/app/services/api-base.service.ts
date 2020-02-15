@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { OnInit } from '@angular/core';
 
 import { DebugConsole } from '../core';
-import { LogicalOperator, RelationalOperator, HttpTransferData } from '../models';
+import { HttpTransferData } from '../models';
 
 export abstract class ApiBaseService implements OnInit {
   protected baseUrl: string;
@@ -21,19 +21,15 @@ export abstract class ApiBaseService implements OnInit {
   }
 
   protected transferDataToQueryParams<TModel>(transferData: HttpTransferData<TModel>): string {
-    // TODO: Test filter, delete.
-    transferData.addFilter('userName', RelationalOperator.contains, 'ad');
-    transferData.addFilter('userName', RelationalOperator.contains, 'o', LogicalOperator.or);
-
     let queryParams = '';
     queryParams += `totalItems=${transferData.totalItems}`;
     queryParams += `&pageNumber=${transferData.pageNumber}`;
     queryParams += `&totalPages=${transferData.totalPages}`;
     queryParams += `&pageSize=${transferData.pageSize}`;
 
-    if (transferData.sorts) {
+    if (transferData.orders.length) {
       queryParams += this.concatQueryParam(queryParams);
-      queryParams += `sorts=${transferData.sorts}`;
+      queryParams += `orders=${transferData.stringifyOrders()}`;
     }
 
     if (transferData.filters.length) {

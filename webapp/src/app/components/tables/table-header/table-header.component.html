@@ -1,6 +1,6 @@
 <th *ngFor="let header of headerConfig.headers" [ngClass]="{'cursor-pointer': header.sortable}">
   <!-- sortable -->
-  <div *ngIf="header.sortable" (click)="onClickSort(header)" class="d-flex justify-content-start">
+  <div *ngIf="header.sortable" (click)="onClickOrder(header)" class="d-flex justify-content-start">
     {{header.text}}
 
     <!-- sort order -->

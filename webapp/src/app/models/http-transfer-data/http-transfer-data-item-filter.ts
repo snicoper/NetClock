@@ -1,7 +1,7 @@
 import { LogicalOperator } from './logical-operator';
 import { RelationalOperator } from './relational-operator';
 
-export class RequestItemFilter {
+export class HttpTransferDataItemFilter {
   propertyName: string;
   relationalOperator: RelationalOperator;
   value: string;

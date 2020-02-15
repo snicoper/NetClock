@@ -1,6 +1,6 @@
 using System;
 
-namespace NetClock.Application.Common.Http
+namespace NetClock.Application.Common.Http.Filter
 {
     public static class FilterOperator
     {
