@@ -1,6 +1,6 @@
 using System;
 
-namespace NetClock.Application.Common.Exceptions
+namespace NetClock.Application.Common.Http.OrderBy
 {
     public class SortFieldEntityNotFoundException : Exception
     {

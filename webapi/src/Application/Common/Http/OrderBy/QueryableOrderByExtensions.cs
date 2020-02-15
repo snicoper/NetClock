@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Dynamic.Core;
 using System.Linq.Expressions;
 using NetClock.Application.Common.Constants;
 using NetClock.Application.Common.Exceptions;
@@ -23,7 +24,8 @@ namespace NetClock.Application.Common.Http.OrderBy
         {
             if (string.IsNullOrEmpty(request.Orders))
             {
-                return source;
+                var propertyInfo = typeof(TEntity).GetProperty("Id");
+                return propertyInfo != null ? source.OrderBy(p => propertyInfo.Name) : source;
             }
 
             var requestItemOrderBy = JsonConvert
@@ -64,12 +66,12 @@ namespace NetClock.Application.Common.Http.OrderBy
                 _ => throw new NotImplementedException()
             };
 
-            source = source.OrderBy(fieldName, command);
+            source = source.OrderByCommand(fieldName, command);
 
             return (IOrderedQueryable<TEntity>)source;
         }
 
-        private static IOrderedQueryable<TEntity> OrderBy<TEntity>(
+        private static IOrderedQueryable<TEntity> OrderByCommand<TEntity>(
             this IQueryable<TEntity> source,
             string orderByProperty,
             string command)

@@ -1,4 +1,4 @@
-namespace NetClock.Application.Common.Constants
+namespace NetClock.Application.Common.Http.OrderBy
 {
     public static class QueryableOrderByCommandType
     {

@@ -76,10 +76,6 @@ export class UserListComponent implements OnInit, OnDestroy {
   }
 
   private loadUserList(): void {
-    this.transferData.cleanFilters();
-    // TODO: Test filter, delete.
-    this.transferData.addFilter('userName', RelationalOperator.contains, 'ad');
-    this.transferData.addFilter('userName', RelationalOperator.contains, 'o', LogicalOperator.or);
     this.loading = true;
     this.adminAccountsService.getUsers(this.transferData)
       .pipe(finalize(() => this.loading = false))
