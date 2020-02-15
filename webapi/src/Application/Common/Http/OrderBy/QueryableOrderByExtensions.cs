@@ -1,10 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Dynamic.Core;
 using System.Linq.Expressions;
-using NetClock.Application.Common.Constants;
-using NetClock.Application.Common.Exceptions;
 using NetClock.Application.Common.Extensions;
 using Newtonsoft.Json;
 
