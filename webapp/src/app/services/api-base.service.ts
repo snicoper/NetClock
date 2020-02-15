@@ -34,7 +34,7 @@ export abstract class ApiBaseService implements OnInit {
 
     if (transferData.filters.length) {
       queryParams += this.concatQueryParam(queryParams);
-      queryParams = `filters=${transferData.stringifyFilters()}`;
+      queryParams += `filters=${transferData.stringifyFilters()}`;
     }
 
     return queryParams;

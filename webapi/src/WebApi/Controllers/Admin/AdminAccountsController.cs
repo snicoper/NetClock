@@ -13,7 +13,6 @@ namespace NetClock.WebApi.Controllers.Admin
     {
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [AllowAnonymous]
         public async Task<ActionResult<ResponseData<AdminUserListViewModel>>> GetUsers(
             [FromQuery] RequestData requestData)
         {

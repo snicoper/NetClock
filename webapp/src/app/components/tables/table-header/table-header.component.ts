@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { DebugConsole } from '../../../core';
 
 import { HttpTransferData, HttpTransferDataItemOrderBy, OrderType } from '../../../models';
 import { TableHeaderConfig } from './table-header.config';
@@ -14,7 +13,7 @@ import { TableHeader } from './table-header.interface';
 export class TableHeaderComponent<T> {
   @Input() headerConfig: TableHeaderConfig<T>;
 
-  @Output() clickOrdering = new EventEmitter<void>();
+  @Output() clickOrdering = new EventEmitter<HttpTransferData<T>>();
 
   orderings = OrderType;
 
@@ -34,11 +33,11 @@ export class TableHeaderComponent<T> {
 
     this.updateOrderItem(header);
     this.updateOrderPrecedence();
-    this.clickOrdering.emit();
+    this.clickOrdering.emit(this.headerConfig.transferData);
   }
 
   getOrderPrecedence(header: TableHeader): number {
-    const item = this.getFieldByHeader(header);
+    const item = this.getHttpTransferDataItemByHeader(header);
 
     return item ? item.precedence : undefined;
   }
@@ -48,13 +47,10 @@ export class TableHeaderComponent<T> {
   }
 
   private removeOrderItemIfExists(header: TableHeader): void {
-    const item = this.getFieldByHeader(header);
+    const item = this.getHttpTransferDataItemByHeader(header);
     if (item) {
-      const remove = this.headerConfig.transferData.removeOrder(item);
-      DebugConsole.consoleLog('On remove', remove.orders);
+      this.headerConfig.transferData.removeOrder(item);
     }
-
-    DebugConsole.consoleLog('items order', this.headerConfig.transferData.orders);
   }
 
   private updateOrderPrecedence(): void {
@@ -63,7 +59,7 @@ export class TableHeaderComponent<T> {
     }
   }
 
-  private getFieldByHeader(header: TableHeader): HttpTransferDataItemOrderBy {
-    return this.headerConfig.transferData.orders.find((f) => f.propertyName === header.field);
+  private getHttpTransferDataItemByHeader(header: TableHeader): HttpTransferDataItemOrderBy {
+    return this.headerConfig.transferData.orders.find((field) => field.propertyName === header.field);
   }
 }

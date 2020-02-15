@@ -53,7 +53,8 @@ export class UserListComponent implements OnInit, OnDestroy {
     this.loadUserList();
   }
 
-  onOrdering(): void {
+  onOrdering(transferData: HttpTransferData<AdminUserListModel>): void {
+    this.transferData = transferData;
     this.loadUserList();
   }
 
@@ -75,10 +76,10 @@ export class UserListComponent implements OnInit, OnDestroy {
   }
 
   private loadUserList(): void {
-    // this.transferData.cleanFilters();
+    this.transferData.cleanFilters();
     // TODO: Test filter, delete.
-    // this.transferData.addFilter('userName', RelationalOperator.contains, 'ad');
-    // this.transferData.addFilter('userName', RelationalOperator.contains, 'o', LogicalOperator.or);
+    this.transferData.addFilter('userName', RelationalOperator.contains, 'ad');
+    this.transferData.addFilter('userName', RelationalOperator.contains, 'o', LogicalOperator.or);
     this.loading = true;
     this.adminAccountsService.getUsers(this.transferData)
       .pipe(finalize(() => this.loading = false))
