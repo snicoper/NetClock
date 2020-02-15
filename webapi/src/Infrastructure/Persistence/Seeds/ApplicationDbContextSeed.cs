@@ -29,7 +29,7 @@ namespace NetClock.Infrastructure.Persistence.Seeds
         private static async Task SeedRoles()
         {
             var roleManager = _serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-            var roles = new[] {"Superuser", "Admin", "Staff", "Employee"};
+            var roles = new[] { "Superuser", "Admin", "Staff", "Employee" };
 
             foreach (var role in roles)
             {
@@ -39,7 +39,7 @@ namespace NetClock.Infrastructure.Persistence.Seeds
                     continue;
                 }
 
-                await roleManager.CreateAsync(new IdentityRole {Name = role});
+                await roleManager.CreateAsync(new IdentityRole { Name = role });
                 _logger.LogInformation($"Role {role} creado con éxito");
             }
         }
@@ -48,8 +48,11 @@ namespace NetClock.Infrastructure.Persistence.Seeds
         private static async Task SeedUsers()
         {
             var userManager = _serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
-            var usernames = new[] {"Admin", "Alice", "Bob", "Joe"};
-            var admins = new[] {"Admin"};
+            var usernames = new[]
+            {
+                "Admin", "Alice", "Bob", "Joe", "Maria", "Jordi", "Sonia", "Sara", "Perico", "Palote", "Lorena"
+            };
+            var admins = new[] { "Admin" };
             const string password = "123456";
 
             foreach (var username in usernames)
@@ -88,7 +91,7 @@ namespace NetClock.Infrastructure.Persistence.Seeds
                     continue;
                 }
 
-                var roles = new[] {"SuperUser", "Admin", "Staff"};
+                var roles = new[] { "SuperUser", "Admin", "Staff" };
                 await userManager.AddToRolesAsync(newUser, roles);
                 _logger.LogInformation($"Usuario {newUser.UserName}, roles asignados: {roles}");
             }

@@ -17,6 +17,8 @@ export abstract class ApiBaseService implements OnInit {
   }
 
   protected prepareQueryParams<TModel>(transferData: HttpTransferData<TModel>): string {
+    transferData = transferData ? transferData : new HttpTransferData<TModel>();
+
     return this.transferDataToQueryParams(transferData);
   }
 
@@ -29,12 +31,12 @@ export abstract class ApiBaseService implements OnInit {
 
     if (transferData.orders.length) {
       queryParams += this.concatQueryParam(queryParams);
-      queryParams += `orders=${transferData.stringifyOrders()}`;
+      queryParams += `orders=${JSON.stringify(transferData.orders)}`;
     }
 
     if (transferData.filters.length) {
       queryParams += this.concatQueryParam(queryParams);
-      queryParams += `filters=${transferData.stringifyFilters()}`;
+      queryParams += `filters=${JSON.stringify(transferData.filters)}`;
     }
 
     return queryParams;

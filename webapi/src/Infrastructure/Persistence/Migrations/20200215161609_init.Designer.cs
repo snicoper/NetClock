@@ -10,7 +10,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace NetClock.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200212195706_init")]
+    [Migration("20200215161609_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -325,7 +325,8 @@ namespace NetClock.Infrastructure.Persistence.Migrations
                     b.HasIndex("Slug")
                         .IsUnique();
 
-                    b.HasIndex("FirstName", "LastName");
+                    b.HasIndex("FirstName", "LastName")
+                        .IsUnique();
 
                     b.ToTable("AspNetUsers");
                 });

@@ -34,7 +34,7 @@ namespace NetClock.Application.Common.Http
             var totalItems = await source.CountAsync(cancellationToken);
             var items = await source
                 .Filter(request)
-                .DynamicOrdering(request)
+                .Ordering(request)
                 .Skip((request.PageNumber - 1) * request.PageSize)
                 .Take(request.PageSize)
                 .AsNoTracking()

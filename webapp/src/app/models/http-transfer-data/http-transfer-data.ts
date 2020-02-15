@@ -34,10 +34,6 @@ export class HttpTransferData<T> {
     this.filters = [];
   }
 
-  stringifyFilters(): string {
-    return JSON.stringify(this.filters);
-  }
-
   addOrder(propertyName: string, orderType: OrderType, precedence: number): HttpTransferData<T> {
     if (orderType !== OrderType.none) {
       const order = new HttpTransferDataItemOrderBy(propertyName, orderType, precedence);
@@ -56,9 +52,5 @@ export class HttpTransferData<T> {
 
   cleanOrders(): void {
     this.orders = [];
-  }
-
-  stringifyOrders(): string {
-    return JSON.stringify(this.orders);
   }
 }

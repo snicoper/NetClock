@@ -6,7 +6,7 @@ import { finalize } from 'rxjs/operators';
 import { BreadcrumbCollection } from '../../../../components/breadcrumb/models/BreadcrumbCollection';
 import { TableHeaderConfig } from '../../../../components/tables/table-header/table-header.config';
 import { UrlsApp } from '../../../../config';
-import { HttpTransferData, LogicalOperator, RelationalOperator } from '../../../../models';
+import { HttpTransferData } from '../../../../models';
 import { AdminUserListModel } from '../models';
 import { AdminAccountsService } from '../services/admin-accounts.service';
 
@@ -16,9 +16,9 @@ import { AdminAccountsService } from '../services/admin-accounts.service';
 })
 export class UserListComponent implements OnInit, OnDestroy {
   breadcrumb = new BreadcrumbCollection();
-  transferData = new HttpTransferData<AdminUserListModel>();
+  transferData: HttpTransferData<AdminUserListModel>;
+  tableHeaderConfig = new TableHeaderConfig();
   loading = false;
-  tableHeaderConfig = new TableHeaderConfig<AdminUserListModel>();
 
   private destroy$ = new Subject<void>();
 
@@ -43,23 +43,19 @@ export class UserListComponent implements OnInit, OnDestroy {
     this.router.navigate([UrlsApp.adminUserDetails.replace('{slug}', user.slug)]);
   }
 
-  onChangePage(transferData: HttpTransferData<AdminUserListModel>): void {
-    this.transferData = transferData;
+  onChangePage(): void {
     this.loadUserList();
   }
 
-  onChangePageListNumber(transferData: HttpTransferData<AdminUserListModel>): void {
-    this.transferData = transferData;
+  onChangePageListNumber(): void {
     this.loadUserList();
   }
 
-  onOrdering(transferData: HttpTransferData<AdminUserListModel>): void {
-    this.transferData = transferData;
+  onOrdering(): void {
     this.loadUserList();
   }
 
   private configureTableHeaders(): void {
-    this.tableHeaderConfig.transferData = this.transferData;
     this.tableHeaderConfig
       .addField('userName', 'Usuario', true)
       .addField('fullName', 'Nombre')

@@ -17,12 +17,11 @@ namespace NetClock.Application.Common.Http.OrderBy
         /// <param name="request">Un RequestData para obtener los campos a ordenar.</param>
         /// <typeparam name="TEntity">Entidad a ordenar.</typeparam>
         /// <returns>Queryable con el Order By.</returns>
-        public static IQueryable<TEntity> DynamicOrdering<TEntity>(this IQueryable<TEntity> source, RequestData request)
+        public static IQueryable<TEntity> Ordering<TEntity>(this IQueryable<TEntity> source, RequestData request)
         {
             if (string.IsNullOrEmpty(request.Orders))
             {
-                var propertyInfo = typeof(TEntity).GetProperty("Id");
-                return propertyInfo != null ? source.OrderBy(p => propertyInfo.Name) : source;
+                return OrderByIdOrDefault(source);
             }
 
             var requestItemOrderBy = JsonConvert
@@ -33,19 +32,26 @@ namespace NetClock.Application.Common.Http.OrderBy
             var firstField = requestItemOrderBy.FirstOrDefault();
             if (!requestItemOrderBy.Any() || firstField is null)
             {
-                return source;
+                return OrderByIdOrDefault(source);
             }
 
-            source = HandleCommandOrderBy(source, firstField, OrderByCommandType.OrderBy);
+            source = HandleOrderByCommand(source, firstField, OrderByCommandType.OrderBy);
 
             return string.IsNullOrEmpty(firstField.PropertyName)
                 ? source
                 : requestItemOrderBy
                     .Skip(1)
-                    .Aggregate(source, (current, field) => HandleCommandOrderBy(current, field));
+                    .Aggregate(source, (current, field) => HandleOrderByCommand(current, field));
         }
 
-        private static IOrderedQueryable<TEntity> HandleCommandOrderBy<TEntity>(
+        private static IQueryable<TEntity> OrderByIdOrDefault<TEntity>(IQueryable<TEntity> source)
+        {
+            var propertyInfo = typeof(TEntity).GetProperty("Id");
+
+            return propertyInfo != null ? source.OrderBy(p => propertyInfo.Name) : source;
+        }
+
+        private static IOrderedQueryable<TEntity> HandleOrderByCommand<TEntity>(
             IQueryable<TEntity> source,
             RequestOrderBy field,
             OrderByCommandType orderByCommandType = OrderByCommandType.ThenBy)

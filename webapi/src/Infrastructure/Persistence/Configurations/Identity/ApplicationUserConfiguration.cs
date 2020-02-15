@@ -8,7 +8,7 @@ namespace NetClock.Infrastructure.Persistence.Configurations.Identity
     {
         public void Configure(EntityTypeBuilder<ApplicationUser> builder)
         {
-            builder.HasIndex(e => new { e.FirstName, e.LastName });
+            builder.HasIndex(e => new { e.FirstName, e.LastName }).IsUnique();
             builder.Property(e => e.FirstName).HasMaxLength(50).IsRequired();
             builder.Property(e => e.LastName).HasMaxLength(50).IsRequired();
 

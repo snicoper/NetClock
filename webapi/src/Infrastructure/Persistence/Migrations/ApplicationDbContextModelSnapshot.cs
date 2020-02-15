@@ -323,7 +323,8 @@ namespace NetClock.Infrastructure.Persistence.Migrations
                     b.HasIndex("Slug")
                         .IsUnique();
 
-                    b.HasIndex("FirstName", "LastName");
+                    b.HasIndex("FirstName", "LastName")
+                        .IsUnique();
 
                     b.ToTable("AspNetUsers");
                 });

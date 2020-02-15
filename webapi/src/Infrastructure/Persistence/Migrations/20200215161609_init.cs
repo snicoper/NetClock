@@ -259,7 +259,8 @@ namespace NetClock.Infrastructure.Persistence.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetUsers_FirstName_LastName",
                 table: "AspNetUsers",
-                columns: new[] { "FirstName", "LastName" });
+                columns: new[] { "FirstName", "LastName" },
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_DeviceCodes_DeviceCode",

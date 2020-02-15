@@ -11,29 +11,30 @@ import { TableHeader } from './table-header.interface';
   styleUrls: ['./table-header.component.scss']
 })
 export class TableHeaderComponent<T> {
-  @Input() headerConfig: TableHeaderConfig<T>;
+  @Input() headerConfig: TableHeaderConfig;
+  @Input() transferData: HttpTransferData<T>;
 
-  @Output() clickOrdering = new EventEmitter<HttpTransferData<T>>();
+  @Output() clickOrdering = new EventEmitter<void>();
 
   orderings = OrderType;
 
   onClickOrder(header: TableHeader): void {
     this.removeOrderItemIfExists(header);
 
-    switch (header.ordering) {
+    switch (header.orderType) {
       case OrderType.none:
-        header.ordering = OrderType.ascending;
+        header.orderType = OrderType.ascending;
         break;
       case OrderType.ascending:
-        header.ordering = OrderType.descending;
+        header.orderType = OrderType.descending;
         break;
       default:
-        header.ordering = OrderType.none;
+        header.orderType = OrderType.none;
     }
 
     this.updateOrderItem(header);
     this.updateOrderPrecedence();
-    this.clickOrdering.emit(this.headerConfig.transferData);
+    this.clickOrdering.emit();
   }
 
   getOrderPrecedence(header: TableHeader): number {
@@ -43,23 +44,25 @@ export class TableHeaderComponent<T> {
   }
 
   private updateOrderItem(header: TableHeader): void {
-    this.headerConfig.transferData.addOrder(header.field, header.ordering, 1);
+    this.transferData = Object.assign(new HttpTransferData<T>(), this.transferData);
+    this.transferData.addOrder(header.field, header.orderType, 1);
   }
 
   private removeOrderItemIfExists(header: TableHeader): void {
+    this.transferData = Object.assign(new HttpTransferData<T>(), this.transferData);
     const item = this.getHttpTransferDataItemByHeader(header);
     if (item) {
-      this.headerConfig.transferData.removeOrder(item);
+      this.transferData.removeOrder(item);
     }
   }
 
   private updateOrderPrecedence(): void {
-    for (let i = 0; i < this.headerConfig.transferData.orders.length; i += 1) {
-      this.headerConfig.transferData.orders[i].precedence = i + 1;
+    for (let i = 0; i < this.transferData.orders.length; i += 1) {
+      this.transferData.orders[i].precedence = i + 1;
     }
   }
 
   private getHttpTransferDataItemByHeader(header: TableHeader): HttpTransferDataItemOrderBy {
-    return this.headerConfig.transferData.orders.find((field) => field.propertyName === header.field);
+    return this.transferData.orders.find((field) => field.propertyName === header.field);
   }
 }
