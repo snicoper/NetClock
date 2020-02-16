@@ -10,7 +10,7 @@ import { ITableHeaderField, TableHeaderConfig } from './core';
   styleUrls: ['./table-header.component.scss']
 })
 export class TableHeaderComponent<T> {
-  @Input() headerConfig: TableHeaderConfig;
+  @Input() tableHeaderConfig: TableHeaderConfig;
   @Input() transferData: HttpTransferData<T>;
 
   @Output() clickOrdering = new EventEmitter<void>();

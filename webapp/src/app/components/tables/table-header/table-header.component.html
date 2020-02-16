@@ -1,4 +1,4 @@
-<th *ngFor="let header of headerConfig.headers">
+<th *ngFor="let header of tableHeaderConfig.headers">
   <div class="d-flex justify-content-start">
     <!-- text header -->
     <span *ngIf="header.sortable" (click)="onClickOrder(header)" class="cursor-pointer">

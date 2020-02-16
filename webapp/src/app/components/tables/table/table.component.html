@@ -1,7 +1,10 @@
 <div [ngClass]="{'table-responsive': tableResponsive}">
   <table class="table table-hover">
-    <ng-content></ng-content>
+    <ng-content select="[nc-thead]"></ng-content>
 
+    <ng-content select="[nc-tbody]"></ng-content>
+
+    <!-- no data -->
     <ng-container *ngIf="!loading && !transferData.items.length">
       <tbody>
         <tr>
@@ -10,8 +13,9 @@
           </td>
         </tr>
       </tbody>
-    </ng-container>
+    </ng-container><!-- end no data -->
 
+    <!-- spinner loading data -->
     <ng-container *ngIf="loading">
       <tbody>
         <tr>
@@ -19,6 +23,9 @@
             <nc-spinner [loading]="loading"></nc-spinner>
           </td>
         </tr>
-    </ng-container>
+      </tbody>
+    </ng-container><!-- end spinner loading data -->
+
+    <ng-content select="[nc-tfooter]"></ng-content>
   </table>
 </div>
