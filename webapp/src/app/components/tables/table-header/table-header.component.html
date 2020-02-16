@@ -1,29 +1,40 @@
-<th *ngFor="let header of headerConfig.headers" [ngClass]="{'cursor-pointer': header.sortable}">
-  <!-- sortable -->
-  <div *ngIf="header.sortable" (click)="onClickOrder(header)" class="d-flex justify-content-start">
-    {{header.text}}
-
-    <!-- sort order -->
-    <span *ngIf="header.orderType !== orderings.none" class="ml-auto">
-      <span class="badge mr-2 opacity3">
-        {{getOrderPrecedence(header)}}
-      </span>
-
-      <span>
-        <i *ngIf="header.orderType !== orderings.none"
-           [ngClass]="{'fa-rotate-180': header.orderType === orderings.ascending}"
-           class="fas fa-angle-down arrow opacity3">
-        </i>
-      </span>
+<th *ngFor="let header of headerConfig.headers">
+  <div class="d-flex justify-content-start">
+    <!-- text header -->
+    <span *ngIf="header.sortable" (click)="onClickOrder(header)" class="cursor-pointer">
+      {{header.text}}
     </span>
+    <span *ngIf="!header.sortable">
+      {{header.text}}
+    </span><!-- end text header -->
 
-    <span *ngIf="header.orderType === orderings.none" class="ml-auto opacity1">
-      <i class="fas fa-arrows-alt-v"></i>
-    </span><!-- end sort order -->
-  </div><!-- end sortable -->
+    <!-- filterable -->
+    <div *ngIf="header.filterable" ncTippy [tippyOptions]="tippyOptions" class="ml-auto">
+      <i class="fas fa-filter opacity3"></i>
+    </div><!-- end filterable -->
 
-  <!-- no sortable -->
-  <span *ngIf="!header.sortable">
-    {{header.text}}
-  </span><!-- end no sortable -->
+    <!-- sortable -->
+    <div *ngIf="header.sortable"
+         [ngClass]="{'ml-auto': !header.filterable, 'ml-2': header.filterable}"
+         (click)="onClickOrder(header)"
+         class="cursor-pointer">
+      <!-- sort order -->
+      <span *ngIf="header.orderType !== orderings.none">
+        <span class="badge mr-2 opacity3">
+          {{getOrderPrecedence(header)}}
+        </span>
+
+        <span>
+          <i *ngIf="header.orderType !== orderings.none"
+             [ngClass]="{'fa-rotate-180': header.orderType === orderings.ascending}"
+             class="fas fa-angle-down arrow opacity3">
+          </i>
+        </span>
+      </span>
+
+      <span *ngIf="header.orderType === orderings.none" class="ml-auto opacity3">
+        <i class="fas fa-arrows-alt-v"></i>
+      </span><!-- end sort order -->
+    </div><!-- end sortable -->
+  </div>
 </th>

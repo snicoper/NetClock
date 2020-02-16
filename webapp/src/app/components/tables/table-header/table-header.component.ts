@@ -1,8 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 import { HttpTransferData, HttpTransferDataItemOrderBy, OrderType } from '../../../models';
-import { TableHeaderConfig } from './table-header.config';
-import { HeaderField } from './table-header.interface';
+import { ITableHeaderField, TableHeaderConfig } from './core';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -17,8 +16,23 @@ export class TableHeaderComponent<T> {
   @Output() clickOrdering = new EventEmitter<void>();
 
   orderings = OrderType;
+  tippyOptions = {
+    arrow: true,
+    trigger: 'click',
+    interactive: true,
+    theme: 'light',
+    placement: 'top',
+    content: `
+        <div>
+            <input class="form-control">
+        </div>
+    `
+  };
 
-  onClickOrder(header: HeaderField): void {
+  onClickFilter(header: ITableHeaderField): void {
+  }
+
+  onClickOrder(header: ITableHeaderField): void {
     this.removeOrderItemIfExists(header);
 
     switch (header.orderType) {
@@ -37,18 +51,18 @@ export class TableHeaderComponent<T> {
     this.clickOrdering.emit();
   }
 
-  getOrderPrecedence(header: HeaderField): number {
+  getOrderPrecedence(header: ITableHeaderField): number {
     const item = this.getHttpTransferDataItemByHeader(header);
 
     return item ? item.precedence : undefined;
   }
 
-  private updateOrderItem(header: HeaderField): void {
+  private updateOrderItem(header: ITableHeaderField): void {
     this.transferData = Object.assign(new HttpTransferData<T>(), this.transferData);
     this.transferData.addOrder(header.field, header.orderType, 1);
   }
 
-  private removeOrderItemIfExists(header: HeaderField): void {
+  private removeOrderItemIfExists(header: ITableHeaderField): void {
     this.transferData = Object.assign(new HttpTransferData<T>(), this.transferData);
     const item = this.getHttpTransferDataItemByHeader(header);
     if (item) {
@@ -62,7 +76,7 @@ export class TableHeaderComponent<T> {
     }
   }
 
-  private getHttpTransferDataItemByHeader(header: HeaderField): HttpTransferDataItemOrderBy {
+  private getHttpTransferDataItemByHeader(header: ITableHeaderField): HttpTransferDataItemOrderBy {
     return this.transferData.orders.find((field) => field.propertyName === header.field);
   }
 }

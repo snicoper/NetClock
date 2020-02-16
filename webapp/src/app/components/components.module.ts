@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { BsDropdownModule, CollapseModule } from 'ngx-bootstrap';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 
+import { DirectivesModule } from '../directives/directives.module';
 import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
 import { CardAlignCenterComponent } from './cards/card-align-center/card-align-center.component';
 import { CardComponent } from './cards/card/card.component';
@@ -44,7 +45,8 @@ import { TableComponent } from './tables/table/table.component';
     FormsModule,
     BsDropdownModule.forRoot(),
     CollapseModule.forRoot(),
-    PerfectScrollbarModule
+    PerfectScrollbarModule,
+    DirectivesModule
   ],
   exports: [
     NavbarComponent,

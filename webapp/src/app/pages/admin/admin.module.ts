@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 
 import { ComponentsModule } from '../../components/components.module';
+import { DirectivesModule } from '../../directives/directives.module';
 import { PipesModule } from '../../pipes/pipes.module';
 import { UserDetailsComponent } from './accounts/user-details/user-details.component';
 import { UserListComponent } from './accounts/user-list/user-list.component';
@@ -18,7 +19,8 @@ import { AdminComponent } from './admin.component';
     CommonModule,
     AdminRoutingModule,
     ComponentsModule,
-    PipesModule
+    PipesModule,
+    DirectivesModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

@@ -4,11 +4,12 @@ import { Subject } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 
 import { BreadcrumbCollection } from '../../../../components/breadcrumb/models/BreadcrumbCollection';
-import { TableHeaderConfig } from '../../../../components/tables/table-header/table-header.config';
+import { TableHeaderConfig } from '../../../../components/tables/table-header/core';
 import { UrlsApp } from '../../../../config';
 import { HttpTransferData } from '../../../../models';
 import { AdminUserListModel } from '../models';
 import { AdminAccountsService } from '../services/admin-accounts.service';
+import { UserListHeaderConfig } from './user-list-headers.config';
 
 @Component({
   selector: 'nc-user-list',
@@ -43,17 +44,12 @@ export class UserListComponent implements OnInit, OnDestroy {
     this.router.navigate([UrlsApp.adminUserDetails.replace('{slug}', user.slug)]);
   }
 
-  onReload(): void {
+  onReloadData(): void {
     this.loadUsers();
   }
 
   private configureTableHeaders(): void {
-    this.tableHeaderConfig
-      .add('userName', 'Usuario', true)
-      .add('fullName', 'Nombre')
-      .add('email', 'Email', true)
-      .add('createAt', 'Fecha de registro', true)
-      .add('active', 'Activo', true);
+    this.tableHeaderConfig.addRange(UserListHeaderConfig);
   }
 
   private setBreadcrumb(): void {

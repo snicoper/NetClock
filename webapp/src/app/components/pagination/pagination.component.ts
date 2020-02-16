@@ -10,13 +10,22 @@ export class PaginationComponent<T> {
   @Input() transferData: HttpTransferData<T>;
   @Input() justifyContent = 'justify-content-end';
   @Input() itemsPageList = [10, 25, 50, 100];
-  /** Mostrar solo botones de siguiente y previo. */
-  @Input() small = false;
+  /** Mostrar itemsPageList. */
+  @Input() showPageList = true;
+  /** Mostrar numero total de items. */
+  @Input() showTotalItems = true;
+  /** Mostrar botones de paginas. */
+  @Input() showPagesButtons = true;
 
-  /** Emitir al cambiar de pagina. */
   @Output() changePage = new EventEmitter<void>();
-  /** Emitir cuando cambia el numero de elementos a mostrar. */
   @Output() changePageListNumber = new EventEmitter<void>();
+
+  randomId: string;
+
+  constructor() {
+    this.randomId = `page-list-${Math.random()}`;
+  }
+
 
   onChangePage(page: number): void {
     this.transferData.pageNumber = page;
@@ -27,10 +36,6 @@ export class PaginationComponent<T> {
     this.transferData.pageNumber = 1;
     this.transferData.pageSize = num;
     this.changePageListNumber.emit();
-  }
-
-  showPageList(): boolean {
-    return !(this.transferData.pageSize >= this.itemsPageList[0]);
   }
 
   pageRange(): number[] {
