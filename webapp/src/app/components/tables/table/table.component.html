@@ -1,8 +1,8 @@
 <div [ngClass]="{'table-responsive': tableResponsive}">
   <table class="table table-hover">
+    <!-- table head -->
     <ng-content select="[ncThead]"></ng-content>
 
-    <!-- table head -->
     <ng-template [ngIf]="tableHeaderConfig">
       <thead>
         <tr ncTableHeader

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 
 import { SidebarService } from '../components/sidebar/services/sidebar.service';
 
@@ -9,6 +9,15 @@ import { SidebarService } from '../components/sidebar/services/sidebar.service';
 })
 export class PagesComponent {
   constructor(private sidebarService: SidebarService) {
+  }
+
+  // TODO: Mejorar el ocultar.
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    const size = event.target.innerWidth;
+    if (size && size < 768) {
+      this.sidebarService.setSidebarState(true);
+    }
   }
 
   getSideBarState(): boolean {

@@ -14,3 +14,9 @@
 .opacity3 {
   opacity: .3;
 }
+
+th {
+  &.nowrap {
+    white-space: nowrap;
+  }
+}

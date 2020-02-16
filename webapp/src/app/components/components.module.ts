@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { BsDropdownModule, CollapseModule } from 'ngx-bootstrap';
+import { BsDropdownModule, CollapseModule, TooltipModule } from 'ngx-bootstrap';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 
 import { DirectivesModule } from '../directives/directives.module';
@@ -45,6 +45,7 @@ import { TableComponent } from './tables/table/table.component';
     FormsModule,
     BsDropdownModule.forRoot(),
     CollapseModule.forRoot(),
+    TooltipModule.forRoot(),
     PerfectScrollbarModule,
     DirectivesModule
   ],

@@ -41,19 +41,20 @@ namespace NetClock.Application.Common.Http
                 .ProjectTo<TDto>(mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken);
 
-            return CreateResponseDataFromResult(items, totalItems, request);
+            return CreateResponseDataFromResult(request, items, totalItems);
         }
 
         private static ResponseData<TDto> CreateResponseDataFromResult(
+            RequestData request,
             IEnumerable<TDto> items,
-            int totalItems,
-            RequestData request)
+            int totalItems)
         {
             return new ResponseData<TDto>
             {
                 TotalItems = totalItems,
                 PageNumber = request.PageNumber,
                 TotalPages = CalculateTotalPages(totalItems, request.PageSize),
+                Ratio = request.Ratio,
                 PageSize = request.PageSize,
                 Items = items,
                 Orders = request.Orders,

@@ -4,29 +4,11 @@
   .page-content {
     display: inline-block;
     width: 100%;
-    margin-top: 62px;
+    padding-top: 62px;
     transition: padding-left .3s ease;
 
     @media screen and (min-width: 768px) {
       padding-left: 260px;
-    }
-
-    .overlay {
-      position: fixed;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      left: 0;
-      z-index: 998;
-      background: #000;
-      opacity: .5;
-      display: none;
-
-      &.show {
-        @media screen and (max-width: 768px) {
-          display: block;
-        }
-      }
     }
   }
 
