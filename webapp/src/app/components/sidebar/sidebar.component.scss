@@ -71,8 +71,9 @@
   }
 
   .sidebar-content {
-    max-height: calc(100% - 30px);
-    height: calc(100% - 30px);
+    margin-top: 62px;
+    max-height: calc(100% - 62px);
+    height: calc(100% - 62px);
     overflow-y: auto;
     position: relative;
 
@@ -261,7 +262,7 @@
 }
 
 /*------------------------------default theme---------------------------------*/
-$bg-sidebar-wrapper: $dark;
+$bg-sidebar-wrapper: $primary;
 $border-color: #2b2b2b;
 $color: #bdbdbd;
 $header-menu-color: #6c7b88;

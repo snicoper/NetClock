@@ -9,14 +9,6 @@ namespace NetClock.Application.Common.Http.OrderBy
 {
     public static class QueryableOrderByExtensions
     {
-        /// <summary>
-        /// Ordena campos de una entidad.
-        /// Requiere un formato "fieldName:ASC|DESC,fieldName2:ASC|DESC".
-        /// </summary>
-        /// <param name="source">Query actual.</param>
-        /// <param name="request">Un RequestData para obtener los campos a ordenar.</param>
-        /// <typeparam name="TEntity">Entidad a ordenar.</typeparam>
-        /// <returns>Queryable con el Order By.</returns>
         public static IQueryable<TEntity> Ordering<TEntity>(this IQueryable<TEntity> source, RequestData request)
         {
             if (string.IsNullOrEmpty(request.Orders))

@@ -18,7 +18,9 @@ namespace NetClock.Application.Common.Http.Filter
             var query = new StringBuilder();
             var itemsFilter = JsonConvert.DeserializeObject<List<RequestFilter>>(request.Filters).ToArray();
             var values = itemsFilter
-                .Select(filter => filter.RelationalOperator == "con" ? filter.Value.ToLower() : filter.Value )
+                .Select(filter => filter.RelationalOperator == FilterOperator.Contains
+                    ? filter.Value.ToLower()
+                    : filter.Value)
                 .ToArray<object>();
 
             for (var position = 0; position < itemsFilter.Length; position++)
@@ -26,7 +28,7 @@ namespace NetClock.Application.Common.Http.Filter
                 ComposeQuery(itemsFilter[position], query, position);
             }
 
-            source = source.Where(query.ToString(), values.ToArray());
+            source = source.Where(query.ToString(), values);
 
             return source;
         }
@@ -39,7 +41,7 @@ namespace NetClock.Application.Common.Http.Filter
                 : string.Empty;
 
             query.Append(
-                filter.RelationalOperator != "con"
+                filter.RelationalOperator != FilterOperator.Contains
                     ? $"{logicalOperator} {filter.PropertyName} {relationalOperator} @{valuePosition}"
                     : $"{logicalOperator} {string.Format(filter.PropertyName + relationalOperator, valuePosition)}");
         }

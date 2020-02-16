@@ -1,5 +1,6 @@
 <div class="card border-0 shadow-sm">
   <ng-content select="[ncCardHeader]"></ng-content>
+  <ng-content select="[ncCardImage]"></ng-content>
 
   <div class="card-body">
     <ng-content *ngIf="!loading" select="[ncCardTitle]"></ng-content>

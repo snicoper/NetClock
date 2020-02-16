@@ -5,20 +5,20 @@ namespace NetClock.Application.Common.Http.Filter
     public static class FilterOperator
     {
         // Relational Operators.
-        private const string EqualTo = "eq";
-        private const string NotEqualTo = "ne";
-        private const string GreaterThan = "gt";
-        private const string GreaterThanOrEqual = "gte";
-        private const string LessThan = "lt";
-        private const string LessThanOrEqualTo = "lte";
-        private const string Contains = "con";
-        private const string StartsWith = "sw";
-        private const string EndsWith = "ew";
+        public const string EqualTo = "eq";
+        public const string NotEqualTo = "ne";
+        public const string GreaterThan = "gt";
+        public const string GreaterThanOrEqual = "gte";
+        public const string LessThan = "lt";
+        public const string LessThanOrEqualTo = "lte";
+        public const string Contains = "con";
+        public const string StartsWith = "sw";
+        public const string EndsWith = "ew";
 
         // Logical Operators.
-        private const string None = " ";
-        private const string And = "and";
-        private const string Or = "or";
+        public const string None = " ";
+        public const string And = "and";
+        public const string Or = "or";
 
         public static string GetRelationalOperator(string op)
         {
