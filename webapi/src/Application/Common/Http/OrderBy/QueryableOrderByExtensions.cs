@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using NetClock.Application.Common.Extensions;
+using NetClock.Domain.Entities.Identity;
 using Newtonsoft.Json;
 
 namespace NetClock.Application.Common.Http.OrderBy
@@ -38,7 +39,8 @@ namespace NetClock.Application.Common.Http.OrderBy
 
         private static IQueryable<TEntity> OrderByIdOrDefault<TEntity>(IQueryable<TEntity> source)
         {
-            var propertyInfo = typeof(TEntity).GetProperty("Created") ?? typeof(TEntity).GetProperty("Id");
+            var propertyInfo = typeof(TEntity).GetProperty(nameof(ApplicationUser.Created))
+                               ?? typeof(TEntity).GetProperty(nameof(ApplicationUser.Id));
 
             return propertyInfo != null ? source.OrderBy(p => propertyInfo.Name) : source;
         }

@@ -77,6 +77,7 @@ export class TableHeaderComponent<T> {
   }
 
   private getHttpTransferDataItemByHeader(header: ITableHeaderField): HttpTransferDataItemOrderBy {
+    this.transferData = Object.assign(new HttpTransferData<T>(), this.transferData);
     return this.transferData.orders.find((field) => field.propertyName === header.field);
   }
 }
