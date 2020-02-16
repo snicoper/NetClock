@@ -45,8 +45,8 @@ namespace NetClock.Infrastructure.Persistence.Migrations
                     FirstName = table.Column<string>(maxLength: 50, nullable: false),
                     LastName = table.Column<string>(maxLength: 50, nullable: false),
                     Active = table.Column<bool>(nullable: false),
-                    CreateAt = table.Column<DateTime>(nullable: false),
-                    UpdateAt = table.Column<DateTime>(nullable: false)
+                    Created = table.Column<DateTime>(nullable: false),
+                    LastModified = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {

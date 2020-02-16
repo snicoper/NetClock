@@ -4,5 +4,5 @@ export class AdminUserListModel {
   fullName: string;
   email: string;
   active: boolean;
-  createAt: Date;
+  created: Date;
 }

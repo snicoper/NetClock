@@ -4,5 +4,5 @@ export class AdminUserDetailsModel extends AdminUserListModel {
   id: string;
   firstName: string;
   lastName: string;
-  updateAt: Date;
+  lastModified: Date;
 }

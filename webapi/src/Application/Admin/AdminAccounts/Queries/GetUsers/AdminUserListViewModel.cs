@@ -17,7 +17,7 @@ namespace NetClock.Application.Admin.AdminAccounts.Queries.GetUsers
 
         public bool Active { get; set; }
 
-        public DateTime CreateAt { get; set; }
+        public DateTime Created { get; set; }
 
         public void Mapping(Profile profile)
         {

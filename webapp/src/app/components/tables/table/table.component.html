@@ -1,33 +1,24 @@
 <div [ngClass]="{'table-responsive': tableResponsive}">
-  <table class="table table-hover">
-    <!-- table head -->
+  <table [ngClass]="tableCss" class="table">
     <ng-content select="[ncThead]"></ng-content>
 
-    <ng-template [ngIf]="tableHeaderConfig">
-      <thead>
-        <tr ncTableHeader
-            [tableHeaderConfig]="tableHeaderConfig"
-            [transferData]="transferData"
-            (clickOrdering)="onReloadData()">
-        </tr>
-      </thead>
-    </ng-template><!-- end table head -->
+    <ng-container *ngIf="transferData && !loading">
+      <!-- table content -->
+      <ng-container *ngIf="transferData.items.length">
+        <ng-content select="[ncTbody]"></ng-content>
+      </ng-container><!-- end table content -->
 
-    <!-- table content -->
-    <ng-container *ngIf="!loading && transferData.items.length">
-      <ng-content select="[ncTbody]"></ng-content>
-    </ng-container><!-- end table content -->
-
-    <!-- no data -->
-    <ng-container *ngIf="!loading && !transferData.items.length">
-      <tbody>
-        <tr>
-          <td colspan="100%" class="text-center">
-            <h6>No hay datos para mostrar</h6>
-          </td>
-        </tr>
-      </tbody>
-    </ng-container><!-- end no data -->
+      <!-- no data -->
+      <ng-container *ngIf="!transferData.items.length">
+        <tbody>
+          <tr>
+            <td colspan="100%" class="text-center">
+              <h6>No hay datos para mostrar</h6>
+            </td>
+          </tr>
+        </tbody>
+      </ng-container><!-- end no data -->
+    </ng-container>
 
     <!-- spinner loading data -->
     <ng-container *ngIf="loading">

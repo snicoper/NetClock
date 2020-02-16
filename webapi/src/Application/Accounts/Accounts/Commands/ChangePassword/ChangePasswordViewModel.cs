@@ -32,8 +32,8 @@ namespace NetClock.Application.Accounts.Accounts.Commands.ChangePassword
                 .ForMember(dest => dest.LockoutEnd, opt => opt.Ignore())
                 .ForMember(dest => dest.LockoutEnabled, opt => opt.Ignore())
                 .ForMember(dest => dest.Slug, opt => opt.Ignore())
-                .ForMember(dest => dest.CreateAt, opt => opt.Ignore())
-                .ForMember(dest => dest.UpdateAt, opt => opt.Ignore())
+                .ForMember(dest => dest.Created, opt => opt.Ignore())
+                .ForMember(dest => dest.LastModified, opt => opt.Ignore())
                 .ForMember(dest => dest.AccessFailedCount, opt => opt.Ignore());
 
             profile.CreateMap<ApplicationUser, ChangePasswordViewModel>()

@@ -38,7 +38,7 @@ namespace NetClock.Application.Common.Http.OrderBy
 
         private static IQueryable<TEntity> OrderByIdOrDefault<TEntity>(IQueryable<TEntity> source)
         {
-            var propertyInfo = typeof(TEntity).GetProperty("Id");
+            var propertyInfo = typeof(TEntity).GetProperty("Created") ?? typeof(TEntity).GetProperty("Id");
 
             return propertyInfo != null ? source.OrderBy(p => propertyInfo.Name) : source;
         }

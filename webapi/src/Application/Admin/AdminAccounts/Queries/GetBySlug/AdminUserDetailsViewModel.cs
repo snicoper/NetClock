@@ -23,9 +23,9 @@ namespace NetClock.Application.Admin.AdminAccounts.Queries.GetBySlug
 
         public bool Active { get; set; }
 
-        public DateTime CreateAt { get; set; }
+        public DateTime Created { get; set; }
 
-        public DateTime UpdateAt { get; set; }
+        public DateTime LastModified { get; set; }
 
         public void Mapping(Profile profile)
         {

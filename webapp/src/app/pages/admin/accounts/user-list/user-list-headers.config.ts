@@ -27,7 +27,7 @@ export const UserListHeaderConfig = [
     sortable: true
   },
   {
-    field: 'createAt',
+    field: 'created',
     text: 'Fecha de registro',
     filterable: true,
     filterType: TableHeaderFilterType.dateRange,

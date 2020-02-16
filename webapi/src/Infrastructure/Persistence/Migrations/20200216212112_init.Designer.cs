@@ -10,7 +10,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace NetClock.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200216202446_init")]
+    [Migration("20200216212112_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -252,7 +252,7 @@ namespace NetClock.Infrastructure.Persistence.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("text");
 
-                    b.Property<DateTime>("CreateAt")
+                    b.Property<DateTime>("Created")
                         .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("Email")
@@ -266,6 +266,9 @@ namespace NetClock.Infrastructure.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("character varying(50)")
                         .HasMaxLength(50);
+
+                    b.Property<DateTime>("LastModified")
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("LastName")
                         .IsRequired()
@@ -305,9 +308,6 @@ namespace NetClock.Infrastructure.Persistence.Migrations
 
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("boolean");
-
-                    b.Property<DateTime>("UpdateAt")
-                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("UserName")
                         .HasColumnType("character varying(256)")

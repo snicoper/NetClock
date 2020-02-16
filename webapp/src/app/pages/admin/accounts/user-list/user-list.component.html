@@ -9,17 +9,21 @@
                        (changePage)="onReloadData()">
         </nc-pagination>
 
-        <nc-table *ngIf="transferData"
-                  [transferData]="transferData"
-                  [tableHeaderConfig]="tableHeaderConfig"
-                  [loading]="loading"
-                  (clickOrdering)="onReloadData()">
-          <tbody ncTbody>
+        <nc-table [transferData]="transferData" [loading]="loading">
+          <thead ncThead>
+            <tr ncTableHeader
+                [tableHeaderConfig]="tableHeaderConfig"
+                [transferData]="transferData"
+                (clickOrdering)="onReloadData()">
+            </tr>
+          </thead>
+
+          <tbody ncTbody *ngIf="transferData">
             <tr *ngFor="let user of transferData.items" (click)="onSelectItem(user)" class="cursor-pointer">
               <td>{{user.userName}}</td>
               <td>{{user.fullName}}</td>
               <td>{{user.email}}</td>
-              <td>{{user.createAt | date: 'dd/MM/yyyy'}}</td>
+              <td>{{user.created | date: 'dd/MM/yyyy'}}</td>
               <td [innerHTML]="user.active | iconBoolean"></td>
             </tr>
           </tbody>

@@ -9,8 +9,8 @@ namespace NetClock.Domain.Entities.Identity
         public ApplicationUser()
         {
             Active = true;
-            CreateAt = DateTime.Now;
-            UpdateAt = DateTime.Now;
+            Created = DateTime.Now;
+            LastModified = DateTime.Now;
         }
 
         public string Slug
@@ -25,8 +25,8 @@ namespace NetClock.Domain.Entities.Identity
 
         public bool Active { get; set; }
 
-        public DateTime CreateAt { get; set; }
+        public DateTime Created { get; set; }
 
-        public DateTime UpdateAt { get; set; }
+        public DateTime LastModified { get; set; }
     }
 }
