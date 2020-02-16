@@ -6,12 +6,12 @@ using IdentityServer4.EntityFramework.Options;
 using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using NetClock.Application.Common.Interfaces.Common;
 using NetClock.Application.Common.Interfaces.Database;
 using NetClock.Application.Common.Interfaces.Identity;
 using NetClock.Domain.Common;
 using NetClock.Domain.Entities;
 using NetClock.Domain.Entities.Identity;
-using NetClock.Domain.Interfaces;
 
 namespace NetClock.Infrastructure.Persistence
 {

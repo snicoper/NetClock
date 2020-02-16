@@ -87,6 +87,10 @@
         font-weight: bold;
         flex-grow: 1;
         text-decoration: none;
+
+        &:hover {
+          background-color: transparent;
+        }
       }
 
       #close-sidebar {
@@ -300,7 +304,6 @@ $img-shadow-color: rgba(0, 0, 0, 0.5);
   .sidebar-menu .sidebar-dropdown.active > a,
   .sidebar-profile .user-info,
   .sidebar-header > a:hover,
-
   ul li:hover a i,
   .sidebar-dropdown .sidebar-submenu li a:hover:before,
   .sidebar-search input.search-menu:focus + span,

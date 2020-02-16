@@ -1,5 +1,6 @@
 using System.Globalization;
 using System.Linq;
+using System.Net;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -80,8 +81,7 @@ namespace NetClock.WebApi
                     options.DataAnnotationLocalizerProvider = (type, factory)
                         => factory.Create(typeof(SharedLocalizer));
                 })
-                .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
-                .AddNewtonsoftJson();
+                .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix);
 
             // Customise default API behaviour.
             services.Configure<ApiBehaviorOptions>(options =>
@@ -140,7 +140,7 @@ namespace NetClock.WebApi
                 document.AddSecurity("JWT", Enumerable.Empty<string>(), new OpenApiSecurityScheme
                 {
                     Type = OpenApiSecuritySchemeType.ApiKey,
-                    Name = "Authorization",
+                    Name = nameof(Authorization),
                     In = OpenApiSecurityApiKeyLocation.Header,
                     Description = "Type into the text box: Bearer {your JWT token}."
                 });
@@ -148,7 +148,7 @@ namespace NetClock.WebApi
                 document.PostProcess = settings =>
                 {
                     settings.Info.Version = "v1";
-                    settings.Info.Title = "NetClock Clock API";
+                    settings.Info.Title = "NetClock API";
                     settings.Info.Description = "Registro de horas empleados de NetClock";
                 };
             });

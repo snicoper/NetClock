@@ -1,5 +1,5 @@
 using System;
-using NetClock.Domain.Interfaces;
+using NetClock.Application.Common.Interfaces.Common;
 
 namespace NetClock.Infrastructure.Services.Common
 {

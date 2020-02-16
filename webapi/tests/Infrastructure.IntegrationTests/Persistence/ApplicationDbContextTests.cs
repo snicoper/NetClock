@@ -1,7 +1,7 @@
 using System;
 using Moq;
+using NetClock.Application.Common.Interfaces.Common;
 using NetClock.Application.Common.Interfaces.Identity;
-using NetClock.Domain.Interfaces;
 using NetClock.Infrastructure.Persistence;
 
 namespace NetClock.Infrastructure.IntegrationTests.Persistence

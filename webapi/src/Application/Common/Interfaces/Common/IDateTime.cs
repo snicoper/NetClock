@@ -1,6 +1,6 @@
 using System;
 
-namespace NetClock.Domain.Interfaces
+namespace NetClock.Application.Common.Interfaces.Common
 {
     public interface IDateTime
     {
