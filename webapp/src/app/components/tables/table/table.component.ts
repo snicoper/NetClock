@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { HttpTransferData } from '../../../models';
 
 @Component({
   selector: 'nc-table',
@@ -6,4 +7,6 @@ import { Component, Input } from '@angular/core';
 })
 export class TableComponent {
   @Input() tableResponsive = true;
+  @Input() loading = false;
+  @Input() transferData: HttpTransferData<any>;
 }

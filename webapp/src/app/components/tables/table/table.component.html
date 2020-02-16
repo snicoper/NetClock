@@ -1,5 +1,24 @@
 <div [ngClass]="{'table-responsive': tableResponsive}">
   <table class="table table-hover">
     <ng-content></ng-content>
+
+    <ng-container *ngIf="!loading && !transferData.items.length">
+      <tbody>
+        <tr>
+          <td colspan="100%" class="text-center">
+            <h6>No hay datos para mostrar</h6>
+          </td>
+        </tr>
+      </tbody>
+    </ng-container>
+
+    <ng-container *ngIf="loading">
+      <tbody>
+        <tr>
+          <td colspan="100%">
+            <nc-spinner [loading]="loading"></nc-spinner>
+          </td>
+        </tr>
+    </ng-container>
   </table>
 </div>

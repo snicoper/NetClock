@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
-import { BaseUrl, UrlsApp } from '../../../config';
+import { BaseApiUrl, UrlsApp } from '../../../config';
 import { ApiBaseService } from '../../../services/api-base.service';
 import { CurrentUserModel, LoginModel, RecoveryPasswordModel, RecoveryPasswordValidateModel } from '../models';
 
@@ -19,7 +19,7 @@ export class AuthService extends ApiBaseService implements OnDestroy {
 
   constructor(protected http: HttpClient, private router: Router) {
     super(http);
-    this.baseUrl = `${BaseUrl}/auth`;
+    this.baseUrl = `${BaseApiUrl}/auth`;
     this.currentUserSubject = new BehaviorSubject<CurrentUserModel>(JSON.parse(localStorage.getItem('currentUser')));
     this.currentUser$ = this.currentUserSubject.asObservable().pipe(takeUntil(this.destroy$));
   }

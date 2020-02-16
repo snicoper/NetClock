@@ -19,4 +19,4 @@ export const Settings = {
 };
 
 /** Base URL a la API. */
-export const BaseUrl = `${Settings.apiUrl}/${Settings.apiSegment}`;
+export const BaseApiUrl = `${Settings.apiUrl}/${Settings.apiSegment}`;
