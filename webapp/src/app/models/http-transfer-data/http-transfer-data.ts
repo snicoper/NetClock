@@ -11,7 +11,7 @@ export class HttpTransferData<T> {
   pageNumber = 1;
   totalPages = 1;
   pageSize = 10;
-  ratio = 3;
+  ratio = 2;
   items: T[] = [];
   orders: HttpTransferDataItemOrderBy[] = [];
   filters: HttpTransferDataItemFilter[] = [];

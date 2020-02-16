@@ -2,28 +2,21 @@
   <div class="row">
     <div class="col-12">
       <nc-card>
-        <nc-card-title>
-          <h1>Lista de usuarios</h1>
-        </nc-card-title>
+        <h1 ncCardTitle>Lista de usuarios</h1>
 
         <nc-pagination *ngIf="transferData"
                        [transferData]="transferData"
                        [showPageList]="false"
-                       [showTotalItems]="false"
                        [showPagesButtons]="false"
                        (changePage)="onReloadData()">
         </nc-pagination>
 
-        <nc-table *ngIf="transferData" [transferData]="transferData" [loading]="loading">
-          <thead nc-thead>
-            <tr ncTableHeader
-                [tableHeaderConfig]="tableHeaderConfig"
-                [transferData]="transferData"
-                (clickOrdering)="onReloadData()">
-            </tr>
-          </thead>
-
-          <tbody nc-tbody *ngIf="!loading && transferData.items.length">
+        <nc-table *ngIf="transferData"
+                  [transferData]="transferData"
+                  [tableHeaderConfig]="tableHeaderConfig"
+                  [loading]="loading"
+                  (clickOrdering)="onReloadData()">
+          <tbody ncTbody>
             <tr *ngFor="let user of transferData.items" (click)="onSelectItem(user)" class="cursor-pointer">
               <td>{{user.userName}}</td>
               <td>{{user.fullName}}</td>
@@ -32,13 +25,19 @@
               <td [innerHTML]="user.active | iconBoolean"></td>
             </tr>
           </tbody>
-        </nc-table>
 
-        <nc-pagination *ngIf="transferData"
-                       [transferData]="transferData"
-                       (changePage)="onReloadData()"
-                       (changePageListNumber)="onReloadData()">
-        </nc-pagination>
+          <tfoot ncTfoot>
+            <tr class="bg-light">
+              <td colspan="100%" class="pb-0">
+                <nc-pagination *ngIf="transferData"
+                               [transferData]="transferData"
+                               (changePage)="onReloadData()"
+                               (changePageListNumber)="onReloadData()">
+                </nc-pagination>
+              </td>
+            </tr>
+          </tfoot>
+        </nc-table>
       </nc-card>
     </div>
   </div>

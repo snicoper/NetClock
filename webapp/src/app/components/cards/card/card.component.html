@@ -1,15 +1,22 @@
 <div class="card border-0 shadow-sm">
+  <ng-content select="[ncCardHeader]"></ng-content>
+
   <div class="card-body">
-    <ng-content *ngIf="!loading" select="nc-card-title"></ng-content>
-    <hr>
+    <ng-content *ngIf="!loading" select="[ncCardTitle]"></ng-content>
+    <ng-content *ngIf="!loading" select="[ncCardSubTitle]"></ng-content>
+
+    <!-- main content -->
     <ng-container *ngIf="!loading; else loadingData">
       <p class="card-text">
         <ng-content></ng-content>
       </p>
-    </ng-container>
+    </ng-container><!-- end main content -->
 
     <ng-template #loadingData>
       <nc-spinner [loading]="loading" [size]="spinnerSize"></nc-spinner>
     </ng-template>
   </div>
+
+  <ng-content select="[ncCardFooter]" class="card-footer text-muted"></ng-content>
 </div>
+

@@ -15,17 +15,6 @@ export class UserDetailsComponent implements OnInit {
   breadcrumb = new BreadcrumbCollection();
   user: AdminUserDetailsModel;
   loading = false;
-  tippyOptions = {
-    arrow: true,
-    trigger: 'click',
-    interactive: true,
-    theme: 'light',
-    content: `
-        <div>
-            <input class="form-control">
-        </div>
-    `
-  };
 
   private readonly userSlug: string;
 

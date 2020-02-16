@@ -1,8 +1,22 @@
 <div [ngClass]="{'table-responsive': tableResponsive}">
   <table class="table table-hover">
-    <ng-content select="[nc-thead]"></ng-content>
+    <ng-content select="[ncThead]"></ng-content>
 
-    <ng-content select="[nc-tbody]"></ng-content>
+    <!-- table head -->
+    <ng-template [ngIf]="tableHeaderConfig">
+      <thead>
+        <tr ncTableHeader
+            [tableHeaderConfig]="tableHeaderConfig"
+            [transferData]="transferData"
+            (clickOrdering)="onReloadData()">
+        </tr>
+      </thead>
+    </ng-template><!-- end table head -->
+
+    <!-- table content -->
+    <ng-container *ngIf="!loading && transferData.items.length">
+      <ng-content select="[ncTbody]"></ng-content>
+    </ng-container><!-- end table content -->
 
     <!-- no data -->
     <ng-container *ngIf="!loading && !transferData.items.length">
@@ -19,13 +33,13 @@
     <ng-container *ngIf="loading">
       <tbody>
         <tr>
-          <td colspan="100%">
+          <td colspan="100%" class="text-center">
             <nc-spinner [loading]="loading"></nc-spinner>
           </td>
         </tr>
       </tbody>
     </ng-container><!-- end spinner loading data -->
 
-    <ng-content select="[nc-tfooter]"></ng-content>
+    <ng-content select="[ncTfoot]"></ng-content>
   </table>
 </div>

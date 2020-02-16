@@ -64,6 +64,8 @@ export class UserListComponent implements OnInit, OnDestroy {
     this.adminAccountsService.getAllPaginated(this.transferData)
       .pipe(finalize(() => this.loading = false))
       .subscribe((result: HttpTransferData<AdminUserListModel>) => {
+        // FIXME: ELIMINAR
+        result.totalPages = 1000;
         this.transferData = result;
       });
   }

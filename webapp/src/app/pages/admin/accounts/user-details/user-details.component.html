@@ -1,13 +1,10 @@
 <nc-page-base [breadcrumb]="breadcrumb">
   <nc-card [loading]="loading">
-    <nc-card-title *ngIf="!loading">
-      <h1>Detalles {{user.userName}}</h1>
-    </nc-card-title>
+    <h1 ncCardTitle *ngIf="!loading">Detalles {{user.userName}}</h1>
 
     <pre class="mt-5">
 {{user | json}}
         </pre>
     <div *ngIf="!user">El usuario no existe</div>
-    <button ncTippy [tippyOptions]="tippyOptions">Hello</button>
   </nc-card>
 </nc-page-base>

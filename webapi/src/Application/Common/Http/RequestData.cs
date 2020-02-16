@@ -8,6 +8,7 @@ namespace NetClock.Application.Common.Http
             PageNumber = 1;
             TotalPages = 1;
             PageSize = 10;
+            Ratio = 2;
             Orders = string.Empty;
             Filters = string.Empty;
         }
@@ -19,6 +20,8 @@ namespace NetClock.Application.Common.Http
         public int TotalPages { get; set; }
 
         public int PageSize { get; set; }
+
+        public int Ratio { get; set; }
 
         public string Orders { get; set; }
 
