@@ -46,7 +46,6 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Admin.AdminAccountsContro
             response.StatusCode.ShouldBe(HttpStatusCode.Unauthorized);
         }
 
-        // TODO: Probar role o permisos.
         [Fact(Skip = "Cuando se implemente los permisos")]
         public async Task Get_obtener_lista_de_usuarios_registrado_sin_permisos_401Unauthorized()
         {

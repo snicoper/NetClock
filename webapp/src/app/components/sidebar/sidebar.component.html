@@ -37,8 +37,9 @@
               <span *ngIf="menu.badge" class="badge badge-pill" [ngClass]="menu.badge.class">{{menu.badge.text}}</span>
             </a>
 
-            <a [routerLink]="menu.link" *ngIf="menu.type === 'simple'" routerLinkActive="active"
-               [routerLinkActiveOptions]="{ exact: true }">
+            <a [routerLink]="menu.link" *ngIf="menu.type === 'simple'"
+               [routerLinkActiveOptions]="{exact: true}"
+               routerLinkActive="active">
               <i class="{{menu.icon}}"></i>
               <span>{{menu.title}}</span>
               <span *ngIf="menu.badge" class="badge badge-pill" [ngClass]="menu.badge.class">{{menu.badge.text}}</span>
@@ -47,7 +48,7 @@
             <div *ngIf="menu.type === 'dropdown'" class="sidebar-submenu" [@slide]="getState(menu)">
               <ul>
                 <li *ngFor="let submenu of menu.submenus">
-                  <a [routerLink]="submenu.link" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+                  <a [routerLink]="submenu.link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
                     {{submenu.title}}
                     <span *ngIf="submenu.badge" [ngClass]="submenu.badge.class" class="badge badge-pill">
                       {{submenu.badge.text}}

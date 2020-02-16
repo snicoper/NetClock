@@ -45,7 +45,6 @@ namespace NetClock.Application.UnitTests
 
         public static void SeedSampleData(ApplicationDbContext context)
         {
-            // TODO: Crear
         }
 
         public static void Destroy(ApplicationDbContext context)
