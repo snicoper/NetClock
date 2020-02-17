@@ -11,17 +11,17 @@ export class HttpTransferDataInterceptor implements HttpInterceptor {
     return next.handle(req).pipe(map(event => {
       if (event instanceof HttpResponse && event.status === HttpStatus.OK) {
         // Orders de HttpTransferData.
-        if ('orders' in event.body && event.body.orders !== '') {
-          event.body.orders = JSON.parse(event.body.orders);
-        } else {
-          event.body.orders = [];
+        if ('orders' in event.body) {
+          event.body.orders = event.body.orders === ''
+            ? []
+            : event.body.orders = JSON.parse(event.body.orders);
         }
 
         // Filtros de HttpTransferData.
-        if ('filters' in event.body && event.body.filters !== '') {
-          event.body.filters = JSON.parse(event.body.filters);
-        } else {
-          event.body.filters = [];
+        if ('filters' in event.body) {
+          event.body.filters = event.body.filters === ''
+            ? []
+            : event.body.filters = JSON.parse(event.body.filters);
         }
       }
 
