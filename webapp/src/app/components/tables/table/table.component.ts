@@ -4,7 +4,8 @@ import { HttpTransferData } from '../../../models';
 
 @Component({
   selector: 'nc-table',
-  templateUrl: './table.component.html'
+  templateUrl: './table.component.html',
+  styleUrls: ['./table.component.scss']
 })
 export class TableComponent<T> {
   @Input() transferData: HttpTransferData<T>;

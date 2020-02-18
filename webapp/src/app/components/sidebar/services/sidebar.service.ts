@@ -6,8 +6,33 @@ import { SidebarMenuItemsModel } from '../models/sidebar-menu-items.model';
   providedIn: 'root'
 })
 export class SidebarService {
-  menus = SidebarMenuItemsModel;
+  menus: Array<any>;
   toggled = false;
+
+  constructor() {
+    const sidebar = this.loadFromLocalStorage();
+    this.menus = sidebar ? sidebar : SidebarMenuItemsModel;
+  }
+
+  activeMenu(title: string): void {
+    this.menus.forEach((menu) => {
+      menu.active = menu.title === title;
+    });
+
+    this.saveToLocalStorage();
+  }
+
+  activeSubmenu(title: string): void {
+    this.menus.forEach((menu) => {
+      if (menu.type === 'dropdown') {
+        menu.submenus.forEach((submenu) => {
+          submenu.active = submenu.title === title;
+        });
+      }
+    });
+
+    this.saveToLocalStorage();
+  }
 
   toggle(): void {
     this.toggled = !this.toggled;
@@ -23,5 +48,13 @@ export class SidebarService {
 
   getMenuList(): any[] {
     return this.menus;
+  }
+
+  private loadFromLocalStorage(): Array<any> {
+    return JSON.parse(localStorage.getItem('sidebar'));
+  }
+
+  private saveToLocalStorage(): void {
+    localStorage.setItem('sidebar', JSON.stringify(this.menus));
   }
 }

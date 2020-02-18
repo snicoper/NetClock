@@ -41,8 +41,14 @@ export class SidebarComponent implements OnInit {
         } else {
           element.active = false;
         }
+
+        this.sidebarService.activeMenu(currentMenu.title);
       });
     }
+  }
+
+  onActiveSubmenu(title: string): void {
+    this.sidebarService.activeSubmenu(title);
   }
 
   getState(currentMenu): string {

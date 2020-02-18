@@ -1,8 +1,8 @@
 export const SidebarMenuItemsModel = [
-  {
-    title: '- Administración',
-    type: 'header'
-  },
+  // {
+  //   title: '- Administración',
+  //   type: 'header'
+  // },
   {
     title: 'Administración',
     icon: 'fas fa-user-shield',
@@ -15,7 +15,8 @@ export const SidebarMenuItemsModel = [
     submenus: [
       {
         title: 'Admin',
-        link: '/admin'
+        link: '/admin',
+        active: false
         // badge: {
         //   text: 'Pro ',
         //   class: 'badge-success'
@@ -23,14 +24,15 @@ export const SidebarMenuItemsModel = [
       },
       {
         title: 'Usuarios',
-        link: '/admin/accounts'
+        link: '/admin/accounts',
+        active: false
       }
     ]
   },
-  {
-    title: '- Usuarios',
-    type: 'header'
-  },
+  // {
+  //   title: '- Usuarios',
+  //   type: 'header'
+  // },
   {
     title: 'Usuario',
     icon: 'fas fa-user',
@@ -43,11 +45,13 @@ export const SidebarMenuItemsModel = [
     submenus: [
       {
         title: 'Perfil',
-        link: '/accounts/profile'
+        link: '/accounts/profile',
+        active: false
       },
       {
         title: 'Cambiar contraseña',
-        link: '/accounts/change-password'
+        link: '/accounts/change-password',
+        active: false
       }
     ]
   }

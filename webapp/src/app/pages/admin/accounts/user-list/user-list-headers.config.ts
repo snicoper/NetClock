@@ -13,10 +13,10 @@ export const UserListHeaderConfig = [
   {
     field: 'fullName',
     text: 'Nombre',
-    sortable: false,
-    orderType: OrderType.none,
     filterable: false,
-    filterType: TableHeaderFilterType.none
+    filterType: TableHeaderFilterType.none,
+    sortable: false,
+    orderType: OrderType.none
   },
   {
     field: 'email',
