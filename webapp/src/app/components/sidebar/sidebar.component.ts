@@ -1,5 +1,6 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
+import { Settings } from '../../config';
 import { AuthService } from '../../pages/auth/services/auth.service';
 
 import { SidebarService } from './services/sidebar.service';
@@ -17,6 +18,7 @@ import { SidebarService } from './services/sidebar.service';
   ]
 })
 export class SidebarComponent implements OnInit {
+  siteName = Settings.siteName;
   menus = [];
 
   constructor(
@@ -45,10 +47,6 @@ export class SidebarComponent implements OnInit {
         this.sidebarService.activeMenu(currentMenu.title);
       });
     }
-  }
-
-  onActiveSubmenu(title: string): void {
-    this.sidebarService.activeSubmenu(title);
   }
 
   getState(currentMenu): string {

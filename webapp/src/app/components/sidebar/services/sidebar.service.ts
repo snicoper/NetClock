@@ -16,18 +16,10 @@ export class SidebarService {
 
   activeMenu(title: string): void {
     this.menus.forEach((menu) => {
-      menu.active = menu.title === title;
-    });
-
-    this.saveToLocalStorage();
-  }
-
-  activeSubmenu(title: string): void {
-    this.menus.forEach((menu) => {
-      if (menu.type === 'dropdown') {
-        menu.submenus.forEach((submenu) => {
-          submenu.active = submenu.title === title;
-        });
+      if (menu.title === title) {
+        menu.active = !menu.active;
+      } else {
+        menu.active = false;
       }
     });
 

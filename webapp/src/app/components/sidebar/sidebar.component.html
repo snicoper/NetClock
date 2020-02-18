@@ -4,7 +4,7 @@
       <div class="sidebar-header">
         <a routerLink="/">
           <img src="/assets/images/logo_mini.png" width="30" height="30" alt="">
-          NetClock
+          {{siteName}}
         </a>
       </div>
 
@@ -13,7 +13,8 @@
           <img class="img-responsive img-rounded" src="/assets/images/user.jpg" alt="User picture">
         </div>
         <div class="user-info">
-          <span class="user-name">{{authService.currentUserValue.userName}}
+          <span class="user-name">
+            {{authService.currentUserValue.userName}}
           </span>
           <span class="user-role">Administrator</span>
           <span class="user-status">
@@ -48,9 +49,7 @@
             <div *ngIf="menu.type === 'dropdown'" class="sidebar-submenu" [@slide]="getState(menu)">
               <ul>
                 <li *ngFor="let submenu of menu.submenus">
-                  <a [routerLink]="submenu.link"
-                     [ngClass]="{'active': submenu.active}"
-                     (click)="onActiveSubmenu(submenu.title)">
+                  <a [routerLink]="submenu.link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
                     {{submenu.title}}
                     <span *ngIf="submenu.badge" [ngClass]="submenu.badge.class" class="badge badge-pill">
                       {{submenu.badge.text}}
