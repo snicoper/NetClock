@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { DebugConsole } from '../core';
 import { HttpTransferData } from '../models';
 
-export abstract class ApiBaseService implements OnInit {
+export abstract class ApiRestBaseService implements OnInit {
   protected baseUrl: string;
 
   protected constructor(protected http: HttpClient) {

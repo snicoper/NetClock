@@ -8,7 +8,7 @@ import { TableHeaderConfig } from '../../../../components/tables/table-header/co
 import { UrlsApp } from '../../../../config';
 import { HttpTransferData } from '../../../../models';
 import { AdminUserListModel } from '../models';
-import { AdminAccountsService } from '../services/admin-accounts.service';
+import { AdminAccountsRestService } from '../services/admin-accounts-rest.service';
 import { UserListHeaderConfig } from './user-list-headers.config';
 
 @Component({
@@ -25,7 +25,7 @@ export class UserListComponent implements OnInit, OnDestroy {
 
   constructor(
     private router: Router,
-    private adminAccountsService: AdminAccountsService
+    private adminAccountsService: AdminAccountsRestService
   ) {
   }
 

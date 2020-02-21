@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { CurrentUserModel } from '../../pages/auth/models';
-import { AuthService } from '../../pages/auth/services/auth.service';
+import { AuthRestService } from '../../pages/auth/services/auth-rest.service';
 import { SidebarService } from '../sidebar/services/sidebar.service';
 
 @Component({
@@ -14,7 +14,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject<void>();
 
   constructor(
-    public authService: AuthService,
+    public authService: AuthRestService,
     public sidebarService: SidebarService
   ) {
   }

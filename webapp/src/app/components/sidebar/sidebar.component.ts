@@ -1,7 +1,7 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
 import { Settings } from '../../config';
-import { AuthService } from '../../pages/auth/services/auth.service';
+import { AuthRestService } from '../../pages/auth/services/auth-rest.service';
 
 import { SidebarService } from './services/sidebar.service';
 
@@ -23,7 +23,7 @@ export class SidebarComponent implements OnInit {
 
   constructor(
     public sidebarService: SidebarService,
-    public authService: AuthService
+    public authService: AuthRestService
   ) {
     this.menus = sidebarService.getMenuList();
   }

@@ -5,7 +5,7 @@ import { finalize } from 'rxjs/operators';
 import { BreadcrumbCollection } from '../../../../components/breadcrumb/models/BreadcrumbCollection';
 import { UrlsApp } from '../../../../config';
 import { AdminUserDetailsModel } from '../models';
-import { AdminAccountsService } from '../services/admin-accounts.service';
+import { AdminAccountsRestService } from '../services/admin-accounts-rest.service';
 
 @Component({
   selector: 'nc-user-details',
@@ -19,7 +19,7 @@ export class UserDetailsComponent implements OnInit {
   private readonly userSlug: string;
 
   constructor(
-    private adminAccountsService: AdminAccountsService,
+    private adminAccountsService: AdminAccountsRestService,
     private route: ActivatedRoute
   ) {
     this.userSlug = this.route.snapshot.paramMap.get('slug');

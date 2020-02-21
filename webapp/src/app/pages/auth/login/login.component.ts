@@ -5,7 +5,7 @@ import { finalize, timeout } from 'rxjs/operators';
 
 import { UrlsApp } from '../../../config';
 import { CurrentUserModel } from '../models';
-import { AuthService } from '../services/auth.service';
+import { AuthRestService } from '../services/auth-rest.service';
 
 @Component({
   selector: 'nc-login',
@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private authenticationService: AuthService
+    private authenticationService: AuthRestService
   ) {
     if (this.authenticationService.currentUserValue) {
       this.router.navigate([UrlsApp.home]);

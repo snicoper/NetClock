@@ -7,12 +7,12 @@ import { catchError } from 'rxjs/operators';
 
 import { UrlsApp } from '../config';
 import { DebugConsole } from '../core';
-import { AuthService } from '../pages/auth/services/auth.service';
+import { AuthRestService } from '../pages/auth/services/auth-rest.service';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
   constructor(
-    private authenticationService: AuthService,
+    private authenticationService: AuthRestService,
     private router: Router
   ) {
   }

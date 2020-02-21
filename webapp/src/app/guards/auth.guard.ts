@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, Router, RouterStateSnapshot } from '@angular/router';
 
 import { UrlsApp } from '../config';
-import { AuthService } from '../pages/auth/services/auth.service';
+import { AuthRestService } from '../pages/auth/services/auth-rest.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +10,7 @@ import { AuthService } from '../pages/auth/services/auth.service';
 export class AuthGuard implements CanActivate, CanActivateChild {
   constructor(
     private router: Router,
-    private authenticationService: AuthService
+    private authenticationService: AuthRestService
   ) {
   }
 

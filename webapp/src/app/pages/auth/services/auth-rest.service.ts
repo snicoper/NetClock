@@ -5,13 +5,13 @@ import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 import { BaseApiUrl, UrlsApp } from '../../../config';
-import { ApiBaseService } from '../../../services/api-base.service';
+import { ApiRestBaseService } from '../../../services/api-rest-base.service';
 import { CurrentUserModel, LoginModel, RecoveryPasswordModel, RecoveryPasswordValidateModel } from '../models';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService extends ApiBaseService implements OnDestroy {
+export class AuthRestService extends ApiRestBaseService implements OnDestroy {
   readonly currentUser$: Observable<CurrentUserModel>;
 
   private readonly destroy$ = new Subject<void>();

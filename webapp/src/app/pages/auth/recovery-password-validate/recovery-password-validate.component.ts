@@ -5,7 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 
 import { UrlsApp } from '../../../config';
 import { PasswordMustMatch } from '../../../validators';
-import { AuthService } from '../services/auth.service';
+import { AuthRestService } from '../services/auth-rest.service';
 
 @Component({
   selector: 'nc-recovery-password-validate',
@@ -22,7 +22,7 @@ export class RecoveryPasswordValidateComponent {
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private authService: AuthService,
+    private authService: AuthRestService,
     private toastr: ToastrService
   ) {
     this.buildForm();

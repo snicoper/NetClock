@@ -6,9 +6,9 @@ import { finalize } from 'rxjs/operators';
 import { BreadcrumbCollection } from '../../../components/breadcrumb/models/BreadcrumbCollection';
 import { UrlsApp } from '../../../config';
 import { PasswordMustMatch } from '../../../validators';
-import { AuthService } from '../../auth/services/auth.service';
+import { AuthRestService } from '../../auth/services/auth-rest.service';
 import { ChangePasswordModel } from '../models';
-import { AccountsService } from '../services/accounts.service';
+import { AccountsRestService } from '../services/accounts-rest.service';
 
 @Component({
   selector: 'nc-change-password',
@@ -23,8 +23,8 @@ export class ChangePasswordComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private accountsService: AccountsService,
-    private authService: AuthService,
+    private accountsService: AccountsRestService,
+    private authService: AuthRestService,
     private toastrService: ToastrService
   ) {
   }

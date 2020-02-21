@@ -16,18 +16,6 @@ export class TableHeaderComponent<T> {
   @Output() clickOrdering = new EventEmitter<void>();
 
   orderings = OrderType;
-  tippyOptions = {
-    arrow: true,
-    trigger: 'click',
-    interactive: true,
-    theme: 'light',
-    placement: 'top',
-    content: `
-        <div>
-            <input class="form-control">
-        </div>
-    `
-  };
 
   onClickFilter(header: ITableHeaderField): void {
   }

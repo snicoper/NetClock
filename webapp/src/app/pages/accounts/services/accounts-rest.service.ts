@@ -3,13 +3,13 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { BaseApiUrl } from '../../../config';
-import { ApiBaseService } from '../../../services/api-base.service';
+import { ApiRestBaseService } from '../../../services/api-rest-base.service';
 import { ChangePasswordModel } from '../models';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AccountsService extends ApiBaseService {
+export class AccountsRestService extends ApiRestBaseService {
   constructor(protected http: HttpClient) {
     super(http);
     this.baseUrl = `${BaseApiUrl}/accounts`;

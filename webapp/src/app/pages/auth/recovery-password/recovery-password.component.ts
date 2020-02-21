@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { finalize } from 'rxjs/operators';
 
 import { UrlsApp } from '../../../config';
-import { AuthService } from '../services/auth.service';
+import { AuthRestService } from '../services/auth-rest.service';
 
 @Component({
   selector: 'nc-recovery-password',
@@ -21,7 +21,7 @@ export class RecoveryPasswordComponent implements OnInit {
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private authenticationService: AuthService
+    private authenticationService: AuthRestService
   ) {
     if (this.authenticationService.currentUserValue) {
       this.router.navigate([UrlsApp.home]);

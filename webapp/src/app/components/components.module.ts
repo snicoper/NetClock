@@ -36,7 +36,7 @@ import { TableComponent } from './tables/table/table.component';
     PaginationComponent,
     TableHeaderComponent,
     CardComponent,
-    TableComponent
+    TableComponent,
   ],
   imports: [
     CommonModule,
