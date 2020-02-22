@@ -4,6 +4,7 @@ using System.Net;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.AspNetCore.Mvc.Versioning;
@@ -165,6 +166,11 @@ namespace NetClock.WebApi
                     .AddSupportedCultures(supportedCultures)
                     .AddSupportedUICultures(supportedCultures)
                     .SetDefaultCulture("es");
+            });
+
+            app.UseForwardedHeaders(new ForwardedHeadersOptions
+            {
+                ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
             });
 
             app.UseCors(DefaultCors);

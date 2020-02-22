@@ -1,0 +1,44 @@
+version: "3.7"
+
+services:
+  reverseproxy:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+      - "443:443"
+    restart: always
+
+  api:
+    depends_on:
+      - reverseproxy
+    build:
+      context: ./webapi
+      dockerfile: Dockerfile
+    expose:
+      - "5000"
+    restart: always
+    environment:
+      DefaultConnection: "host=postgres_image;User Id=snicoper;Password=123456;Server=localhost;Port=5432;Database=NetClock;Integrated Security=true;Pooling=true;"
+
+  postgres_image:
+    image: postgres:latest
+    ports:
+      - "5432"
+    restart: always
+    volumes:
+      - db_volume:/var/lib/postgresql/data
+      - ./NetClock.sql :/docker-entrypoint-initdb.d/NetClock.sql
+    environment:
+      POSTGRES_USER: "snicoper"
+      POSTGRES_PASSWORD: "123456"
+      POSTGRES_DB: "NetClock"
+volumes:
+  db_volume:
+
+# docker-compose build
+# docker-compose up -d
+# docker-compose down
+
+# Browse to: http://localhost/weatherforecast
