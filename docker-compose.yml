@@ -22,6 +22,16 @@ services:
     environment:
       DefaultConnection: "host=postgres_image;port=5433;database=NetClock;username=snicoper;password=123456"
 
+  webapp:
+    depends_on:
+      - reverseproxy
+    build:
+      context: ./webapp
+      dockerfile: Dockerfile
+    ports:
+      - "4210:4200"
+    restart: always
+
   postgres_image:
     image: postgres:latest
     ports:
