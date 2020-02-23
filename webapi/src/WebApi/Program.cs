@@ -42,6 +42,8 @@ namespace NetClock.WebApi
                 }
 
                 var host = CreateHostBuilder(args).Build();
+
+                // FIXME: Mientras no solucione los seeds en docker.
                 using var scope = host.Services.CreateScope();
                 Log.Information("Seeding database...");
 

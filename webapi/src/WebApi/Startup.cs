@@ -10,7 +10,6 @@ using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using NetClock.Application;
 using NetClock.Application.Common.Interfaces.Database;
 using NetClock.Application.Common.Localizations;
@@ -110,11 +109,6 @@ namespace NetClock.WebApi
 
         public void ConfigureStagingServices(IServiceCollection services)
         {
-            ConfigureServices(services);
-        }
-
-        public void ConfigureTestServices(IServiceCollection services)
-        {
             ConfigureDevelopmentServices(services);
         }
 
@@ -155,6 +149,11 @@ namespace NetClock.WebApi
             });
         }
 
+        public void ConfigureTestServices(IServiceCollection services)
+        {
+            ConfigureDevelopmentServices(services);
+        }
+
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             // Localization.
@@ -168,24 +167,6 @@ namespace NetClock.WebApi
                     .SetDefaultCulture("es");
             });
 
-            app.UseForwardedHeaders(new ForwardedHeadersOptions
-            {
-                ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
-            });
-
-            app.UseCors(DefaultCors);
-
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-                app.UseDatabaseErrorPage();
-            }
-            else
-            {
-                app.UseHsts();
-            }
-
-            app.UseHttpsRedirection();
             app.UseMiddleware(typeof(CustomExceptionHandlerMiddleware));
             app.UseStaticFiles();
             app.UseHealthChecks("/health");
@@ -195,13 +176,44 @@ namespace NetClock.WebApi
             app.UseAuthentication();
             app.UseAuthorization();
 
+            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
+        }
+
+        public void ConfigureProduction(IApplicationBuilder app, IWebHostEnvironment env)
+        {
+            app.UseForwardedHeaders(new ForwardedHeadersOptions
+            {
+                ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+            });
+
+            app.UseHsts();
+            app.UseHttpsRedirection();
+
+            Configure(app, env);
+        }
+
+        public void ConfigureStaging(IApplicationBuilder app, IWebHostEnvironment env)
+        {
+            ConfigureDevelopment(app, env);
+        }
+
+        public void ConfigureDevelopment(IApplicationBuilder app, IWebHostEnvironment env)
+        {
+            app.UseDeveloperExceptionPage();
+            app.UseDatabaseErrorPage();
+
             app.UseOpenApi();
             app.UseSwaggerUi3(settings =>
             {
                 settings.Path = "/swagger";
             });
 
-            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
+            Configure(app, env);
+        }
+
+        public void ConfigureTest(IApplicationBuilder app, IWebHostEnvironment env)
+        {
+            ConfigureDevelopment(app, env);
         }
     }
 }
