@@ -101,7 +101,7 @@ namespace NetClock.WebApi
                 options.AddPolicy(DefaultCors, builder =>
                 {
                     builder
-                        .WithOrigins("http://localhost:4200")
+                        .WithOrigins("http://localhost:4210")
                         .AllowAnyHeader()
                         .AllowAnyMethod();
                 });

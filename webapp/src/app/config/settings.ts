@@ -6,10 +6,10 @@ export const Settings = {
   siteName: 'Net clock',
 
   // URL API.
-  apiUrl: environment.production ? 'https://api-clock.es' : 'https://localhost:5001',
+  apiUrl: environment.production ? 'https://localhost:5101' : 'https://localhost:5001',
 
   // URL sitio frontend.
-  siteUrl: environment.production ? 'https://clock.es' : 'http://localhost:4200',
+  siteUrl: environment.production ? 'http://localhost:4210' : 'http://localhost:4200',
 
   // Segmento a concatenar el la URL API.
   apiSegment: 'api/v1',
