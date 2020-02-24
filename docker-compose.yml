@@ -20,7 +20,7 @@ services:
       - "5000"
     restart: always
     environment:
-      DefaultConnection: "host=postgres_image;port=5432;database=NetClock;username=snicoper;password=123456"
+      DefaultConnection: "host=postgres_image;port=5433;database=NetClock;username=snicoper;password=123456"
 
   webapp:
     depends_on:
@@ -37,10 +37,15 @@ services:
     ports:
       - "5433:5432"
     restart: always
+    volumes:
+      - db_volume:/var/lib/postgresql/data
+      - ./compose/docker/postgresql/NetClock.sql :/docker-entrypoint-initdb.d/NetClock.sql
     environment:
       POSTGRES_USER: "snicoper"
       POSTGRES_PASSWORD: "123456"
       POSTGRES_DB: "NetClock"
+volumes:
+  db_volume:
 
 # docker-compose build
 # docker-compose up -d
