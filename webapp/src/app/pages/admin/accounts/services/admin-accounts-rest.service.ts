@@ -1,15 +1,18 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-import { BaseApiUrl } from '../../../../config';
-import { ApiRestBaseService } from '../../../../services/api-rest-base.service';
+import { ApiRestBaseService, DebugService, SettingsService } from '../../../../services';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AdminAccountsRestService extends ApiRestBaseService {
-  constructor(protected http: HttpClient) {
-    super(http);
-    this.baseUrl = `${BaseApiUrl}/admin/accounts`;
+  constructor(
+    protected http: HttpClient,
+    protected debugService: DebugService,
+    private settingsService: SettingsService
+  ) {
+    super(http, debugService);
+    this.baseUrl = `${this.settingsService.baseApiUrl}/admin/accounts`;
   }
 }

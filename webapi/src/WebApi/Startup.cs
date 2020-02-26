@@ -183,9 +183,9 @@ namespace NetClock.WebApi
             else
             {
                 app.UseHsts();
+                app.UseHttpsRedirection();
             }
 
-            app.UseHttpsRedirection();
             app.UseMiddleware(typeof(CustomExceptionHandlerMiddleware));
             app.UseStaticFiles();
             app.UseHealthChecks("/health");

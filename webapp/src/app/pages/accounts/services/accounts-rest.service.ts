@@ -2,17 +2,20 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { BaseApiUrl } from '../../../config';
-import { ApiRestBaseService } from '../../../services/api-rest-base.service';
+import { ApiRestBaseService, DebugService, SettingsService } from '../../../services';
 import { ChangePasswordModel } from '../models';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AccountsRestService extends ApiRestBaseService {
-  constructor(protected http: HttpClient) {
-    super(http);
-    this.baseUrl = `${BaseApiUrl}/accounts`;
+  constructor(
+    protected http: HttpClient,
+    protected debugService: DebugService,
+    private settingsService: SettingsService
+  ) {
+    super(http, debugService);
+    this.baseUrl = `${this.settingsService.baseApiUrl}/accounts`;
   }
 
   /** Cambiar contraseña actual del usuario. */

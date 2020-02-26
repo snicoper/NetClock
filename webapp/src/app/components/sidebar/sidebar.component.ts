@@ -1,8 +1,8 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
-import { Settings } from '../../config';
-import { AuthRestService } from '../../pages/auth/services/auth-rest.service';
 
+import { AuthRestService } from '../../pages/auth/services/auth-rest.service';
+import { SettingsService } from '../../services';
 import { SidebarService } from './services/sidebar.service';
 
 @Component({
@@ -18,13 +18,15 @@ import { SidebarService } from './services/sidebar.service';
   ]
 })
 export class SidebarComponent implements OnInit {
-  siteName = Settings.siteName;
+  siteName: string;
   menus = [];
 
   constructor(
     public sidebarService: SidebarService,
-    public authService: AuthRestService
+    public authService: AuthRestService,
+    private settingsService: SettingsService
   ) {
+    this.siteName = this.settingsService.siteName;
     this.menus = sidebarService.getMenuList();
   }
 

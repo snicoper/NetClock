@@ -4,8 +4,8 @@ import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
-import { BaseApiUrl, UrlsApp } from '../../../config';
-import { ApiRestBaseService } from '../../../services/api-rest-base.service';
+import { UrlsApp } from '../../../config';
+import { ApiRestBaseService, DebugService, SettingsService } from '../../../services';
 import { CurrentUserModel, LoginModel, RecoveryPasswordModel, RecoveryPasswordValidateModel } from '../models';
 
 @Injectable({
@@ -17,9 +17,14 @@ export class AuthRestService extends ApiRestBaseService implements OnDestroy {
   private readonly destroy$ = new Subject<void>();
   private readonly currentUserSubject: BehaviorSubject<CurrentUserModel>;
 
-  constructor(protected http: HttpClient, private router: Router) {
-    super(http);
-    this.baseUrl = `${BaseApiUrl}/auth`;
+  constructor(
+    protected http: HttpClient,
+    protected debugService: DebugService,
+    private settingsService: SettingsService,
+    private router: Router
+  ) {
+    super(http, debugService);
+    this.baseUrl = `${this.settingsService.baseApiUrl}/auth`;
     this.currentUserSubject = new BehaviorSubject<CurrentUserModel>(JSON.parse(localStorage.getItem('currentUser')));
     this.currentUser$ = this.currentUserSubject.asObservable().pipe(takeUntil(this.destroy$));
   }

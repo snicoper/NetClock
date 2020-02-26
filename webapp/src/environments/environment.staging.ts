@@ -1,6 +1,6 @@
 export const environment = {
-  production: true,
-  apiUrl: 'https://localhost:5001',
+  production: false,
+  apiUrl: 'https://localhost:5002',
   siteUrl: 'http://localhost:4200',
   apiSegment: 'api/v1',
   isDebug: false

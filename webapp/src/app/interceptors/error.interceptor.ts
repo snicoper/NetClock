@@ -6,20 +6,21 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 import { UrlsApp } from '../config';
-import { DebugConsole } from '../core';
 import { AuthRestService } from '../pages/auth/services/auth-rest.service';
+import { DebugService } from '../services';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
   constructor(
     private authenticationService: AuthRestService,
-    private router: Router
+    private router: Router,
+    private debugService: DebugService
   ) {
   }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(request).pipe(catchError(error => {
-      DebugConsole.errors(error);
+      this.debugService.errors(error);
 
       switch (error.status) {
         case HttpStatus.UNAUTHORIZED:

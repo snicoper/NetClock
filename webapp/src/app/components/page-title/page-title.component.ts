@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 
-import { Settings } from '../../config';
+import { SettingsService } from '../../services';
 
 /** Establece el titulo de la pagina (pestaña del navegador). */
 @Component({
@@ -14,7 +14,8 @@ export class PageTitleComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private title: Title
+    private title: Title,
+    private settingsService: SettingsService
   ) {
   }
 
@@ -29,7 +30,7 @@ export class PageTitleComponent implements OnInit {
   }
 
   private setTitle(pageTitle?: string) {
-    let title = Settings.siteName;
+    let title = this.settingsService.siteName;
     if (pageTitle) {
       title = `${pageTitle} - ${title}`;
     }
