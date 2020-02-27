@@ -15,9 +15,7 @@ namespace NetClock.Application
 {
     public static class DependencyInjection
     {
-        public static IServiceCollection AddApplication(
-            this IServiceCollection services,
-            IConfiguration Configuration)
+        public static IServiceCollection AddApplication(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
             services.AddMediatR(Assembly.GetExecutingAssembly());
@@ -26,10 +24,11 @@ namespace NetClock.Application
             services.AddTransient(typeof(IResponseDataService<,>), typeof(ResponseDataService<,>));
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
-            services.Configure<JwtConfig>(Configuration.GetSection("Jwt"));
-            services.Configure<SmtpConfig>(Configuration.GetSection("Smtp"));
-            services.Configure<WebApiConfig>(Configuration.GetSection("WebApi"));
-            services.Configure<WebAppConfig>(Configuration.GetSection("WebApp"));
+            // Configure strongly typed settings objects.
+            services.Configure<JwtConfig>(configuration.GetSection("Jwt"));
+            services.Configure<SmtpConfig>(configuration.GetSection("Smtp"));
+            services.Configure<WebApiConfig>(configuration.GetSection("WebApi"));
+            services.Configure<WebAppConfig>(configuration.GetSection("WebApp"));
 
             services
                 .RegisterAssemblyPublicNonGenericClasses(Assembly.GetAssembly(typeof(IdentityService)))

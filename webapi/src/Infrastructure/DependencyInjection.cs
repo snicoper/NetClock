@@ -59,9 +59,7 @@ namespace NetClock.Infrastructure
         /// </summary>
         private static IServiceCollection ConfigureIdentity(IServiceCollection services, IConfiguration configuration)
         {
-            // Configure strongly typed settings objects.
             var appSettingsSection = configuration.GetSection("Jwt");
-            services.Configure<JwtConfig>(appSettingsSection);
             var appSettings = appSettingsSection.Get<JwtConfig>();
             var key = Encoding.ASCII.GetBytes(appSettings.Secret);
 
