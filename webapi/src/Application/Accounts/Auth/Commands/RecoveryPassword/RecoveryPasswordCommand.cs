@@ -30,20 +30,20 @@ namespace NetClock.Application.Accounts.Auth.Commands.RecoveryPassword
             private readonly ILinkGeneratorService _linkGeneratorService;
             private readonly ILogger<RecoveryPasswordCommandHandler> _logger;
             private readonly IEmailService _emailService;
-            private readonly AppSettings _appSettings;
+            private readonly WebApiConfig _webApiConfig;
 
             public RecoveryPasswordCommandHandler(
                 UserManager<ApplicationUser> userManager,
                 ILinkGeneratorService linkGeneratorService,
                 ILogger<RecoveryPasswordCommandHandler> logger,
-                IOptions<AppSettings> options,
+                IOptions<WebApiConfig> options,
                 IEmailService emailService)
             {
                 _userManager = userManager;
                 _linkGeneratorService = linkGeneratorService;
                 _logger = logger;
                 _emailService = emailService;
-                _appSettings = options.Value;
+                _webApiConfig = options.Value;
             }
 
             public async Task<Unit> Handle(RecoveryPasswordCommand request, CancellationToken cancellationToken)
@@ -74,7 +74,7 @@ namespace NetClock.Application.Accounts.Auth.Commands.RecoveryPassword
                 ApplicationUser applicationUser,
                 RecoveryPasswordViewModel recoveryPasswordViewModel)
             {
-                _emailService.Subject = $"Confirmación de cambio de email en {_appSettings.WebApi.SiteName}";
+                _emailService.Subject = $"Confirmación de cambio de email en {_webApiConfig.SiteName}";
                 _emailService.To.Add(new MailAddress(applicationUser.Email));
                 _emailService.IsHtml = true;
                 await _emailService.SendEmailAsync(EmailTemplates.RecoveryPassword, recoveryPasswordViewModel);

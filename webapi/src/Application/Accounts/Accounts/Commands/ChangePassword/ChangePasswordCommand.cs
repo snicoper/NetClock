@@ -43,7 +43,7 @@ namespace NetClock.Application.Accounts.Accounts.Commands.ChangePassword
             private readonly UserManager<ApplicationUser> _userManager;
             private readonly IValidationFailureService _validationFailureService;
             private readonly IEmailService _emailService;
-            private readonly AppSettings _appSettings;
+            private readonly WebApiConfig _webApiConfig;
             private readonly IMapper _mapper;
             private readonly ILogger<ChangePasswordCommandHandler> _logger;
 
@@ -51,14 +51,14 @@ namespace NetClock.Application.Accounts.Accounts.Commands.ChangePassword
                 UserManager<ApplicationUser> userManager,
                 IValidationFailureService validationFailureService,
                 IEmailService emailService,
-                IOptions<AppSettings> options,
+                IOptions<WebApiConfig> options,
                 IMapper mapper,
                 ILogger<ChangePasswordCommandHandler> logger)
             {
                 _userManager = userManager;
                 _validationFailureService = validationFailureService;
                 _emailService = emailService;
-                _appSettings = options.Value;
+                _webApiConfig = options.Value;
                 _mapper = mapper;
                 _logger = logger;
             }
@@ -89,7 +89,7 @@ namespace NetClock.Application.Accounts.Accounts.Commands.ChangePassword
                 }
 
                 var changePasswordViewModel = _mapper.Map<ChangePasswordViewModel>(user);
-                changePasswordViewModel.SiteName = _appSettings.WebApi.SiteName;
+                changePasswordViewModel.SiteName = _webApiConfig.SiteName;
                 await EmailNotifyChangePasswordAsync(changePasswordViewModel);
                 _logger.LogInformation($"El usuario {user.Id} ha cambiado contraseña con éxito");
 

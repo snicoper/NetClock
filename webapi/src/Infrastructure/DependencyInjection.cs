@@ -60,10 +60,10 @@ namespace NetClock.Infrastructure
         private static IServiceCollection ConfigureIdentity(IServiceCollection services, IConfiguration configuration)
         {
             // Configure strongly typed settings objects.
-            var appSettingsSection = configuration.GetSection("AppSettings");
-            services.Configure<AppSettings>(appSettingsSection);
-            var appSettings = appSettingsSection.Get<AppSettings>();
-            var key = Encoding.ASCII.GetBytes(appSettings.Jwt.Secret);
+            var appSettingsSection = configuration.GetSection("Jwt");
+            services.Configure<JwtConfig>(appSettingsSection);
+            var appSettings = appSettingsSection.Get<JwtConfig>();
+            var key = Encoding.ASCII.GetBytes(appSettings.Secret);
 
             // Identity.
             services
@@ -100,8 +100,8 @@ namespace NetClock.Infrastructure
                         IssuerSigningKey = new SymmetricSecurityKey(key),
                         RequireExpirationTime = true,
                         ValidateLifetime = true,
-                        ValidIssuer = appSettings.Jwt.ValidIssuer,
-                        ValidAudience = appSettings.Jwt.ValidAudience
+                        ValidIssuer = appSettings.ValidIssuer,
+                        ValidAudience = appSettings.ValidAudience
                     };
                 });
 

@@ -9,16 +9,16 @@ namespace NetClock.Infrastructure.Services.Common
 {
     public class LinkGeneratorService : ILinkGeneratorService
     {
-        private readonly WebApp _webApp;
+        private readonly WebAppConfig _webAppConfig;
 
-        public LinkGeneratorService(IOptions<AppSettings> options)
+        public LinkGeneratorService(IOptions<WebAppConfig> options)
         {
-            _webApp = options.Value.WebApp;
+            _webAppConfig = options.Value;
         }
 
         public string GenerateFrontEnd(string path)
         {
-            return $"{_webApp.Scheme}://{_webApp.Host}/{path}";
+            return $"{_webAppConfig.Scheme}://{_webAppConfig.Host}/{path}";
         }
 
         public string GenerateFrontEnd(string path, Dictionary<string, string> queryParams, bool encodeParams = true)

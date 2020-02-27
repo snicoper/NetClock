@@ -58,7 +58,7 @@ namespace NetClock.Application.Accounts.Accounts.Commands.Register
 
     public class RegisterCommandHandler : IRequestHandler<RegisterCommand, RegisterViewModel>
     {
-        private readonly AppSettings _appSettings;
+        private readonly WebApiConfig _webApiConfig;
         private readonly IIdentityService _identityService;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IEmailService _emailService;
@@ -67,7 +67,7 @@ namespace NetClock.Application.Accounts.Accounts.Commands.Register
         private readonly IMapper _mapper;
 
         public RegisterCommandHandler(
-            IOptions<AppSettings> options,
+            IOptions<WebApiConfig> options,
             IIdentityService identityService,
             UserManager<ApplicationUser> userManager,
             IEmailService emailService,
@@ -75,7 +75,7 @@ namespace NetClock.Application.Accounts.Accounts.Commands.Register
             IValidationFailureService validationFailureService,
             IMapper mapper)
         {
-            _appSettings = options.Value;
+            _webApiConfig = options.Value;
             _identityService = identityService;
             _userManager = userManager;
             _emailService = emailService;
@@ -100,7 +100,7 @@ namespace NetClock.Application.Accounts.Accounts.Commands.Register
             // Generar code de validación y enviar email.
             var code = await _userManager.GenerateEmailConfirmationTokenAsync(newUser);
             registerViewModel.Callback = GenerateCallBack(newUser.Id, HttpUtility.HtmlEncode(code));
-            registerViewModel.SiteName = _appSettings.WebApi.SiteName;
+            registerViewModel.SiteName = _webApiConfig.SiteName;
             await SendEmailNotificationAsync(registerViewModel);
 
             return registerViewModel;
@@ -108,7 +108,7 @@ namespace NetClock.Application.Accounts.Accounts.Commands.Register
 
         private async Task SendEmailNotificationAsync(RegisterViewModel registerViewModel)
         {
-            _emailService.Subject = $"Confirmación de email en {_appSettings.WebApi.SiteName}";
+            _emailService.Subject = $"Confirmación de email en {_webApiConfig.SiteName}";
             _emailService.To.Add(new MailAddress(registerViewModel.Email));
             _emailService.IsHtml = true;
             await _emailService.SendEmailAsync(EmailTemplates.RegisterUser, registerViewModel);

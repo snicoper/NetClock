@@ -37,7 +37,7 @@ namespace NetClock.WebApi
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddApplication();
+            services.AddApplication(Configuration);
             services.AddInfrastructure(Configuration);
             services.AddDomain();
 

@@ -32,20 +32,20 @@ namespace NetClock.Application.Accounts.Accounts.Commands.ChangeEmail
             private readonly UserManager<ApplicationUser> _userManager;
             private readonly IEmailService _emailService;
             private readonly ILinkGeneratorService _linkGeneratorService;
-            private readonly AppSettings _appSettings;
+            private readonly WebApiConfig _webApiConfig;
             private readonly ILogger<ChangeEmailCommandHandler> _logger;
 
             public ChangeEmailCommandHandler(
                 UserManager<ApplicationUser> userManager,
                 IEmailService emailService,
                 ILinkGeneratorService linkGeneratorService,
-                IOptions<AppSettings> options,
+                IOptions<WebApiConfig> options,
                 ILogger<ChangeEmailCommandHandler> logger)
             {
                 _userManager = userManager;
                 _emailService = emailService;
                 _linkGeneratorService = linkGeneratorService;
-                _appSettings = options.Value;
+                _webApiConfig = options.Value;
                 _logger = logger;
             }
 
@@ -78,7 +78,7 @@ namespace NetClock.Application.Accounts.Accounts.Commands.ChangeEmail
                 ApplicationUser applicationUser,
                 ChangeEmailViewModel registerViewModel)
             {
-                _emailService.Subject = $"Confirmación de cambio de email en {_appSettings.WebApi.SiteName}";
+                _emailService.Subject = $"Confirmación de cambio de email en {_webApiConfig.SiteName}";
                 _emailService.To.Add(new MailAddress(applicationUser.Email));
                 _emailService.IsHtml = true;
                 await _emailService.SendEmailAsync(EmailTemplates.ChangeEmailConfirmation, registerViewModel);

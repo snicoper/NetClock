@@ -17,18 +17,18 @@ namespace NetClock.Infrastructure.Services.Emails
 {
     public class EmailService : IEmailService
     {
-        private readonly AppSettings _appSettings;
+        private readonly SmtpConfig _smtpConfig;
         private readonly ILogger<EmailService> _logger;
         private readonly IViewRenderService _viewRenderService;
         private readonly IWebHostEnvironment _environment;
 
         public EmailService(
-            IOptions<AppSettings> appSettings,
+            IOptions<SmtpConfig> appSettings,
             ILogger<EmailService> logger,
             IViewRenderService viewRenderService,
             IWebHostEnvironment environment)
         {
-            _appSettings = appSettings.Value;
+            _smtpConfig = appSettings.Value;
             _logger = logger;
             _viewRenderService = viewRenderService;
             _environment = environment;
@@ -64,7 +64,7 @@ namespace NetClock.Infrastructure.Services.Emails
             Validate();
             if (From is null)
             {
-                From = new MailAddress(_appSettings.Smtp.DefaultFrom);
+                From = new MailAddress(_smtpConfig.DefaultFrom);
             }
 
             if (_environment.IsDevelopment() || _environment.IsEnvironment("Test"))
@@ -77,14 +77,14 @@ namespace NetClock.Infrastructure.Services.Emails
             using var smtpClient = new SmtpClient();
             var credentials = new NetworkCredential
             {
-                UserName = _appSettings.Smtp.UserName,
-                Password = _appSettings.Smtp.Password
+                UserName = _smtpConfig.UserName,
+                Password = _smtpConfig.Password
             };
 
             smtpClient.Credentials = credentials;
-            smtpClient.Host = _appSettings.Smtp.Host;
-            smtpClient.Port = _appSettings.Smtp.Port;
-            smtpClient.EnableSsl = _appSettings.Smtp.EnableSsl;
+            smtpClient.Host = _smtpConfig.Host;
+            smtpClient.Port = _smtpConfig.Port;
+            smtpClient.EnableSsl = _smtpConfig.EnableSsl;
 
             using var emailMessage = new MailMessage();
             foreach (var emailTo in To)

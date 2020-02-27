@@ -14,28 +14,28 @@ namespace NetClock.Application.Common.Services.Identity
 {
     public class JwtSecurityTokenService : IJwtSecurityTokenService
     {
-        private readonly AppSettings _appSettings;
+        private readonly JwtConfig _jwtConfig;
 
-        public JwtSecurityTokenService(IOptions<AppSettings> appSettings)
+        public JwtSecurityTokenService(IOptions<JwtConfig> appSettings)
         {
-            _appSettings = appSettings.Value;
+            _jwtConfig = appSettings.Value;
         }
 
         public string CreateToken(ApplicationUser user, IEnumerable<string> roles)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(_appSettings.Jwt.Secret);
+            var key = Encoding.ASCII.GetBytes(_jwtConfig.Secret);
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Audience = _appSettings.Jwt.ValidAudience,
-                Issuer = _appSettings.Jwt.ValidIssuer,
+                Audience = _jwtConfig.ValidAudience,
+                Issuer = _jwtConfig.ValidIssuer,
                 Subject = new ClaimsIdentity(new[]
                 {
                     new Claim(ClaimTypes.Name, user.UserName), new Claim(ClaimTypes.Email, user.Email),
                     new Claim(ClaimTypes.NameIdentifier, user.Id),
                     new Claim(ClaimTypes.Role, string.Join(",", roles.ToList()))
                 }),
-                Expires = DateTime.UtcNow.AddHours(_appSettings.Jwt.ExpiryMinutes),
+                Expires = DateTime.UtcNow.AddHours(_jwtConfig.ExpiryMinutes),
                 SigningCredentials = new SigningCredentials(
                     new SymmetricSecurityKey(key),
                     SecurityAlgorithms.HmacSha256Signature)
