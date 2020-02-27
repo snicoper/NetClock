@@ -20,4 +20,4 @@ COPY . ./
 RUN npm run build
 
 # start app
-CMD ng serve --host 0.0.0.0
+CMD ng serve -c=staging --host 0.0.0.0

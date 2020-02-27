@@ -110,7 +110,7 @@ namespace NetClock.WebApi
 
         public void ConfigureStagingServices(IServiceCollection services)
         {
-            ConfigureServices(services);
+            ConfigureDevelopmentServices(services);
         }
 
         public void ConfigureTestServices(IServiceCollection services)
@@ -168,20 +168,24 @@ namespace NetClock.WebApi
                     .SetDefaultCulture("es");
             });
 
-            app.UseForwardedHeaders(new ForwardedHeadersOptions
-            {
-                ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
-            });
-
             app.UseCors(DefaultCors);
 
-            if (env.IsDevelopment())
+            if (env.IsDevelopment() || env.IsStaging())
             {
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
+                app.UseOpenApi();
+                app.UseSwaggerUi3(settings =>
+                {
+                    settings.Path = "/swagger";
+                });
             }
             else
             {
+                app.UseForwardedHeaders(new ForwardedHeadersOptions
+                {
+                    ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+                });
                 app.UseHsts();
                 app.UseHttpsRedirection();
             }
@@ -194,12 +198,6 @@ namespace NetClock.WebApi
 
             app.UseAuthentication();
             app.UseAuthorization();
-
-            app.UseOpenApi();
-            app.UseSwaggerUi3(settings =>
-            {
-                settings.Path = "/swagger";
-            });
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }

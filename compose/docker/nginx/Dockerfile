@@ -1,6 +1,6 @@
 FROM nginx:latest
 
-COPY nginx.conf /etc/nginx/nginx-no-ssl.conf
+COPY nginx-no-ssl.conf /etc/nginx/nginx.conf
 # COPY localhost.crt /etc/ssl/certs/localhost.crt
 # COPY localhost.key /etc/ssl/private/localhost.key
 
