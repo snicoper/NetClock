@@ -20,7 +20,8 @@ services:
       - "5000"
     restart: always
     environment:
-      DefaultConnection: "host=postgres_image;port=5433;database=NetClock;username=snicoper;password=123456"
+      - ASPNETCORE_ENVIRONMENT=Staging
+      - DefaultConnection="host=postgres_image;port=5433;database=NetClock;username=snicoper;password=123456"
 
   webapp:
     depends_on:

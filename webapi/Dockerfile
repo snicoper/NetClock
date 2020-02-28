@@ -1,11 +1,10 @@
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS base
 WORKDIR /app
-ENV ASPNETCORE_ENVIRONMENT=Staging
 
 # Copy everything else and build
 COPY . ./
 WORKDIR /app
-RUN dotnet publish -c Debug -o out
+RUN dotnet publish -c Release -o out
 
 # Build runtime image
 FROM mcr.microsoft.com/dotnet/core/aspnet:3.1

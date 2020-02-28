@@ -101,7 +101,7 @@ namespace NetClock.WebApi
                 options.AddPolicy(DefaultCors, builder =>
                 {
                     builder
-                        .WithOrigins("http://localhost:4210")
+                        .WithOrigins("http://localhost:4200")
                         .AllowAnyHeader()
                         .AllowAnyMethod();
                 });
@@ -110,7 +110,17 @@ namespace NetClock.WebApi
 
         public void ConfigureStagingServices(IServiceCollection services)
         {
-            ConfigureDevelopmentServices(services);
+            // Add cors policy.
+            services.AddCors(options =>
+            {
+                options.AddPolicy(DefaultCors, builder =>
+                {
+                    builder
+                        .WithOrigins("http://localhost:4210")
+                        .AllowAnyHeader()
+                        .AllowAnyMethod();
+                });
+            });
         }
 
         public void ConfigureTestServices(IServiceCollection services)
@@ -170,15 +180,10 @@ namespace NetClock.WebApi
 
             app.UseCors(DefaultCors);
 
-            if (env.IsDevelopment() || env.IsStaging())
+            if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
-                app.UseOpenApi();
-                app.UseSwaggerUi3(settings =>
-                {
-                    settings.Path = "/swagger";
-                });
             }
             else
             {
@@ -187,9 +192,9 @@ namespace NetClock.WebApi
                     ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
                 });
                 app.UseHsts();
-                app.UseHttpsRedirection();
             }
 
+            app.UseHttpsRedirection();
             app.UseMiddleware(typeof(CustomExceptionHandlerMiddleware));
             app.UseStaticFiles();
             app.UseHealthChecks("/health");
@@ -198,6 +203,12 @@ namespace NetClock.WebApi
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            app.UseOpenApi();
+            app.UseSwaggerUi3(settings =>
+            {
+                settings.Path = "/swagger";
+            });
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
