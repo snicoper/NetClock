@@ -23,7 +23,7 @@ const routes: Routes = [
     path: 'accounts/:slug',
     component: UserDetailsComponent,
     canActivate: [AuthGuard],
-    data: { title: 'Detalle de ussuario' }
+    data: { title: 'Detalle de usuario' }
   }
 ];
 

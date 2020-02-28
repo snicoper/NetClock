@@ -41,7 +41,8 @@ export class UserListComponent implements OnInit, OnDestroy {
   }
 
   onSelectItem(user: AdminUserListModel): void {
-    this.router.navigate([UrlsApp.adminUserDetails.replace('{slug}', user.slug)]);
+    const url = UrlsApp.replace(UrlsApp.adminUserDetails, { slug: user.slug });
+    this.router.navigate([url]);
   }
 
   onReloadData(): void {

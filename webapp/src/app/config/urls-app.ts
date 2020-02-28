@@ -16,5 +16,18 @@ export const UrlsApp = {
   /** Admin. */
   admin: '/admin',
   adminUserList: '/admin/accounts',
-  adminUserDetails: '/admin/accounts/{slug}'
+  adminUserDetails: '/admin/accounts/{slug}',
+
+  replace(url: string, args: object): string {
+    const keys = Object.keys(args);
+    const values = Object.values(args);
+
+    for (let i = 0; i < keys.length; i += 1) {
+      const key = '{' + keys[i] + '}';
+      const value = values[i];
+      url = url.replace(key, value);
+    }
+
+    return url;
+  }
 };
