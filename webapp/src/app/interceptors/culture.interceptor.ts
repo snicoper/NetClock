@@ -2,13 +2,18 @@ import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/c
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
+import { LocalizationService } from '../services/localization.service';
+
 @Injectable()
 export class CultureInterceptor implements HttpInterceptor {
+  constructor(private localizationService: LocalizationService) {
+  }
+
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    // TODO: Obtener culture desde localStorage o servicio de localización.
-    const culture = 'es';
     if (!request.headers.has('Content-Language')) {
-      request = request.clone({headers: request.headers.set('Accept-Language', culture)});
+      request = request.clone({
+        headers: request.headers.set('Accept-Language', this.localizationService.getCurrentCultureValue())
+      });
     }
 
     return next.handle(request);
