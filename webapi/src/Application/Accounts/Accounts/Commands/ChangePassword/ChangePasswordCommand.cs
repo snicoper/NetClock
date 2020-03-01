@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using NetClock.Application.Common.Configurations;
@@ -13,6 +14,7 @@ using NetClock.Application.Common.Constants;
 using NetClock.Application.Common.Exceptions;
 using NetClock.Application.Common.Interfaces.Emails;
 using NetClock.Application.Common.Interfaces.Validations;
+using NetClock.Application.Common.Localizations;
 using NetClock.Domain.Entities.Identity;
 
 namespace NetClock.Application.Accounts.Accounts.Commands.ChangePassword
@@ -40,6 +42,7 @@ namespace NetClock.Application.Accounts.Accounts.Commands.ChangePassword
 
         public class ChangePasswordCommandHandler : IRequestHandler<ChangePasswordCommand>
         {
+            private readonly IStringLocalizer<IdentityLocalizer> _localizer;
             private readonly UserManager<ApplicationUser> _userManager;
             private readonly IValidationFailureService _validationFailureService;
             private readonly IEmailService _emailService;
@@ -48,6 +51,7 @@ namespace NetClock.Application.Accounts.Accounts.Commands.ChangePassword
             private readonly ILogger<ChangePasswordCommandHandler> _logger;
 
             public ChangePasswordCommandHandler(
+                IStringLocalizer<IdentityLocalizer> localizer,
                 UserManager<ApplicationUser> userManager,
                 IValidationFailureService validationFailureService,
                 IEmailService emailService,
@@ -55,6 +59,7 @@ namespace NetClock.Application.Accounts.Accounts.Commands.ChangePassword
                 IMapper mapper,
                 ILogger<ChangePasswordCommandHandler> logger)
             {
+                _localizer = localizer;
                 _userManager = userManager;
                 _validationFailureService = validationFailureService;
                 _emailService = emailService;
@@ -98,7 +103,7 @@ namespace NetClock.Application.Accounts.Accounts.Commands.ChangePassword
 
             private async Task EmailNotifyChangePasswordAsync(ChangePasswordViewModel changePasswordViewModel)
             {
-                _emailService.Subject = "Cambio de contraseña";
+                _emailService.Subject = _localizer["Cambio de contraseña"];
                 _emailService.IsHtml = true;
                 _emailService.To = new List<MailAddress> { new MailAddress(changePasswordViewModel.Email) };
                 await _emailService.SendEmailAsync(EmailTemplates.ChangePassword, changePasswordViewModel);

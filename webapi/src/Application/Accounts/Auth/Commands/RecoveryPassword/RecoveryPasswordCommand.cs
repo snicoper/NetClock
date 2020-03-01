@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using NetClock.Application.Common.Configurations;
@@ -11,6 +12,7 @@ using NetClock.Application.Common.Constants;
 using NetClock.Application.Common.Exceptions;
 using NetClock.Application.Common.Interfaces.Common;
 using NetClock.Application.Common.Interfaces.Emails;
+using NetClock.Application.Common.Localizations;
 using NetClock.Domain.Entities.Identity;
 
 namespace NetClock.Application.Accounts.Auth.Commands.RecoveryPassword
@@ -26,6 +28,7 @@ namespace NetClock.Application.Accounts.Auth.Commands.RecoveryPassword
 
         public class RecoveryPasswordCommandHandler : IRequestHandler<RecoveryPasswordCommand>
         {
+            private readonly IStringLocalizer<IdentityLocalizer> _localizer;
             private readonly UserManager<ApplicationUser> _userManager;
             private readonly ILinkGeneratorService _linkGeneratorService;
             private readonly ILogger<RecoveryPasswordCommandHandler> _logger;
@@ -33,12 +36,14 @@ namespace NetClock.Application.Accounts.Auth.Commands.RecoveryPassword
             private readonly WebApiConfig _webApiConfig;
 
             public RecoveryPasswordCommandHandler(
+                IStringLocalizer<IdentityLocalizer> localizer,
                 UserManager<ApplicationUser> userManager,
                 ILinkGeneratorService linkGeneratorService,
                 ILogger<RecoveryPasswordCommandHandler> logger,
                 IOptions<WebApiConfig> options,
                 IEmailService emailService)
             {
+                _localizer = localizer;
                 _userManager = userManager;
                 _linkGeneratorService = linkGeneratorService;
                 _logger = logger;
@@ -74,7 +79,7 @@ namespace NetClock.Application.Accounts.Auth.Commands.RecoveryPassword
                 ApplicationUser applicationUser,
                 RecoveryPasswordViewModel recoveryPasswordViewModel)
             {
-                _emailService.Subject = $"Confirmación de cambio de email en {_webApiConfig.SiteName}";
+                _emailService.Subject = _localizer["Confirmación de cambio de email en {0}", _webApiConfig.SiteName];
                 _emailService.To.Add(new MailAddress(applicationUser.Email));
                 _emailService.IsHtml = true;
                 await _emailService.SendEmailAsync(EmailTemplates.RecoveryPassword, recoveryPasswordViewModel);

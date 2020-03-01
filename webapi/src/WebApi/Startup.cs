@@ -82,6 +82,9 @@ namespace NetClock.WebApi
                 })
                 .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix);
 
+            // Localization.
+            services.AddLocalization(options => options.ResourcesPath = "Resources");
+
             // Customise default API behaviour.
             services.Configure<ApiBehaviorOptions>(options =>
             {
@@ -172,7 +175,8 @@ namespace NetClock.WebApi
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             // Localization.
-            var supportedCultures = new[] { "es", "en" };
+            // @see: https://docs.microsoft.com/es-es/openspecs/windows_protocols/ms-lcid/a9eac961-e77d-41a6-90a5-ce1a8b0cdb9c
+            var supportedCultures = new[] { "en", "es", "ca" };
 
             app.UseRequestLocalization(options =>
             {

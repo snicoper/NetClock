@@ -12,7 +12,7 @@ using Microsoft.Extensions.Logging;
 using NetClock.Application.Common.Constants;
 using NetClock.Application.Common.Interfaces.Identity;
 using NetClock.Application.Common.Interfaces.Validations;
-using NetClock.Application.Common.Services.Identity;
+using NetClock.Application.Common.Localizations;
 using NetClock.Domain.Entities.Identity;
 
 namespace NetClock.Application.Accounts.Auth.Commands.Login
@@ -32,13 +32,13 @@ namespace NetClock.Application.Accounts.Auth.Commands.Login
         [Display(Name = "Contraseña")]
         public string Password { get; }
 
-        [Display(Name = "Recordarme")]
+        [Display(Name = "Recuerda me")]
         public bool RememberMe { get; }
 
         public class LoginCommandHandler : IRequestHandler<LoginCommand, CurrentUserViewModel>
         {
             private readonly IMapper _mapper;
-            private readonly IStringLocalizer<IdentityService> _localizer;
+            private readonly IStringLocalizer<IdentityLocalizer> _localizer;
             private readonly IHttpContextAccessor _httpContextAccessor;
             private readonly IJwtSecurityTokenService _jwtSecurityTokenService;
             private readonly SignInManager<ApplicationUser> _signInManager;
@@ -48,7 +48,7 @@ namespace NetClock.Application.Accounts.Auth.Commands.Login
 
             public LoginCommandHandler(
                 IMapper mapper,
-                IStringLocalizer<IdentityService> localizer,
+                IStringLocalizer<IdentityLocalizer> localizer,
                 IHttpContextAccessor httpContextAccessor,
                 IJwtSecurityTokenService jwtSecurityTokenService,
                 SignInManager<ApplicationUser> signInManager,
@@ -74,7 +74,7 @@ namespace NetClock.Application.Accounts.Auth.Commands.Login
 
                 if (user.Active is false)
                 {
-                    const string error = "La cuenta no esta activa, por favor habla con un administrador.";
+                    var error = _localizer["La cuenta no esta activa, por favor habla con un administrador"];
                     _validationFailureService.AddAndRaiseExceptions(Errors.NonFieldErrors, error);
                 }
 

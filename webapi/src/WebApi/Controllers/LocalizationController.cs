@@ -1,4 +1,5 @@
 using System;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
@@ -10,6 +11,7 @@ namespace NetClock.WebApi.Controllers
     public class LocalizationController : ApiControllerBase
     {
         [HttpPost]
+        [AllowAnonymous]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         public IActionResult SetLanguage(string culture)
         {

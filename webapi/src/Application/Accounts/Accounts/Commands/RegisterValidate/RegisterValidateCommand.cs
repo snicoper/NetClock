@@ -3,9 +3,11 @@ using System.Threading.Tasks;
 using System.Web;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 using NetClock.Application.Common.Constants;
 using NetClock.Application.Common.Interfaces.Validations;
+using NetClock.Application.Common.Localizations;
 using NetClock.Domain.Entities.Identity;
 
 namespace NetClock.Application.Accounts.Accounts.Commands.RegisterValidate
@@ -25,15 +27,18 @@ namespace NetClock.Application.Accounts.Accounts.Commands.RegisterValidate
 
     public class RegisterValidateCodeCommandHandler : IRequestHandler<RegisterValidateCommand, Unit>
     {
+        private readonly IStringLocalizer<IdentityLocalizer> _localizer;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IValidationFailureService _validationFailureService;
         private readonly ILogger<RegisterValidateCodeCommandHandler> _logger;
 
         public RegisterValidateCodeCommandHandler(
+            IStringLocalizer<IdentityLocalizer> localizer,
             UserManager<ApplicationUser> userManager,
             IValidationFailureService validationFailureService,
             ILogger<RegisterValidateCodeCommandHandler> logger)
         {
+            _localizer = localizer;
             _userManager = userManager;
             _validationFailureService = validationFailureService;
             _logger = logger;
@@ -55,7 +60,7 @@ namespace NetClock.Application.Accounts.Accounts.Commands.RegisterValidate
             var confirmEmailResult = await _userManager.ConfirmEmailAsync(user, code);
             if (!confirmEmailResult.Succeeded)
             {
-                const string message = "El tiempo de validación ha expirado";
+                var message = _localizer["El tiempo de validación ha expirado"];
                 _logger.LogWarning(message);
                 _validationFailureService.AddAndRaiseExceptions(Errors.NonFieldErrors, message);
             }
