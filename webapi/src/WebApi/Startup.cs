@@ -176,14 +176,14 @@ namespace NetClock.WebApi
         {
             // Localization.
             // @see: https://docs.microsoft.com/es-es/openspecs/windows_protocols/ms-lcid/a9eac961-e77d-41a6-90a5-ce1a8b0cdb9c
-            var supportedCultures = new[] { "en", "es", "ca" };
+            var supportedCultures = new[] { "es-ES", "ca-ES", "en-GB" };
 
             app.UseRequestLocalization(options =>
             {
                 options
                     .AddSupportedCultures(supportedCultures)
                     .AddSupportedUICultures(supportedCultures)
-                    .SetDefaultCulture("es");
+                    .SetDefaultCulture("es-ES");
             });
 
             app.UseCors(DefaultCors);

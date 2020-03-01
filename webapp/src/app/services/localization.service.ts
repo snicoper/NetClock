@@ -9,8 +9,8 @@ import { LocalizationRestService } from './rest';
   providedIn: 'root'
 })
 export class LocalizationService implements OnDestroy {
-  private readonly defaultCulture = 'es';
-  private readonly supportedCultures = ['es', 'ca', 'en'];
+  private readonly defaultCulture = 'es-ES';
+  private readonly supportedCultures = ['es-ES', 'ca-ES', 'en-GB'];
 
   private currentCulture$: Observable<string>;
   private currentCultureSubject$: BehaviorSubject<string>;
