@@ -5,7 +5,8 @@ import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 import { UrlsApp } from '../../../config';
-import { ApiRestBaseService, DebugService, SettingsService } from '../../../services';
+import { DebugService, SettingsService } from '../../../services';
+import { ApiRestBaseService } from '../../../services/rest';
 import { CurrentUserModel, LoginModel, RecoveryPasswordModel, RecoveryPasswordValidateModel } from '../models';
 
 @Injectable({

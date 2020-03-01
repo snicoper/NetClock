@@ -1,9 +1,9 @@
-using System;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using NetClock.Application.Common.Controllers;
+using NetClock.Application.Localization.Commands.SetCulture;
 
 namespace NetClock.WebApi.Controllers
 {
@@ -12,16 +12,10 @@ namespace NetClock.WebApi.Controllers
     {
         [HttpPost]
         [AllowAnonymous]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
-        public IActionResult SetLanguage(string culture)
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult> SetCulture(SetCultureCommand cultureCommand)
         {
-            Response.Cookies.Append(
-                CookieRequestCultureProvider.DefaultCookieName,
-                CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture)),
-                new CookieOptions { Expires = DateTimeOffset.UtcNow.AddYears(1) }
-            );
-
-            return NoContent();
+            return Ok(await Mediator.Send(cultureCommand));
         }
     }
 }

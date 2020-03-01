@@ -2,7 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { ApiRestBaseService, DebugService, SettingsService } from '../../../services';
+import { DebugService, SettingsService } from '../../../services';
+import { ApiRestBaseService } from '../../../services/rest';
 import { ChangePasswordModel } from '../models';
 
 @Injectable({

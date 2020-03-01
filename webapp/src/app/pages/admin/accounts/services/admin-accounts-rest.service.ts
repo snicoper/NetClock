@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-import { ApiRestBaseService, DebugService, SettingsService } from '../../../../services';
+import { DebugService, SettingsService } from '../../../../services';
+import { ApiRestBaseService } from '../../../../services/rest';
 
 @Injectable({
   providedIn: 'root'
