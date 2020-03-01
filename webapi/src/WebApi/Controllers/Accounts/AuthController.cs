@@ -6,6 +6,7 @@ using NetClock.Application.Accounts.Auth.Commands.Login;
 using NetClock.Application.Accounts.Auth.Commands.Logout;
 using NetClock.Application.Accounts.Auth.Commands.RecoveryPassword;
 using NetClock.Application.Accounts.Auth.Commands.RecoveryPasswordValidate;
+using NetClock.Application.Common.Controllers;
 
 namespace NetClock.WebApi.Controllers.Accounts
 {
