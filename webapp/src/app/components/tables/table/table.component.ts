@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 
-import { HttpTransferData } from '../../../models';
+import { ApiResult } from '../../../models';
 
 @Component({
   selector: 'nc-table',
@@ -8,7 +8,7 @@ import { HttpTransferData } from '../../../models';
   styleUrls: ['./table.component.scss']
 })
 export class TableComponent<T> {
-  @Input() transferData: HttpTransferData<T>;
+  @Input() transferData: ApiResult<T>;
   @Input() tableResponsive = true;
   @Input() loading = false;
   @Input() tableCss = 'table-hover';

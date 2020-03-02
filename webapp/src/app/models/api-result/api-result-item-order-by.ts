@@ -1,6 +1,6 @@
 import { OrderType } from './order-type';
 
-export class HttpTransferDataItemOrderBy {
+export class ApiResultItemOrderBy {
   propertyName: string;
   order: OrderType;
   precedence: number;

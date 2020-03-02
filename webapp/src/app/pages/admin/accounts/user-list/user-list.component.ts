@@ -6,7 +6,7 @@ import { finalize } from 'rxjs/operators';
 import { BreadcrumbCollection } from '../../../../components/breadcrumb/models/BreadcrumbCollection';
 import { TableHeaderConfig } from '../../../../components/tables/table-header/core';
 import { UrlsApp } from '../../../../config';
-import { HttpTransferData } from '../../../../models';
+import { ApiResult } from '../../../../models';
 import { AdminUserListModel } from '../models';
 import { AdminAccountsRestService } from '../services/admin-accounts-rest.service';
 import { UserListHeaderConfig } from './user-list-headers.config';
@@ -17,7 +17,7 @@ import { UserListHeaderConfig } from './user-list-headers.config';
 })
 export class UserListComponent implements OnInit, OnDestroy {
   breadcrumb = new BreadcrumbCollection();
-  transferData: HttpTransferData<AdminUserListModel>;
+  transferData: ApiResult<AdminUserListModel>;
   tableHeaderConfig = new TableHeaderConfig();
   loading = false;
 
@@ -64,7 +64,7 @@ export class UserListComponent implements OnInit, OnDestroy {
     this.loading = true;
     this.adminAccountsService.getAllPaginated(this.transferData)
       .pipe(finalize(() => this.loading = false))
-      .subscribe((result: HttpTransferData<AdminUserListModel>) => {
+      .subscribe((result: ApiResult<AdminUserListModel>) => {
         this.transferData = result;
       });
   }

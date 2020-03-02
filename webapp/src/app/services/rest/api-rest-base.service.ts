@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { HttpTransferData } from '../../models';
+import { ApiResult } from '../../models';
 import { DebugService } from '../debug.service';
 
 export abstract class ApiRestBaseService implements OnInit {
@@ -20,10 +20,10 @@ export abstract class ApiRestBaseService implements OnInit {
     }
   }
 
-  getAllPaginated<TModel>(transferData: HttpTransferData<TModel>): Observable<HttpTransferData<TModel>> {
+  getAllPaginated<TModel>(transferData: ApiResult<TModel>): Observable<ApiResult<TModel>> {
     const url = `${this.baseUrl}?${this.prepareQueryParams(transferData)}`;
 
-    return this.http.get<HttpTransferData<TModel>>(url);
+    return this.http.get<ApiResult<TModel>>(url);
   }
 
   getBy<TModel>(param: any): Observable<TModel> {
@@ -48,13 +48,13 @@ export abstract class ApiRestBaseService implements OnInit {
     return this.http.delete<void>(url, model);
   }
 
-  protected prepareQueryParams<TModel>(transferData: HttpTransferData<TModel>): string {
-    transferData = transferData ? transferData : new HttpTransferData<TModel>();
+  protected prepareQueryParams<TModel>(transferData: ApiResult<TModel>): string {
+    transferData = transferData ? transferData : new ApiResult<TModel>();
 
     return this.transferDataToQueryParams(transferData);
   }
 
-  protected transferDataToQueryParams<TModel>(transferData: HttpTransferData<TModel>): string {
+  protected transferDataToQueryParams<TModel>(transferData: ApiResult<TModel>): string {
     let queryParams = '';
     queryParams += `totalItems=${transferData.totalItems}`;
     queryParams += `&pageNumber=${transferData.pageNumber}`;

@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
-import { HttpTransferData, HttpTransferDataItemOrderBy, OrderType } from '../../../models';
+import { ApiResult, ApiResultItemOrderBy, OrderType } from '../../../models';
 import { ITableHeaderField, TableHeaderConfig } from './core';
 
 @Component({
@@ -11,7 +11,7 @@ import { ITableHeaderField, TableHeaderConfig } from './core';
 })
 export class TableHeaderComponent<T> {
   @Input() tableHeaderConfig: TableHeaderConfig;
-  @Input() transferData: HttpTransferData<T>;
+  @Input() transferData: ApiResult<T>;
 
   @Output() clickOrdering = new EventEmitter<void>();
 
@@ -46,12 +46,12 @@ export class TableHeaderComponent<T> {
   }
 
   private updateOrderItem(header: ITableHeaderField): void {
-    this.transferData = Object.assign(new HttpTransferData<T>(), this.transferData);
+    this.transferData = Object.assign(new ApiResult<T>(), this.transferData);
     this.transferData.addOrder(header.field, header.orderType, 1);
   }
 
   private removeOrderItemIfExists(header: ITableHeaderField): void {
-    this.transferData = Object.assign(new HttpTransferData<T>(), this.transferData);
+    this.transferData = Object.assign(new ApiResult<T>(), this.transferData);
     const item = this.getHttpTransferDataItemByHeader(header);
     if (item) {
       this.transferData.removeOrder(item);
@@ -64,8 +64,8 @@ export class TableHeaderComponent<T> {
     }
   }
 
-  private getHttpTransferDataItemByHeader(header: ITableHeaderField): HttpTransferDataItemOrderBy {
-    this.transferData = Object.assign(new HttpTransferData<T>(), this.transferData);
+  private getHttpTransferDataItemByHeader(header: ITableHeaderField): ApiResultItemOrderBy {
+    this.transferData = Object.assign(new ApiResult<T>(), this.transferData);
     return this.transferData.orders.find((field) => field.propertyName === header.field);
   }
 }

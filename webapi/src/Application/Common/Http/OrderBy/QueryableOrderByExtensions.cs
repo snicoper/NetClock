@@ -78,7 +78,7 @@ namespace NetClock.Application.Common.Http.OrderBy
 
             if (property is null)
             {
-                throw new SortFieldEntityNotFoundException(type.Name, orderByProperty);
+                throw new OrderFieldEntityNotFoundException(type.Name, orderByProperty);
             }
 
             var parameter = Expression.Parameter(type, "p");

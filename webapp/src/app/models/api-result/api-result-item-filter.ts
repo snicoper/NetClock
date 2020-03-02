@@ -1,7 +1,7 @@
 import { LogicalOperator } from './logical-operator';
 import { RelationalOperator } from './relational-operator';
 
-export class HttpTransferDataItemFilter {
+export class ApiResultItemFilter {
   propertyName: string;
   relationalOperator: RelationalOperator;
   value: string;

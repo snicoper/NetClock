@@ -1,10 +1,10 @@
-import { HttpTransferDataItemFilter } from './http-transfer-data-item-filter';
-import { HttpTransferDataItemOrderBy } from './http-transfer-data-item-order-by';
+import { ApiResultItemFilter } from './api-result-item-filter';
+import { ApiResultItemOrderBy } from './api-result-item-order-by';
 import { LogicalOperator } from './logical-operator';
 import { OrderType } from './order-type';
 import { RelationalOperator } from './relational-operator';
 
-export class HttpTransferData<T> {
+export class ApiResult<T> {
   hasPreviousPage: boolean;
   hasNextPage: boolean;
   totalItems = 0;
@@ -13,17 +13,17 @@ export class HttpTransferData<T> {
   pageSize = 10;
   ratio = 2;
   items: T[] = [];
-  orders: HttpTransferDataItemOrderBy[] = [];
-  filters: HttpTransferDataItemFilter[] = [];
+  orders: ApiResultItemOrderBy[] = [];
+  filters: ApiResultItemFilter[] = [];
 
-  addFilter(propertyName: string, operator: RelationalOperator, value: string, concat = LogicalOperator.none): HttpTransferData<T> {
-    const filter = new HttpTransferDataItemFilter(propertyName, operator, value, concat);
+  addFilter(propertyName: string, operator: RelationalOperator, value: string, concat = LogicalOperator.none): ApiResult<T> {
+    const filter = new ApiResultItemFilter(propertyName, operator, value, concat);
     this.filters.push(filter);
 
     return this;
   }
 
-  removeFilter(filter: HttpTransferDataItemFilter): HttpTransferData<T> {
+  removeFilter(filter: ApiResultItemFilter): ApiResult<T> {
     const index = this.orders.findIndex((item) => item.propertyName === filter.propertyName);
     this.filters.splice(index, 1);
 
@@ -34,16 +34,16 @@ export class HttpTransferData<T> {
     this.filters = [];
   }
 
-  addOrder(propertyName: string, orderType: OrderType, precedence: number): HttpTransferData<T> {
+  addOrder(propertyName: string, orderType: OrderType, precedence: number): ApiResult<T> {
     if (orderType !== OrderType.none) {
-      const order = new HttpTransferDataItemOrderBy(propertyName, orderType, precedence);
+      const order = new ApiResultItemOrderBy(propertyName, orderType, precedence);
       this.orders.unshift(order);
     }
 
     return this;
   }
 
-  removeOrder(filter: HttpTransferDataItemOrderBy): HttpTransferData<T> {
+  removeOrder(filter: ApiResultItemOrderBy): ApiResult<T> {
     const index = this.orders.findIndex((item) => item.propertyName === filter.propertyName);
     this.orders.splice(index, 1);
 

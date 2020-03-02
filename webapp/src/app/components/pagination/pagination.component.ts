@@ -1,13 +1,13 @@
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 
-import { HttpTransferData } from '../../models';
+import { ApiResult } from '../../models';
 
 @Component({
   selector: 'nc-pagination',
   templateUrl: './pagination.component.html'
 })
 export class PaginationComponent<T> implements OnChanges {
-  @Input() transferData: HttpTransferData<T>;
+  @Input() transferData: ApiResult<T>;
   @Input() itemsPageList = [10, 25, 50, 100];
   @Input() justifyContent = 'justify-content-end';
   /** Mostrar itemsPageList. */
