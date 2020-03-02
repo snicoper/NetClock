@@ -17,7 +17,7 @@ namespace NetClock.Application.Common.Extensions
                 .GetCustomAttributes(typeof(DisplayAttribute), false)
                 .FirstOrDefault();
 
-            return displayAttribute.Name;
+            return displayAttribute?.Name;
         }
     }
 }

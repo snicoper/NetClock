@@ -1,4 +1,5 @@
 using FluentValidation;
+using NetClock.Application.Common.Extensions;
 
 namespace NetClock.Application.Localization.Commands.SetCulture
 {
@@ -6,7 +7,7 @@ namespace NetClock.Application.Localization.Commands.SetCulture
     {
         public SetCultureValidator()
         {
-            RuleFor(v => v.Culture).NotEmpty();
+            RuleFor(v => v.Culture).NotEmpty().SupportedCulture();
         }
     }
 }

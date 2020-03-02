@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using NetClock.Application;
+using NetClock.Application.Common.Constants;
 using NetClock.Application.Common.Interfaces.Database;
 using NetClock.Application.Common.Localizations;
 using NetClock.Domain;
@@ -176,14 +177,19 @@ namespace NetClock.WebApi
         {
             // Localization.
             // @see: https://docs.microsoft.com/es-es/openspecs/windows_protocols/ms-lcid/a9eac961-e77d-41a6-90a5-ce1a8b0cdb9c
-            var supportedCultures = new[] { "es-ES", "ca-ES", "en-GB" };
+            var supportedCultures = new[]
+            {
+                SupportedCultures.EsEs,
+                SupportedCultures.EsCa,
+                SupportedCultures.EnGb
+            };
 
             app.UseRequestLocalization(options =>
             {
                 options
                     .AddSupportedCultures(supportedCultures)
                     .AddSupportedUICultures(supportedCultures)
-                    .SetDefaultCulture("es-ES");
+                    .SetDefaultCulture(SupportedCultures.EsEs);
             });
 
             app.UseCors(DefaultCors);

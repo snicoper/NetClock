@@ -1,5 +1,6 @@
 using FluentValidation;
 using Microsoft.AspNetCore.Identity;
+using NetClock.Application.Common.Constants;
 using NetClock.Domain.Entities.Identity;
 
 namespace NetClock.Application.Common.Extensions
@@ -30,6 +31,14 @@ namespace NetClock.Application.Common.Extensions
                     return user is null;
                 })
                 .WithMessage("'{PropertyName}' ya esta en uso.");
+        }
+
+        public static IRuleBuilderOptions<T, string> SupportedCulture<T>(
+            this IRuleBuilder<T, string> ruleBuilder)
+        {
+            return ruleBuilder
+                .Must(m => SupportedCultures.GetCulture(m) != null)
+                .WithMessage("'{PropertyName}' no valida.");
         }
     }
 }
