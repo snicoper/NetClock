@@ -7,7 +7,7 @@ namespace NetClock.Application.Localization.Commands.SetCulture
     {
         public SetCultureValidator()
         {
-            RuleFor(v => v.Culture).NotEmpty().SupportedCulture();
+            RuleFor(v => v.Culture).SupportedCulture();
         }
     }
 }

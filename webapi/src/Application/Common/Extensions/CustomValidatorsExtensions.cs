@@ -5,6 +5,7 @@ using NetClock.Domain.Entities.Identity;
 
 namespace NetClock.Application.Common.Extensions
 {
+    // TODO: Localization.
     public static class CustomValidatorsExtensions
     {
         public static IRuleBuilderOptions<T, string> UniqueUserName<T>(
@@ -33,11 +34,10 @@ namespace NetClock.Application.Common.Extensions
                 .WithMessage("'{PropertyName}' ya esta en uso.");
         }
 
-        public static IRuleBuilderOptions<T, string> SupportedCulture<T>(
-            this IRuleBuilder<T, string> ruleBuilder)
+        public static IRuleBuilderOptions<T, string> SupportedCulture<T>(this IRuleBuilder<T, string> ruleBuilder)
         {
             return ruleBuilder
-                .Must(m => SupportedCultures.GetCulture(m) != null)
+                .Must(m => SupportedCultures.ExistsCultureByValue(m) != null)
                 .WithMessage("'{PropertyName}' no valida.");
         }
     }

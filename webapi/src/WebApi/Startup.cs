@@ -189,7 +189,7 @@ namespace NetClock.WebApi
                 options
                     .AddSupportedCultures(supportedCultures)
                     .AddSupportedUICultures(supportedCultures)
-                    .SetDefaultCulture(SupportedCultures.EsEs);
+                    .SetDefaultCulture(SupportedCultures.DefaultCulture);
             });
 
             app.UseCors(DefaultCors);
