@@ -1,5 +1,7 @@
-<div *ngIf="errors && errors['nonFieldErrors']" class="text-danger small">
-  <p *ngFor="let error of errors['nonFieldErrors']">
-    {{error}}
-  </p>
+<div *ngIf="errors && errors['nonFieldErrors']" class="alert alert-danger pb-0">
+  <ul>
+    <li *ngFor="let error of errors['nonFieldErrors']">
+      {{error}}
+    </li>
+  </ul>
 </div>

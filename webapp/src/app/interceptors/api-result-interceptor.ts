@@ -6,7 +6,7 @@ import { map } from 'rxjs/operators';
 
 /** Comprueba si es un HttpTransferData y deserializa filters. */
 @Injectable()
-export class HttpTransferDataInterceptor implements HttpInterceptor {
+export class ApiResultInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(req).pipe(map(event => {
       if (event instanceof HttpResponse && event.status === HttpStatus.OK) {
