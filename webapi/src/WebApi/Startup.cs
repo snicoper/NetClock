@@ -1,4 +1,5 @@
 using System.Globalization;
+using System.Linq;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -9,7 +10,6 @@ using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.OpenApi.Models;
 using NetClock.Application;
 using NetClock.Application.Common.Constants;
 using NetClock.Application.Common.Interfaces.Database;
@@ -19,7 +19,8 @@ using NetClock.Infrastructure;
 using NetClock.Infrastructure.Persistence;
 using NetClock.WebApi.Middlewares;
 using Newtonsoft.Json;
-using Swashbuckle.AspNetCore.SwaggerUI;
+using NSwag;
+using NSwag.Generation.Processors.Security;
 
 namespace NetClock.WebApi
 {
@@ -147,29 +148,18 @@ namespace NetClock.WebApi
             });
 
             // Register the Swagger services.
-            services.AddSwaggerGen(options =>
+            services.AddOpenApiDocument(configure =>
             {
-                options.SwaggerDoc("v1", new OpenApiInfo { Title = "NetClock API", Version = "v1" });
-                options.AddSecurityDefinition("Bearer",
-                    new OpenApiSecurityScheme
-                    {
-                        Name = "Authorization",
-                        Type = SecuritySchemeType.ApiKey,
-                        Scheme = "Bearer",
-                        BearerFormat = "JWT",
-                        In = ParameterLocation.Header,
-                        Description = "JWT Authorization header using the Bearer scheme."
-                    });
-                options.AddSecurityRequirement(new OpenApiSecurityRequirement
+                configure.Title = "NetClock API";
+                configure.AddSecurity("JWT", Enumerable.Empty<string>(), new OpenApiSecurityScheme
                 {
-                    {
-                        new OpenApiSecurityScheme
-                        {
-                            Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "Bearer" }
-                        },
-                        new string[] { }
-                    }
+                    Type = OpenApiSecuritySchemeType.ApiKey,
+                    Name = "Authorization",
+                    In = OpenApiSecurityApiKeyLocation.Header,
+                    Description = "Type into the text box: Bearer {your JWT token}."
                 });
+
+                configure.OperationProcessors.Add(new AspNetCoreOperationSecurityScopeProcessor("JWT"));
             });
         }
 
@@ -213,17 +203,16 @@ namespace NetClock.WebApi
             app.UseStaticFiles();
             app.UseHealthChecks("/health");
 
+            app.UseOpenApi();
+            app.UseSwaggerUi3(settings =>
+            {
+                settings.Path = "/swagger";
+            });
+
             app.UseRouting();
 
             app.UseAuthentication();
             app.UseAuthorization();
-
-            app.UseSwagger();
-            app.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "NetClock v1");
-                c.DocExpansion(DocExpansion.None);
-            });
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
