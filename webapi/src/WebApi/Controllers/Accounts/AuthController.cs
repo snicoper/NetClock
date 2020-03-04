@@ -24,7 +24,6 @@ namespace NetClock.WebApi.Controllers.Accounts
 
         [HttpPost("logout")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult> Logout()
         {
             await Mediator.Send(new LogoutCommand());

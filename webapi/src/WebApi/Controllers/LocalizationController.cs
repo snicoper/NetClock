@@ -15,7 +15,9 @@ namespace NetClock.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult> SetCulture(SetCultureCommand cultureCommand)
         {
-            return Ok(await Mediator.Send(cultureCommand));
+            await Mediator.Send(cultureCommand);
+
+            return NoContent();
         }
     }
 }
