@@ -113,6 +113,8 @@ namespace NetClock.WebApi
 
         public void ConfigureStagingServices(IServiceCollection services)
         {
+            ConfigureProductionServices(services);
+
             // Add cors policy.
             services.AddCors(options =>
             {
