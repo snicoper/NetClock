@@ -1,9 +1,11 @@
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
+using NetClock.Application.Common.Controllers;
 
 namespace NetClock.IdentityServer.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : AppControllerBase
     {
+        [AllowAnonymous]
         public string Index()
         {
             return "Hello world";

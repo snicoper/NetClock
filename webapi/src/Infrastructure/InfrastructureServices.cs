@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using NetClock.Application.Common.Configurations;
@@ -19,7 +20,7 @@ using NetCore.AutoRegisterDi;
 
 namespace NetClock.Infrastructure
 {
-    public static class DependencyInjection
+    public static class InfrastructureServices
     {
         public static IServiceCollection AddInfrastructure(
             this IServiceCollection services,
@@ -70,6 +71,10 @@ namespace NetClock.Infrastructure
                     return Task.CompletedTask;
                 };
             });
+
+            services.AddHealthChecks()
+                .AddCheck("self", () => HealthCheckResult.Healthy())
+                .AddDbContextCheck<ApplicationDbContext>();
 
             return services;
         }

@@ -1,7 +1,9 @@
 using System.Globalization;
 using System.Linq;
 using FluentValidation.AspNetCore;
+using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Mvc;
@@ -48,9 +50,6 @@ namespace NetClock.WebApi
             // Configure strongly typed settings objects.
             services.Configure<WebApiConfig>(Configuration.GetSection("WebApi"));
             services.Configure<WebAppConfig>(Configuration.GetSection("WebApp"));
-
-            services.AddHealthChecks()
-                .AddDbContextCheck<ApplicationDbContext>();
 
             // Razor.
             services.Configure<RazorViewEngineOptions>(options =>
@@ -197,7 +196,6 @@ namespace NetClock.WebApi
             app.UseHttpsRedirection();
             app.UseMiddleware(typeof(CustomExceptionHandlerMiddleware));
             app.UseStaticFiles();
-            app.UseHealthChecks("/health");
 
             app.UseOpenApi();
             app.UseSwaggerUi3(settings =>
@@ -210,7 +208,19 @@ namespace NetClock.WebApi
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+                endpoints.MapHealthChecks("/liveness", new HealthCheckOptions
+                {
+                    Predicate = r => r.Name.Contains("self")
+                });
+                endpoints.MapHealthChecks("/hc", new HealthCheckOptions()
+                {
+                    Predicate = _ => true,
+                    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+                });
+            });
         }
     }
 }
