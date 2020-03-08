@@ -1,11 +1,15 @@
 using System;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
+using IdentityServer4.EntityFramework.DbContexts;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using NetClock.Infrastructure.Persistence.Seeds;
 using Serilog;
 using Serilog.Events;
 using Serilog.Sinks.SystemConsole.Themes;
@@ -14,7 +18,7 @@ namespace NetClock.IdentityServer
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Debug()
@@ -22,7 +26,7 @@ namespace NetClock.IdentityServer
                 .MinimumLevel.Override("System", LogEventLevel.Information)
                 .MinimumLevel.Override("Microsoft.AspNetCore.Authentication", LogEventLevel.Information)
                 .Enrich.FromLogContext()
-                .WriteTo.File(@"web_api_log.txt")
+                .WriteTo.File("web_api_log.txt")
                 .WriteTo.Console(
                     outputTemplate:
                     "[{Timestamp:HH:mm:ss} {Level}] {SourceContext}{NewLine}{Message:lj}{NewLine}{Exception}{NewLine}",
@@ -44,16 +48,16 @@ namespace NetClock.IdentityServer
                     using var scope = host.Services.CreateScope();
                     Log.Information("Seeding database...");
 
-                    // var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-                    // context.Database.Migrate();
-                    // await ApplicationDbContextSeed.SeedAsync(scope.ServiceProvider);
+                    var context = scope.ServiceProvider.GetRequiredService<ConfigurationDbContext>();
+                    await context.Database.MigrateAsync();
+                    await IdentityServerDbContextSeed.SeedAsync(scope.ServiceProvider);
                     Log.Information("Done seeding database.");
 
                     return;
                 }
 
                 Log.Information("Starting host...");
-                host.Run();
+                await host.RunAsync();
             }
             catch (Exception ex)
             {

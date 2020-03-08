@@ -19,6 +19,10 @@ namespace NetClock.Application.Accounts.Auth.Commands.Login
 {
     public class LoginCommand : IRequest<CurrentUserViewModel>
     {
+        public LoginCommand()
+        {
+        }
+
         public LoginCommand(string userName, string password, bool rememberMe)
         {
             UserName = userName;
@@ -27,13 +31,13 @@ namespace NetClock.Application.Accounts.Auth.Commands.Login
         }
 
         [Display(Name = "Nombre de usuario")]
-        public string UserName { get; }
+        public string UserName { get; set; }
 
         [Display(Name = "Contraseña")]
-        public string Password { get; }
+        public string Password { get; set; }
 
         [Display(Name = "Recuerda me")]
-        public bool RememberMe { get; }
+        public bool RememberMe { get; set; }
 
         public class LoginCommandHandler : IRequestHandler<LoginCommand, CurrentUserViewModel>
         {
@@ -104,8 +108,7 @@ namespace NetClock.Application.Accounts.Auth.Commands.Login
                 CancellationToken cancellationToken)
             {
                 var user = await _userManager
-                    .Users
-                    .FirstOrDefaultAsync(
+                    .Users.FirstOrDefaultAsync(
                         u => u.UserName == request.UserName || u.Email == request.UserName, cancellationToken);
 
                 if (user is null)

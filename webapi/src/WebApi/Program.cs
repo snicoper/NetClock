@@ -26,7 +26,7 @@ namespace NetClock.WebApi
                 .MinimumLevel.Override("System", LogEventLevel.Information)
                 .MinimumLevel.Override("Microsoft.AspNetCore.Authentication", LogEventLevel.Information)
                 .Enrich.FromLogContext()
-                .WriteTo.File(@"web_api_log.txt")
+                .WriteTo.File("web_api_log.txt")
                 .WriteTo.Console(
                     outputTemplate:
                     "[{Timestamp:HH:mm:ss} {Level}] {SourceContext}{NewLine}{Message:lj}{NewLine}{Exception}{NewLine}",
@@ -49,7 +49,7 @@ namespace NetClock.WebApi
                     Log.Information("Seeding database...");
 
                     var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-                    context.Database.Migrate();
+                    await context.Database.MigrateAsync();
 
                     await ApplicationDbContextSeed.SeedAsync(scope.ServiceProvider);
                     Log.Information("Done seeding database.");
@@ -58,7 +58,7 @@ namespace NetClock.WebApi
                 }
 
                 Log.Information("Starting host...");
-                host.Run();
+                await host.RunAsync();
             }
             catch (Exception ex)
             {

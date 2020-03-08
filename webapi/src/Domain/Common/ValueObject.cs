@@ -3,7 +3,6 @@ using System.Linq;
 
 namespace NetClock.Domain.Common
 {
-    // Learn more: https://docs.microsoft.com/en-us/dotnet/standard/microservices-architecture/microservice-ddd-cqrs-patterns/implement-value-objects
     public abstract class ValueObject
     {
         public override bool Equals(object obj)
@@ -24,8 +23,7 @@ namespace NetClock.Domain.Common
                     return false;
                 }
 
-                if (thisValues.Current != null &&
-                    !thisValues.Current.Equals(otherValues.Current))
+                if (thisValues.Current != null && !thisValues.Current.Equals(otherValues.Current))
                 {
                     return false;
                 }

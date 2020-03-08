@@ -39,7 +39,7 @@ namespace NetClock.IdentityServer
             // Cookies.
             services.ConfigureApplicationCookie(config =>
             {
-                config.Cookie.Name = "IdentityServer.Cookie";
+                config.Cookie.Name = "NetClock.IS4.Cookie";
                 config.LoginPath = "/auth/login";
                 config.LogoutPath = "/auth/logout";
             });
@@ -68,6 +68,7 @@ namespace NetClock.IdentityServer
         {
             if (env.IsDevelopment())
             {
+                app.UseStatusCodePages();
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
             }
@@ -77,11 +78,11 @@ namespace NetClock.IdentityServer
                 {
                     ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
                 });
+
                 app.UseHsts();
             }
 
             app.UseHttpsRedirection();
-
             app.UseStaticFiles();
 
             app.UseRouting();
