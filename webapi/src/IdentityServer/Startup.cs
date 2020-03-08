@@ -61,7 +61,7 @@ namespace NetClock.IdentityServer
                     options.DataAnnotationLocalizerProvider = (type, factory)
                         => factory.Create(typeof(SharedLocalizer));
                 })
-                .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix);;
+                .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
