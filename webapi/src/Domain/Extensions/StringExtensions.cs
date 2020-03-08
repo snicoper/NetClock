@@ -14,14 +14,13 @@ namespace NetClock.Domain.Extensions
             var result = regex.Replace(RemoveDiacritics(text), replacement)
                 .Replace("--", "-")
                 .Trim('-');
+
             return result;
         }
 
         private static string RemoveDiacritics(string text)
         {
-            var normalizedString = text.ToLower()
-                .Trim()
-                .Normalize(NormalizationForm.FormD);
+            var normalizedString = text.ToLower().Trim().Normalize(NormalizationForm.FormD);
 
             var stringBuilder = new StringBuilder();
             foreach (var c in normalizedString)

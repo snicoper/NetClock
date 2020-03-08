@@ -11,6 +11,7 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Accounts.AuthController
         public LogoutTest(CustomWebApplicationFactory<Startup> factory)
             : base(factory)
         {
+            BaseUrl = Utilities.ComposeUri("auth/logout");
         }
 
         [Fact]
@@ -18,10 +19,9 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Accounts.AuthController
         {
             // Arrange
             await GetAuthenticatedClientAsync();
-            var uri = Utilities.ComposeUri("auth/logout");
 
             // Act
-            var response = await Client.PostAsync(uri, null);
+            var response = await Client.PostAsync(BaseUrl, null);
 
             // Assert
             response.StatusCode.ShouldBe(HttpStatusCode.NoContent);
@@ -31,10 +31,9 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Accounts.AuthController
         public async Task Post_usuario_sin_session_Unauthorized_al_hacer_logout_401Unauthorized()
         {
             // Arrange
-            var uri = Utilities.ComposeUri("auth/logout");
 
             // Act
-            var response = await Client.PostAsync(uri, null);
+            var response = await Client.PostAsync(BaseUrl, null);
 
             // Assert
             response.StatusCode.ShouldBe(HttpStatusCode.Unauthorized);

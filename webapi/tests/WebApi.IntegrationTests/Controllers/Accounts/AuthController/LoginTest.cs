@@ -15,18 +15,18 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Accounts.AuthController
         public LoginTest(CustomWebApplicationFactory<Startup> factory)
             : base(factory)
         {
+            BaseUrl = Utilities.ComposeUri("auth/login");
         }
 
         [Fact]
         public async Task Post_usuario_loguea_correctamente_200Ok()
         {
             // Arrange
-            var uri = Utilities.ComposeUri("auth/login");
             var data = new LoginCommand("Admin", "123456", true);
             var requestContent = Utilities.GetRequestContent(data);
 
             // Act
-            var response = await Client.PostAsync(uri, requestContent);
+            var response = await Client.PostAsync(BaseUrl, requestContent);
             var responseContent = await Utilities.GetResponseContentAsync<CurrentUserViewModel>(response);
 
             // Assert
@@ -40,12 +40,11 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Accounts.AuthController
         public async Task Post_usuario_no_loguea_con_credenciales_incorrectas_400BadRequest(string userName, string password)
         {
             // Arrange
-            var uri = Utilities.ComposeUri("auth/login");
             var data = new LoginCommand(userName, password, true);
             var requestContent = Utilities.GetRequestContent(data);
 
             // Act
-            var response = await Client.PostAsync(uri, requestContent);
+            var response = await Client.PostAsync(BaseUrl, requestContent);
 
             // Assert
             response.StatusCode.ShouldBe(HttpStatusCode.BadRequest);
@@ -57,12 +56,11 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Accounts.AuthController
         public async Task Post_usuario_no_loguea_form_no_valido_400BadRequest(string userName, string password)
         {
             // Arrange
-            var uri = Utilities.ComposeUri("auth/login");
             var data = new LoginCommand(userName, password, true);
             var requestContent = Utilities.GetRequestContent(data);
 
             // Act
-            var response = await Client.PostAsync(uri, requestContent);
+            var response = await Client.PostAsync(BaseUrl, requestContent);
 
             // Assert
             response.StatusCode.ShouldBe(HttpStatusCode.BadRequest);
@@ -77,12 +75,11 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Accounts.AuthController
             bob.Active = false;
             await userManager.UpdateAsync(bob);
 
-            var uri = Utilities.ComposeUri("auth/login");
             var data = new LoginCommand("Bob", "123456", true);
             var requestContent = Utilities.GetRequestContent(data);
 
             // Act
-            var response = await Client.PostAsync(uri, requestContent);
+            var response = await Client.PostAsync(BaseUrl, requestContent);
 
             // Assert
             bob.Active.ShouldBeFalse();

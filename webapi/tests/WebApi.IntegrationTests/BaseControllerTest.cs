@@ -16,6 +16,7 @@ namespace NetClock.WebApi.IntegrationTests
         protected readonly CustomWebApplicationFactory<Startup> Factory;
         protected readonly IServiceProvider ServiceProvider;
         protected readonly HttpClient Client;
+        protected string BaseUrl;
 
         protected BaseControllerTest(CustomWebApplicationFactory<Startup> factory)
         {

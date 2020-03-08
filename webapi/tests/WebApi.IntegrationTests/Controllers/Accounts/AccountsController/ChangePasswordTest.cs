@@ -15,6 +15,7 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Accounts.AccountsControll
         public ChangePasswordTest(CustomWebApplicationFactory<Startup> factory)
             : base(factory)
         {
+            BaseUrl = Utilities.ComposeUri("accounts/change-password");
         }
 
         [Fact]
@@ -24,12 +25,11 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Accounts.AccountsControll
             await GetAuthenticatedClientAsync();
             var userManager = ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
             var user = await userManager.FindByNameAsync("Admin");
-            var uri = Utilities.ComposeUri("accounts/change-password");
             var data = new ChangePasswordCommand(user.Id, "123456", "1234567", "1234567");
             var requestContent = Utilities.GetRequestContent(data);
 
             // Act
-            var response = await Client.PostAsync(uri, requestContent);
+            var response = await Client.PostAsync(BaseUrl, requestContent);
             var responseContent = Utilities.GetResponseContentAsync<ChangePasswordViewModel>(response);
 
             // Assert
@@ -44,12 +44,11 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Accounts.AccountsControll
             await GetAuthenticatedClientAsync();
             var userManager = ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
             var user = await userManager.FindByNameAsync("Admin");
-            var uri = Utilities.ComposeUri("accounts/change-password");
             var data = new ChangePasswordCommand(user.Id, "123456789", "1234567", "1234567");
             var requestContent = Utilities.GetRequestContent(data);
 
             // Act
-            var response = await Client.PostAsync(uri, requestContent);
+            var response = await Client.PostAsync(BaseUrl, requestContent);
 
             // Assert
             response.StatusCode.ShouldBe(HttpStatusCode.BadRequest);
@@ -62,12 +61,11 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Accounts.AccountsControll
             await GetAuthenticatedClientAsync();
             var userManager = ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
             var user = await userManager.FindByNameAsync("Admin");
-            var uri = Utilities.ComposeUri("accounts/change-password");
             var data = new ChangePasswordCommand(user.Id, "123456", "1234567", "1234567999");
             var requestContent = Utilities.GetRequestContent(data);
 
             // Act
-            var response = await Client.PostAsync(uri, requestContent);
+            var response = await Client.PostAsync(BaseUrl, requestContent);
 
             // Assert
             response.StatusCode.ShouldBe(HttpStatusCode.BadRequest);
@@ -78,12 +76,11 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Accounts.AccountsControll
         {
             // Arrange
             await GetAuthenticatedClientAsync();
-            var uri = Utilities.ComposeUri("accounts/change-password");
             var data = new ChangePasswordCommand("99999999", "123456", "1234567", "1234567");
             var requestContent = Utilities.GetRequestContent(data);
 
             // Act
-            var response = await Client.PostAsync(uri, requestContent);
+            var response = await Client.PostAsync(BaseUrl, requestContent);
 
             // Assert
             response.StatusCode.ShouldBe(HttpStatusCode.NotFound);

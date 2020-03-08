@@ -12,18 +12,18 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Accounts.AuthController
         public RecoveryPasswordTest(CustomWebApplicationFactory<Startup> factory)
             : base(factory)
         {
+            BaseUrl = Utilities.ComposeUri("auth/recovery-password");
         }
 
         [Fact]
         public async Task Post_recuperar_contrasena_valida_201Created()
         {
             // Arrange
-            var uri = Utilities.ComposeUri("auth/recovery-password");
             var data = new RecoveryPasswordCommand("admin@example.com");
             var requestContent = Utilities.GetRequestContent(data);
 
             // Act
-            var response = await Client.PostAsync(uri, requestContent);
+            var response = await Client.PostAsync(BaseUrl, requestContent);
 
             // Assert
             response.EnsureSuccessStatusCode();
@@ -36,12 +36,11 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Accounts.AuthController
         public async Task Post_email_invalido_400BadRequest(string email)
         {
             // Arrange
-            var uri = Utilities.ComposeUri("auth/recovery-password");
             var data = new RecoveryPasswordCommand(email);
             var requestContent = Utilities.GetRequestContent(data);
 
             // Act
-            var response = await Client.PostAsync(uri, requestContent);
+            var response = await Client.PostAsync(BaseUrl, requestContent);
 
             // Assert
             response.StatusCode.ShouldBe(HttpStatusCode.BadRequest);
@@ -51,12 +50,11 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Accounts.AuthController
         public async Task Post_email_no_existe_404BadRequest()
         {
             // Arrange
-            var uri = Utilities.ComposeUri("auth/recovery-password");
             var data = new RecoveryPasswordCommand("no@example.com");
             var requestContent = Utilities.GetRequestContent(data);
 
             // Act
-            var response = await Client.PostAsync(uri, requestContent);
+            var response = await Client.PostAsync(BaseUrl, requestContent);
 
             // Assert
             response.StatusCode.ShouldBe(HttpStatusCode.NotFound);

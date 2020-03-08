@@ -14,6 +14,7 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Admin.AdminAccountsContro
         public GetUsersTests(CustomWebApplicationFactory<Startup> factory)
             : base(factory)
         {
+            BaseUrl = Utilities.ComposeUri("admin/accounts");
         }
 
         [Fact]
@@ -21,10 +22,9 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Admin.AdminAccountsContro
         {
             // Arrange
             await GetAuthenticatedClientAsync();
-            var uri = Utilities.ComposeUri("admin/accounts");
 
             // Act
-            var response = await Client.GetAsync(uri);
+            var response = await Client.GetAsync(BaseUrl);
             var responseContent = await Utilities.GetResponseContentAsync<ResponseData<AdminUserListViewModel>>(response);
 
             // Assert
@@ -37,10 +37,9 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Admin.AdminAccountsContro
         public async Task Get_obtener_lista_de_usuarios_anonymous_401Unauthorized()
         {
             // Arrange
-            var uri = Utilities.ComposeUri("admin/accounts");
 
             // Act
-            var response = await Client.GetAsync(uri);
+            var response = await Client.GetAsync(BaseUrl);
 
             // Assert
             response.StatusCode.ShouldBe(HttpStatusCode.Unauthorized);
@@ -51,10 +50,9 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Admin.AdminAccountsContro
         {
             // Arrange
             await GetAuthenticatedClientAsync("Bob", "123456");
-            var uri = Utilities.ComposeUri("admin/accounts");
 
             // Act
-            var response = await Client.GetAsync(uri);
+            var response = await Client.GetAsync(BaseUrl);
 
             // Assert
             response.StatusCode.ShouldBe(HttpStatusCode.Unauthorized);
