@@ -28,8 +28,6 @@ namespace NetClock.Application
             // Configure strongly typed settings objects.
             services.Configure<JwtConfig>(configuration.GetSection("Jwt"));
             services.Configure<SmtpConfig>(configuration.GetSection("Smtp"));
-            services.Configure<WebApiConfig>(configuration.GetSection("WebApi"));
-            services.Configure<WebAppConfig>(configuration.GetSection("WebApp"));
 
             services
                 .RegisterAssemblyPublicNonGenericClasses(Assembly.GetAssembly(typeof(IdentityService)))

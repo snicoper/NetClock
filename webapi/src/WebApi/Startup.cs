@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NetClock.Application;
+using NetClock.Application.Common.Configurations;
 using NetClock.Application.Common.Constants;
 using NetClock.Application.Common.Interfaces.Database;
 using NetClock.Application.Common.Localizations;
@@ -43,6 +44,10 @@ namespace NetClock.WebApi
             services.AddApplication(Configuration);
             services.AddInfrastructure(Configuration, Environment);
             services.AddDomain();
+
+            // Configure strongly typed settings objects.
+            services.Configure<WebApiConfig>(Configuration.GetSection("WebApi"));
+            services.Configure<WebAppConfig>(Configuration.GetSection("WebApp"));
 
             services.AddHealthChecks()
                 .AddDbContextCheck<ApplicationDbContext>();
