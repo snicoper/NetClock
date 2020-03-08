@@ -1,14 +1,18 @@
+using System.Globalization;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpOverrides;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using NetClock.IdentityServer.Data;
-using NetClock.IdentityServer.Entities;
-using NetClock.IdentityServer.Interfaces;
+using NetClock.Application;
+using NetClock.Application.Common.Interfaces.Database;
+using NetClock.Application.Common.Localizations;
+using NetClock.Domain;
+using NetClock.Infrastructure;
+using Newtonsoft.Json;
 
 namespace NetClock.IdentityServer
 {
@@ -26,37 +30,9 @@ namespace NetClock.IdentityServer
 
         public void ConfigureServices(IServiceCollection services)
         {
-            var connectionString = Configuration.GetConnectionString("DefaultConnection");
-            var assembly = typeof(Startup).Assembly.GetName().Name;
-
-            services.AddScoped<IApplicationDbContext>(provider => provider.GetService<ApplicationDbContext>());
-
-            // Database.
-            services.AddDbContext<ApplicationDbContext>(options =>
-            {
-                options.UseNpgsql(connectionString, sql => sql.MigrationsAssembly(assembly));
-            });
-
-            // AddIdentity.
-            var builder = services
-                .AddDefaultIdentity<ApplicationUser>(options =>
-                {
-                    options.User.RequireUniqueEmail = true;
-                    options.SignIn.RequireConfirmedEmail = true;
-                    options.Password.RequiredLength = 6;
-                    options.Password.RequireNonAlphanumeric = false;
-                    options.Password.RequireLowercase = false;
-                    options.Password.RequireUppercase = false;
-                    options.Password.RequireDigit = false;
-                })
-                .AddRoles<IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>()
-                .AddDefaultTokenProviders();
-
-            if (Environment.IsDevelopment())
-            {
-                builder.AddDefaultTokenProviders();
-            }
+            services.AddApplication(Configuration);
+            services.AddInfrastructure(Configuration, Environment);
+            services.AddDomain();
 
             // Cookies.
             services.ConfigureApplicationCookie(config =>
@@ -66,34 +42,24 @@ namespace NetClock.IdentityServer
                 config.LogoutPath = "/auth/logout";
             });
 
-            // IdentityServer.
-            var identity = services
-                .AddIdentityServer()
-                .AddAspNetIdentity<ApplicationUser>()
-                .AddConfigurationStore(options =>
-                {
-                    options.ConfigureDbContext = b =>
-                        b.UseNpgsql(connectionString, sql => sql.MigrationsAssembly(assembly));
-                })
-                .AddOperationalStore(options =>
-                {
-                    options.ConfigureDbContext = b =>
-                        b.UseNpgsql(connectionString, sql => sql.MigrationsAssembly(assembly));
-                });
-
-            if (Environment.IsDevelopment())
-            {
-                identity.AddDeveloperSigningCredential();
-            }
-
-            // Authentication.
-            services.AddAuthentication();
-
             // Controllers.
-            services.AddControllersWithViews();
-
-            // Routing.
-            services.AddRouting(options => { options.LowercaseUrls = true; });
+            services
+                .AddControllersWithViews()
+                .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<IApplicationDbContext>())
+                .AddNewtonsoftJson(options =>
+                {
+                    options.SerializerSettings.Culture = CultureInfo.CurrentCulture;
+                    options.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
+                    options.SerializerSettings.DateFormatHandling = DateFormatHandling.IsoDateFormat;
+                    options.SerializerSettings.DateFormatString = "yyyy-MM-dd'T'HH:mm:ss.FFFFFF'Z'";
+                    options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+                })
+                .AddDataAnnotationsLocalization(options =>
+                {
+                    options.DataAnnotationLocalizerProvider = (type, factory)
+                        => factory.Create(typeof(SharedLocalizer));
+                })
+                .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix);;
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

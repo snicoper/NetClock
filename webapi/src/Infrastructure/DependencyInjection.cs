@@ -2,14 +2,14 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
-using NetClock.Application.Common.Authorization;
 using NetClock.Application.Common.Configurations;
 using NetClock.Application.Common.Interfaces.Database;
 using NetClock.Application.Common.Localizations.Identity;
@@ -24,12 +24,14 @@ namespace NetClock.Infrastructure
     {
         public static IServiceCollection AddInfrastructure(
             this IServiceCollection services,
-            IConfiguration configuration)
+            IConfiguration configuration,
+            IWebHostEnvironment environment)
         {
+            var connectionString = configuration.GetConnectionString("DefaultConnection");
+            var assembly = typeof(ApplicationDbContext).Assembly.FullName;
+
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseNpgsql(
-                    configuration.GetConnectionString("DefaultConnection"),
-                    b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
+                options.UseNpgsql(connectionString, b => b.MigrationsAssembly(assembly)));
 
             services
                 .RegisterAssemblyPublicNonGenericClasses(Assembly.GetAssembly(typeof(ValidationFailureService)))
@@ -39,6 +41,25 @@ namespace NetClock.Infrastructure
             services.AddScoped<IApplicationDbContext>(provider => provider.GetService<ApplicationDbContext>());
 
             ConfigureIdentity(services, configuration);
+
+            var identity = services
+                .AddIdentityServer()
+                .AddAspNetIdentity<ApplicationUser>()
+                .AddConfigurationStore(options =>
+                {
+                    options.ConfigureDbContext = b =>
+                        b.UseNpgsql(connectionString, sql => sql.MigrationsAssembly(assembly));
+                })
+                .AddOperationalStore(options =>
+                {
+                    options.ConfigureDbContext = b =>
+                        b.UseNpgsql(connectionString, sql => sql.MigrationsAssembly(assembly));
+                });
+
+            if (environment.IsDevelopment())
+            {
+                identity.AddDeveloperSigningCredential();
+            }
 
             // Prevents redirection when not authenticated.
             services.ConfigureApplicationCookie(options =>
@@ -67,7 +88,6 @@ namespace NetClock.Infrastructure
             services
                 .AddDefaultIdentity<ApplicationUser>(options =>
                 {
-                    // Configure identity options.
                     options.User.RequireUniqueEmail = true;
                     options.SignIn.RequireConfirmedEmail = true;
                     options.Password.RequiredLength = 6;
@@ -78,7 +98,7 @@ namespace NetClock.Infrastructure
                 })
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
-                .AddErrorDescriber<SpanishIdentityErrorDescriber>();
+                .AddDefaultTokenProviders();
 
             services
                 .AddAuthentication(options =>
@@ -104,7 +124,7 @@ namespace NetClock.Infrastructure
                 });
 
             // TODO: Experimental...
-            services.AddSingleton<IAuthorizationPolicyProvider, AuthorizationPolicyProvider>();
+            // services.AddSingleton<IAuthorizationPolicyProvider, AuthorizationPolicyProvider>();
 
             return services;
         }

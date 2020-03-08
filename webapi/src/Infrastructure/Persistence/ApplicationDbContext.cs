@@ -21,7 +21,7 @@ namespace NetClock.Infrastructure.Persistence
         private readonly IDateTime _dateTime;
 
         public ApplicationDbContext(
-            DbContextOptions options,
+            DbContextOptions<ApplicationDbContext> options,
             IOptions<OperationalStoreOptions> operationalStoreOptions,
             ICurrentUserService currentUserService,
             IDateTime dateTime)
