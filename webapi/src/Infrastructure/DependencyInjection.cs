@@ -12,7 +12,6 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using NetClock.Application.Common.Configurations;
 using NetClock.Application.Common.Interfaces.Database;
-using NetClock.Application.Common.Localizations.Identity;
 using NetClock.Domain.Entities.Identity;
 using NetClock.Infrastructure.Persistence;
 using NetClock.Infrastructure.Services.Validations;
@@ -30,6 +29,8 @@ namespace NetClock.Infrastructure
             var connectionString = configuration.GetConnectionString("DefaultConnection");
             var assembly = typeof(ApplicationDbContext).Assembly.FullName;
 
+            services.AddScoped<IApplicationDbContext>(provider => provider.GetService<ApplicationDbContext>());
+
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseNpgsql(connectionString, b => b.MigrationsAssembly(assembly)));
 
@@ -37,8 +38,6 @@ namespace NetClock.Infrastructure
                 .RegisterAssemblyPublicNonGenericClasses(Assembly.GetAssembly(typeof(ValidationFailureService)))
                 .Where(c => c.Name.EndsWith("Service"))
                 .AsPublicImplementedInterfaces();
-
-            services.AddScoped<IApplicationDbContext>(provider => provider.GetService<ApplicationDbContext>());
 
             ConfigureIdentity(services, configuration);
 
