@@ -15,13 +15,13 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Accounts.AccountsControll
         public RegisterValidateCodeTest(CustomWebApplicationFactory<Startup> factory)
             : base(factory)
         {
+            BaseUrl = Utilities.ComposeUri("accounts/register/validate");
         }
 
         [Fact]
         public async Task Post_validar_registro_usuario_200OK()
         {
             // Arrange
-            var uri = Utilities.ComposeUri("accounts/register/validate");
             var responseContent = await RegisterUser();
             var parts = responseContent.Callback.Split("code=");
             var code = parts.Last();
@@ -29,7 +29,7 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Accounts.AccountsControll
             var requestContent = Utilities.GetRequestContent(data);
 
             // Act
-            var response = await Client.PostAsync(uri, requestContent);
+            var response = await Client.PostAsync(BaseUrl, requestContent);
 
             // Assert
             response.EnsureSuccessStatusCode();
@@ -39,13 +39,12 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Accounts.AccountsControll
         public async Task Post_validar_registro_usuario_invalido_404NotFound()
         {
             // Arrange
-            var uri = Utilities.ComposeUri("accounts/register/validate");
             var responseContent = await RegisterUser();
             var data = new RegisterValidateCommand(responseContent.Id, "token-no-valido");
             var requestContent = Utilities.GetRequestContent(data);
 
             // Act
-            var response = await Client.PostAsync(uri, requestContent);
+            var response = await Client.PostAsync(BaseUrl, requestContent);
 
             // Assert
             response.StatusCode.ShouldBe(HttpStatusCode.BadRequest);
@@ -55,12 +54,11 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Accounts.AccountsControll
         public async Task Post_validar_registro_usuario_no_existe_404NotFound()
         {
             // Arrange
-            var uri = Utilities.ComposeUri("accounts/register/validate");
             var data = new RegisterValidateCommand("123123123", "token-no-valido");
             var requestContent = Utilities.GetRequestContent(data);
 
             // Act
-            var response = await Client.PostAsync(uri, requestContent);
+            var response = await Client.PostAsync(BaseUrl, requestContent);
 
             // Assert
             response.StatusCode.ShouldBe(HttpStatusCode.BadRequest);

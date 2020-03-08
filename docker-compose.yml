@@ -6,7 +6,6 @@ services:
       context: ./compose/docker/nginx
       dockerfile: Dockerfile
     ports:
-      - "5100:80"
       - "5101:443"
     restart: always
 
@@ -17,7 +16,7 @@ services:
       context: ./webapi
       dockerfile: Dockerfile
     expose:
-      - "5000"
+      - "5001"
     restart: always
     environment:
       - ASPNETCORE_ENVIRONMENT=Staging

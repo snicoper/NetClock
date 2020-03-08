@@ -17,18 +17,18 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Accounts.AccountsControll
         public RegisterTest(CustomWebApplicationFactory<Startup> factory)
             : base(factory)
         {
+            BaseUrl = Utilities.ComposeUri("accounts/register");
         }
 
         [Fact]
         public async Task Post_registro_de_usuario_201Created()
         {
             // Arrange
-            var uri = Utilities.ComposeUri("accounts/register");
             var data = new RegisterCommand("testUser", "Perico", "Palote", "testUser@example.com", "123456", "123456");
             var requestContent = Utilities.GetRequestContent(data);
 
             // Act
-            var response = await Client.PostAsync(uri, requestContent);
+            var response = await Client.PostAsync(BaseUrl, requestContent);
 
             // Assert
             response.EnsureSuccessStatusCode();
@@ -63,12 +63,11 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Accounts.AccountsControll
             // Sin embargo, la prueba pasa teniendo todos el mismo first y last name.
 
             // Arrange
-            var uri = Utilities.ComposeUri("accounts/register");
             var data = new RegisterCommand(username, firstName, lastName, email, password, confirmPassword);
             var requestContent = Utilities.GetRequestContent(data);
 
             // Act
-            var response = await Client.PostAsync(uri, requestContent);
+            var response = await Client.PostAsync(BaseUrl, requestContent);
 
             // Assert
             response.StatusCode.ShouldBe(HttpStatusCode.BadRequest);
@@ -79,13 +78,12 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Accounts.AccountsControll
         {
             // Arrange
             var guid = Guid.NewGuid().ToString().Substring(0, 7);
-            var uri = Utilities.ComposeUri("accounts/register");
             var data = new RegisterCommand(guid, guid, guid, $"{guid}@example.com", "123456", "123456");
             var requestContent = Utilities.GetRequestContent(data);
             var userManager = ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
 
             // Act
-            var response = await Client.PostAsync(uri, requestContent);
+            var response = await Client.PostAsync(BaseUrl, requestContent);
             var responseContent = await Utilities.GetResponseContentAsync<CurrentUserViewModel>(response);
             var user = await userManager.FindByNameAsync(responseContent.UserName);
 

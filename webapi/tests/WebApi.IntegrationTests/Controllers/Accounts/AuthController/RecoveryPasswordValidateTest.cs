@@ -15,13 +15,13 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Accounts.AuthController
         public RecoveryPasswordValidateTest(CustomWebApplicationFactory<Startup> factory)
             : base(factory)
         {
+            BaseUrl = Utilities.ComposeUri("auth/recovery-password/validate");
         }
 
         [Fact]
         public async Task Post_recuperar_contrasena_valida_200Ok()
         {
             // Arrange
-            var uri = Utilities.ComposeUri("auth/recovery-password/validate");
             var userManager = ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
             var user = await userManager.FindByNameAsync("Admin");
             var code = await userManager.GeneratePasswordResetTokenAsync(user);
@@ -29,7 +29,7 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Accounts.AuthController
             var requestContent = Utilities.GetRequestContent(data);
 
             // Act
-            var response = await Client.PostAsync(uri, requestContent);
+            var response = await Client.PostAsync(BaseUrl, requestContent);
 
             // Assert
             response.EnsureSuccessStatusCode();
@@ -39,7 +39,6 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Accounts.AuthController
         public async Task Post_password_diferentes_400BadRequest()
         {
             // Arrange
-            var uri = Utilities.ComposeUri("auth/recovery-password/validate");
             var userManager = ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
             var user = await userManager.FindByNameAsync("Admin");
             var code = await userManager.GeneratePasswordResetTokenAsync(user);
@@ -47,7 +46,7 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Accounts.AuthController
             var requestContent = Utilities.GetRequestContent(data);
 
             // Act
-            var response = await Client.PostAsync(uri, requestContent);
+            var response = await Client.PostAsync(BaseUrl, requestContent);
 
             // Assert
             response.StatusCode.ShouldBe(HttpStatusCode.BadRequest);
@@ -57,7 +56,6 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Accounts.AuthController
         public async Task Post_usuario_no_existe_404NotFound()
         {
             // Arrange
-            var uri = Utilities.ComposeUri("auth/recovery-password/validate");
             var userManager = ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
             var user = await userManager.FindByNameAsync("Admin");
             var code = await userManager.GeneratePasswordResetTokenAsync(user);
@@ -65,7 +63,7 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Accounts.AuthController
             var requestContent = Utilities.GetRequestContent(data);
 
             // Act
-            var response = await Client.PostAsync(uri, requestContent);
+            var response = await Client.PostAsync(BaseUrl, requestContent);
 
             // Assert
             response.StatusCode.ShouldBe(HttpStatusCode.NotFound);

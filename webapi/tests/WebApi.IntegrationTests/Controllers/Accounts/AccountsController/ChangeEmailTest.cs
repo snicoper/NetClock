@@ -15,6 +15,7 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Accounts.AccountsControll
         public ChangeEmailTest(CustomWebApplicationFactory<Startup> factory)
             : base(factory)
         {
+            BaseUrl = Utilities.ComposeUri("accounts/change-email");
         }
 
         [Fact]
@@ -24,12 +25,11 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Accounts.AccountsControll
             await GetAuthenticatedClientAsync();
             var userManager = ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
             var user = await userManager.FindByNameAsync("Admin");
-            var uri = Utilities.ComposeUri("accounts/change-email");
             var data = new ChangeEmailCommand(user.Id, "nuevo@example.com");
             var requestContent = Utilities.GetRequestContent(data);
 
             // Act
-            var response = await Client.PostAsync(uri, requestContent);
+            var response = await Client.PostAsync(BaseUrl, requestContent);
 
             // Assert
             response.EnsureSuccessStatusCode();
@@ -42,12 +42,11 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Accounts.AccountsControll
             await GetAuthenticatedClientAsync();
             var userManager = ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
             var user = await userManager.FindByNameAsync("Admin");
-            var uri = Utilities.ComposeUri("accounts/change-email");
             var data = new ChangeEmailCommand("123123213", user.Email);
             var requestContent = Utilities.GetRequestContent(data);
 
             // Act
-            var response = await Client.PostAsync(uri, requestContent);
+            var response = await Client.PostAsync(BaseUrl, requestContent);
 
             // Assert
             response.StatusCode.ShouldBe(HttpStatusCode.NotFound);
@@ -62,12 +61,11 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Accounts.AccountsControll
             await GetAuthenticatedClientAsync();
             var userManager = ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
             var user = await userManager.FindByNameAsync("Admin");
-            var uri = Utilities.ComposeUri("accounts/change-email");
             var data = new ChangeEmailCommand(user.Id, email);
             var requestContent = Utilities.GetRequestContent(data);
 
             // Act
-            var response = await Client.PostAsync(uri, requestContent);
+            var response = await Client.PostAsync(BaseUrl, requestContent);
 
             // Assert
             response.StatusCode.ShouldBe(HttpStatusCode.BadRequest);

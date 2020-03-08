@@ -27,6 +27,7 @@ Obj/
 yarn.lock
 [Ll]ogs/
 coverage.json
+tempkey.rsa
 
 # User-specific files
 *.suo

@@ -12,18 +12,18 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.LocalizationController
         public SetCulture(CustomWebApplicationFactory<Startup> factory)
             : base(factory)
         {
+            BaseUrl = Utilities.ComposeUri("localization");
         }
 
         [Fact]
         public async Task Post_cambiar_culture_usuario_anonimo_204Ok()
         {
             // Arrange
-            var uri = Utilities.ComposeUri("localization");
             var data = new SetCultureCommand("es-ES");
             var requestContent = Utilities.GetRequestContent(data);
 
             // Act
-            var response = await Client.PostAsync(uri, requestContent);
+            var response = await Client.PostAsync(BaseUrl, requestContent);
 
             // Assert
             response.StatusCode.ShouldBe(HttpStatusCode.NoContent);
@@ -36,12 +36,11 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.LocalizationController
         public async Task Post_cambiar_culture_codigos_validos_204Ok(string culture)
         {
             // Arrange
-            var uri = Utilities.ComposeUri("localization");
             var data = new SetCultureCommand(culture);
             var requestContent = Utilities.GetRequestContent(data);
 
             // Act
-            var response = await Client.PostAsync(uri, requestContent);
+            var response = await Client.PostAsync(BaseUrl, requestContent);
 
             // Assert
             response.StatusCode.ShouldBe(HttpStatusCode.NoContent);
@@ -55,12 +54,11 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.LocalizationController
         public async Task Post_cambiar_culture_codigos_invalidos_400BadRequest(string culture)
         {
             // Arrange
-            var uri = Utilities.ComposeUri("localization");
             var data = new SetCultureCommand(culture);
             var requestContent = Utilities.GetRequestContent(data);
 
             // Act
-            var response = await Client.PostAsync(uri, requestContent);
+            var response = await Client.PostAsync(BaseUrl, requestContent);
 
             // Assert
             response.StatusCode.ShouldBe(HttpStatusCode.BadRequest);

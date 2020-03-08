@@ -28,26 +28,24 @@ namespace NetClock.WebApi
     {
         private const string DefaultCors = "DefaultCors";
 
-        public Startup(IConfiguration configuration)
+        public Startup(IWebHostEnvironment environment, IConfiguration configuration)
         {
+            Environment = environment;
             Configuration = configuration;
         }
 
         public IConfiguration Configuration { get; }
 
+        public IWebHostEnvironment Environment { get; }
+
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddApplication(Configuration);
-            services.AddInfrastructure(Configuration);
+            services.AddInfrastructure(Configuration, Environment);
             services.AddDomain();
-
-            services.AddHttpContextAccessor();
 
             services.AddHealthChecks()
                 .AddDbContextCheck<ApplicationDbContext>();
-
-            // Routing.
-            services.AddRouting(options => { options.LowercaseUrls = true; });
 
             // Razor.
             services.Configure<RazorViewEngineOptions>(options =>
@@ -83,15 +81,6 @@ namespace NetClock.WebApi
                         => factory.Create(typeof(SharedLocalizer));
                 })
                 .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix);
-
-            // Localization.
-            services.AddLocalization(options => options.ResourcesPath = "Resources");
-
-            // Customise default API behaviour.
-            services.Configure<ApiBehaviorOptions>(options =>
-            {
-                options.SuppressModelStateInvalidFilter = true;
-            });
         }
 
         public void ConfigureProductionServices(IServiceCollection services)
@@ -113,6 +102,8 @@ namespace NetClock.WebApi
 
         public void ConfigureStagingServices(IServiceCollection services)
         {
+            ConfigureServices(services);
+
             // Add cors policy.
             services.AddCors(options =>
             {

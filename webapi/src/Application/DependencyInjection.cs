@@ -2,6 +2,7 @@ using System.Reflection;
 using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NetClock.Application.Common.Behaviours;
@@ -34,6 +35,20 @@ namespace NetClock.Application
                 .RegisterAssemblyPublicNonGenericClasses(Assembly.GetAssembly(typeof(IdentityService)))
                 .Where(c => c.Name.EndsWith("Service"))
                 .AsPublicImplementedInterfaces();
+
+            services.AddHttpContextAccessor();
+
+            // Localization.
+            services.AddLocalization(options => options.ResourcesPath = "Resources");
+
+            // Routing.
+            services.AddRouting(options => { options.LowercaseUrls = true; });
+
+            // Customise default API behaviour.
+            services.Configure<ApiBehaviorOptions>(options =>
+            {
+                options.SuppressModelStateInvalidFilter = true;
+            });
 
             return services;
         }
