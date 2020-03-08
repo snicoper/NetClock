@@ -4,10 +4,12 @@ using NetClock.Application.Common.Controllers;
 
 namespace NetClock.IdentityServer.Controllers
 {
-    public class HomeController : AppControllerBase
+    [Route("auth")]
+    public class AuthController : AppControllerBase
     {
         [AllowAnonymous]
-        public ActionResult Index()
+        [Route("login")]
+        public ActionResult Login()
         {
             return View();
         }
