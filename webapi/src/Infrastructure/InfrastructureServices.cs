@@ -1,9 +1,7 @@
 using System.Reflection;
 using System.Text;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -60,17 +58,6 @@ namespace NetClock.Infrastructure
             {
                 identity.AddDeveloperSigningCredential();
             }
-
-            // Prevents redirection when not authenticated.
-            services.ConfigureApplicationCookie(options =>
-            {
-                options.Events.OnRedirectToLogin = context =>
-                {
-                    context.Response.StatusCode = StatusCodes.Status401Unauthorized;
-
-                    return Task.CompletedTask;
-                };
-            });
 
             services.AddHealthChecks()
                 .AddCheck("self", () => HealthCheckResult.Healthy())

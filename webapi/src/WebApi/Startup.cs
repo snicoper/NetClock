@@ -1,10 +1,12 @@
 using System.Globalization;
 using System.Linq;
+using System.Threading.Tasks;
 using FluentValidation.AspNetCore;
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Razor;
@@ -19,7 +21,6 @@ using NetClock.Application.Common.Interfaces.Database;
 using NetClock.Application.Common.Localizations;
 using NetClock.Domain;
 using NetClock.Infrastructure;
-using NetClock.Infrastructure.Persistence;
 using NetClock.WebApi.Middlewares;
 using Newtonsoft.Json;
 using NSwag;
@@ -85,6 +86,17 @@ namespace NetClock.WebApi
                         => factory.Create(typeof(SharedLocalizer));
                 })
                 .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix);
+
+            // Prevents redirection when not authenticated.
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.Events.OnRedirectToLogin = context =>
+                {
+                    context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+
+                    return Task.CompletedTask;
+                };
+            });
         }
 
         public void ConfigureProductionServices(IServiceCollection services)
