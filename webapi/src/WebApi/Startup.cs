@@ -1,4 +1,3 @@
-using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using FluentValidation.AspNetCore;
@@ -22,7 +21,6 @@ using NetClock.Application.Common.Localizations;
 using NetClock.Domain;
 using NetClock.Infrastructure;
 using NetClock.WebApi.Middlewares;
-using Newtonsoft.Json;
 using NSwag;
 using NSwag.Generation.Processors.Security;
 
@@ -72,14 +70,6 @@ namespace NetClock.WebApi
             services
                 .AddControllers()
                 .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<IApplicationDbContext>())
-                .AddNewtonsoftJson(options =>
-                {
-                    options.SerializerSettings.Culture = CultureInfo.CurrentCulture;
-                    options.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
-                    options.SerializerSettings.DateFormatHandling = DateFormatHandling.IsoDateFormat;
-                    options.SerializerSettings.DateFormatString = "yyyy-MM-dd'T'HH:mm:ss.FFFFFF'Z'";
-                    options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
-                })
                 .AddDataAnnotationsLocalization(options =>
                 {
                     options.DataAnnotationLocalizerProvider = (type, factory)

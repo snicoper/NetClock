@@ -23,7 +23,7 @@ namespace NetClock.Application
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestPerformanceBehaviour<,>));
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestValidationBehavior<,>));
             services.AddTransient(typeof(IResponseDataService<,>), typeof(ResponseDataService<,>));
-            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddHttpContextAccessor();
 
             // Configure strongly typed settings objects.
             services.Configure<JwtConfig>(configuration.GetSection("Jwt"));
@@ -33,8 +33,6 @@ namespace NetClock.Application
                 .RegisterAssemblyPublicNonGenericClasses(Assembly.GetAssembly(typeof(IdentityService)))
                 .Where(c => c.Name.EndsWith("Service"))
                 .AsPublicImplementedInterfaces();
-
-            services.AddHttpContextAccessor();
 
             // Localization.
             services.AddLocalization(options => options.ResourcesPath = "Resources");

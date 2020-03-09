@@ -38,10 +38,16 @@ namespace NetClock.Infrastructure
                 .Where(c => c.Name.EndsWith("Service"))
                 .AsPublicImplementedInterfaces();
 
-            ConfigureIdentity(services, configuration);
+            ConfigureIdentity(services, configuration, environment);
 
             var identity = services
-                .AddIdentityServer()
+                .AddIdentityServer(options =>
+                {
+                    options.Events.RaiseErrorEvents = true;
+                    options.Events.RaiseInformationEvents = true;
+                    options.Events.RaiseFailureEvents = true;
+                    options.Events.RaiseSuccessEvents = true;
+                })
                 .AddAspNetIdentity<ApplicationUser>()
                 .AddConfigurationStore(options =>
                 {
@@ -69,11 +75,13 @@ namespace NetClock.Infrastructure
         /// <summary>
         /// Configura toda la parte de identificación y autorización con identity.
         /// </summary>
-        private static IServiceCollection ConfigureIdentity(IServiceCollection services, IConfiguration configuration)
+        private static IServiceCollection ConfigureIdentity(
+            IServiceCollection services,
+            IConfiguration configuration,
+            IWebHostEnvironment environment)
         {
             var appSettingsSection = configuration.GetSection("Jwt");
             var jwtConfig = appSettingsSection.Get<JwtConfig>();
-            var key = Encoding.ASCII.GetBytes(jwtConfig.Secret);
 
             // Identity.
             services
@@ -94,24 +102,23 @@ namespace NetClock.Infrastructure
             services
                 .AddAuthentication(options =>
                 {
-                    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                    options.DefaultScheme = "Cookies";
+                    options.DefaultChallengeScheme = "oidc";
                 })
-                .AddJwtBearer(options =>
+                .AddOpenIdConnect("oidc", options =>
                 {
-                    options.RequireHttpsMetadata = true;
-                    options.SaveToken = true;
-                    options.TokenValidationParameters = new TokenValidationParameters
-                    {
-                        ValidateIssuerSigningKey = true,
-                        ValidateIssuer = true,
-                        ValidateAudience = true,
-                        IssuerSigningKey = new SymmetricSecurityKey(key),
-                        RequireExpirationTime = true,
-                        ValidateLifetime = true,
-                        ValidIssuer = jwtConfig.ValidIssuer,
-                        ValidAudience = jwtConfig.ValidAudience
-                    };
+                    options.SignInScheme = "Cookies";
+
+                    options.Authority = jwtConfig.ValidIssuer;
+                    options.RequireHttpsMetadata = !environment.IsDevelopment();
+
+                    options.UsePkce = true;
+                    options.ClientId = "clock_client";
+                    options.ClientSecret = "acf2ec6fb01a4b698ba240c2b10a0243";
+                    options.ResponseType = "code";
+                    options.ResponseMode = "form_post";
+                    options.CallbackPath = "/signin-oidc";
+                    options.SaveTokens = true;
                 });
 
             // TODO: Experimental...

@@ -40,22 +40,14 @@ namespace NetClock.IdentityServer
             services.ConfigureApplicationCookie(config =>
             {
                 config.Cookie.Name = "NetClock.IS4.Cookie";
-                config.LoginPath = "/auth/login";
-                config.LogoutPath = "/auth/logout";
+                config.LoginPath = "/account/login";
+                config.LogoutPath = "/account/logout";
             });
 
             // Controllers.
             services
                 .AddControllersWithViews()
                 .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<IApplicationDbContext>())
-                .AddNewtonsoftJson(options =>
-                {
-                    options.SerializerSettings.Culture = CultureInfo.CurrentCulture;
-                    options.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
-                    options.SerializerSettings.DateFormatHandling = DateFormatHandling.IsoDateFormat;
-                    options.SerializerSettings.DateFormatString = "yyyy-MM-dd'T'HH:mm:ss.FFFFFF'Z'";
-                    options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
-                })
                 .AddDataAnnotationsLocalization(options =>
                 {
                     options.DataAnnotationLocalizerProvider = (type, factory)
