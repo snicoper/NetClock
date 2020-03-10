@@ -20,6 +20,7 @@ using NetClock.Application.Common.Interfaces.Database;
 using NetClock.Application.Common.Localizations;
 using NetClock.Domain;
 using NetClock.Infrastructure;
+using NetClock.Infrastructure.Converters;
 using NetClock.WebApi.Middlewares;
 using NSwag;
 using NSwag.Generation.Processors.Security;
@@ -69,6 +70,10 @@ namespace NetClock.WebApi
             // MVC.
             services
                 .AddControllers()
+                .AddJsonOptions(options =>
+                {
+                    options.JsonSerializerOptions.Converters.Add(new DateTimeConverter());
+                })
                 .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<IApplicationDbContext>())
                 .AddDataAnnotationsLocalization(options =>
                 {
@@ -76,6 +81,31 @@ namespace NetClock.WebApi
                         => factory.Create(typeof(SharedLocalizer));
                 })
                 .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix);
+
+            var appSettingsSection = Configuration.GetSection("Jwt");
+            var jwtConfig = appSettingsSection.Get<JwtConfig>();
+
+            services
+                .AddAuthentication(options =>
+                {
+                    options.DefaultScheme = "Cookies";
+                    options.DefaultChallengeScheme = "oidc";
+                })
+                .AddOpenIdConnect("oidc", options =>
+                {
+                    options.SignInScheme = "Cookies";
+
+                    options.Authority = jwtConfig.ValidIssuer;
+                    options.RequireHttpsMetadata = !Environment.IsDevelopment();
+
+                    options.UsePkce = true;
+                    options.ClientId = "clock_client";
+                    options.ClientSecret = "acf2ec6fb01a4b698ba240c2b10a0243";
+                    options.ResponseType = "code";
+                    options.ResponseMode = "form_post";
+                    options.CallbackPath = "/signin-oidc";
+                    options.SaveTokens = true;
+                });
 
             // Prevents redirection when not authenticated.
             services.ConfigureApplicationCookie(options =>

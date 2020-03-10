@@ -1,6 +1,4 @@
 using System.Reflection;
-using System.Text;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -8,8 +6,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Hosting;
-using Microsoft.IdentityModel.Tokens;
-using NetClock.Application.Common.Configurations;
 using NetClock.Application.Common.Interfaces.Database;
 using NetClock.Domain.Entities.Identity;
 using NetClock.Infrastructure.Persistence;
@@ -33,12 +29,30 @@ namespace NetClock.Infrastructure
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseNpgsql(connectionString, b => b.MigrationsAssembly(assembly)));
 
-            services
-                .RegisterAssemblyPublicNonGenericClasses(Assembly.GetAssembly(typeof(ValidationFailureService)))
-                .Where(c => c.Name.EndsWith("Service"))
-                .AsPublicImplementedInterfaces();
+            services.Scan(scan =>
+                scan.FromCallingAssembly()
+                    .AddClasses(classes => classes.Where(type => type.Name.EndsWith("Service")))
+                    .AsImplementedInterfaces()
+                    .WithTransientLifetime());
 
-            ConfigureIdentity(services, configuration, environment);
+            // Identity.
+            services
+                .AddDefaultIdentity<ApplicationUser>(options =>
+                {
+                    options.User.RequireUniqueEmail = true;
+                    options.SignIn.RequireConfirmedEmail = true;
+                    options.Password.RequiredLength = 6;
+                    options.Password.RequireNonAlphanumeric = false;
+                    options.Password.RequireLowercase = false;
+                    options.Password.RequireUppercase = false;
+                    options.Password.RequireDigit = false;
+                })
+                .AddRoles<IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
+
+            // TODO: Experimental...
+            // services.AddSingleton<IAuthorizationPolicyProvider, AuthorizationPolicyProvider>();
 
             var identity = services
                 .AddIdentityServer(options =>
@@ -68,61 +82,6 @@ namespace NetClock.Infrastructure
             services.AddHealthChecks()
                 .AddCheck("self", () => HealthCheckResult.Healthy())
                 .AddDbContextCheck<ApplicationDbContext>();
-
-            return services;
-        }
-
-        /// <summary>
-        /// Configura toda la parte de identificación y autorización con identity.
-        /// </summary>
-        private static IServiceCollection ConfigureIdentity(
-            IServiceCollection services,
-            IConfiguration configuration,
-            IWebHostEnvironment environment)
-        {
-            var appSettingsSection = configuration.GetSection("Jwt");
-            var jwtConfig = appSettingsSection.Get<JwtConfig>();
-
-            // Identity.
-            services
-                .AddDefaultIdentity<ApplicationUser>(options =>
-                {
-                    options.User.RequireUniqueEmail = true;
-                    options.SignIn.RequireConfirmedEmail = true;
-                    options.Password.RequiredLength = 6;
-                    options.Password.RequireNonAlphanumeric = false;
-                    options.Password.RequireLowercase = false;
-                    options.Password.RequireUppercase = false;
-                    options.Password.RequireDigit = false;
-                })
-                .AddRoles<IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>()
-                .AddDefaultTokenProviders();
-
-            services
-                .AddAuthentication(options =>
-                {
-                    options.DefaultScheme = "Cookies";
-                    options.DefaultChallengeScheme = "oidc";
-                })
-                .AddOpenIdConnect("oidc", options =>
-                {
-                    options.SignInScheme = "Cookies";
-
-                    options.Authority = jwtConfig.ValidIssuer;
-                    options.RequireHttpsMetadata = !environment.IsDevelopment();
-
-                    options.UsePkce = true;
-                    options.ClientId = "clock_client";
-                    options.ClientSecret = "acf2ec6fb01a4b698ba240c2b10a0243";
-                    options.ResponseType = "code";
-                    options.ResponseMode = "form_post";
-                    options.CallbackPath = "/signin-oidc";
-                    options.SaveTokens = true;
-                });
-
-            // TODO: Experimental...
-            // services.AddSingleton<IAuthorizationPolicyProvider, AuthorizationPolicyProvider>();
 
             return services;
         }

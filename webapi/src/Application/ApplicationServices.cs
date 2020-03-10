@@ -29,10 +29,11 @@ namespace NetClock.Application
             services.Configure<JwtConfig>(configuration.GetSection("Jwt"));
             services.Configure<SmtpConfig>(configuration.GetSection("Smtp"));
 
-            services
-                .RegisterAssemblyPublicNonGenericClasses(Assembly.GetAssembly(typeof(IdentityService)))
-                .Where(c => c.Name.EndsWith("Service"))
-                .AsPublicImplementedInterfaces();
+            services.Scan(scan =>
+                scan.FromCallingAssembly()
+                    .AddClasses(classes => classes.Where(type => type.Name.EndsWith("Service")))
+                    .AsImplementedInterfaces()
+                    .WithTransientLifetime());
 
             // Localization.
             services.AddLocalization(options => options.ResourcesPath = "Resources");

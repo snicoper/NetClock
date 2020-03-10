@@ -93,7 +93,7 @@ namespace NetClock.Infrastructure.Persistence.Seeds
                     ClientSecrets = { new Secret("acf2ec6fb01a4b698ba240c2b10a0243".Sha256()) },
                     RequirePkce = true,
                     RequireClientSecret = false,
-                    RedirectUris = { "http://localhost:4200/auth-callback" },
+                    RedirectUris = { "http://localhost:4200" },
                     PostLogoutRedirectUris = { "http://localhost:4200" },
                     AllowedCorsOrigins = { "http://localhost:4200" },
                     AllowedScopes =
