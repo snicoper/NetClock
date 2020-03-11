@@ -15,13 +15,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NetClock.Application;
-using NetClock.Application.Common.Configurations;
 using NetClock.Application.Common.Constants;
 using NetClock.Application.Common.Interfaces.Database;
 using NetClock.Application.Common.Localizations;
 using NetClock.Domain;
 using NetClock.Infrastructure;
-using NetClock.Infrastructure.Converters;
 using NetClock.WebApi.Middlewares;
 using Newtonsoft.Json;
 using NSwag;
@@ -200,6 +198,7 @@ namespace NetClock.WebApi
                 {
                     ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
                 });
+
                 app.UseHsts();
             }
 

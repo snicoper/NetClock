@@ -19,7 +19,7 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Accounts.AccountsControll
         }
 
         [Fact]
-        public async Task Post_validar_registro_usuario_200OK()
+        public async Task Post_validar_registro_usuario_OK()
         {
             // Arrange
             var responseContent = await RegisterUser();
@@ -36,7 +36,7 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Accounts.AccountsControll
         }
 
         [Fact]
-        public async Task Post_validar_registro_usuario_invalido_404NotFound()
+        public async Task Post_validar_registro_usuario_invalido_NotFound()
         {
             // Arrange
             var responseContent = await RegisterUser();
@@ -51,7 +51,7 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Accounts.AccountsControll
         }
 
         [Fact]
-        public async Task Post_validar_registro_usuario_no_existe_404NotFound()
+        public async Task Post_validar_registro_usuario_no_existe_NotFound()
         {
             // Arrange
             var data = new RegisterValidateCommand("123123123", "token-no-valido");

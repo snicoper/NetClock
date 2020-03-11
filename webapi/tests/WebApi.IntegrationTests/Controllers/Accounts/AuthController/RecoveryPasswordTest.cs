@@ -16,7 +16,7 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Accounts.AuthController
         }
 
         [Fact]
-        public async Task Post_recuperar_contrasena_valida_201Created()
+        public async Task Post_recuperar_contrasena_valida_Created()
         {
             // Arrange
             var data = new RecoveryPasswordCommand("admin@example.com");
@@ -33,7 +33,7 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Accounts.AuthController
         [InlineData("admin")]
         [InlineData("admin@")]
         [InlineData("admin@example")]
-        public async Task Post_email_invalido_400BadRequest(string email)
+        public async Task Post_email_invalido_BadRequest(string email)
         {
             // Arrange
             var data = new RecoveryPasswordCommand(email);
@@ -47,7 +47,7 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Accounts.AuthController
         }
 
         [Fact]
-        public async Task Post_email_no_existe_404BadRequest()
+        public async Task Post_email_no_existe_BadRequest()
         {
             // Arrange
             var data = new RecoveryPasswordCommand("no@example.com");

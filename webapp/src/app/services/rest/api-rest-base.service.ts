@@ -20,8 +20,8 @@ export abstract class ApiRestBaseService implements OnInit {
     }
   }
 
-  getAllPaginated<TModel>(transferData: ApiResult<TModel>): Observable<ApiResult<TModel>> {
-    const url = `${this.baseUrl}?${this.prepareQueryParams(transferData)}`;
+  getAllPaginated<TModel>(apiResult: ApiResult<TModel>): Observable<ApiResult<TModel>> {
+    const url = `${this.baseUrl}?${this.prepareQueryParams(apiResult)}`;
 
     return this.http.get<ApiResult<TModel>>(url);
   }
@@ -48,27 +48,27 @@ export abstract class ApiRestBaseService implements OnInit {
     return this.http.delete<void>(url, model);
   }
 
-  protected prepareQueryParams<TModel>(transferData: ApiResult<TModel>): string {
-    transferData = transferData ? transferData : new ApiResult<TModel>();
+  protected prepareQueryParams<TModel>(apiResult: ApiResult<TModel>): string {
+    apiResult = apiResult ? apiResult : new ApiResult<TModel>();
 
-    return this.transferDataToQueryParams(transferData);
+    return this.apiResultToQueryParams(apiResult);
   }
 
-  protected transferDataToQueryParams<TModel>(transferData: ApiResult<TModel>): string {
+  protected apiResultToQueryParams<TModel>(apiResult: ApiResult<TModel>): string {
     let queryParams = '';
-    queryParams += `totalItems=${transferData.totalItems}`;
-    queryParams += `&pageNumber=${transferData.pageNumber}`;
-    queryParams += `&totalPages=${transferData.totalPages}`;
-    queryParams += `&pageSize=${transferData.pageSize}`;
+    queryParams += `totalItems=${apiResult.totalItems}`;
+    queryParams += `&pageNumber=${apiResult.pageNumber}`;
+    queryParams += `&totalPages=${apiResult.totalPages}`;
+    queryParams += `&pageSize=${apiResult.pageSize}`;
 
-    if (transferData.orders.length) {
+    if (apiResult.orders.length) {
       queryParams += this.concatQueryParam(queryParams);
-      queryParams += `orders=${JSON.stringify(transferData.orders)}`;
+      queryParams += `orders=${JSON.stringify(apiResult.orders)}`;
     }
 
-    if (transferData.filters.length) {
+    if (apiResult.filters.length) {
       queryParams += this.concatQueryParam(queryParams);
-      queryParams += `filters=${JSON.stringify(transferData.filters)}`;
+      queryParams += `filters=${JSON.stringify(apiResult.filters)}`;
     }
 
     return queryParams;

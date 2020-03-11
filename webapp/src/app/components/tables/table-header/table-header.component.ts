@@ -11,7 +11,7 @@ import { ITableHeaderField, TableHeaderConfig } from './core';
 })
 export class TableHeaderComponent<T> {
   @Input() tableHeaderConfig: TableHeaderConfig;
-  @Input() transferData: ApiResult<T>;
+  @Input() apiResult: ApiResult<T>;
 
   @Output() clickOrdering = new EventEmitter<void>();
 
@@ -40,32 +40,32 @@ export class TableHeaderComponent<T> {
   }
 
   getOrderPrecedence(header: ITableHeaderField): number {
-    const item = this.getHttpTransferDataItemByHeader(header);
+    const item = this.getHttpApiResultItemByHeader(header);
 
     return item ? item.precedence : undefined;
   }
 
   private updateOrderItem(header: ITableHeaderField): void {
-    this.transferData = Object.assign(new ApiResult<T>(), this.transferData);
-    this.transferData.addOrder(header.field, header.orderType, 1);
+    this.apiResult = Object.assign(new ApiResult<T>(), this.apiResult);
+    this.apiResult.addOrder(header.field, header.orderType, 1);
   }
 
   private removeOrderItemIfExists(header: ITableHeaderField): void {
-    this.transferData = Object.assign(new ApiResult<T>(), this.transferData);
-    const item = this.getHttpTransferDataItemByHeader(header);
+    this.apiResult = Object.assign(new ApiResult<T>(), this.apiResult);
+    const item = this.getHttpApiResultItemByHeader(header);
     if (item) {
-      this.transferData.removeOrder(item);
+      this.apiResult.removeOrder(item);
     }
   }
 
   private updateOrderPrecedence(): void {
-    for (let i = 0; i < this.transferData.orders.length; i += 1) {
-      this.transferData.orders[i].precedence = i + 1;
+    for (let i = 0; i < this.apiResult.orders.length; i += 1) {
+      this.apiResult.orders[i].precedence = i + 1;
     }
   }
 
-  private getHttpTransferDataItemByHeader(header: ITableHeaderField): ApiResultItemOrderBy {
-    this.transferData = Object.assign(new ApiResult<T>(), this.transferData);
-    return this.transferData.orders.find((field) => field.propertyName === header.field);
+  private getHttpApiResultItemByHeader(header: ITableHeaderField): ApiResultItemOrderBy {
+    this.apiResult = Object.assign(new ApiResult<T>(), this.apiResult);
+    return this.apiResult.orders.find((field) => field.propertyName === header.field);
   }
 }

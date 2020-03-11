@@ -19,7 +19,7 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Accounts.AccountsControll
         }
 
         [Fact]
-        public async Task Post_cambia_contrasena_correctamente_200Ok()
+        public async Task Post_cambia_contrasena_correctamente_Ok()
         {
             // Arrange
             await GetAuthenticatedClientAsync();
@@ -38,7 +38,7 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Accounts.AccountsControll
         }
 
         [Fact]
-        public async Task Post_OldPassword_incorrecto_400BadRequest()
+        public async Task Post_OldPassword_incorrecto_BadRequest()
         {
             // Arrange
             await GetAuthenticatedClientAsync();
@@ -55,7 +55,7 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Accounts.AccountsControll
         }
 
         [Fact]
-        public async Task Post_nuevos_passwords_diferentes_400BadRequest()
+        public async Task Post_nuevos_passwords_diferentes_BadRequest()
         {
             // Arrange
             await GetAuthenticatedClientAsync();
@@ -72,7 +72,7 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Accounts.AccountsControll
         }
 
         [Fact]
-        public async Task Post_usuarios_no_existe_404NotFound()
+        public async Task Post_usuarios_no_existe_NotFound()
         {
             // Arrange
             await GetAuthenticatedClientAsync();

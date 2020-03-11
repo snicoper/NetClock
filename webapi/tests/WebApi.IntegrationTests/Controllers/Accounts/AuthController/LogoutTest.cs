@@ -15,7 +15,7 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Accounts.AuthController
         }
 
         [Fact]
-        public async Task Post_usuario_logueado_desloguea_si_tiene_iniciada_session_204NoContent()
+        public async Task Post_usuario_logueado_desloguea_si_tiene_iniciada_session_NoContent()
         {
             // Arrange
             await GetAuthenticatedClientAsync();
@@ -28,7 +28,7 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Accounts.AuthController
         }
 
         [Fact]
-        public async Task Post_usuario_sin_session_Unauthorized_al_hacer_logout_401Unauthorized()
+        public async Task Post_usuario_sin_session_Unauthorized_al_hacer_logout_Unauthorized()
         {
             // Arrange
 

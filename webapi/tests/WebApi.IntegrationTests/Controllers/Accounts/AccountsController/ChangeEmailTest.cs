@@ -19,7 +19,7 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Accounts.AccountsControll
         }
 
         [Fact]
-        public async Task Post_cambiar_email_datos_correctos_200Ok()
+        public async Task Post_cambiar_email_datos_correctos_Ok()
         {
             // Arrange
             await GetAuthenticatedClientAsync();
@@ -36,7 +36,7 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Accounts.AccountsControll
         }
 
         [Fact]
-        public async Task Post_id_usuario_no_existe_404NotFound()
+        public async Task Post_id_usuario_no_existe_NotFound()
         {
             // Arrange
             await GetAuthenticatedClientAsync();
@@ -55,7 +55,7 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Accounts.AccountsControll
         [Theory]
         [InlineData("email@mal")]
         [InlineData("email")]
-        public async Task Post_email_mal_formado_400BadRequest(string email)
+        public async Task Post_email_mal_formado_BadRequest(string email)
         {
             // Arrange
             await GetAuthenticatedClientAsync();

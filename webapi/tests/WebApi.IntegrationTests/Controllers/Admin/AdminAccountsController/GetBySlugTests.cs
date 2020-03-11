@@ -1,4 +1,6 @@
+using System.Net;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using NetClock.Application.Admin.AdminAccounts.Queries.GetUsers;
@@ -17,7 +19,7 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Admin.AdminAccountsContro
         }
 
         [Fact]
-        public async Task Get_usuario_logueado_obtiene_resultado_200Ok()
+        public async Task Get_usuario_logueado_obtiene_resultado_Ok()
         {
             // Arrange
             await GetAuthenticatedClientAsync();
@@ -33,6 +35,21 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Admin.AdminAccountsContro
             response.EnsureSuccessStatusCode();
             responseContent.ShouldBeOfType<AdminUserListViewModel>();
             responseContent.UserName.ShouldNotBeEmpty();
+        }
+
+        [Fact]
+        public async Task Get_usuario_no_logueado_obtiene_resultado_Unauthorized()
+        {
+            // Arrange
+            var userManager = ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+            var userBob = await userManager.FindByNameAsync("Bob");
+            var uri = Utilities.ComposeUri($"admin/accounts/{userBob.Slug}");
+
+            // Act
+            var response = await Client.GetAsync(uri);
+
+            // Assert
+            response.StatusCode.ShouldBe(HttpStatusCode.Unauthorized);
         }
     }
 }

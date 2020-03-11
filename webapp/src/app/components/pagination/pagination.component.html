@@ -2,20 +2,20 @@
   <ul class="pagination pagination-sm">
     <!-- pagination list -->
     <li *ngIf="showPageList" class="mr-2">
-      <select [(ngModel)]="transferData.pageSize"
+      <select [(ngModel)]="apiResult.pageSize"
               (ngModelChange)="onChangePageListNumber($event)"
               class="custom-select custom-select-sm unfocus">
         <ng-container *ngFor="let item of itemsPageList">
-          <option [ngClass]="{'active': item === transferData.pageSize}" [ngValue]="item">
+          <option [ngClass]="{'active': item === apiResult.pageSize}" [ngValue]="item">
             {{item}}
           </option>
         </ng-container>
       </select>
     </li><!-- end pagination list -->
 
-    <ng-container *ngIf="transferData.totalPages > 1">
+    <ng-container *ngIf="apiResult.totalPages > 1">
       <!-- first page -->
-      <li *ngIf="!transferData.hasPreviousPage" class="page-item disabled">
+      <li *ngIf="!apiResult.hasPreviousPage" class="page-item disabled">
         <a class="page-link" href="#" aria-label="Previous">
           <span aria-hidden="true">
             <i class="fas fa-angle-double-left text-muted"></i>
@@ -24,7 +24,7 @@
         </a>
       </li>
 
-      <li *ngIf="transferData.hasPreviousPage" class="page-item" tooltip="Primera">
+      <li *ngIf="apiResult.hasPreviousPage" class="page-item" tooltip="Primera">
         <a (click)="onChangePage(1)" class="page-link cursor-pointer" aria-label="Previous">
           <span aria-hidden="true">
             <i class="fas fa-angle-double-left"></i>
@@ -34,7 +34,7 @@
       </li><!-- end first page -->
 
       <!-- previous page -->
-      <li *ngIf="!transferData.hasPreviousPage" class="page-item disabled mr-2">
+      <li *ngIf="!apiResult.hasPreviousPage" class="page-item disabled mr-2">
         <a class="page-link" href="#" aria-label="Previous">
           <span aria-hidden="true">
             <i class="fas fa-angle-left text-muted"></i>
@@ -42,8 +42,8 @@
           <span class="sr-only">Previous</span>
         </a>
       </li>
-      <li *ngIf="transferData.hasPreviousPage" class="page-item mr-2" tooltip="Anterior">
-        <a (click)="onChangePage(transferData.pageNumber - 1)" class="page-link cursor-pointer" aria-label="Previous">
+      <li *ngIf="apiResult.hasPreviousPage" class="page-item mr-2" tooltip="Anterior">
+        <a (click)="onChangePage(apiResult.pageNumber - 1)" class="page-link cursor-pointer" aria-label="Previous">
           <span aria-hidden="true">
             <i class="fas fa-angle-left"></i>
           </span>
@@ -53,9 +53,9 @@
 
       <!-- pages -->
       <ng-container *ngIf="showPagesButtons">
-        <li *ngFor="let item of pageRange()" [ngClass]="{'active': item === transferData.pageNumber}" class="page-item">
+        <li *ngFor="let item of pageRange()" [ngClass]="{'active': item === apiResult.pageNumber}" class="page-item">
           <a (click)="onChangePage(item)"
-             [ngClass]="{'cursor-pointer': item !== transferData.pageNumber}"
+             [ngClass]="{'cursor-pointer': item !== apiResult.pageNumber}"
              class="page-link">
             {{item}}
           </a>
@@ -63,7 +63,7 @@
       </ng-container><!-- end pages -->
 
       <!-- next page -->
-      <li *ngIf="!transferData.hasNextPage" class="page-item disabled ml-2">
+      <li *ngIf="!apiResult.hasNextPage" class="page-item disabled ml-2">
         <a class="page-link" href="#" aria-label="Previous">
           <span aria-hidden="true">
             <i class="fas fa-angle-right text-muted"></i>
@@ -72,8 +72,8 @@
         </a>
       </li>
 
-      <li *ngIf="transferData.hasNextPage" class="page-item ml-2" tooltip="Siguiente">
-        <a (click)="onChangePage(transferData.pageNumber + 1)" class="page-link cursor-pointer" aria-label="Next">
+      <li *ngIf="apiResult.hasNextPage" class="page-item ml-2" tooltip="Siguiente">
+        <a (click)="onChangePage(apiResult.pageNumber + 1)" class="page-link cursor-pointer" aria-label="Next">
           <span aria-hidden="true">
             <i class="fas fa-angle-right"></i>
           </span>
@@ -82,7 +82,7 @@
       </li><!-- end next page -->
 
       <!-- last page -->
-      <li *ngIf="!transferData.hasNextPage" class="page-item disabled">
+      <li *ngIf="!apiResult.hasNextPage" class="page-item disabled">
         <a class="page-link" href="#" aria-label="Next">
           <span aria-hidden="true">
             <i class="fas fa-angle-double-right text-muted"></i>
@@ -90,8 +90,8 @@
           <span class="sr-only">Next</span>
         </a>
       </li>
-      <li *ngIf="transferData.hasNextPage" class="page-item" tooltip="Última">
-        <a (click)="onChangePage(transferData.totalPages)" class="page-link cursor-pointer" aria-label="Next">
+      <li *ngIf="apiResult.hasNextPage" class="page-item" tooltip="Última">
+        <a (click)="onChangePage(apiResult.totalPages)" class="page-link cursor-pointer" aria-label="Next">
           <span aria-hidden="true">
             <i class="fas fa-angle-double-right"></i>
           </span>

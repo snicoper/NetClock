@@ -19,7 +19,7 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Accounts.AuthController
         }
 
         [Fact]
-        public async Task Post_usuario_loguea_correctamente_200Ok()
+        public async Task Post_usuario_loguea_correctamente_Ok()
         {
             // Arrange
             var data = new LoginCommand("Admin", "123456", true);
@@ -37,7 +37,7 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Accounts.AuthController
         [Theory]
         [InlineData("admin1", "123456")] // UserName incorrecto.
         [InlineData("Admin", "12345678")] // Password incorrecto.
-        public async Task Post_usuario_no_loguea_con_credenciales_incorrectas_400BadRequest(string userName, string password)
+        public async Task Post_usuario_no_loguea_con_credenciales_incorrectas_BadRequest(string userName, string password)
         {
             // Arrange
             var data = new LoginCommand(userName, password, true);
@@ -53,7 +53,7 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Accounts.AuthController
         [Theory]
         [InlineData("", "123456")] // UserName vacío.
         [InlineData("Admin", "")] // Password vacío.
-        public async Task Post_usuario_no_loguea_form_no_valido_400BadRequest(string userName, string password)
+        public async Task Post_usuario_no_loguea_form_no_valido_BadRequest(string userName, string password)
         {
             // Arrange
             var data = new LoginCommand(userName, password, true);
@@ -67,7 +67,7 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Accounts.AuthController
         }
 
         [Fact]
-        public async Task Post_usuario_no_activo_no_puede_loguear_400BadRequest()
+        public async Task Post_usuario_no_activo_no_puede_loguear_BadRequest()
         {
             // Arrange
             var userManager = ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();

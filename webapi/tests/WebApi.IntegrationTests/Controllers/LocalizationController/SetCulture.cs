@@ -16,7 +16,7 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.LocalizationController
         }
 
         [Fact]
-        public async Task Post_cambiar_culture_usuario_anonimo_204Ok()
+        public async Task Post_cambiar_culture_usuario_anonimo_Ok()
         {
             // Arrange
             var data = new SetCultureCommand("es-ES");
@@ -33,7 +33,7 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.LocalizationController
         [InlineData("es-ES")]
         [InlineData("ca-ES")]
         [InlineData("en-GB")]
-        public async Task Post_cambiar_culture_codigos_validos_204Ok(string culture)
+        public async Task Post_cambiar_culture_codigos_validos_Ok(string culture)
         {
             // Arrange
             var data = new SetCultureCommand(culture);
@@ -51,7 +51,7 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.LocalizationController
         [InlineData("ES")]
         [InlineData("en")]
         [InlineData("123")]
-        public async Task Post_cambiar_culture_codigos_invalidos_400BadRequest(string culture)
+        public async Task Post_cambiar_culture_codigos_invalidos_BadRequest(string culture)
         {
             // Arrange
             var data = new SetCultureCommand(culture);

@@ -2,14 +2,14 @@
   <table [ngClass]="tableCss" class="table">
     <ng-content select="[ncThead]"></ng-content>
 
-    <ng-container *ngIf="transferData && !loading">
+    <ng-container *ngIf="apiResult && !loading">
       <!-- table content -->
-      <ng-container *ngIf="transferData.items.length">
+      <ng-container *ngIf="apiResult.items.length">
         <ng-content select="[ncTbody]"></ng-content>
       </ng-container><!-- end table content -->
 
       <!-- no data -->
-      <ng-container *ngIf="!transferData.items.length">
+      <ng-container *ngIf="!apiResult.items.length">
         <tbody>
           <tr>
             <td colspan="100%" class="text-center">

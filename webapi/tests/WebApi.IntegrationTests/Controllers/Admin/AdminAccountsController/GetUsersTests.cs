@@ -18,7 +18,7 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Admin.AdminAccountsContro
         }
 
         [Fact]
-        public async Task Get_obtener_lista_de_usuarios_200Ok()
+        public async Task Get_obtener_lista_de_usuarios_Ok()
         {
             // Arrange
             await GetAuthenticatedClientAsync();
@@ -34,7 +34,7 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Admin.AdminAccountsContro
         }
 
         [Fact]
-        public async Task Get_obtener_lista_de_usuarios_anonymous_401Unauthorized()
+        public async Task Get_obtener_lista_de_usuarios_anonymous_Unauthorized()
         {
             // Arrange
 
@@ -46,7 +46,7 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Admin.AdminAccountsContro
         }
 
         [Fact(Skip = "Cuando se implemente los permisos")]
-        public async Task Get_obtener_lista_de_usuarios_registrado_sin_permisos_401Unauthorized()
+        public async Task Get_obtener_lista_de_usuarios_registrado_sin_permisos_Unauthorized()
         {
             // Arrange
             await GetAuthenticatedClientAsync("Bob", "123456");

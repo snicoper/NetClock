@@ -7,7 +7,7 @@ import { ApiResult } from '../../models';
   templateUrl: './pagination.component.html'
 })
 export class PaginationComponent<T> implements OnChanges {
-  @Input() transferData: ApiResult<T>;
+  @Input() apiResult: ApiResult<T>;
   @Input() itemsPageList = [10, 25, 50, 100];
   @Input() justifyContent = 'justify-content-end';
   /** Mostrar itemsPageList. */
@@ -25,29 +25,29 @@ export class PaginationComponent<T> implements OnChanges {
   lastPage: number;
 
   ngOnChanges(changes: SimpleChanges): void {
-    const numMaxPages = this.transferData.ratio * 2 + 1;
+    const numMaxPages = this.apiResult.ratio * 2 + 1;
     this.firstPage = 1;
-    this.lastPage = this.transferData.totalPages > numMaxPages ? numMaxPages : this.transferData.totalPages;
+    this.lastPage = this.apiResult.totalPages > numMaxPages ? numMaxPages : this.apiResult.totalPages;
 
-    if (this.transferData.pageNumber > this.transferData.ratio + 1) {
-      this.firstPage = this.transferData.pageNumber - this.transferData.ratio;
+    if (this.apiResult.pageNumber > this.apiResult.ratio + 1) {
+      this.firstPage = this.apiResult.pageNumber - this.apiResult.ratio;
 
-      if (this.transferData.totalPages > this.transferData.pageNumber + this.transferData.ratio) {
-        this.lastPage = this.transferData.pageNumber + this.transferData.ratio;
+      if (this.apiResult.totalPages > this.apiResult.pageNumber + this.apiResult.ratio) {
+        this.lastPage = this.apiResult.pageNumber + this.apiResult.ratio;
       } else {
-        this.lastPage = this.transferData.totalPages;
+        this.lastPage = this.apiResult.totalPages;
       }
     }
   }
 
   onChangePage(page: number): void {
-    this.transferData.pageNumber = page;
+    this.apiResult.pageNumber = page;
     this.changePage.emit();
   }
 
   onChangePageListNumber(num: number): void {
-    this.transferData.pageNumber = 1;
-    this.transferData.pageSize = num;
+    this.apiResult.pageNumber = 1;
+    this.apiResult.pageSize = num;
     this.changePageListNumber.emit();
   }
 

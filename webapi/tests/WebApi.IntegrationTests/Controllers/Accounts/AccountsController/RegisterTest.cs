@@ -21,7 +21,7 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Accounts.AccountsControll
         }
 
         [Fact]
-        public async Task Post_registro_de_usuario_201Created()
+        public async Task Post_registro_de_usuario_Created()
         {
             // Arrange
             var data = new RegisterCommand("testUser", "Perico", "Palote", "testUser@example.com", "123456", "123456");
@@ -50,7 +50,7 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Accounts.AccountsControll
         [InlineData("Admin1", "", "Admin", "admin1@example.com", "123456", "123456")] // FirstName vacío.
         [InlineData("Admin1", "Admin", "", "admin1@example.com", "123456", "123456")] // LastName vacío.
         // [InlineData("TestUser", "Admin", "Admin", "admin1123@example.com", "123456", "123456")] // First y Last name repetidos.
-        public async Task Post_registro_de_usuario_400BadRequest(
+        public async Task Post_registro_de_usuario_BadRequest(
             string username,
             string firstName,
             string lastName,
@@ -74,7 +74,7 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Accounts.AccountsControll
         }
 
         [Fact]
-        public async Task Post_registro_usuario_requiere_confirmacion_de_email_201Created()
+        public async Task Post_registro_usuario_requiere_confirmacion_de_email_Created()
         {
             // Arrange
             var guid = Guid.NewGuid().ToString().Substring(0, 7);

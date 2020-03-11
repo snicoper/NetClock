@@ -8,7 +8,7 @@ import { ApiResult } from '../../../models';
   styleUrls: ['./table.component.scss']
 })
 export class TableComponent<T> {
-  @Input() transferData: ApiResult<T>;
+  @Input() apiResult: ApiResult<T>;
   @Input() tableResponsive = true;
   @Input() loading = false;
   @Input() tableCss = 'table-hover';

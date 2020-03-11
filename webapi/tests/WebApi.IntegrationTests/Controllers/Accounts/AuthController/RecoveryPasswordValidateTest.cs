@@ -19,7 +19,7 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Accounts.AuthController
         }
 
         [Fact]
-        public async Task Post_recuperar_contrasena_valida_200Ok()
+        public async Task Post_recuperar_contrasena_valida_Ok()
         {
             // Arrange
             var userManager = ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
@@ -36,7 +36,7 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Accounts.AuthController
         }
 
         [Fact]
-        public async Task Post_password_diferentes_400BadRequest()
+        public async Task Post_password_diferentes_BadRequest()
         {
             // Arrange
             var userManager = ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
@@ -53,7 +53,7 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Accounts.AuthController
         }
 
         [Fact]
-        public async Task Post_usuario_no_existe_404NotFound()
+        public async Task Post_usuario_no_existe_NotFound()
         {
             // Arrange
             var userManager = ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
