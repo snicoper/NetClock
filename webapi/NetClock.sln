@@ -20,8 +20,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.IntegrationT
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApi.IntegrationTests", "tests\WebApi.IntegrationTests\WebApi.IntegrationTests.csproj", "{664741AC-3507-4827-B9AA-85C7C955A4ED}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityServer.IntegrationTests", "tests\IdentityServer.IntegrationTests\IdentityServer.IntegrationTests.csproj", "{7AEC8A34-4A0F-4556-B5A2-F436D7A62B73}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,7 +34,6 @@ Global
 		{D5F749BC-570F-4F21-9CAD-EF8DD8CF95D8} = {4B5F7E5F-8A85-44C4-AE63-3CDD21391852}
 		{48C1418C-730C-4A22-8033-F9569F7FA49C} = {4B5F7E5F-8A85-44C4-AE63-3CDD21391852}
 		{664741AC-3507-4827-B9AA-85C7C955A4ED} = {4B5F7E5F-8A85-44C4-AE63-3CDD21391852}
-		{7AEC8A34-4A0F-4556-B5A2-F436D7A62B73} = {4B5F7E5F-8A85-44C4-AE63-3CDD21391852}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{3B5C57BE-9F43-466E-B6AD-56A5F45A742E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -71,9 +68,5 @@ Global
 		{664741AC-3507-4827-B9AA-85C7C955A4ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{664741AC-3507-4827-B9AA-85C7C955A4ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{664741AC-3507-4827-B9AA-85C7C955A4ED}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7AEC8A34-4A0F-4556-B5A2-F436D7A62B73}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7AEC8A34-4A0F-4556-B5A2-F436D7A62B73}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7AEC8A34-4A0F-4556-B5A2-F436D7A62B73}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7AEC8A34-4A0F-4556-B5A2-F436D7A62B73}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
