@@ -10,7 +10,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace NetClock.Infrastructure.Persistence.Migrations.ApplicationMigrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200309221934_Initial")]
+    [Migration("20200311211435_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

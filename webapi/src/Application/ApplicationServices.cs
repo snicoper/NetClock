@@ -1,7 +1,6 @@
 using System.Reflection;
 using AutoMapper;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -9,8 +8,6 @@ using NetClock.Application.Common.Behaviours;
 using NetClock.Application.Common.Configurations;
 using NetClock.Application.Common.Interfaces.Http;
 using NetClock.Application.Common.Services.Http;
-using NetClock.Application.Common.Services.Identity;
-using NetCore.AutoRegisterDi;
 
 namespace NetClock.Application
 {
@@ -28,6 +25,8 @@ namespace NetClock.Application
             // Configure strongly typed settings objects.
             services.Configure<JwtConfig>(configuration.GetSection("Jwt"));
             services.Configure<SmtpConfig>(configuration.GetSection("Smtp"));
+            services.Configure<WebApiConfig>(configuration.GetSection("WebApi"));
+            services.Configure<WebAppConfig>(configuration.GetSection("WebApp"));
 
             services.Scan(scan =>
                 scan.FromCallingAssembly()

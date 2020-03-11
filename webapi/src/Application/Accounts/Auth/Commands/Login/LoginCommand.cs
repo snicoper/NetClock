@@ -19,10 +19,6 @@ namespace NetClock.Application.Accounts.Auth.Commands.Login
 {
     public class LoginCommand : IRequest<CurrentUserViewModel>
     {
-        public LoginCommand()
-        {
-        }
-
         public LoginCommand(string userName, string password, bool rememberMe)
         {
             UserName = userName;
@@ -31,13 +27,13 @@ namespace NetClock.Application.Accounts.Auth.Commands.Login
         }
 
         [Display(Name = "Nombre de usuario")]
-        public string UserName { get; set; }
+        public string UserName { get; }
 
         [Display(Name = "Contraseña")]
-        public string Password { get; set; }
+        public string Password { get; }
 
         [Display(Name = "Recuerda me")]
-        public bool RememberMe { get; set; }
+        public bool RememberMe { get; }
 
         public class LoginCommandHandler : IRequestHandler<LoginCommand, CurrentUserViewModel>
         {

@@ -1,16 +1,16 @@
-using System.Reflection;
-using Microsoft.AspNetCore.Hosting;
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
-using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
+using NetClock.Application.Common.Configurations;
 using NetClock.Application.Common.Interfaces.Database;
+using NetClock.Application.Common.Localizations.Identity;
 using NetClock.Domain.Entities.Identity;
 using NetClock.Infrastructure.Persistence;
-using NetClock.Infrastructure.Services.Validations;
-using NetCore.AutoRegisterDi;
 
 namespace NetClock.Infrastructure
 {
@@ -18,8 +18,7 @@ namespace NetClock.Infrastructure
     {
         public static IServiceCollection AddInfrastructure(
             this IServiceCollection services,
-            IConfiguration configuration,
-            IWebHostEnvironment environment)
+            IConfiguration configuration)
         {
             var connectionString = configuration.GetConnectionString("DefaultConnection");
             var assembly = typeof(ApplicationDbContext).Assembly.FullName;
@@ -29,16 +28,27 @@ namespace NetClock.Infrastructure
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseNpgsql(connectionString, b => b.MigrationsAssembly(assembly)));
 
+            // DI.
             services.Scan(scan =>
                 scan.FromCallingAssembly()
                     .AddClasses(classes => classes.Where(type => type.Name.EndsWith("Service")))
                     .AsImplementedInterfaces()
                     .WithTransientLifetime());
 
+            // HealthChecks.
+            services.AddHealthChecks()
+                .AddCheck("self", () => HealthCheckResult.Healthy())
+                .AddDbContextCheck<ApplicationDbContext>();
+
+            var appSettingsSection = configuration.GetSection("Jwt");
+            var jwtConfig = appSettingsSection.Get<JwtConfig>();
+            var key = Encoding.ASCII.GetBytes(jwtConfig.Secret);
+
             // Identity.
             services
                 .AddDefaultIdentity<ApplicationUser>(options =>
                 {
+                    // Configure identity options.
                     options.User.RequireUniqueEmail = true;
                     options.SignIn.RequireConfirmedEmail = true;
                     options.Password.RequiredLength = 6;
@@ -49,39 +59,33 @@ namespace NetClock.Infrastructure
                 })
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
-                .AddDefaultTokenProviders();
+                .AddErrorDescriber<SpanishIdentityErrorDescriber>();
+
+            services
+                .AddAuthentication(options =>
+                {
+                    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                })
+                .AddJwtBearer(options =>
+                {
+                    options.RequireHttpsMetadata = true;
+                    options.SaveToken = true;
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuerSigningKey = true,
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(key),
+                        RequireExpirationTime = true,
+                        ValidateLifetime = true,
+                        ValidIssuer = jwtConfig.ValidIssuer,
+                        ValidAudience = jwtConfig.ValidAudience
+                    };
+                });
 
             // TODO: Experimental...
             // services.AddSingleton<IAuthorizationPolicyProvider, AuthorizationPolicyProvider>();
-
-            var identity = services
-                .AddIdentityServer(options =>
-                {
-                    options.Events.RaiseErrorEvents = true;
-                    options.Events.RaiseInformationEvents = true;
-                    options.Events.RaiseFailureEvents = true;
-                    options.Events.RaiseSuccessEvents = true;
-                })
-                .AddAspNetIdentity<ApplicationUser>()
-                .AddConfigurationStore(options =>
-                {
-                    options.ConfigureDbContext = b =>
-                        b.UseNpgsql(connectionString, sql => sql.MigrationsAssembly(assembly));
-                })
-                .AddOperationalStore(options =>
-                {
-                    options.ConfigureDbContext = b =>
-                        b.UseNpgsql(connectionString, sql => sql.MigrationsAssembly(assembly));
-                });
-
-            if (environment.IsDevelopment())
-            {
-                identity.AddDeveloperSigningCredential();
-            }
-
-            services.AddHealthChecks()
-                .AddCheck("self", () => HealthCheckResult.Healthy())
-                .AddDbContextCheck<ApplicationDbContext>();
 
             return services;
         }
