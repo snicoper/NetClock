@@ -1,22 +1,18 @@
 using System.Threading.Tasks;
-using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
-using Microsoft.Extensions.Hosting;
 using NetClock.Application;
-using NetClock.Application.Common.Constants;
 using NetClock.Domain;
 using NetClock.Infrastructure;
 using NetClock.Infrastructure.Persistence;
+using NetClock.WebApi.Extensions.Configure;
 using NetClock.WebApi.Extensions.ConfigureServices;
 using NetClock.WebApi.Middlewares;
 
@@ -98,42 +94,15 @@ namespace NetClock.WebApi
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            // Localization.
-            // @see: https://docs.microsoft.com/es-es/openspecs/windows_protocols/ms-lcid/a9eac961-e77d-41a6-90a5-ce1a8b0cdb9c
-            var supportedCultures = new[]
-            {
-                SupportedCultures.EsEs,
-                SupportedCultures.EsCa,
-                SupportedCultures.EnGb
-            };
-
-            app.UseRequestLocalization(options =>
-            {
-                options
-                    .AddSupportedCultures(supportedCultures)
-                    .AddSupportedUICultures(supportedCultures)
-                    .SetDefaultCulture(SupportedCultures.DefaultCulture);
-            });
+            app.ConfigureCulture();
+            app.ConfigureByEnvironment(env);
 
             app.UseCors(DefaultCors);
 
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-                app.UseDatabaseErrorPage();
-            }
-            else
-            {
-                app.UseForwardedHeaders(new ForwardedHeadersOptions
-                {
-                    ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
-                });
-
-                app.UseHsts();
-            }
-
             app.UseHttpsRedirection();
+
             app.UseMiddleware(typeof(CustomExceptionHandlerMiddleware));
+
             app.UseStaticFiles();
 
             app.UseOpenApi();
@@ -147,19 +116,7 @@ namespace NetClock.WebApi
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-                endpoints.MapHealthChecks("/liveness", new HealthCheckOptions
-                {
-                    Predicate = r => r.Name.Contains("self")
-                });
-                endpoints.MapHealthChecks("/hc", new HealthCheckOptions()
-                {
-                    Predicate = _ => true,
-                    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
-                });
-            });
+            app.ConfigureEndpoints();
         }
     }
 }
