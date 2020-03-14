@@ -2,9 +2,9 @@
 using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
-namespace NetClock.Infrastructure.Persistence.Migrations.ApplicationMigrations
+namespace NetClock.Infrastructure.Persistence.Migrations.Application
 {
-    public partial class Initial : Migration
+    public partial class InitialApplication : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

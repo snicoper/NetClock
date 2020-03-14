@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NetClock.Infrastructure.Persistence;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
-namespace NetClock.Infrastructure.Persistence.Migrations.ApplicationMigrations
+namespace NetClock.Infrastructure.Persistence.Migrations.Application
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200311211435_Initial")]
-    partial class Initial
+    [Migration("20200314174618_InitialApplication")]
+    partial class InitialApplication
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
