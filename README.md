@@ -6,18 +6,15 @@ Herramientas de dotnet ef ahora se instalan global
 
 `dotnet tool install -g dotnet-ef`
 
-```bash
-dotnet ef migrations add init --project ../Infrastructure/Infrastructure.csproj --context ApplicationDbContext -o ../Infrastructure/Persistence/Migrations
-```
+## Migración
 
 ```bash
-dotnet run /seed
-```
+cd src/WebApi
 
-```bash
-dotnet run
-```
+dotnet ef migrations add Initial \
+    -p ../Infrastructure/Infrastructure.csproj \
+    -c ApplicationDbContext \
+    -o ../Infrastructure/Persistence/Migrations/ApplicationMigrations
 
-* ASP.net core 3.1
-* Angular 9
-* PostgresSQL
+dotnet ef database update -c ApplicationDbContext
+```
