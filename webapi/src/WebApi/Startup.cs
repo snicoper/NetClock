@@ -1,7 +1,4 @@
-using System.Globalization;
-using System.Linq;
 using System.Threading.Tasks;
-using FluentValidation.AspNetCore;
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
@@ -13,17 +10,15 @@ using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Hosting;
 using NetClock.Application;
 using NetClock.Application.Common.Constants;
-using NetClock.Application.Common.Interfaces.Database;
-using NetClock.Application.Common.Localizations;
 using NetClock.Domain;
 using NetClock.Infrastructure;
+using NetClock.Infrastructure.Persistence;
+using NetClock.WebApi.Extensions.ConfigureServices;
 using NetClock.WebApi.Middlewares;
-using Newtonsoft.Json;
-using NSwag;
-using NSwag.Generation.Processors.Security;
 
 namespace NetClock.WebApi
 {
@@ -43,9 +38,29 @@ namespace NetClock.WebApi
 
         public void ConfigureServices(IServiceCollection services)
         {
+            // Dependency injection.
             services.AddApplication(Configuration);
             services.AddInfrastructure(Configuration);
             services.AddDomain();
+
+            // Configure services.
+            services.AddStronglyTypeSettings(Configuration);
+            services.AddIdentity();
+            services.AddAuthentication(Configuration);
+            services.AddMvcControllers();
+            services.AddDefaultCors(Environment, DefaultCors);
+            services.AddSwagger(Environment);
+
+            // Localization.
+            services.AddLocalization(options => options.ResourcesPath = "Resources");
+
+            // Routing.
+            services.AddRouting(options => { options.LowercaseUrls = true; });
+
+            // HealthChecks.
+            services.AddHealthChecks()
+                .AddCheck("self", () => HealthCheckResult.Healthy())
+                .AddDbContextCheck<ApplicationDbContext>();
 
             // Razor.
             services.Configure<RazorViewEngineOptions>(options =>
@@ -63,25 +78,11 @@ namespace NetClock.WebApi
                 options.ApiVersionReader = new UrlSegmentApiVersionReader();
             });
 
-            // MVC.
-            services
-                .AddControllers()
-                .AddNewtonsoftJson(options =>
-                    {
-                        options.SerializerSettings.Culture = CultureInfo.CurrentCulture;
-                        options.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
-                        options.SerializerSettings.DateFormatHandling = DateFormatHandling.IsoDateFormat;
-                        options.SerializerSettings.DateFormatString = "yyyy-MM-dd'T'HH:mm:ss.FFFFFF'Z'";
-                        options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
-                    })
-                .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<IApplicationDbContext>())
-                .AddDataAnnotationsLocalization(options =>
-                {
-                    options.DataAnnotationLocalizerProvider = (type, factory)
-                        => factory.Create(typeof(SharedLocalizer));
-                })
-                .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix);
-
+            // Customise default API behaviour.
+            services.Configure<ApiBehaviorOptions>(options =>
+            {
+                options.SuppressModelStateInvalidFilter = true;
+            });
 
             // Prevents redirection when not authenticated.
             services.ConfigureApplicationCookie(options =>
@@ -92,77 +93,6 @@ namespace NetClock.WebApi
 
                     return Task.CompletedTask;
                 };
-            });
-        }
-
-        public void ConfigureProductionServices(IServiceCollection services)
-        {
-            ConfigureServices(services);
-
-            // Add cors policy.
-            services.AddCors(options =>
-            {
-                options.AddPolicy(DefaultCors, builder =>
-                {
-                    builder
-                        .WithOrigins("http://localhost:4200")
-                        .AllowAnyHeader()
-                        .AllowAnyMethod();
-                });
-            });
-        }
-
-        public void ConfigureStagingServices(IServiceCollection services)
-        {
-            ConfigureServices(services);
-
-            // Add cors policy.
-            services.AddCors(options =>
-            {
-                options.AddPolicy(DefaultCors, builder =>
-                {
-                    builder
-                        .WithOrigins("http://localhost:4210")
-                        .AllowAnyHeader()
-                        .AllowAnyMethod();
-                });
-            });
-        }
-
-        public void ConfigureTestServices(IServiceCollection services)
-        {
-            ConfigureDevelopmentServices(services);
-        }
-
-        public void ConfigureDevelopmentServices(IServiceCollection services)
-        {
-            ConfigureServices(services);
-
-            // Add cors policy.
-            services.AddCors(options =>
-            {
-                options.AddPolicy(DefaultCors, builder =>
-                {
-                    builder
-                        .AllowAnyOrigin()
-                        .AllowAnyMethod()
-                        .AllowAnyHeader();
-                });
-            });
-
-            // Register the Swagger services.
-            services.AddOpenApiDocument(configure =>
-            {
-                configure.Title = "NetClock API";
-                configure.AddSecurity("JWT", Enumerable.Empty<string>(), new OpenApiSecurityScheme
-                {
-                    Type = OpenApiSecuritySchemeType.ApiKey,
-                    Name = "Authorization",
-                    In = OpenApiSecurityApiKeyLocation.Header,
-                    Description = "Type into the text box: Bearer {your JWT token}."
-                });
-
-                configure.OperationProcessors.Add(new AspNetCoreOperationSecurityScopeProcessor("JWT"));
             });
         }
 
