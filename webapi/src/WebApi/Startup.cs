@@ -44,12 +44,12 @@ namespace NetClock.WebApi
             services.AddDomain();
 
             // Configure services.
-            services.AddStronglyTypeSettings(Configuration);
-            services.AddIdentity();
-            services.AddAuthentication(Configuration);
-            services.AddMvcControllers();
-            services.AddDefaultCors(Environment, DefaultCors);
-            services.AddSwagger(Environment);
+            services.ConfigureStronglyTypeSettings(Configuration);
+            services.ConfigureIdentity();
+            services.ConfigureAuthentication(Configuration);
+            services.ConfigureApiControllers();
+            services.ConfigureCors(Environment, DefaultCors);
+            services.ConfigureSwagger(Environment);
 
             // Localization.
             services.AddLocalization(options => options.ResourcesPath = "Resources");

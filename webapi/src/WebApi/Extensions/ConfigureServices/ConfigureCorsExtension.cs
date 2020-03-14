@@ -5,12 +5,12 @@ using Microsoft.Extensions.Hosting;
 
 namespace NetClock.WebApi.Extensions.ConfigureServices
 {
-    public static class CorsExtension
+    public static class ConfigureCorsExtension
     {
         private static IServiceCollection _services;
         private static string _corsName;
 
-        public static IServiceCollection AddDefaultCors(
+        public static IServiceCollection ConfigureCors(
             this IServiceCollection services,
             IWebHostEnvironment environment,
             string corsName)

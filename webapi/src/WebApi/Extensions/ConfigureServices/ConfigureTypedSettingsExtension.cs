@@ -4,9 +4,9 @@ using NetClock.Application.Common.Configurations;
 
 namespace NetClock.WebApi.Extensions.ConfigureServices
 {
-    public static class StronglyTypedSettingsExtension
+    public static class ConfigureTypedSettingsExtension
     {
-        public static IServiceCollection AddStronglyTypeSettings(
+        public static IServiceCollection ConfigureStronglyTypeSettings(
             this IServiceCollection services,
             IConfiguration configuration)
         {

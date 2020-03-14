@@ -7,9 +7,11 @@ using NetClock.Application.Common.Configurations;
 
 namespace NetClock.WebApi.Extensions.ConfigureServices
 {
-    public static class AuthenticationExtension
+    public static class ConfigureAuthenticationExtension
     {
-        public static IServiceCollection AddAuthentication(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection ConfigureAuthentication(
+            this IServiceCollection services,
+            IConfiguration configuration)
         {
             var appSettingsSection = configuration.GetSection("Jwt");
             var jwtConfig = appSettingsSection.Get<JwtConfig>();

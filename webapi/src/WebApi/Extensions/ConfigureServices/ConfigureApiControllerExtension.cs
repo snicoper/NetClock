@@ -8,9 +8,9 @@ using Newtonsoft.Json;
 
 namespace NetClock.WebApi.Extensions.ConfigureServices
 {
-    public static class MvcControllerExtension
+    public static class ConfigureApiControllerExtension
     {
-        public static IServiceCollection AddMvcControllers(this IServiceCollection services)
+        public static IServiceCollection ConfigureApiControllers(this IServiceCollection services)
         {
             services
                 .AddControllers()

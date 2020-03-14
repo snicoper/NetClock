@@ -6,9 +6,9 @@ using NetClock.Infrastructure.Persistence;
 
 namespace NetClock.WebApi.Extensions.ConfigureServices
 {
-    public static class IdentityExtension
+    public static class ConfigureIdentityExtension
     {
-        public static IServiceCollection AddIdentity(this IServiceCollection services)
+        public static IServiceCollection ConfigureIdentity(this IServiceCollection services)
         {
             // Identity.
             services

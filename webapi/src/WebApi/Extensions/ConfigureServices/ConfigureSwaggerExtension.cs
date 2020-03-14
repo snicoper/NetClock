@@ -7,9 +7,11 @@ using NSwag.Generation.Processors.Security;
 
 namespace NetClock.WebApi.Extensions.ConfigureServices
 {
-    public static class SwaggerExtension
+    public static class ConfigureSwaggerExtension
     {
-        public static IServiceCollection AddSwagger(this IServiceCollection services, IWebHostEnvironment environment)
+        public static IServiceCollection ConfigureSwagger(
+            this IServiceCollection services,
+            IWebHostEnvironment environment)
         {
             if (environment.IsDevelopment())
             {
