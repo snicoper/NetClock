@@ -16,6 +16,11 @@ export class ApiResult<T> {
   orders: ApiResultItemOrderBy[] = [];
   filters: ApiResultItemFilter[] = [];
 
+  constructor() {
+    this.cleanFilters();
+    this.cleanOrders();
+  }
+
   addFilter(propertyName: string, operator: RelationalOperator, value: string, concat = LogicalOperator.none): ApiResult<T> {
     const filter = new ApiResultItemFilter(propertyName, operator, value, concat);
     this.filters.push(filter);

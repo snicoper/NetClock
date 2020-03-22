@@ -17,7 +17,7 @@ import { UserListHeaderConfig } from './user-list-headers.config';
 })
 export class UserListComponent implements OnInit, OnDestroy {
   breadcrumb = new BreadcrumbCollection();
-  ApiResult: ApiResult<AdminUserListModel>;
+  apiResult: ApiResult<AdminUserListModel>;
   tableHeaderConfig = new TableHeaderConfig();
   loading = false;
 
@@ -62,10 +62,10 @@ export class UserListComponent implements OnInit, OnDestroy {
 
   private loadUsers(): void {
     this.loading = true;
-    this.adminAccountsService.getAllPaginated(this.ApiResult)
+    this.adminAccountsService.getAllPaginated(this.apiResult)
       .pipe(finalize(() => this.loading = false))
       .subscribe((result: ApiResult<AdminUserListModel>) => {
-        this.ApiResult = result;
+        this.apiResult = result;
       });
   }
 }

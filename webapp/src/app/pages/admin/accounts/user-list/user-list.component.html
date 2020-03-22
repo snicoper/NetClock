@@ -2,35 +2,35 @@
   <div class="row">
     <div class="col-12">
       <nc-card>
-        <nc-pagination *ngIf="ApiResult"
-                       [apiResult]="ApiResult"
+        <nc-pagination *ngIf="apiResult"
+                       [apiResult]="apiResult"
                        [showPageList]="false"
                        [showPagesButtons]="false"
                        (changePage)="onReloadData()">
         </nc-pagination>
 
-        <nc-table [apiResult]="ApiResult" [loading]="loading">
+        <nc-table [apiResult]="apiResult" [loading]="loading">
           <thead ncThead>
-            <tr ncTableHeader
-                [tableHeaderConfig]="tableHeaderConfig"
-                [apiResult]="ApiResult"
-                (clickOrdering)="onReloadData()">
-            </tr>
+          <tr ncTableHeader
+              [tableHeaderConfig]="tableHeaderConfig"
+              [apiResult]="apiResult"
+              (clickOrdering)="onReloadData()">
+          </tr>
           </thead>
 
-          <tbody ncTbody *ngIf="ApiResult">
-            <tr *ngFor="let user of ApiResult.items" (click)="onSelectItem(user)" class="cursor-pointer">
-              <td>{{user.userName}}</td>
-              <td>{{user.fullName}}</td>
-              <td>{{user.email}}</td>
-              <td>{{user.created | date: 'dd/MM/yyyy'}}</td>
-              <td [innerHTML]="user.active | iconBoolean"></td>
-            </tr>
+          <tbody ncTbody *ngIf="apiResult">
+          <tr *ngFor="let user of apiResult.items" (click)="onSelectItem(user)" class="cursor-pointer">
+            <td>{{user.userName}}</td>
+            <td>{{user.fullName}}</td>
+            <td>{{user.email}}</td>
+            <td>{{user.created | date: 'dd/MM/yyyy'}}</td>
+            <td [innerHTML]="user.active | iconBoolean"></td>
+          </tr>
           </tbody>
         </nc-table>
 
-        <nc-pagination *ngIf="ApiResult"
-                       [apiResult]="ApiResult"
+        <nc-pagination *ngIf="apiResult"
+                       [apiResult]="apiResult"
                        (changePage)="onReloadData()"
                        (changePageListNumber)="onReloadData()">
         </nc-pagination>

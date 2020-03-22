@@ -1,5 +1,9 @@
 <nav *ngIf="breadcrumb.hasItems()" class="nav-breadcrumb" aria-label="breadcrumb">
   <ol class="breadcrumb bg-white shadow-sm">
+    <li (click)="toggleSidebar()" class="hide-sidebar small mr-2 cursor-pointer">
+      <i class="fas fa-bars"></i>
+    </li>
+
     <li *ngFor="let breadcrumb of breadcrumb.getItems()"
         [ngClass]="{'active': breadcrumb.active}"
         class="breadcrumb-item small">

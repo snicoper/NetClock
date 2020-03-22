@@ -12,7 +12,6 @@ import { CardComponent } from './cards/card/card.component';
 import { FooterComponent } from './footer/footer.component';
 import { FieldErrorComponent } from './forms/field-error/field-error.component';
 import { NonFieldErrorsComponent } from './forms/non-field-errors/non-field-errors.component';
-import { NavbarComponent } from './navbar/navbar.component';
 import { PageBaseComponent } from './page-base/page-base.component';
 import { PageTitleComponent } from './page-title/page-title.component';
 import { PaginationComponent } from './pagination/pagination.component';
@@ -23,7 +22,6 @@ import { TableComponent } from './tables/table/table.component';
 
 @NgModule({
   declarations: [
-    NavbarComponent,
     FooterComponent,
     FieldErrorComponent,
     NonFieldErrorsComponent,
@@ -36,7 +34,7 @@ import { TableComponent } from './tables/table/table.component';
     PaginationComponent,
     TableHeaderComponent,
     CardComponent,
-    TableComponent,
+    TableComponent
   ],
   imports: [
     CommonModule,
@@ -50,7 +48,6 @@ import { TableComponent } from './tables/table/table.component';
     DirectivesModule
   ],
   exports: [
-    NavbarComponent,
     FooterComponent,
     FieldErrorComponent,
     NonFieldErrorsComponent,
