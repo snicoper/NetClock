@@ -26,6 +26,7 @@ export class AdminUserCreateComponent implements OnInit {
     this.breadcrumb
       .add('Inicio', UrlsApp.home, 'fas fa-home')
       .add('Administración', UrlsApp.admin, 'fas fa-user-shield')
-      .add('Nuevo usuario', UrlsApp.adminUserList, 'fas fa-user-plus', false);
+      .add('Usuarios', UrlsApp.adminUserList, 'fas fa-users')
+      .add('Nuevo', UrlsApp.adminUserCreate, 'fas fa-user-plus', false);
   }
 }

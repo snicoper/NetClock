@@ -26,11 +26,6 @@ export const SidebarMenuItemsModel = [
         title: 'Usuarios',
         link: '/admin/accounts',
         active: false
-      },
-      {
-        title: 'Nuevo usuario',
-        link: '/admin/accounts/create',
-        active: false
       }
     ]
   },

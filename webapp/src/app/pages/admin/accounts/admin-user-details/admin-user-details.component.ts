@@ -34,7 +34,7 @@ export class AdminUserDetailsComponent implements OnInit {
     this.breadcrumb
       .add('Inicio', UrlsApp.home, 'fas fa-home')
       .add('Administración', UrlsApp.admin, 'fas fa-user-shield')
-      .add('Lista de usuarios', UrlsApp.adminUserList, 'fas fa-users')
+      .add('Usuarios', UrlsApp.adminUserList, 'fas fa-users')
       .add(this.userSlug, UrlsApp.adminUserList, 'fas fa-user', false);
   }
 
