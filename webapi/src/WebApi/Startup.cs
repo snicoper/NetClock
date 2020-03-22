@@ -35,7 +35,7 @@ namespace NetClock.WebApi
         public void ConfigureServices(IServiceCollection services)
         {
             // Dependency injection.
-            services.AddApplication(Configuration);
+            services.AddApplication();
             services.AddInfrastructure(Configuration);
             services.AddDomain();
 

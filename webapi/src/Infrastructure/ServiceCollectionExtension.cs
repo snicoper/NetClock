@@ -6,7 +6,7 @@ using NetClock.Infrastructure.Persistence;
 
 namespace NetClock.Infrastructure
 {
-    public static class DependencyInjection
+    public static class ServiceCollectionExtension
     {
         public static IServiceCollection AddInfrastructure(
             this IServiceCollection services,
@@ -26,9 +26,6 @@ namespace NetClock.Infrastructure
                     .AddClasses(classes => classes.Where(type => type.Name.EndsWith("Service")))
                     .AsImplementedInterfaces()
                     .WithTransientLifetime());
-
-            // TODO: Experimental...
-            // services.AddSingleton<IAuthorizationPolicyProvider, AuthorizationPolicyProvider>();
 
             return services;
         }

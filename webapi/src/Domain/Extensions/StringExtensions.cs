@@ -11,7 +11,8 @@ namespace NetClock.Domain.Extensions
             const string pattern = @"[^a-zA-Z0-9\-]";
             const string replacement = "-";
             var regex = new Regex(pattern);
-            var result = regex.Replace(RemoveDiacritics(text), replacement)
+            var result = regex
+                .Replace(RemoveDiacritics(text), replacement)
                 .Replace("--", "-")
                 .Trim('-');
 

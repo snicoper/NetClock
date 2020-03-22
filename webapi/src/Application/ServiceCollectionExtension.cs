@@ -9,9 +9,9 @@ using NetClock.Application.Common.Services.Http;
 
 namespace NetClock.Application
 {
-    public static class DependencyInjection
+    public static class ServiceCollectionExtension
     {
-        public static IServiceCollection AddApplication(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddApplication(this IServiceCollection services)
         {
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
             services.AddMediatR(Assembly.GetExecutingAssembly());
