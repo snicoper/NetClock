@@ -9,9 +9,9 @@ import { AdminAccountsRestService } from '../services/admin-accounts-rest.servic
 
 @Component({
   selector: 'nc-user-details',
-  templateUrl: './user-details.component.html'
+  templateUrl: './admin-user-details.component.html'
 })
-export class UserDetailsComponent implements OnInit {
+export class AdminUserDetailsComponent implements OnInit {
   breadcrumb = new BreadcrumbCollection();
   user: AdminUserDetailsModel;
   loading = false;

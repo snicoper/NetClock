@@ -14,7 +14,7 @@ export const SidebarMenuItemsModel = [
     // },
     submenus: [
       {
-        title: 'Admin',
+        title: 'Administración',
         link: '/admin',
         active: false
         // badge: {
@@ -25,6 +25,11 @@ export const SidebarMenuItemsModel = [
       {
         title: 'Usuarios',
         link: '/admin/accounts',
+        active: false
+      },
+      {
+        title: 'Nuevo usuario',
+        link: '/admin/accounts/create',
         active: false
       }
     ]

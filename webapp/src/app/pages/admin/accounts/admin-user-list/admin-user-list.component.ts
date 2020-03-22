@@ -9,13 +9,13 @@ import { UrlsApp } from '../../../../config';
 import { ApiResult } from '../../../../models';
 import { AdminUserListModel } from '../models';
 import { AdminAccountsRestService } from '../services/admin-accounts-rest.service';
-import { UserListHeaderConfig } from './user-list-headers.config';
+import { AdminUserListHeaderConfig } from './admin-user-list-headers.config';
 
 @Component({
   selector: 'nc-user-list',
-  templateUrl: './user-list.component.html'
+  templateUrl: './admin-user-list.component.html'
 })
-export class UserListComponent implements OnInit, OnDestroy {
+export class AdminUserListComponent implements OnInit, OnDestroy {
   breadcrumb = new BreadcrumbCollection();
   apiResult: ApiResult<AdminUserListModel>;
   tableHeaderConfig = new TableHeaderConfig();
@@ -50,7 +50,7 @@ export class UserListComponent implements OnInit, OnDestroy {
   }
 
   private configureTableHeaders(): void {
-    this.tableHeaderConfig.addRange(UserListHeaderConfig);
+    this.tableHeaderConfig.addRange(AdminUserListHeaderConfig);
   }
 
   private setBreadcrumb(): void {
