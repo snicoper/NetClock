@@ -17,10 +17,8 @@ export class DebugService {
   }
 
   raiseError(message: string): void {
-    if (this.settingsService.isDebug !== true) {
-      message = '';
+    if (this.settingsService.isDebug === true) {
+      throw new Error(message);
     }
-
-    throw new Error(message);
   }
 }

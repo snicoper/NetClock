@@ -8,16 +8,10 @@
       {{header.text}}
     </span><!-- end text header -->
 
-    <!-- filterable -->
-    <div *ngIf="header.filterable" class="ml-auto">
-      <i class="fas fa-filter opacity3"></i>
-    </div><!-- end filterable -->
-
     <!-- sortable -->
     <div *ngIf="header.sortable"
-         [ngClass]="{'ml-auto': !header.filterable, 'ml-2': header.filterable}"
          (click)="onClickOrder(header)"
-         class="cursor-pointer">
+         class="cursor-pointer ml-auto">
       <!-- sort order -->
       <span *ngIf="header.orderType !== orderings.none">
         <span class="badge mr-2 opacity3">
