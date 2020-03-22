@@ -8,12 +8,14 @@ import { UserDetailsComponent } from './accounts/user-details/user-details.compo
 import { UserListComponent } from './accounts/user-list/user-list.component';
 import { AdminRoutingModule } from './admin-routing.module';
 import { AdminComponent } from './admin.component';
+import { UserCreateComponent } from './accounts/user-create/user-create.component';
 
 @NgModule({
   declarations: [
     AdminComponent,
     UserListComponent,
-    UserDetailsComponent
+    UserDetailsComponent,
+    UserCreateComponent
   ],
   imports: [
     CommonModule,

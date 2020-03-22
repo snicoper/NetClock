@@ -16,7 +16,7 @@ export const UrlsApp = {
   /** Admin. */
   admin: '/admin',
   adminUserList: '/admin/accounts',
-  adminUserDetails: '/admin/accounts/{slug}',
+  adminUserDetails: '/admin/accounts/{slug}/details',
 
   replace(url: string, args: object): string {
     const keys = Object.keys(args);

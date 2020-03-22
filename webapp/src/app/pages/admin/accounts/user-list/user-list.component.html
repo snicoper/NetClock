@@ -2,12 +2,29 @@
   <div class="row">
     <div class="col-12">
       <nc-card>
-        <nc-pagination *ngIf="apiResult"
-                       [apiResult]="apiResult"
-                       [showPageList]="false"
-                       [showPagesButtons]="false"
-                       (changePage)="onReloadData()">
-        </nc-pagination>
+        <!-- toolbar -->
+        <div class="d-flex justify-content-start">
+          <div>
+            <a [routerLink]="['/admin/accounts/create']" class="btn btn-sm btn-outline-primary">
+              <i class="fas fa-user-plus"></i> Nuevo empleado
+            </a>
+          </div>
+
+          <div class="ml-auto">
+            <button class="btn btn-sm btn-outline-primary">
+              <i class="fas fa-filter"></i>
+            </button>
+          </div>
+
+          <div class="ml-2">
+            <nc-pagination *ngIf="apiResult"
+                           [apiResult]="apiResult"
+                           [showPageList]="false"
+                           [showPagesButtons]="false"
+                           (changePage)="onReloadData()">
+            </nc-pagination>
+          </div>
+        </div><!-- end toolbar -->
 
         <nc-table [apiResult]="apiResult" [loading]="loading">
           <thead ncThead>
