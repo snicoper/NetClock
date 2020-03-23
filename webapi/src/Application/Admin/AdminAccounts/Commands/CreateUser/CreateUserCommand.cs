@@ -2,11 +2,11 @@ using System.ComponentModel.DataAnnotations;
 using MediatR;
 using NetClock.Domain.Entities.Identity;
 
-namespace NetClock.Application.Accounts.Accounts.Commands.Register
+namespace NetClock.Application.Admin.AdminAccounts.Commands.CreateUser
 {
-    public class RegisterCommand : IRequest<RegisterViewModel>
+    public class CreateUserCommand : IRequest<ApplicationUser>
     {
-        public RegisterCommand(
+        public CreateUserCommand(
             string userName,
             string firstName,
             string lastName,
@@ -22,15 +22,20 @@ namespace NetClock.Application.Accounts.Accounts.Commands.Register
             ConfirmPassword = confirmPassword;
         }
 
-        [Display(Name = "Nombre de usuario")] public string UserName { get; }
+        [Display(Name = "Nombre de usuario")]
+        public string UserName { get; }
 
-        [Display(Name = "Nombre")] public string FirstName { get; }
+        [Display(Name = "Nombre")]
+        public string FirstName { get; }
 
-        [Display(Name = "Apellidos")] public string LastName { get; }
+        [Display(Name = "Apellidos")]
+        public string LastName { get; }
 
-        [Display(Name = "Correo electrónico")] public string Email { get; }
+        [Display(Name = "Correo electrónico")]
+        public string Email { get; }
 
-        [Display(Name = "Contraseña")] public string Password { get; }
+        [Display(Name = "Contraseña")]
+        public string Password { get; }
 
         [Display(Name = "Confirmar contraseña")]
         public string ConfirmPassword { get; }
@@ -39,7 +44,7 @@ namespace NetClock.Application.Accounts.Accounts.Commands.Register
         {
             return new ApplicationUser
             {
-                UserName = UserName,
+                UserName  = UserName,
                 FirstName = FirstName,
                 LastName = LastName,
                 Email = Email

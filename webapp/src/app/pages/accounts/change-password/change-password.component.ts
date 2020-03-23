@@ -68,7 +68,7 @@ export class ChangePasswordComponent implements OnInit {
   private buildForm(): void {
     this.form = this.fb.group({
         oldPassword: new FormControl('', [Validators.required]),
-        newPassword: new FormControl('', [Validators.required]),
+        password: new FormControl('', [Validators.required]),
         confirmPassword: new FormControl('', [Validators.required])
       },
       {

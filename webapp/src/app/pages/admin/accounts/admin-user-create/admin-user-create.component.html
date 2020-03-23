@@ -1,5 +1,93 @@
 <nc-page-base [breadcrumb]="breadcrumb">
   <nc-card>
-    <h1 ncCardTitle>Crear usuario</h1>
+    <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+      <div class="row">
+        <div class="col-12">
+          <nc-non-field-errors [errors]="errors"></nc-non-field-errors>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12 form-group">
+          <label for="userName">Nombre de usuario</label>
+          <input formControlName="userName" id="userName" class="form-control" type="text">
+          <nc-field-error [form]="form"
+                          [errors]="errors"
+                          [submitted]="submitted"
+                          fieldText="Nombre de usuario"
+                          fieldName="userName">
+          </nc-field-error>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12 col-md-6 form-group">
+          <label for="firstName">Nombre</label>
+          <input formControlName="firstName" id="firstName" class="form-control" type="text">
+          <nc-field-error [form]="form"
+                          [errors]="errors"
+                          [submitted]="submitted"
+                          fieldText="Nombre"
+                          fieldName="firstName">
+          </nc-field-error>
+        </div>
+
+        <div class="col-12 col-md-6 form-group">
+          <label for="lastName">Apellidos</label>
+          <input formControlName="lastName" id="lastName" class="form-control" type="text">
+          <nc-field-error [form]="form"
+                          [errors]="errors"
+                          [submitted]="submitted"
+                          fieldText="Apellidos"
+                          fieldName="lastName">
+          </nc-field-error>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6 form-group">
+          <label for="email">Email</label>
+          <input formControlName="email" id="email" class="form-control" type="email">
+          <nc-field-error [form]="form"
+                          [errors]="errors"
+                          [submitted]="submitted"
+                          fieldText="Correo electrónico"
+                          fieldName="email">
+          </nc-field-error>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12 col-md-6 form-group">
+          <label for="password">Contraseña</label>
+          <input formControlName="password" id="password" class="form-control" type="password">
+          <nc-field-error [form]="form"
+                          [errors]="errors"
+                          [submitted]="submitted"
+                          fieldText="Contraseña"
+                          fieldName="password">
+          </nc-field-error>
+        </div>
+
+        <div class="col-12 col-md-6 form-group">
+          <label for="confirmPassword">Confirmar contraseña</label>
+          <input formControlName="confirmPassword" id="confirmPassword" class="form-control" type="password">
+          <nc-field-error [form]="form"
+                          [errors]="errors"
+                          [submitted]="submitted"
+                          fieldText="Confirmar contraseña"
+                          fieldName="confirmPassword">
+          </nc-field-error>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12">
+          <button class="btn btn-primary" type="submit">
+            Crear usuario
+          </button>
+        </div>
+      </div>
+    </form>
   </nc-card>
 </nc-page-base>

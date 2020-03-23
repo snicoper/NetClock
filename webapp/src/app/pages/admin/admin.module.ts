@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { ComponentsModule } from '../../components/components.module';
 import { DirectivesModule } from '../../directives/directives.module';
@@ -22,7 +23,8 @@ import { AdminComponent } from './admin.component';
     AdminRoutingModule,
     ComponentsModule,
     PipesModule,
-    DirectivesModule
+    DirectivesModule,
+    ReactiveFormsModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
