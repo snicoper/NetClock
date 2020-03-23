@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Dynamic.Core;
 using System.Linq.Expressions;
 using NetClock.Application.Common.Extensions;
 using NetClock.Domain.Entities.Identity;
@@ -14,6 +15,7 @@ namespace NetClock.Application.Common.Http.OrderBy
         {
             if (string.IsNullOrEmpty(request.Orders))
             {
+                // Por defecto si existe, ordena por "Create | Id" - Descending.
                 return OrderByIdOrDefault(source);
             }
 
@@ -42,7 +44,7 @@ namespace NetClock.Application.Common.Http.OrderBy
             var propertyInfo = typeof(TEntity).GetProperty(nameof(ApplicationUser.Created))
                                ?? typeof(TEntity).GetProperty(nameof(ApplicationUser.Id));
 
-            return propertyInfo != null ? source.OrderBy(p => propertyInfo.Name) : source;
+            return propertyInfo != null ? source.OrderBy($"{propertyInfo.Name} DESC") : source;
         }
 
         private static IOrderedQueryable<TEntity> HandleOrderByCommand<TEntity>(
