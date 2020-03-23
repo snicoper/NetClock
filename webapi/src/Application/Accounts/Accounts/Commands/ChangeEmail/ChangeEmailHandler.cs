@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using NetClock.Application.Common.Configurations;
@@ -20,6 +21,7 @@ namespace NetClock.Application.Accounts.Accounts.Commands.ChangeEmail
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IEmailService _emailService;
         private readonly ILinkGeneratorService _linkGeneratorService;
+        private readonly IStringLocalizer<ApplicationUser> _localizer;
         private readonly WebApiConfig _webApiConfig;
         private readonly ILogger<ChangeEmailHandler> _logger;
 
@@ -28,11 +30,13 @@ namespace NetClock.Application.Accounts.Accounts.Commands.ChangeEmail
             IEmailService emailService,
             ILinkGeneratorService linkGeneratorService,
             IOptions<WebApiConfig> options,
+            IStringLocalizer<ApplicationUser> localizer,
             ILogger<ChangeEmailHandler> logger)
         {
             _userManager = userManager;
             _emailService = emailService;
             _linkGeneratorService = linkGeneratorService;
+            _localizer = localizer;
             _webApiConfig = options.Value;
             _logger = logger;
         }
@@ -66,7 +70,7 @@ namespace NetClock.Application.Accounts.Accounts.Commands.ChangeEmail
             ApplicationUser applicationUser,
             ChangeEmailViewModel registerViewModel)
         {
-            _emailService.Subject = $"Confirmación de cambio de email en {_webApiConfig.SiteName}";
+            _emailService.Subject = _localizer["Confirmación de cambio de email en {0}", _webApiConfig.SiteName];
             _emailService.To.Add(new MailAddress(applicationUser.Email));
             _emailService.IsHtml = true;
             await _emailService.SendEmailAsync(EmailTemplates.ChangeEmailConfirmation, registerViewModel);

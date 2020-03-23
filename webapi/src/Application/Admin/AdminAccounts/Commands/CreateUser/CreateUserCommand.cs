@@ -48,7 +48,7 @@ namespace NetClock.Application.Admin.AdminAccounts.Commands.CreateUser
         {
             return new ApplicationUser
             {
-                UserName  = UserName,
+                UserName = UserName,
                 FirstName = FirstName,
                 LastName = LastName,
                 Email = Email,

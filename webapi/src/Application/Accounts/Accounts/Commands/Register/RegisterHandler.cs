@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Mail;
 using System.Threading;
 using System.Threading.Tasks;
@@ -58,16 +59,11 @@ namespace NetClock.Application.Accounts.Accounts.Commands.Register
 
         public async Task<RegisterViewModel> Handle(RegisterCommand request, CancellationToken cancellationToken)
         {
-            _logger.LogInformation($"Se va a crear un nuevo usuario {request.UserName}, {request.Email}");
             var applicationUser = request.MappingToApplicationUser();
             await UserValidationAsync(request, applicationUser);
             await PasswordValidationAsync(request, applicationUser);
             await UserCreateAsync(request, applicationUser);
-
-            if (_validationFailureService.HasErrors())
-            {
-                _validationFailureService.RaiseExceptions();
-            }
+            _validationFailureService.RaiseExceptionsIfExistsFailures();
 
             var registerViewModel = _mapper.Map<ApplicationUser, RegisterViewModel>(applicationUser);
 
@@ -85,9 +81,19 @@ namespace NetClock.Application.Accounts.Accounts.Commands.Register
             var validUser = await _userValidator.ValidateAsync(_userManager, applicationUser);
             if (!validUser.Succeeded)
             {
-                const string errorMessage = "El usuario no es valido";
+                var errorMessage = _localizer["El usuario no es valido"];
                 _logger.LogWarning(errorMessage);
                 _validationFailureService.Add(nameof(request.UserName), errorMessage);
+            }
+
+            // Comprueba si existe un FirstName y LastName iguales en la base de datos.
+            var userExists = _userManager.Users.FirstOrDefault(
+                u => u.FirstName == request.FirstName && u.LastName == request.LastName);
+            if (userExists != null)
+            {
+                // Si existe, lanza al excepción para no llegar hacer la consulta ya que daria un 500.
+                var errorMessage = _localizer["Ya existe un usuario con ese nombre y apellidos"];
+                _validationFailureService.AddAndRaiseExceptions(nameof(request.FirstName), errorMessage);
             }
         }
 
@@ -96,7 +102,7 @@ namespace NetClock.Application.Accounts.Accounts.Commands.Register
             var validPassword = await _passwordValidator.ValidateAsync(_userManager, applicationUser, request.Password);
             if (!validPassword.Succeeded)
             {
-                const string errorMessage = "La contraseña no es valida";
+                var errorMessage = _localizer["La contraseña no es valida"];
                 _logger.LogWarning(errorMessage);
                 _validationFailureService.Add(nameof(request.Password), errorMessage);
             }
@@ -107,7 +113,7 @@ namespace NetClock.Application.Accounts.Accounts.Commands.Register
             var createResult = await _userManager.CreateAsync(applicationUser, request.Password);
             if (!createResult.Succeeded)
             {
-                const string errorMessage = "Error al crear usuario";
+                var errorMessage = _localizer["Error al crear usuario"];
                 _logger.LogWarning(errorMessage);
                 _validationFailureService.Add(Errors.NonFieldErrors, errorMessage);
             }

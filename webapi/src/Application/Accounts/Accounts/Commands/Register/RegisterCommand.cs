@@ -22,15 +22,20 @@ namespace NetClock.Application.Accounts.Accounts.Commands.Register
             ConfirmPassword = confirmPassword;
         }
 
-        [Display(Name = "Nombre de usuario")] public string UserName { get; }
+        [Display(Name = "Nombre de usuario")]
+        public string UserName { get; }
 
-        [Display(Name = "Nombre")] public string FirstName { get; }
+        [Display(Name = "Nombre")]
+        public string FirstName { get; }
 
-        [Display(Name = "Apellidos")] public string LastName { get; }
+        [Display(Name = "Apellidos")]
+        public string LastName { get; }
 
-        [Display(Name = "Correo electrónico")] public string Email { get; }
+        [Display(Name = "Correo electrónico")]
+        public string Email { get; }
 
-        [Display(Name = "Contraseña")] public string Password { get; }
+        [Display(Name = "Contraseña")]
+        public string Password { get; }
 
         [Display(Name = "Confirmar contraseña")]
         public string ConfirmPassword { get; }

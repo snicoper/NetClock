@@ -15,10 +15,7 @@ namespace NetClock.Application.Admin.AdminAccounts.Queries.GetBySlug
         private readonly IIdentityService _identityService;
         private readonly ILogger<GetBySlugHandler> _logger;
 
-        public GetBySlugHandler(
-            IMapper mapper,
-            IIdentityService identityService,
-            ILogger<GetBySlugHandler> logger)
+        public GetBySlugHandler(IMapper mapper, IIdentityService identityService, ILogger<GetBySlugHandler> logger)
         {
             _mapper = mapper;
             _identityService = identityService;
@@ -30,7 +27,7 @@ namespace NetClock.Application.Admin.AdminAccounts.Queries.GetBySlug
             _logger.LogInformation($"Se va a obtener el usuario {request.Slug}");
             var user = await _identityService.FirstOrDefaultBySlugAsync(request.Slug);
 
-            if (!(user is null))
+            if (user != null)
             {
                 return _mapper.Map<AdminUserDetailsViewModel>(user);
             }

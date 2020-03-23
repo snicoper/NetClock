@@ -99,9 +99,8 @@ namespace NetClock.Application.Accounts.Auth.Commands.Login
         private void InvalidUserNameOrPassword(LoginCommand request)
         {
             _logger.LogWarning($"Error al identificarse {request.UserName}");
-            _validationFailureService.AddAndRaiseExceptions(
-                Errors.NonFieldErrors,
-                _localizer["Nombre de usuario o contraseña no valido"]);
+            var errorMessage = _localizer["Nombre de usuario o contraseña no valido"];
+            _validationFailureService.AddAndRaiseExceptions( Errors.NonFieldErrors, errorMessage);
         }
     }
 }

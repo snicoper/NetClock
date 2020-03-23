@@ -38,7 +38,8 @@ namespace NetClock.Application.Accounts.Accounts.Commands.RegisterValidate
             if (user is null)
             {
                 _logger.LogWarning($"El usuario {request.UserId} no existe en la base de datos");
-                _validationFailureService.AddAndRaiseExceptions(Errors.NonFieldErrors, "El usuario no existe");
+                var errorMessage = _localizer["El usuario no existe"];
+                _validationFailureService.AddAndRaiseExceptions(Errors.NonFieldErrors, errorMessage);
 
                 return Unit.Value;
             }

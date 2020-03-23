@@ -5,7 +5,7 @@ using NetClock.Domain.Entities.Identity;
 
 namespace NetClock.Application.Common.Extensions
 {
-    // TODO: Localization.
+    // FIXME: Localization.
     public static class CustomValidatorsExtensions
     {
         public static IRuleBuilderOptions<T, string> UniqueUserName<T>(
