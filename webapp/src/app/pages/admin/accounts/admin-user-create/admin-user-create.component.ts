@@ -83,7 +83,8 @@ export class AdminUserCreateComponent implements OnInit, OnDestroy {
         lastName: new FormControl('', [Validators.required]),
         email: new FormControl('', [Validators.required]),
         password: new FormControl('', [Validators.required]),
-        confirmPassword: new FormControl('', [Validators.required])
+        confirmPassword: new FormControl('', [Validators.required]),
+        active: new FormControl(true)
       },
       {
         validators: PasswordMustMatch('password', 'confirmPassword')

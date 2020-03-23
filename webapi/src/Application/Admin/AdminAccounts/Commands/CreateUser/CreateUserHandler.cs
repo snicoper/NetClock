@@ -1,7 +1,9 @@
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 using NetClock.Application.Common.Constants;
 using NetClock.Application.Common.Interfaces.Validations;
@@ -15,6 +17,7 @@ namespace NetClock.Application.Admin.AdminAccounts.Commands.CreateUser
         private readonly IPasswordValidator<ApplicationUser> _passwordValidator;
         private readonly IUserValidator<ApplicationUser> _userValidator;
         private readonly IValidationFailureService _validationFailureService;
+        private readonly IStringLocalizer<ApplicationUser> _localizer;
         private readonly ILogger<CreateUserHandler> _logger;
 
         public CreateUserHandler(
@@ -22,12 +25,14 @@ namespace NetClock.Application.Admin.AdminAccounts.Commands.CreateUser
             IUserValidator<ApplicationUser> userValidator,
             IPasswordValidator<ApplicationUser> passwordValidator,
             IValidationFailureService validationFailureService,
+            IStringLocalizer<ApplicationUser> localizer,
             ILogger<CreateUserHandler> logger)
         {
             _userManager = userManager;
             _passwordValidator = passwordValidator;
             _userValidator = userValidator;
             _validationFailureService = validationFailureService;
+            _localizer = localizer;
             _logger = logger;
         }
 
@@ -37,11 +42,7 @@ namespace NetClock.Application.Admin.AdminAccounts.Commands.CreateUser
             await UserValidationAsync(request, applicationUser);
             await PasswordValidationAsync(request, applicationUser);
             await UserCreateAsync(request, applicationUser);
-
-            if (_validationFailureService.HasErrors())
-            {
-                _validationFailureService.RaiseExceptions();
-            }
+            _validationFailureService.RaiseExceptionsIfExistsFailures();
 
             return applicationUser;
         }
@@ -51,9 +52,19 @@ namespace NetClock.Application.Admin.AdminAccounts.Commands.CreateUser
             var validUser = await _userValidator.ValidateAsync(_userManager, applicationUser);
             if (!validUser.Succeeded)
             {
-                const string errorMessage = "El usuario no es valido";
+                var errorMessage = _localizer["El usuario no es valido"];
                 _logger.LogWarning(errorMessage);
                 _validationFailureService.Add(nameof(request.UserName), errorMessage);
+            }
+
+            // Comprueba si existe un FirstName y LastName iguales en la base de datos.
+            var userExists = _userManager.Users.FirstOrDefault(
+                u => u.FirstName == request.FirstName && u.LastName == request.LastName);
+            if (userExists != null)
+            {
+                // Si existe, lanza al excepción para no llegar hacer la consulta ya que daria un 500.
+                var errorMessage = _localizer["Ya existe un usuario con ese nombre y apellidos"];
+                _validationFailureService.AddAndRaiseExceptions(nameof(request.FirstName), errorMessage);
             }
         }
 
@@ -62,7 +73,7 @@ namespace NetClock.Application.Admin.AdminAccounts.Commands.CreateUser
             var validPassword = await _passwordValidator.ValidateAsync(_userManager, applicationUser, request.Password);
             if (!validPassword.Succeeded)
             {
-                const string errorMessage = "La contraseña no es valida";
+                var errorMessage = _localizer["La contraseña no es valida"];
                 _logger.LogWarning(errorMessage);
                 _validationFailureService.Add(nameof(request.Password), errorMessage);
             }
@@ -73,7 +84,7 @@ namespace NetClock.Application.Admin.AdminAccounts.Commands.CreateUser
             var createResult = await _userManager.CreateAsync(applicationUser, request.Password);
             if (!createResult.Succeeded)
             {
-                const string errorMessage = "Error al crear usuario";
+                var errorMessage = _localizer["Error al crear usuario"];
                 _logger.LogWarning(errorMessage);
                 _validationFailureService.Add(Errors.NonFieldErrors, errorMessage);
             }

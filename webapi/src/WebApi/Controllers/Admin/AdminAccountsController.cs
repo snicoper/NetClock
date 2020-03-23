@@ -6,7 +6,6 @@ using NetClock.Application.Admin.AdminAccounts.Queries.GetBySlug;
 using NetClock.Application.Admin.AdminAccounts.Queries.GetUsers;
 using NetClock.Application.Common.Controllers;
 using NetClock.Application.Common.Http;
-using NetClock.Domain.Entities.Identity;
 
 namespace NetClock.WebApi.Controllers.Admin
 {

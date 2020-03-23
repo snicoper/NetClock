@@ -12,7 +12,8 @@ namespace NetClock.Application.Admin.AdminAccounts.Commands.CreateUser
             string lastName,
             string email,
             string password,
-            string confirmPassword)
+            string confirmPassword,
+            bool active)
         {
             UserName = userName;
             FirstName = firstName;
@@ -20,6 +21,7 @@ namespace NetClock.Application.Admin.AdminAccounts.Commands.CreateUser
             Email = email;
             Password = password;
             ConfirmPassword = confirmPassword;
+            Active = active;
         }
 
         [Display(Name = "Nombre de usuario")]
@@ -40,6 +42,8 @@ namespace NetClock.Application.Admin.AdminAccounts.Commands.CreateUser
         [Display(Name = "Confirmar contraseña")]
         public string ConfirmPassword { get; }
 
+        public bool Active { get; }
+
         public ApplicationUser MappingToApplicationUser()
         {
             return new ApplicationUser
@@ -47,7 +51,8 @@ namespace NetClock.Application.Admin.AdminAccounts.Commands.CreateUser
                 UserName  = UserName,
                 FirstName = FirstName,
                 LastName = LastName,
-                Email = Email
+                Email = Email,
+                Active = Active
             };
         }
     }
