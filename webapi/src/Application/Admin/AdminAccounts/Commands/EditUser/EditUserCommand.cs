@@ -6,14 +6,17 @@ namespace NetClock.Application.Admin.AdminAccounts.Commands.EditUser
 {
     public class EditUserCommand : IRequest<ApplicationUser>
     {
-        public EditUserCommand(string userName, string firstName, string lastName, string email, bool active)
+        public EditUserCommand(string id, string userName, string firstName, string lastName, string email, bool active)
         {
+            Id = id;
             UserName = userName;
             FirstName = firstName;
             LastName = lastName;
             Email = email;
             Active = active;
         }
+
+        public string Id { get; }
 
         [Display(Name = "Nombre de usuario")]
         public string UserName { get; }
@@ -28,5 +31,16 @@ namespace NetClock.Application.Admin.AdminAccounts.Commands.EditUser
         public string Email { get; }
 
         public bool Active { get; }
+
+        public ApplicationUser MappingToApplicationUser(ApplicationUser applicationUser)
+        {
+            applicationUser.UserName = UserName;
+            applicationUser.FirstName = FirstName;
+            applicationUser.LastName = LastName;
+            applicationUser.Email = Email;
+            applicationUser.Active = Active;
+
+            return applicationUser;
+        }
     }
 }

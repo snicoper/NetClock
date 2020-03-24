@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -44,7 +45,7 @@ namespace NetClock.WebApi.Controllers.Admin
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<ApplicationUser>> EditUser(string id, EditUserCommand editUserCommand)
+        public async Task<ActionResult<ApplicationUser>> EditUser([Required]string id, EditUserCommand editUserCommand)
         {
             return Ok(await Mediator.Send(editUserCommand));
         }
