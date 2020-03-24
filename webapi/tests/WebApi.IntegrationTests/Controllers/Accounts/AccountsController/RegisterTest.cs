@@ -49,7 +49,7 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Accounts.AccountsControll
         [InlineData("Admin1", "Admin", "Admin", "admin1@example.com", "", "")] // Passwords vacíos.
         [InlineData("Admin1", "", "Admin", "admin1@example.com", "123456", "123456")] // FirstName vacío.
         [InlineData("Admin1", "Admin", "", "admin1@example.com", "123456", "123456")] // LastName vacío.
-        // [InlineData("TestUser", "Admin", "Admin", "admin1123@example.com", "123456", "123456")] // First y Last name repetidos.
+        [InlineData("TestUser", "Admin", "Admin", "admin1123@example.com", "123456", "123456")] // First y Last name repetidos.
         public async Task Post_registro_de_usuario_BadRequest(
             string username,
             string firstName,
@@ -58,10 +58,6 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Accounts.AccountsControll
             string password,
             string confirmPassword)
         {
-            // FIXME: El test no debería pasar, según la configuración.
-            // builder.HasIndex(e => new { e.FirstName, e.LastName }).IsUnique();
-            // Sin embargo, la prueba pasa teniendo todos el mismo first y last name.
-
             // Arrange
             var data = new RegisterCommand(username, firstName, lastName, email, password, confirmPassword);
             var requestContent = Utilities.GetRequestContent(data);
