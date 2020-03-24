@@ -1,10 +1,15 @@
 <nc-page-base [breadcrumb]="breadcrumb">
-  <nc-card [loading]="loading">
+  <nc-card *ngIf="user" [loading]="loading">
     <h1 ncCardTitle *ngIf="!loading">Detalles {{user.userName}}</h1>
 
     <pre class="mt-5">
 {{user | json}}
-        </pre>
+    </pre>
+
+    <a [routerLink]="['/admin/accounts', user.slug, 'edit']" class="btn btn-outline-primary">
+      Editar usuario
+    </a>
+
     <div *ngIf="!user">El usuario no existe</div>
   </nc-card>
 </nc-page-base>

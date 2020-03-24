@@ -1,10 +1,9 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
 import * as HttpStatus from 'http-status-codes';
-import { Subject } from 'rxjs';
-import { finalize, takeUntil } from 'rxjs/operators';
+import { ToastrService } from 'ngx-toastr';
+import { finalize } from 'rxjs/operators';
 
 import { BreadcrumbCollection } from '../../../../components/breadcrumb/models/BreadcrumbCollection';
 import { FormInputTypes } from '../../../../components/forms/form-input/form-input-types.enum';
@@ -17,15 +16,13 @@ import { AdminAccountsRestService } from '../services/admin-accounts-rest.servic
   selector: 'nc-user-create',
   templateUrl: './admin-user-create.component.html'
 })
-export class AdminUserCreateComponent implements OnInit, OnDestroy {
+export class AdminUserCreateComponent implements OnInit {
   breadcrumb = new BreadcrumbCollection();
   form: FormGroup;
   errors = [];
   submitted = false;
   loading = false;
   formTypes = FormInputTypes;
-
-  private destroy$ = new Subject<void>();
 
   constructor(
     private fb: FormBuilder,
@@ -41,11 +38,6 @@ export class AdminUserCreateComponent implements OnInit, OnDestroy {
     this.buildForm();
   }
 
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
-  }
-
   submit(): void {
     this.submitted = true;
     if (!this.form.valid) {
@@ -55,10 +47,8 @@ export class AdminUserCreateComponent implements OnInit, OnDestroy {
     this.loading = true;
     this.adminAccountsService.create(this.form.value)
       .pipe(
-        takeUntil(this.destroy$),
         finalize(() => this.loading = false)
       )
-      // FIXME: poner tipo en result:.
       .subscribe((result) => {
         const url = UrlsApp.replace(UrlsApp.adminUserDetails, { slug: result.slug });
         this.toastrService.success('Usuario creado con éxito');

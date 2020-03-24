@@ -1,0 +1,88 @@
+<nc-page-base [breadcrumb]="breadcrumb">
+  <nc-card>
+    <form *ngIf="data" [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+      <div class="row">
+        <div class="col-12">
+          <nc-non-field-errors [errors]="errors"></nc-non-field-errors>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12">
+          <nc-form-input
+            formControlName="userName"
+            fieldName="userName"
+            label="Nombre de usuario"
+            [form]="form"
+            [errors]="errors"
+            [submitted]="submitted">
+          </nc-form-input>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12 col-md-6 form-group">
+          <nc-form-input
+            formControlName="firstName"
+            fieldName="firstName"
+            label="Nombre"
+            [form]="form"
+            [errors]="errors"
+            [submitted]="submitted">
+          </nc-form-input>
+        </div>
+
+        <div class="col-12 col-md-6 form-group">
+          <nc-form-input
+            formControlName="lastName"
+            fieldName="lastName"
+            label="Apellidos"
+            [form]="form"
+            [errors]="errors"
+            [submitted]="submitted">
+          </nc-form-input>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6 form-group">
+          <nc-form-input
+            formControlName="email"
+            fieldName="email"
+            label="Correo electrónico"
+            [form]="form"
+            [errors]="errors"
+            [submitted]="submitted"
+            [inputType]="formTypes.email">
+          </nc-form-input>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12 form-group">
+          <div class="custom-control custom-checkbox">
+            <input formControlName="active" class="custom-control-input" id="active" type="checkbox">
+            <label class="custom-control-label" for="active">Activo</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12">
+          <button class="btn btn-primary" type="submit">
+            Editar usuario
+          </button>
+        </div>
+      </div>
+    </form>
+
+    <nc-spinner [loading]="loading" [size]="100"></nc-spinner>
+
+    <div *ngIf="userNotFound" class="text-center">
+      <h5>
+        <i class="fas fa-user-slash"></i>
+        Usuario {{ slug }} no encontrado
+      </h5>
+    </div>
+  </nc-card>
+</nc-page-base>
