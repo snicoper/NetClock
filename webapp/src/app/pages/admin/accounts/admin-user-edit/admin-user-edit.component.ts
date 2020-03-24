@@ -53,8 +53,9 @@ export class AdminUserEditComponent implements OnInit {
 
     this.adminAccountsService.update(this.data.id, this.data)
       .subscribe((result: AdminUserEditCreateModel) => {
-        const url = UrlsApp.replace(UrlsApp.adminUserDetails, { slug: result.slug });
+        console.log(result)
         this.toastrService.success('Usuario editado con éxito');
+        const url = UrlsApp.replace(UrlsApp.adminUserDetails, { slug: result.slug });
         this.router.navigate([url]);
       }, ((error) => {
         this.debugService.errors(error.error);

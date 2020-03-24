@@ -11,7 +11,7 @@ using NetClock.Domain.Entities.Identity;
 
 namespace NetClock.Application.Admin.AdminAccounts.Commands.EditUser
 {
-    public class EditUserHandler : IRequestHandler<EditUserCommand, ApplicationUser>
+    public class EditUserHandler : IRequestHandler<EditUserCommand, EditUserViewModel>
     {
         private readonly IStringLocalizer<ApplicationUser> _localizer;
         private readonly ILogger<EditUserHandler> _logger;
@@ -30,7 +30,7 @@ namespace NetClock.Application.Admin.AdminAccounts.Commands.EditUser
             _validationFailureService = validationFailureService;
         }
 
-        public async Task<ApplicationUser> Handle(EditUserCommand request, CancellationToken cancellationToken)
+        public async Task<EditUserViewModel> Handle(EditUserCommand request, CancellationToken cancellationToken)
         {
             var applicationUser = await _userManager.FindByIdAsync(request.Id);
             if (applicationUser == null)
@@ -45,7 +45,7 @@ namespace NetClock.Application.Admin.AdminAccounts.Commands.EditUser
             await _userManager.UpdateAsync(applicationUser);
             _logger.LogInformation($"Se ha actualizado correctamente el usuario {request.UserName}");
 
-            return applicationUser;
+            return new EditUserViewModel(applicationUser.Slug);
         }
 
         private async Task ValidateDataIfExists(EditUserCommand request)

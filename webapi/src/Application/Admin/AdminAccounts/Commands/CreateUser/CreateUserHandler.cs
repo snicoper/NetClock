@@ -2,11 +2,10 @@ using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using NetClock.Application.Common.Interfaces.Identity;
-using NetClock.Domain.Entities.Identity;
 
 namespace NetClock.Application.Admin.AdminAccounts.Commands.CreateUser
 {
-    public class CreateUserHandler : IRequestHandler<CreateUserCommand, ApplicationUser>
+    public class CreateUserHandler : IRequestHandler<CreateUserCommand, CreateUserViewModel>
     {
         private readonly IIdentityService _identityService;
 
@@ -15,12 +14,12 @@ namespace NetClock.Application.Admin.AdminAccounts.Commands.CreateUser
             _identityService = identityService;
         }
 
-        public async Task<ApplicationUser> Handle(CreateUserCommand request, CancellationToken cancellationToken)
+        public async Task<CreateUserViewModel> Handle(CreateUserCommand request, CancellationToken cancellationToken)
         {
             var applicationUser = request.MappingToApplicationUser();
             await _identityService.CreateUser(applicationUser, request.Password);
 
-            return applicationUser;
+            return new CreateUserViewModel(applicationUser.Slug);
         }
     }
 }

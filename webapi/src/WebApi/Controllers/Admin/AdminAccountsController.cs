@@ -34,7 +34,7 @@ namespace NetClock.WebApi.Controllers.Admin
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> CreateUser(CreateUserCommand createUserCommand, ApiVersion version)
+        public async Task<ActionResult<CreateUserViewModel>> CreateUser(CreateUserCommand createUserCommand, ApiVersion version)
         {
             var applicationUser = await Mediator.Send(createUserCommand);
             var routeValues = new { slug = applicationUser.Slug, version = version.ToString() };
@@ -45,7 +45,7 @@ namespace NetClock.WebApi.Controllers.Admin
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<ApplicationUser>> EditUser([Required]string id, EditUserCommand editUserCommand)
+        public async Task<ActionResult<EditUserViewModel>> EditUser([Required]string id, EditUserCommand editUserCommand)
         {
             return Ok(await Mediator.Send(editUserCommand));
         }

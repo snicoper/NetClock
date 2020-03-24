@@ -4,7 +4,7 @@ using NetClock.Domain.Entities.Identity;
 
 namespace NetClock.Application.Admin.AdminAccounts.Commands.EditUser
 {
-    public class EditUserCommand : IRequest<ApplicationUser>
+    public class EditUserCommand : IRequest<EditUserViewModel>
     {
         public EditUserCommand(string id, string userName, string firstName, string lastName, string email, bool active)
         {
