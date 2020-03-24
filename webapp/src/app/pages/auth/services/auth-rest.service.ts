@@ -7,7 +7,10 @@ import { takeUntil } from 'rxjs/operators';
 import { UrlsApp } from '../../../config';
 import { DebugService, SettingsService } from '../../../services';
 import { ApiRestBaseService } from '../../../services/rest';
-import { CurrentUserModel, LoginModel, RecoveryPasswordModel, RecoveryPasswordValidateModel } from '../models';
+import { LoginModel } from '../login/login.model';
+import { CurrentUserModel } from '../models/current-user.model';
+import { RecoveryPasswordValidateModel } from '../recovery-password-validate/recovery-password-validate.model';
+import { RecoveryPasswordModel } from '../recovery-password/recovery-password.model';
 
 @Injectable({
   providedIn: 'root'

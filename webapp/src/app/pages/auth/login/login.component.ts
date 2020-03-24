@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { finalize, timeout } from 'rxjs/operators';
 
 import { UrlsApp } from '../../../config';
-import { CurrentUserModel } from '../models';
+import { CurrentUserModel } from '../models/current-user.model';
 import { AuthRestService } from '../services/auth-rest.service';
 
 @Component({

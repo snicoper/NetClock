@@ -9,8 +9,8 @@ import { BreadcrumbCollection } from '../../../../components/breadcrumb/models/B
 import { FormInputTypes } from '../../../../components/forms/form-input/form-input-types.enum';
 import { UrlsApp } from '../../../../config';
 import { DebugService } from '../../../../services';
-import { AdminUserEditCreateModel } from '../models';
 import { AdminAccountsRestService } from '../services/admin-accounts-rest.service';
+import { AdminUserEditModel } from './admin-user-edit.model';
 
 @Component({
   selector: 'nc-admin-user-edit',
@@ -18,7 +18,7 @@ import { AdminAccountsRestService } from '../services/admin-accounts-rest.servic
 })
 export class AdminUserEditComponent implements OnInit {
   breadcrumb = new BreadcrumbCollection();
-  data: AdminUserEditCreateModel;
+  data: AdminUserEditModel;
   form: FormGroup;
   submitted = false;
   updating = false;
@@ -54,7 +54,7 @@ export class AdminUserEditComponent implements OnInit {
 
     this.adminAccountsService.update(this.data.id, this.data)
       .pipe(finalize(() => this.updating = false))
-      .subscribe((result: AdminUserEditCreateModel) => {
+      .subscribe((result: AdminUserEditModel) => {
         this.toastrService.success('Usuario editado con éxito');
         const url = UrlsApp.replace(UrlsApp.adminUserDetails, { slug: result.slug });
         this.router.navigate([url]);
@@ -70,7 +70,7 @@ export class AdminUserEditComponent implements OnInit {
     this.loading = true;
     this.adminAccountsService.getBy(this.slug)
       .pipe(finalize(() => this.loading = false))
-      .subscribe((result: AdminUserEditCreateModel) => {
+      .subscribe((result: AdminUserEditModel) => {
         this.data = result;
         this.setBreadcrumb();
         this.buildForm();

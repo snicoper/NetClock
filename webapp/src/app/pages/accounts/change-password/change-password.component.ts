@@ -7,8 +7,8 @@ import { BreadcrumbCollection } from '../../../components/breadcrumb/models/Brea
 import { UrlsApp } from '../../../config';
 import { PasswordMustMatch } from '../../../validators';
 import { AuthRestService } from '../../auth/services/auth-rest.service';
-import { ChangePasswordModel } from '../models';
 import { AccountsRestService } from '../services/accounts-rest.service';
+import { ChangePasswordModel } from './change-password.model';
 
 @Component({
   selector: 'nc-change-password',

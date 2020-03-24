@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 
 import { DebugService, SettingsService } from '../../../services';
 import { ApiRestBaseService } from '../../../services/rest';
-import { ChangePasswordModel } from '../models';
+import { ChangePasswordModel } from '../change-password/change-password.model';
 
 @Injectable({
   providedIn: 'root'

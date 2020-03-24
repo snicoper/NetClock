@@ -4,8 +4,8 @@ import { finalize } from 'rxjs/operators';
 
 import { BreadcrumbCollection } from '../../../../components/breadcrumb/models/BreadcrumbCollection';
 import { UrlsApp } from '../../../../config';
-import { AdminUserDetailsModel } from '../models';
 import { AdminAccountsRestService } from '../services/admin-accounts-rest.service';
+import { AdminUserDetailsModel } from './admin-user-details.model';
 
 @Component({
   selector: 'nc-user-details',

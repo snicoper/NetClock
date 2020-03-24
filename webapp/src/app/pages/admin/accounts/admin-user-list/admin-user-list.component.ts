@@ -7,9 +7,9 @@ import { BreadcrumbCollection } from '../../../../components/breadcrumb/models/B
 import { TableHeaderConfig } from '../../../../components/tables/table-header/core';
 import { UrlsApp } from '../../../../config';
 import { ApiResult } from '../../../../models';
-import { AdminUserListModel } from '../models';
 import { AdminAccountsRestService } from '../services/admin-accounts-rest.service';
 import { AdminUserListHeaderConfig } from './admin-user-list-headers.config';
+import { AdminUserListModel } from './admin-user-list.model';
 
 @Component({
   selector: 'nc-user-list',
