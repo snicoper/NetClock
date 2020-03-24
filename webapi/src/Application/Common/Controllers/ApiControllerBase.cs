@@ -15,9 +15,6 @@ namespace NetClock.Application.Common.Controllers
 
         protected IMediator Mediator => _mediator ??= HttpContext.RequestServices.GetRequiredService<IMediator>();
 
-        private IAuthorizationService AuthorizationService =>
-            HttpContext.RequestServices.GetRequiredService<IAuthorizationService>();
-
         protected ActionResult<T> ResponseCreate<T>(T response)
             where T : class
         {

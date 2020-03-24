@@ -23,19 +23,20 @@ export class AdminUserDetailsComponent implements OnInit {
     private route: ActivatedRoute
   ) {
     this.userSlug = this.route.snapshot.paramMap.get('slug');
-    this.loadUser();
   }
 
   ngOnInit(): void {
-    this.setBreadcrumb();
+    this.loadUser();
   }
 
   private setBreadcrumb(): void {
+    const fullName = `${this.user.firstName} ${this.user.lastName}`;
+
     this.breadcrumb
       .add('Inicio', UrlsApp.home, 'fas fa-home')
       .add('Administración', UrlsApp.admin, 'fas fa-user-shield')
       .add('Usuarios', UrlsApp.adminUserList, 'fas fa-users')
-      .add(this.userSlug, UrlsApp.adminUserList, 'fas fa-user', false);
+      .add(fullName, UrlsApp.adminUserList, 'fas fa-user', false);
   }
 
   private loadUser(): void {
@@ -44,6 +45,7 @@ export class AdminUserDetailsComponent implements OnInit {
       .pipe(finalize(() => this.loading = false))
       .subscribe((result: AdminUserDetailsModel) => {
         this.user = result;
+        this.setBreadcrumb();
       });
   }
 }

@@ -21,6 +21,7 @@ export class AdminUserEditComponent implements OnInit {
   data: AdminUserEditCreateModel;
   form: FormGroup;
   submitted = false;
+  updating = false;
   loading = false;
   formTypes = FormInputTypes;
   errors = [];
@@ -39,12 +40,12 @@ export class AdminUserEditComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.setBreadcrumb();
     this.loadData();
   }
 
   onSubmit(): void {
     this.submitted = true;
+    this.updating = true;
     if (this.form.invalid) {
       return;
     }
@@ -52,8 +53,8 @@ export class AdminUserEditComponent implements OnInit {
     this.data = Object.assign(this.data, this.form.value);
 
     this.adminAccountsService.update(this.data.id, this.data)
+      .pipe(finalize(() => this.updating = false))
       .subscribe((result: AdminUserEditCreateModel) => {
-        console.log(result)
         this.toastrService.success('Usuario editado con éxito');
         const url = UrlsApp.replace(UrlsApp.adminUserDetails, { slug: result.slug });
         this.router.navigate([url]);
@@ -65,23 +66,13 @@ export class AdminUserEditComponent implements OnInit {
       }));
   }
 
-  private setBreadcrumb(): void {
-    const urlUserDetails = UrlsApp.replace(UrlsApp.adminUserDetails, { slug: this.slug });
-
-    this.breadcrumb
-      .add('Inicio', UrlsApp.home, 'fas fa-home')
-      .add('Administración', UrlsApp.admin, 'fas fa-user-shield')
-      .add('Usuarios', UrlsApp.adminUserList, 'fas fa-users')
-      .add(this.slug, urlUserDetails, 'fas fa-user')
-      .add('Editar', UrlsApp.adminUserCreate, 'fas fa-user-edit', false);
-  }
-
   private loadData(): void {
     this.loading = true;
     this.adminAccountsService.getBy(this.slug)
       .pipe(finalize(() => this.loading = false))
       .subscribe((result: AdminUserEditCreateModel) => {
         this.data = result;
+        this.setBreadcrumb();
         this.buildForm();
       }, (errors) => {
         this.debugService.errors(errors);
@@ -89,6 +80,18 @@ export class AdminUserEditComponent implements OnInit {
           this.userNotFound = true;
         }
       });
+  }
+
+  private setBreadcrumb(): void {
+    const urlUserDetails = UrlsApp.replace(UrlsApp.adminUserDetails, { slug: this.slug });
+    const fullName = `${this.data.firstName} ${this.data.lastName}`;
+
+    this.breadcrumb
+      .add('Inicio', UrlsApp.home, 'fas fa-home')
+      .add('Administración', UrlsApp.admin, 'fas fa-user-shield')
+      .add('Usuarios', UrlsApp.adminUserList, 'fas fa-users')
+      .add(fullName, urlUserDetails, 'fas fa-user')
+      .add('Editar', UrlsApp.adminUserCreate, 'fas fa-user-edit', false);
   }
 
   private buildForm(): void {
