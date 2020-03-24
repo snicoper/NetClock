@@ -20,8 +20,8 @@ namespace NetClock.Application.Common.Behaviours
         public Task Process(TRequest request, CancellationToken cancellationToken)
         {
             var requestName = typeof(TRequest).Name;
-            var userId = _currentUserService.UserId ?? "0";
-            var userName = _currentUserService.Name ?? "Anonymous";
+            var userId = _currentUserService.Id ?? "0";
+            var userName = _currentUserService.UserName ?? "Anonymous";
 
             _logger.LogInformation(
                 "NetClock Request: {Name} {@UserId} {@UserName} {@Request}",

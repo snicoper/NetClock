@@ -1,7 +1,6 @@
 import { Component, forwardRef, Input, OnInit } from '@angular/core';
 import { ControlValueAccessor, FormGroup, NG_VALUE_ACCESSOR } from '@angular/forms';
-
-import { FormInputTypes } from '../core';
+import { FormInputTypes } from './form-input-types.enum';
 
 @Component({
   selector: 'nc-form-input',
@@ -19,7 +18,7 @@ export class FormInputComponent implements ControlValueAccessor, OnInit {
   @Input() id: string;
   @Input() form: FormGroup;
   @Input() fieldName: string;
-  @Input() formType = FormInputTypes.text;
+  @Input() inputType = FormInputTypes.text;
   @Input() label: string;
   @Input() extraCss: string;
   @Input() errors = [];

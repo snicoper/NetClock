@@ -6,5 +6,7 @@ namespace NetClock.Application.Common.Interfaces.Identity
     public interface IIdentityService
     {
         Task<ApplicationUser> FirstOrDefaultBySlugAsync(string slug);
+
+        Task<ApplicationUser> CreateUser(ApplicationUser applicationUser, string password);
     }
 }

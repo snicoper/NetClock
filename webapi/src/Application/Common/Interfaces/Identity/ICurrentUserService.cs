@@ -4,9 +4,9 @@ namespace NetClock.Application.Common.Interfaces.Identity
 {
     public interface ICurrentUserService
     {
-        public string UserId { get; }
+        public string Id { get; }
 
-        public string Name { get; }
+        public string UserName { get; }
 
         public string Email { get; }
 

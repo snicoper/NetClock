@@ -10,17 +10,17 @@ namespace NetClock.Application.Common.Services.Identity
         public CurrentUserService(IHttpContextAccessor httpContextAccessor)
         {
             User = httpContextAccessor.HttpContext?.User;
-            UserId = httpContextAccessor.HttpContext?.User?.FindFirstValue(ClaimTypes.NameIdentifier);
-            Name = httpContextAccessor.HttpContext?.User?.FindFirstValue(ClaimTypes.Name);
+            Id = httpContextAccessor.HttpContext?.User?.FindFirstValue(ClaimTypes.NameIdentifier);
+            UserName = httpContextAccessor.HttpContext?.User?.FindFirstValue(ClaimTypes.Name);
             Email = httpContextAccessor.HttpContext?.User?.FindFirstValue(ClaimTypes.Email);
             Roles = httpContextAccessor.HttpContext?.User?.FindFirstValue(ClaimTypes.Role)?.Split(",");
         }
 
         public ClaimsPrincipal User { get; }
 
-        public string UserId { get; }
+        public string Id { get; }
 
-        public string Name { get; }
+        public string UserName { get; }
 
         public string Email { get; }
 

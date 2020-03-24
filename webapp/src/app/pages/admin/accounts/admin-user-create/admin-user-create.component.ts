@@ -2,11 +2,12 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import * as HttpStatus from 'http-status-codes';
 import { Subject } from 'rxjs';
 import { finalize, takeUntil } from 'rxjs/operators';
 
 import { BreadcrumbCollection } from '../../../../components/breadcrumb/models/BreadcrumbCollection';
-import { FormInputTypes } from '../../../../components/forms/core';
+import { FormInputTypes } from '../../../../components/forms/form-input/form-input-types.enum';
 import { UrlsApp } from '../../../../config';
 import { DebugService } from '../../../../services';
 import { PasswordMustMatch } from '../../../../validators';
@@ -57,14 +58,14 @@ export class AdminUserCreateComponent implements OnInit, OnDestroy {
         takeUntil(this.destroy$),
         finalize(() => this.loading = false)
       )
-      // FIXME: poner tipo en result:, cambiar error.status === 400.
+      // FIXME: poner tipo en result:.
       .subscribe((result) => {
         const url = UrlsApp.replace(UrlsApp.adminUserDetails, { slug: result.slug });
         this.toastrService.success('Usuario creado con éxito');
         this.router.navigate([url]);
       }, ((error) => {
         this.debugService.errors(error.error);
-        if (error.status === 400) {
+        if (error.status === HttpStatus.BAD_REQUEST) {
           this.errors = error.error;
         }
       }));

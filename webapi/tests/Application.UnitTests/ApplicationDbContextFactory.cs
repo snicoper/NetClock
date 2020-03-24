@@ -29,7 +29,7 @@ namespace NetClock.Application.UnitTests
                 .Returns(new DateTime(3001, 1, 1));
 
             var currentUserServiceMock = new Mock<ICurrentUserService>();
-            currentUserServiceMock.Setup(m => m.UserId)
+            currentUserServiceMock.Setup(m => m.Id)
                 .Returns("00000000-0000-0000-0000-000000000000");
 
             var context = new ApplicationDbContext(

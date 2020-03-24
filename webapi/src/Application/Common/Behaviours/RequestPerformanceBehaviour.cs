@@ -39,8 +39,8 @@ namespace NetClock.Application.Common.Behaviours
             }
 
             var requestName = typeof(TRequest).Name;
-            var userId = _currentUserService.UserId ?? "0";
-            var userName = _currentUserService.Name ?? "Anonymous";
+            var userId = _currentUserService.Id ?? "0";
+            var userName = _currentUserService.UserName ?? "Anonymous";
 
             _logger.LogWarning(
                 "NetClock Long Running Request: {Name} ({ElapsedMilliseconds} milliseconds) {@UserId} {@Request}",
