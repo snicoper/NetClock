@@ -6,6 +6,7 @@ import { Subject } from 'rxjs';
 import { finalize, takeUntil } from 'rxjs/operators';
 
 import { BreadcrumbCollection } from '../../../../components/breadcrumb/models/BreadcrumbCollection';
+import { FormInputTypes } from '../../../../components/forms/core';
 import { UrlsApp } from '../../../../config';
 import { DebugService } from '../../../../services';
 import { PasswordMustMatch } from '../../../../validators';
@@ -21,6 +22,7 @@ export class AdminUserCreateComponent implements OnInit, OnDestroy {
   errors = [];
   submitted = false;
   loading = false;
+  formTypes = FormInputTypes;
 
   private destroy$ = new Subject<void>();
 

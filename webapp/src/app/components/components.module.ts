@@ -19,6 +19,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { SpinnerComponent } from './spinner/spinner.component';
 import { TableHeaderComponent } from './tables/table-header/table-header.component';
 import { TableComponent } from './tables/table/table.component';
+import { FormInputComponent } from './forms/form-input/form-input.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { TableComponent } from './tables/table/table.component';
     PaginationComponent,
     TableHeaderComponent,
     CardComponent,
-    TableComponent
+    TableComponent,
+    FormInputComponent
   ],
   imports: [
     CommonModule,
@@ -60,7 +62,8 @@ import { TableComponent } from './tables/table/table.component';
     PaginationComponent,
     TableHeaderComponent,
     CardComponent,
-    TableComponent
+    TableComponent,
+    FormInputComponent
   ]
 })
 export class ComponentsModule {
