@@ -16,7 +16,7 @@ namespace NetClock.Application.Common.Http.OrderBy
             if (string.IsNullOrEmpty(request.Orders))
             {
                 // Por defecto si existe, ordena por "Create | Id" - Descending.
-                return OrderByIdOrDefault(source);
+                return OrderByDefault(source);
             }
 
             var requestItemOrderBy = JsonConvert
@@ -27,7 +27,7 @@ namespace NetClock.Application.Common.Http.OrderBy
             var firstField = requestItemOrderBy.FirstOrDefault();
             if (!requestItemOrderBy.Any() || firstField is null)
             {
-                return OrderByIdOrDefault(source);
+                return OrderByDefault(source);
             }
 
             source = HandleOrderByCommand(source, firstField, OrderByCommandType.OrderBy);
@@ -39,7 +39,7 @@ namespace NetClock.Application.Common.Http.OrderBy
                     .Aggregate(source, (current, field) => HandleOrderByCommand(current, field));
         }
 
-        private static IQueryable<TEntity> OrderByIdOrDefault<TEntity>(IQueryable<TEntity> source)
+        private static IQueryable<TEntity> OrderByDefault<TEntity>(IQueryable<TEntity> source)
         {
             var propertyInfo = typeof(TEntity).GetProperty(nameof(ApplicationUser.Created))
                                ?? typeof(TEntity).GetProperty(nameof(ApplicationUser.Id));
