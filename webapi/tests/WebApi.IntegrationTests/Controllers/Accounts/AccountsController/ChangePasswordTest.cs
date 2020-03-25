@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using NetClock.Application.Accounts.Accounts.Commands.ChangePassword;
+using NetClock.Application.Common.Utils;
 using NetClock.Domain.Entities.Identity;
 using NetClock.WebApi.IntegrationTests.Helpers;
 using Shouldly;
@@ -26,11 +27,11 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Accounts.AccountsControll
             var userManager = ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
             var user = await userManager.FindByNameAsync("Admin");
             var data = new ChangePasswordCommand(user.Id, "123456", "1234567", "1234567");
-            var requestContent = Utilities.GetRequestContent(data);
+            var requestContent = SerializerUtils.GetRequestContent(data);
 
             // Act
             var response = await Client.PostAsync(BaseUrl, requestContent);
-            var responseContent = Utilities.GetResponseContentAsync<ChangePasswordViewModel>(response);
+            var responseContent = SerializerUtils.GetResponseContentAsync<ChangePasswordViewModel>(response);
 
             // Assert
             response.EnsureSuccessStatusCode();
@@ -45,7 +46,7 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Accounts.AccountsControll
             var userManager = ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
             var user = await userManager.FindByNameAsync("Admin");
             var data = new ChangePasswordCommand(user.Id, "123456789", "1234567", "1234567");
-            var requestContent = Utilities.GetRequestContent(data);
+            var requestContent = SerializerUtils.GetRequestContent(data);
 
             // Act
             var response = await Client.PostAsync(BaseUrl, requestContent);
@@ -62,7 +63,7 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Accounts.AccountsControll
             var userManager = ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
             var user = await userManager.FindByNameAsync("Admin");
             var data = new ChangePasswordCommand(user.Id, "123456", "1234567", "1234567999");
-            var requestContent = Utilities.GetRequestContent(data);
+            var requestContent = SerializerUtils.GetRequestContent(data);
 
             // Act
             var response = await Client.PostAsync(BaseUrl, requestContent);
@@ -77,7 +78,7 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Accounts.AccountsControll
             // Arrange
             await GetAuthenticatedClientAsync();
             var data = new ChangePasswordCommand("99999999", "123456", "1234567", "1234567");
-            var requestContent = Utilities.GetRequestContent(data);
+            var requestContent = SerializerUtils.GetRequestContent(data);
 
             // Act
             var response = await Client.PostAsync(BaseUrl, requestContent);

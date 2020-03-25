@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using IdentityModel.Client;
 using Microsoft.Extensions.DependencyInjection;
 using NetClock.Application.Accounts.Auth.Commands.Login;
+using NetClock.Application.Common.Utils;
 using NetClock.Infrastructure.Persistence;
 using NetClock.Infrastructure.Persistence.Seeds;
 using NetClock.WebApi.IntegrationTests.Helpers;
@@ -41,9 +42,9 @@ namespace NetClock.WebApi.IntegrationTests
         {
             var uri = Utilities.ComposeUri("auth/login");
             var data = new LoginCommand(userName, password, true);
-            var requestContent = Utilities.GetRequestContent(data);
+            var requestContent = SerializerUtils.GetRequestContent(data);
             var response = await Client.PostAsync(uri, requestContent);
-            var responseContent = await Utilities.GetResponseContentAsync<CurrentUserViewModel>(response);
+            var responseContent = await SerializerUtils.GetResponseContentAsync<CurrentUserViewModel>(response);
 
             return responseContent.Token;
         }

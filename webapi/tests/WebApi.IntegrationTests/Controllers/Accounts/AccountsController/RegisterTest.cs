@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using NetClock.Application.Accounts.Accounts.Commands.Register;
 using NetClock.Application.Accounts.Auth.Commands.Login;
+using NetClock.Application.Common.Utils;
 using NetClock.Domain.Entities.Identity;
 using NetClock.WebApi.IntegrationTests.Helpers;
 using Shouldly;
@@ -25,7 +26,7 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Accounts.AccountsControll
         {
             // Arrange
             var data = new RegisterCommand("testUser", "Perico", "Palote", "testUser@example.com", "123456", "123456");
-            var requestContent = Utilities.GetRequestContent(data);
+            var requestContent = SerializerUtils.GetRequestContent(data);
 
             // Act
             var response = await Client.PostAsync(BaseUrl, requestContent);
@@ -60,7 +61,7 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Accounts.AccountsControll
         {
             // Arrange
             var data = new RegisterCommand(username, firstName, lastName, email, password, confirmPassword);
-            var requestContent = Utilities.GetRequestContent(data);
+            var requestContent = SerializerUtils.GetRequestContent(data);
 
             // Act
             var response = await Client.PostAsync(BaseUrl, requestContent);
@@ -75,12 +76,12 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Accounts.AccountsControll
             // Arrange
             var guid = Guid.NewGuid().ToString().Substring(0, 7);
             var data = new RegisterCommand(guid, guid, guid, $"{guid}@example.com", "123456", "123456");
-            var requestContent = Utilities.GetRequestContent(data);
+            var requestContent = SerializerUtils.GetRequestContent(data);
             var userManager = ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
 
             // Act
             var response = await Client.PostAsync(BaseUrl, requestContent);
-            var responseContent = await Utilities.GetResponseContentAsync<CurrentUserViewModel>(response);
+            var responseContent = await SerializerUtils.GetResponseContentAsync<CurrentUserViewModel>(response);
             var user = await userManager.FindByNameAsync(responseContent.UserName);
 
             // Assert

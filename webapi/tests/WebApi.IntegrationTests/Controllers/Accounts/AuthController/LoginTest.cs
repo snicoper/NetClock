@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using NetClock.Application.Accounts.Auth.Commands.Login;
+using NetClock.Application.Common.Utils;
 using NetClock.Domain.Entities.Identity;
 using NetClock.WebApi.IntegrationTests.Helpers;
 using Shouldly;
@@ -23,11 +24,11 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Accounts.AuthController
         {
             // Arrange
             var data = new LoginCommand("Admin", "123456", true);
-            var requestContent = Utilities.GetRequestContent(data);
+            var requestContent = SerializerUtils.GetRequestContent(data);
 
             // Act
             var response = await Client.PostAsync(BaseUrl, requestContent);
-            var responseContent = await Utilities.GetResponseContentAsync<CurrentUserViewModel>(response);
+            var responseContent = await SerializerUtils.GetResponseContentAsync<CurrentUserViewModel>(response);
 
             // Assert
             response.StatusCode.ShouldBe(HttpStatusCode.OK);
@@ -41,7 +42,7 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Accounts.AuthController
         {
             // Arrange
             var data = new LoginCommand(userName, password, true);
-            var requestContent = Utilities.GetRequestContent(data);
+            var requestContent = SerializerUtils.GetRequestContent(data);
 
             // Act
             var response = await Client.PostAsync(BaseUrl, requestContent);
@@ -57,7 +58,7 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Accounts.AuthController
         {
             // Arrange
             var data = new LoginCommand(userName, password, true);
-            var requestContent = Utilities.GetRequestContent(data);
+            var requestContent = SerializerUtils.GetRequestContent(data);
 
             // Act
             var response = await Client.PostAsync(BaseUrl, requestContent);
@@ -76,7 +77,7 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Accounts.AuthController
             await userManager.UpdateAsync(bob);
 
             var data = new LoginCommand("Bob", "123456", true);
-            var requestContent = Utilities.GetRequestContent(data);
+            var requestContent = SerializerUtils.GetRequestContent(data);
 
             // Act
             var response = await Client.PostAsync(BaseUrl, requestContent);

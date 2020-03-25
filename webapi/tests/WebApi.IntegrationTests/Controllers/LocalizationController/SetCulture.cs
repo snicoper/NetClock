@@ -1,5 +1,6 @@
 using System.Net;
 using System.Threading.Tasks;
+using NetClock.Application.Common.Utils;
 using NetClock.Application.Localization.Commands.SetCulture;
 using NetClock.WebApi.IntegrationTests.Helpers;
 using Shouldly;
@@ -20,7 +21,7 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.LocalizationController
         {
             // Arrange
             var data = new SetCultureCommand("es-ES");
-            var requestContent = Utilities.GetRequestContent(data);
+            var requestContent = SerializerUtils.GetRequestContent(data);
 
             // Act
             var response = await Client.PostAsync(BaseUrl, requestContent);
@@ -37,7 +38,7 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.LocalizationController
         {
             // Arrange
             var data = new SetCultureCommand(culture);
-            var requestContent = Utilities.GetRequestContent(data);
+            var requestContent = SerializerUtils.GetRequestContent(data);
 
             // Act
             var response = await Client.PostAsync(BaseUrl, requestContent);
@@ -55,7 +56,7 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.LocalizationController
         {
             // Arrange
             var data = new SetCultureCommand(culture);
-            var requestContent = Utilities.GetRequestContent(data);
+            var requestContent = SerializerUtils.GetRequestContent(data);
 
             // Act
             var response = await Client.PostAsync(BaseUrl, requestContent);

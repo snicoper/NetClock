@@ -1,6 +1,7 @@
 using System.Net;
 using System.Threading.Tasks;
 using NetClock.Application.Accounts.Auth.Commands.RecoveryPassword;
+using NetClock.Application.Common.Utils;
 using NetClock.WebApi.IntegrationTests.Helpers;
 using Shouldly;
 using Xunit;
@@ -20,7 +21,7 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Accounts.AuthController
         {
             // Arrange
             var data = new RecoveryPasswordCommand("admin@example.com");
-            var requestContent = Utilities.GetRequestContent(data);
+            var requestContent = SerializerUtils.GetRequestContent(data);
 
             // Act
             var response = await Client.PostAsync(BaseUrl, requestContent);
@@ -37,7 +38,7 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Accounts.AuthController
         {
             // Arrange
             var data = new RecoveryPasswordCommand(email);
-            var requestContent = Utilities.GetRequestContent(data);
+            var requestContent = SerializerUtils.GetRequestContent(data);
 
             // Act
             var response = await Client.PostAsync(BaseUrl, requestContent);
@@ -51,7 +52,7 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Accounts.AuthController
         {
             // Arrange
             var data = new RecoveryPasswordCommand("no@example.com");
-            var requestContent = Utilities.GetRequestContent(data);
+            var requestContent = SerializerUtils.GetRequestContent(data);
 
             // Act
             var response = await Client.PostAsync(BaseUrl, requestContent);

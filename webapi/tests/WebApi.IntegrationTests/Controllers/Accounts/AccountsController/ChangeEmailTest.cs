@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using NetClock.Application.Accounts.Accounts.Commands.ChangeEmail;
+using NetClock.Application.Common.Utils;
 using NetClock.Domain.Entities.Identity;
 using NetClock.WebApi.IntegrationTests.Helpers;
 using Shouldly;
@@ -26,7 +27,7 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Accounts.AccountsControll
             var userManager = ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
             var user = await userManager.FindByNameAsync("Admin");
             var data = new ChangeEmailCommand(user.Id, "nuevo@example.com");
-            var requestContent = Utilities.GetRequestContent(data);
+            var requestContent = SerializerUtils.GetRequestContent(data);
 
             // Act
             var response = await Client.PostAsync(BaseUrl, requestContent);
@@ -43,7 +44,7 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Accounts.AccountsControll
             var userManager = ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
             var user = await userManager.FindByNameAsync("Admin");
             var data = new ChangeEmailCommand("123123213", user.Email);
-            var requestContent = Utilities.GetRequestContent(data);
+            var requestContent = SerializerUtils.GetRequestContent(data);
 
             // Act
             var response = await Client.PostAsync(BaseUrl, requestContent);
@@ -62,7 +63,7 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Accounts.AccountsControll
             var userManager = ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
             var user = await userManager.FindByNameAsync("Admin");
             var data = new ChangeEmailCommand(user.Id, email);
-            var requestContent = Utilities.GetRequestContent(data);
+            var requestContent = SerializerUtils.GetRequestContent(data);
 
             // Act
             var response = await Client.PostAsync(BaseUrl, requestContent);

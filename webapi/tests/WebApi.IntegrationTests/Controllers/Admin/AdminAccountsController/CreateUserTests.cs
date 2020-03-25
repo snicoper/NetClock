@@ -1,6 +1,7 @@
 using System.Net;
 using System.Threading.Tasks;
 using NetClock.Application.Admin.AdminAccounts.Commands.CreateUser;
+using NetClock.Application.Common.Utils;
 using NetClock.WebApi.IntegrationTests.Helpers;
 using Shouldly;
 using Xunit;
@@ -21,7 +22,7 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Admin.AdminAccountsContro
             // Arrange
             await GetAuthenticatedClientAsync();
             var data = new CreateUserCommand("testUser", "test", "User", "test@example.com", "123123", "123123", true);
-            var requestContent = Utilities.GetRequestContent(data);
+            var requestContent = SerializerUtils.GetRequestContent(data);
 
             // Act
             var response = await Client.PostAsync(BaseUrl, requestContent);
@@ -37,7 +38,7 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Admin.AdminAccountsContro
         {
             // Arrange
             var data = new CreateUserCommand("testUser", "test", "User", "test@example.com", "123123", "123123", true);
-            var requestContent = Utilities.GetRequestContent(data);
+            var requestContent = SerializerUtils.GetRequestContent(data);
 
             // Act
             var response = await Client.PostAsync(BaseUrl, requestContent);
@@ -73,7 +74,7 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Admin.AdminAccountsContro
             // Arrange
             await GetAuthenticatedClientAsync();
             var data = new CreateUserCommand(username, firstName, lastName, email, password, confirmPassword, active);
-            var requestContent = Utilities.GetRequestContent(data);
+            var requestContent = SerializerUtils.GetRequestContent(data);
 
             // Act
             var response = await Client.PostAsync(BaseUrl, requestContent);

@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using NetClock.Application.Accounts.Auth.Commands.RecoveryPasswordValidate;
+using NetClock.Application.Common.Utils;
 using NetClock.Domain.Entities.Identity;
 using NetClock.WebApi.IntegrationTests.Helpers;
 using Shouldly;
@@ -26,7 +27,7 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Accounts.AuthController
             var user = await userManager.FindByNameAsync("Admin");
             var code = await userManager.GeneratePasswordResetTokenAsync(user);
             var data = new RecoveryPasswordValidateCommand(user.Id, code, "1234567", "1234567");
-            var requestContent = Utilities.GetRequestContent(data);
+            var requestContent = SerializerUtils.GetRequestContent(data);
 
             // Act
             var response = await Client.PostAsync(BaseUrl, requestContent);
@@ -43,7 +44,7 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Accounts.AuthController
             var user = await userManager.FindByNameAsync("Admin");
             var code = await userManager.GeneratePasswordResetTokenAsync(user);
             var data = new RecoveryPasswordValidateCommand(user.Id, code, "123", "1234");
-            var requestContent = Utilities.GetRequestContent(data);
+            var requestContent = SerializerUtils.GetRequestContent(data);
 
             // Act
             var response = await Client.PostAsync(BaseUrl, requestContent);
@@ -60,7 +61,7 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Accounts.AuthController
             var user = await userManager.FindByNameAsync("Admin");
             var code = await userManager.GeneratePasswordResetTokenAsync(user);
             var data = new RecoveryPasswordValidateCommand("123123123", code, "123456", "123456");
-            var requestContent = Utilities.GetRequestContent(data);
+            var requestContent = SerializerUtils.GetRequestContent(data);
 
             // Act
             var response = await Client.PostAsync(BaseUrl, requestContent);

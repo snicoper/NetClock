@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using NetClock.Application.Admin.AdminAccounts.Commands.UpdateUser;
+using NetClock.Application.Common.Utils;
 using NetClock.Domain.Entities.Identity;
 using NetClock.WebApi.IntegrationTests.Helpers;
 using Shouldly;
@@ -28,12 +29,12 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Admin.AdminAccountsContro
             var user = await _userManager.FindByNameAsync("Bob");
             var userId = user.Id;
             var data = new UpdateUserCommand(userId, userId, "Bob112", "Bob112", "Bob212", "bob112@example.com", false);
-            var requestContent = Utilities.GetRequestContent(data);
+            var requestContent = SerializerUtils.GetRequestContent(data);
             var url = Utilities.ComposeUri($"admin/accounts/{user.Id}");
 
             // Act
             var response = await Client.PutAsync(url, requestContent);
-            var responseContent = await Utilities.GetResponseContentAsync<UpdateUserViewModel>(response);
+            var responseContent = await SerializerUtils.GetResponseContentAsync<UpdateUserViewModel>(response);
 
             // Assert
             response.EnsureSuccessStatusCode();
@@ -47,7 +48,7 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Admin.AdminAccountsContro
             var user = await _userManager.FindByNameAsync("Bob");
             var userId = user.Id;
             var data = new UpdateUserCommand(userId, userId, "Bob112", "Bob112", "Bob212", "bob112@example.com", false);
-            var requestContent = Utilities.GetRequestContent(data);
+            var requestContent = SerializerUtils.GetRequestContent(data);
             var url = Utilities.ComposeUri($"admin/accounts/{user.Id}");
 
             // Act
@@ -77,7 +78,7 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Admin.AdminAccountsContro
             var user = await _userManager.FindByNameAsync("Bob");
             var userId = user.Id;
             var data = new UpdateUserCommand(userId, userId, userName, firstName, lastName, email, false);
-            var requestContent = Utilities.GetRequestContent(data);
+            var requestContent = SerializerUtils.GetRequestContent(data);
             var url = Utilities.ComposeUri($"admin/accounts/{user.Id}");
 
             // Act
@@ -95,7 +96,7 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Admin.AdminAccountsContro
             var user = await _userManager.FindByNameAsync("Bob");
             var userId = user.Id;
             var data = new UpdateUserCommand(userId, userId, "Bob112", "Bob112", "Bob212", "bob112@example.com", false);
-            var requestContent = Utilities.GetRequestContent(data);
+            var requestContent = SerializerUtils.GetRequestContent(data);
             var url = Utilities.ComposeUri("admin/accounts/no-existe");
 
             // Act

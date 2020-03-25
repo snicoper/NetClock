@@ -3,6 +3,7 @@ using System.Net;
 using System.Threading.Tasks;
 using NetClock.Application.Admin.AdminAccounts.Queries.GetUsers;
 using NetClock.Application.Common.Http;
+using NetClock.Application.Common.Utils;
 using NetClock.WebApi.IntegrationTests.Helpers;
 using Shouldly;
 using Xunit;
@@ -25,7 +26,8 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Admin.AdminAccountsContro
 
             // Act
             var response = await Client.GetAsync(BaseUrl);
-            var responseContent = await Utilities.GetResponseContentAsync<ResponseData<AdminUserListViewModel>>(response);
+            var responseContent =
+                await SerializerUtils.GetResponseContentAsync<ResponseData<AdminUserListViewModel>>(response);
 
             // Assert
             response.EnsureSuccessStatusCode();
