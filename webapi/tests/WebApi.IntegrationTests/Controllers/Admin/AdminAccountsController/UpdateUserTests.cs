@@ -21,7 +21,7 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Admin.AdminAccountsContro
         }
 
         [Fact]
-        public async Task Post_actualizar_usuario_authenticado_Created()
+        public async Task Post_actualizar_usuario_autenticado_Created()
         {
             // Arrange
             await GetAuthenticatedClientAsync();
