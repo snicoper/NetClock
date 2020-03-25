@@ -1,4 +1,4 @@
-export class AdminUserEditModel {
+export class AdminUserUpdateModel {
   id: string;
   slug: string;
   userName: string;

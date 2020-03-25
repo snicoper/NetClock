@@ -2,11 +2,17 @@ using System.ComponentModel.DataAnnotations;
 using MediatR;
 using NetClock.Domain.Entities.Identity;
 
-namespace NetClock.Application.Admin.AdminAccounts.Commands.EditUser
+namespace NetClock.Application.Admin.AdminAccounts.Commands.UpdateUser
 {
-    public class EditUserCommand : IRequest<EditUserViewModel>
+    public class UpdateUserCommand : IRequest<UpdateUserViewModel>
     {
-        public EditUserCommand(string id, string userName, string firstName, string lastName, string email, bool active)
+        public UpdateUserCommand(
+            string id,
+            string userName,
+            string firstName,
+            string lastName,
+            string email,
+            bool active)
         {
             Id = id;
             UserName = userName;

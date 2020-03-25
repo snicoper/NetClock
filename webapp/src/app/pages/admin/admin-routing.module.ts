@@ -4,7 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from '../../guards';
 import { AdminUserCreateComponent } from './accounts/admin-user-create/admin-user-create.component';
 import { AdminUserDetailsComponent } from './accounts/admin-user-details/admin-user-details.component';
-import { AdminUserEditComponent } from './accounts/admin-user-edit/admin-user-edit.component';
+import { AdminUserUpdateComponent } from './accounts/admin-user-update/admin-user-update.component';
 import { AdminUserListComponent } from './accounts/admin-user-list/admin-user-list.component';
 import { AdminComponent } from './admin.component';
 
@@ -28,8 +28,8 @@ const routes: Routes = [
     data: { title: 'Detalle de usuario' }
   },
   {
-    path: 'accounts/:slug/edit',
-    component: AdminUserEditComponent,
+    path: 'accounts/:slug/update',
+    component: AdminUserUpdateComponent,
     canActivate: [AuthGuard],
     data: { title: 'Editar usuario' }
   },

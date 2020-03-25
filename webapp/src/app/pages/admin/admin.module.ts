@@ -7,7 +7,7 @@ import { DirectivesModule } from '../../directives/directives.module';
 import { PipesModule } from '../../pipes/pipes.module';
 import { AdminUserCreateComponent } from './accounts/admin-user-create/admin-user-create.component';
 import { AdminUserDetailsComponent } from './accounts/admin-user-details/admin-user-details.component';
-import { AdminUserEditComponent } from './accounts/admin-user-edit/admin-user-edit.component';
+import { AdminUserUpdateComponent } from './accounts/admin-user-update/admin-user-update.component';
 import { AdminUserListComponent } from './accounts/admin-user-list/admin-user-list.component';
 import { AdminRoutingModule } from './admin-routing.module';
 import { AdminComponent } from './admin.component';
@@ -18,7 +18,7 @@ import { AdminComponent } from './admin.component';
     AdminUserListComponent,
     AdminUserDetailsComponent,
     AdminUserCreateComponent,
-    AdminUserEditComponent
+    AdminUserUpdateComponent
   ],
   imports: [
     CommonModule,

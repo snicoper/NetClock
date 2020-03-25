@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NetClock.Application.Admin.AdminAccounts.Commands.CreateUser;
-using NetClock.Application.Admin.AdminAccounts.Commands.EditUser;
+using NetClock.Application.Admin.AdminAccounts.Commands.UpdateUser;
 using NetClock.Application.Admin.AdminAccounts.Queries.GetBySlug;
 using NetClock.Application.Admin.AdminAccounts.Queries.GetUsers;
 using NetClock.Application.Common.Controllers;
@@ -46,11 +46,11 @@ namespace NetClock.WebApi.Controllers.Admin
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<EditUserViewModel>> EditUser(
+        public async Task<ActionResult<UpdateUserViewModel>> UpdateUser(
             [Required] string id,
-            EditUserCommand editUserCommand)
+            UpdateUserCommand updateUserCommand)
         {
-            return Ok(await Mediator.Send(editUserCommand));
+            return Ok(await Mediator.Send(updateUserCommand));
         }
     }
 }

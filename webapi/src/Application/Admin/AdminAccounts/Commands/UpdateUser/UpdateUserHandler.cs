@@ -9,18 +9,18 @@ using NetClock.Application.Common.Exceptions;
 using NetClock.Application.Common.Interfaces.Validations;
 using NetClock.Domain.Entities.Identity;
 
-namespace NetClock.Application.Admin.AdminAccounts.Commands.EditUser
+namespace NetClock.Application.Admin.AdminAccounts.Commands.UpdateUser
 {
-    public class EditUserHandler : IRequestHandler<EditUserCommand, EditUserViewModel>
+    public class UpdateUserHandler : IRequestHandler<UpdateUserCommand, UpdateUserViewModel>
     {
         private readonly IStringLocalizer<ApplicationUser> _localizer;
-        private readonly ILogger<EditUserHandler> _logger;
+        private readonly ILogger<UpdateUserHandler> _logger;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IValidationFailureService _validationFailureService;
 
-        public EditUserHandler(
+        public UpdateUserHandler(
             IStringLocalizer<ApplicationUser> localizer,
-            ILogger<EditUserHandler> logger,
+            ILogger<UpdateUserHandler> logger,
             UserManager<ApplicationUser> userManager,
             IValidationFailureService validationFailureService)
         {
@@ -30,7 +30,7 @@ namespace NetClock.Application.Admin.AdminAccounts.Commands.EditUser
             _validationFailureService = validationFailureService;
         }
 
-        public async Task<EditUserViewModel> Handle(EditUserCommand request, CancellationToken cancellationToken)
+        public async Task<UpdateUserViewModel> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
         {
             var applicationUser = await _userManager.FindByIdAsync(request.Id);
             if (applicationUser == null)
@@ -45,10 +45,10 @@ namespace NetClock.Application.Admin.AdminAccounts.Commands.EditUser
             await _userManager.UpdateAsync(applicationUser);
             _logger.LogInformation($"Se ha actualizado correctamente el usuario {request.UserName}");
 
-            return new EditUserViewModel(applicationUser.Slug);
+            return new UpdateUserViewModel(applicationUser.Slug);
         }
 
-        private async Task ValidateDataIfExists(EditUserCommand request)
+        private async Task ValidateDataIfExists(UpdateUserCommand request)
         {
             _logger.LogInformation($"Comprobar si el {nameof(request.UserName)} existe en la base de datos.");
             var user = await _userManager.Users.AnyAsync(u =>

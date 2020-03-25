@@ -1,10 +1,10 @@
 using FluentValidation;
 
-namespace NetClock.Application.Admin.AdminAccounts.Commands.EditUser
+namespace NetClock.Application.Admin.AdminAccounts.Commands.UpdateUser
 {
-    public class EditUserValidator : AbstractValidator<EditUserCommand>
+    public class UpdateUserValidator : AbstractValidator<UpdateUserCommand>
     {
-        public EditUserValidator()
+        public UpdateUserValidator()
         {
             RuleFor(v => v.UserName).MinimumLength(5).MaximumLength(20);
             RuleFor(v => v.FirstName).NotEmpty().MaximumLength(50);

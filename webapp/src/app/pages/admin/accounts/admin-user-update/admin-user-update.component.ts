@@ -10,15 +10,15 @@ import { FormInputTypes } from '../../../../components/forms/form-input/form-inp
 import { UrlsApp } from '../../../../config';
 import { DebugService } from '../../../../services';
 import { AdminAccountsRestService } from '../services/admin-accounts-rest.service';
-import { AdminUserEditModel } from './admin-user-edit.model';
+import { AdminUserUpdateModel } from './admin-user-update.model';
 
 @Component({
   selector: 'nc-admin-user-edit',
-  templateUrl: './admin-user-edit.component.html'
+  templateUrl: './admin-user-update.component.html'
 })
-export class AdminUserEditComponent implements OnInit {
+export class AdminUserUpdateComponent implements OnInit {
   breadcrumb = new BreadcrumbCollection();
-  data: AdminUserEditModel;
+  data: AdminUserUpdateModel;
   form: FormGroup;
   submitted = false;
   updating = false;
@@ -54,7 +54,7 @@ export class AdminUserEditComponent implements OnInit {
 
     this.adminAccountsService.update(this.data.id, this.data)
       .pipe(finalize(() => this.updating = false))
-      .subscribe((result: AdminUserEditModel) => {
+      .subscribe((result: AdminUserUpdateModel) => {
         this.toastrService.success('Usuario editado con éxito');
         const url = UrlsApp.replace(UrlsApp.adminUserDetails, { slug: result.slug });
         this.router.navigate([url]);
@@ -70,7 +70,7 @@ export class AdminUserEditComponent implements OnInit {
     this.loading = true;
     this.adminAccountsService.getBy(this.slug)
       .pipe(finalize(() => this.loading = false))
-      .subscribe((result: AdminUserEditModel) => {
+      .subscribe((result: AdminUserUpdateModel) => {
         this.data = result;
         this.setBreadcrumb();
         this.buildForm();
