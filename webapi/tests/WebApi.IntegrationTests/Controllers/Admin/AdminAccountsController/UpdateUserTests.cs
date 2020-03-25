@@ -41,7 +41,7 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Admin.AdminAccountsContro
         }
 
         [Fact]
-        public async Task Post_actualizar_usuario_no_authenticado_Unauthorized()
+        public async Task Post_actualizar_usuario_no_autenticado_Unauthorized()
         {
             // Arrange
             var user = await _userManager.FindByNameAsync("Bob");
@@ -88,7 +88,7 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Admin.AdminAccountsContro
         }
 
         [Fact]
-        public async Task Post_actualizar_usuario_idParam_y_Id_no_iguales_BadRequest()
+        public async Task Post_actualizar_usuario_IdParam_y_Id_no_iguales_BadRequest()
         {
             // Arrange
             await GetAuthenticatedClientAsync();
@@ -96,7 +96,7 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Admin.AdminAccountsContro
             var userId = user.Id;
             var data = new UpdateUserCommand(userId, userId, "Bob112", "Bob112", "Bob212", "bob112@example.com", false);
             var requestContent = Utilities.GetRequestContent(data);
-            var url = Utilities.ComposeUri($"admin/accounts/no-existe");
+            var url = Utilities.ComposeUri("admin/accounts/no-existe");
 
             // Act
             var response = await Client.PutAsync(url, requestContent);
