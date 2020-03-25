@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, Router, RouterStateSnapshot } from '@angular/router';
+import { SiteUrls } from '../core';
 
-import { UrlsApp } from '../config';
 import { AuthRestService } from '../pages/auth/services/auth-rest.service';
 
 @Injectable({
@@ -20,7 +20,7 @@ export class AuthGuard implements CanActivate, CanActivateChild {
       return true;
     }
 
-    this.router.navigate([UrlsApp.login], { queryParams: { returnUrl: state.url } });
+    this.router.navigate([SiteUrls.login], { queryParams: { returnUrl: state.url } });
     return false;
   }
 

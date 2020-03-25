@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { SiteUrls } from '../../../core';
 
-import { UrlsApp } from '../../../config';
 import { PasswordMustMatch } from '../../../validators';
 import { AuthRestService } from '../services/auth-rest.service';
 
@@ -51,7 +51,7 @@ export class RecoveryPasswordValidateComponent {
     this.authService.recoveryPasswordValidate(this.form.value).subscribe(
       () => {
         this.toastr.success('Contraseña restablecida con éxito');
-        this.router.navigate([UrlsApp.login]);
+        this.router.navigate([SiteUrls.login]);
       },
       () => {
         this.errorChangePassword = true;

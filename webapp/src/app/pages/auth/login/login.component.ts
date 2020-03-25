@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { finalize, timeout } from 'rxjs/operators';
+import { SiteUrls } from '../../../core';
 
-import { UrlsApp } from '../../../config';
 import { CurrentUserModel } from '../models/current-user.model';
 import { AuthRestService } from '../services/auth-rest.service';
 
@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
   submitted = false;
   returnUrl = '/';
   errors = {};
-  urlsApp = UrlsApp;
+  urlsApp = SiteUrls;
 
   constructor(
     private fb: FormBuilder,
@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
     private authenticationService: AuthRestService
   ) {
     if (this.authenticationService.currentUserValue) {
-      this.router.navigate([UrlsApp.home]);
+      this.router.navigate([SiteUrls.home]);
     }
   }
 

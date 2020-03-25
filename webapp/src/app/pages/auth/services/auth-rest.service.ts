@@ -3,8 +3,8 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { SiteUrls } from '../../../core';
 
-import { UrlsApp } from '../../../config';
 import { DebugService, SettingsService } from '../../../services';
 import { ApiRestBaseService } from '../../../services/rest';
 import { LoginModel } from '../login/login.model';
@@ -85,7 +85,7 @@ export class AuthRestService extends ApiRestBaseService implements OnDestroy {
       () => {
         localStorage.removeItem('currentUser');
         this.currentUserSubject.next(null);
-        this.router.navigate([UrlsApp.login]);
+        this.router.navigate([SiteUrls.login]);
       }
     );
   }

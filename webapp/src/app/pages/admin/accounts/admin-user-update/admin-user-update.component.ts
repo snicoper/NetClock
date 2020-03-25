@@ -7,7 +7,7 @@ import { finalize } from 'rxjs/operators';
 
 import { BreadcrumbCollection } from '../../../../components/breadcrumb/models/BreadcrumbCollection';
 import { FormInputTypes } from '../../../../components/forms/form-input/form-input-types.enum';
-import { UrlsApp } from '../../../../config';
+import { SiteUrls } from '../../../../core';
 import { DebugService } from '../../../../services';
 import { AdminAccountsRestService } from '../services/admin-accounts-rest.service';
 import { AdminUserUpdateModel } from './admin-user-update.model';
@@ -56,7 +56,7 @@ export class AdminUserUpdateComponent implements OnInit {
       .pipe(finalize(() => this.updating = false))
       .subscribe((result: AdminUserUpdateModel) => {
         this.toastrService.success('Usuario editado con éxito');
-        const url = UrlsApp.replace(UrlsApp.adminUserDetails, { slug: result.slug });
+        const url = SiteUrls.replace(SiteUrls.adminUserDetails, { slug: result.slug });
         this.router.navigate([url]);
       }, ((error) => {
         this.debugService.errors(error.error);
@@ -83,15 +83,15 @@ export class AdminUserUpdateComponent implements OnInit {
   }
 
   private setBreadcrumb(): void {
-    const urlUserDetails = UrlsApp.replace(UrlsApp.adminUserDetails, { slug: this.slug });
+    const urlUserDetails = SiteUrls.replace(SiteUrls.adminUserDetails, { slug: this.slug });
     const fullName = `${this.data.firstName} ${this.data.lastName}`;
 
     this.breadcrumb
-      .add('Inicio', UrlsApp.home, 'fas fa-home')
-      .add('Administración', UrlsApp.admin, 'fas fa-user-shield')
-      .add('Usuarios', UrlsApp.adminUserList, 'fas fa-users')
+      .add('Inicio', SiteUrls.home, 'fas fa-home')
+      .add('Administración', SiteUrls.admin, 'fas fa-user-shield')
+      .add('Usuarios', SiteUrls.adminUserList, 'fas fa-users')
       .add(fullName, urlUserDetails, 'fas fa-user')
-      .add('Editar', UrlsApp.adminUserCreate, 'fas fa-user-edit', false);
+      .add('Editar', SiteUrls.adminUserCreate, 'fas fa-user-edit', false);
   }
 
   private buildForm(): void {

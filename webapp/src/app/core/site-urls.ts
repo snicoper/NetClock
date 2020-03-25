@@ -4,7 +4,7 @@
  * Importante, en los HTMLs, poner siempre comentario con el valor usado por si se ha de remplazar.
  * <!-- '/admin/accounts/{slug}/details' -->
  */
-export const UrlsApp = {
+export const SiteUrls = {
   /** Home. */
   home: '/',
 
@@ -27,6 +27,7 @@ export const UrlsApp = {
 
   /**
    * Utiliza una de las propiedades de UrlsApp para remplazar {algo} por valor en los args.
+   *
    * @param url Una de las propiedades.
    * @param args Remplaza el {key} por el value de.
    */

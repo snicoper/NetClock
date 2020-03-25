@@ -5,7 +5,7 @@ import { finalize } from 'rxjs/operators';
 
 import { BreadcrumbCollection } from '../../../../components/breadcrumb/models/BreadcrumbCollection';
 import { TableHeaderConfig } from '../../../../components/tables/table-header/core';
-import { UrlsApp } from '../../../../config';
+import { SiteUrls } from '../../../../core';
 import { ApiResult } from '../../../../models';
 import { AdminAccountsRestService } from '../services/admin-accounts-rest.service';
 import { AdminUserListHeaderConfig } from './admin-user-list-headers.config';
@@ -41,7 +41,7 @@ export class AdminUserListComponent implements OnInit, OnDestroy {
   }
 
   onSelectItem(user: AdminUserListModel): void {
-    const url = UrlsApp.replace(UrlsApp.adminUserDetails, { slug: user.slug });
+    const url = SiteUrls.replace(SiteUrls.adminUserDetails, { slug: user.slug });
     this.router.navigate([url]);
   }
 
@@ -55,9 +55,9 @@ export class AdminUserListComponent implements OnInit, OnDestroy {
 
   private setBreadcrumb(): void {
     this.breadcrumb
-      .add('Inicio', UrlsApp.home, 'fas fa-home')
-      .add('Administración', UrlsApp.admin, 'fas fa-user-shield')
-      .add('Usuarios', UrlsApp.adminUserList, 'fas fa-users', false);
+      .add('Inicio', SiteUrls.home, 'fas fa-home')
+      .add('Administración', SiteUrls.admin, 'fas fa-user-shield')
+      .add('Usuarios', SiteUrls.adminUserList, 'fas fa-users', false);
   }
 
   private loadUsers(): void {

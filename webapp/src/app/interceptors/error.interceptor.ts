@@ -4,8 +4,8 @@ import { Router } from '@angular/router';
 import * as HttpStatus from 'http-status-codes';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { SiteUrls } from '../core';
 
-import { UrlsApp } from '../config';
 import { AuthRestService } from '../pages/auth/services/auth-rest.service';
 import { DebugService } from '../services';
 
@@ -39,7 +39,7 @@ export class ErrorInterceptor implements HttpInterceptor {
 
   private unauthorizedHandler(): void {
     this.authenticationService.logout();
-    this.router.navigate([UrlsApp.login]);
+    this.router.navigate([SiteUrls.login]);
   }
 
   private errorHandler(): void {

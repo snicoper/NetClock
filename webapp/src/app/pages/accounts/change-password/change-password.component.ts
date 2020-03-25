@@ -4,7 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { finalize } from 'rxjs/operators';
 
 import { BreadcrumbCollection } from '../../../components/breadcrumb/models/BreadcrumbCollection';
-import { UrlsApp } from '../../../config';
+import { SiteUrls } from '../../../core';
 import { PasswordMustMatch } from '../../../validators';
 import { AuthRestService } from '../../auth/services/auth-rest.service';
 import { AccountsRestService } from '../services/accounts-rest.service';
@@ -60,9 +60,9 @@ export class ChangePasswordComponent implements OnInit {
 
   private setBreadcrumb(): void {
     this.breadcrumb
-      .add('Inicio', UrlsApp.home, 'fas fa-home')
-      .add('Perfil', UrlsApp.accounts, 'fas fa-user-cog')
-      .add('Cambiar contraseña', UrlsApp.changePassword, 'fas fa-user-lock', false);
+      .add('Inicio', SiteUrls.home, 'fas fa-home')
+      .add('Perfil', SiteUrls.accounts, 'fas fa-user-cog')
+      .add('Cambiar contraseña', SiteUrls.changePassword, 'fas fa-user-lock', false);
   }
 
   private buildForm(): void {

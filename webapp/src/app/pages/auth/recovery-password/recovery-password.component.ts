@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { finalize } from 'rxjs/operators';
+import { SiteUrls } from '../../../core';
 
-import { UrlsApp } from '../../../config';
 import { AuthRestService } from '../services/auth-rest.service';
 
 @Component({
@@ -15,7 +15,7 @@ export class RecoveryPasswordComponent implements OnInit {
   loading = false;
   submitted = false;
   errors = {};
-  urlsApp = UrlsApp;
+  urlsApp = SiteUrls;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -24,7 +24,7 @@ export class RecoveryPasswordComponent implements OnInit {
     private authenticationService: AuthRestService
   ) {
     if (this.authenticationService.currentUserValue) {
-      this.router.navigate([UrlsApp.home]);
+      this.router.navigate([SiteUrls.home]);
     }
   }
 
@@ -45,7 +45,7 @@ export class RecoveryPasswordComponent implements OnInit {
     }
 
     this.authenticationService.recoveryPassword(this.form.value)
-      .pipe(finalize(() => this.router.navigate([UrlsApp.recoveryPasswordSuccess])));
+      .pipe(finalize(() => this.router.navigate([SiteUrls.recoveryPasswordSuccess])));
   }
 
   private buildForm(): void {

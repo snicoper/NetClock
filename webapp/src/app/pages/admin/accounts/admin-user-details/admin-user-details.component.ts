@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { finalize } from 'rxjs/operators';
 
 import { BreadcrumbCollection } from '../../../../components/breadcrumb/models/BreadcrumbCollection';
-import { UrlsApp } from '../../../../config';
+import { SiteUrls } from '../../../../core';
 import { AdminAccountsRestService } from '../services/admin-accounts-rest.service';
 import { AdminUserDetailsModel } from './admin-user-details.model';
 
@@ -33,10 +33,10 @@ export class AdminUserDetailsComponent implements OnInit {
     const fullName = `${this.user.firstName} ${this.user.lastName}`;
 
     this.breadcrumb
-      .add('Inicio', UrlsApp.home, 'fas fa-home')
-      .add('Administración', UrlsApp.admin, 'fas fa-user-shield')
-      .add('Usuarios', UrlsApp.adminUserList, 'fas fa-users')
-      .add(fullName, UrlsApp.adminUserList, 'fas fa-user', false);
+      .add('Inicio', SiteUrls.home, 'fas fa-home')
+      .add('Administración', SiteUrls.admin, 'fas fa-user-shield')
+      .add('Usuarios', SiteUrls.adminUserList, 'fas fa-users')
+      .add(fullName, SiteUrls.adminUserList, 'fas fa-user', false);
   }
 
   private loadUser(): void {

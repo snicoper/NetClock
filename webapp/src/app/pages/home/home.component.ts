@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 import { BreadcrumbCollection } from '../../components/breadcrumb/models/BreadcrumbCollection';
-import { UrlsApp } from '../../config';
+import { SiteUrls } from '../../core';
 
 @Component({
   selector: 'nc-home',
@@ -15,6 +15,6 @@ export class HomeComponent {
   }
 
   private setBreadcrumb(): void {
-    this.breadcrumb.add('Inicio', UrlsApp.home, 'fas fa-home', false);
+    this.breadcrumb.add('Inicio', SiteUrls.home, 'fas fa-home', false);
   }
 }

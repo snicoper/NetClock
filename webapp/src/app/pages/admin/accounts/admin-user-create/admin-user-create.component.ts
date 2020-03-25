@@ -7,7 +7,7 @@ import { finalize } from 'rxjs/operators';
 
 import { BreadcrumbCollection } from '../../../../components/breadcrumb/models/BreadcrumbCollection';
 import { FormInputTypes } from '../../../../components/forms/form-input/form-input-types.enum';
-import { UrlsApp } from '../../../../config';
+import { SiteUrls } from '../../../../core';
 import { DebugService } from '../../../../services';
 import { PasswordMustMatch } from '../../../../validators';
 import { AdminAccountsRestService } from '../services/admin-accounts-rest.service';
@@ -50,7 +50,7 @@ export class AdminUserCreateComponent implements OnInit {
         finalize(() => this.loading = false)
       )
       .subscribe((result) => {
-        const url = UrlsApp.replace(UrlsApp.adminUserDetails, { slug: result.slug });
+        const url = SiteUrls.replace(SiteUrls.adminUserDetails, { slug: result.slug });
         this.toastrService.success('Usuario creado con éxito');
         this.router.navigate([url]);
       }, ((error) => {
@@ -63,10 +63,10 @@ export class AdminUserCreateComponent implements OnInit {
 
   private setBreadcrumb(): void {
     this.breadcrumb
-      .add('Inicio', UrlsApp.home, 'fas fa-home')
-      .add('Administración', UrlsApp.admin, 'fas fa-user-shield')
-      .add('Usuarios', UrlsApp.adminUserList, 'fas fa-users')
-      .add('Nuevo', UrlsApp.adminUserCreate, 'fas fa-user-plus', false);
+      .add('Inicio', SiteUrls.home, 'fas fa-home')
+      .add('Administración', SiteUrls.admin, 'fas fa-user-shield')
+      .add('Usuarios', SiteUrls.adminUserList, 'fas fa-users')
+      .add('Nuevo', SiteUrls.adminUserCreate, 'fas fa-user-plus', false);
   }
 
   private buildForm(): void {
