@@ -50,6 +50,8 @@ namespace NetClock.WebApi.Controllers.Admin
             [Required] string id,
             UpdateUserCommand updateUserCommand)
         {
+            updateUserCommand.IdParam = id;
+
             return Ok(await Mediator.Send(updateUserCommand));
         }
     }

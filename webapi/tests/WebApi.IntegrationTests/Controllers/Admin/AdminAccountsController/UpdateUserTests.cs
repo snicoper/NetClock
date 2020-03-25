@@ -26,7 +26,8 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Admin.AdminAccountsContro
             // Arrange
             await GetAuthenticatedClientAsync();
             var user = await _userManager.FindByNameAsync("Bob");
-            var data = new UpdateUserCommand(user.Id, "Bob112", "Bob112", "Bob212", "bob112@example.com", false);
+            var userId = user.Id;
+            var data = new UpdateUserCommand(userId, userId, "Bob112", "Bob112", "Bob212", "bob112@example.com", false);
             var requestContent = Utilities.GetRequestContent(data);
             var url = Utilities.ComposeUri($"admin/accounts/{user.Id}");
 
@@ -44,7 +45,8 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Admin.AdminAccountsContro
         {
             // Arrange
             var user = await _userManager.FindByNameAsync("Bob");
-            var data = new UpdateUserCommand(user.Id, "Bob112", "Bob112", "Bob212", "bob112@example.com", false);
+            var userId = user.Id;
+            var data = new UpdateUserCommand(userId, userId, "Bob112", "Bob112", "Bob212", "bob112@example.com", false);
             var requestContent = Utilities.GetRequestContent(data);
             var url = Utilities.ComposeUri($"admin/accounts/{user.Id}");
 
@@ -73,9 +75,28 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Admin.AdminAccountsContro
             // Arrange
             await GetAuthenticatedClientAsync();
             var user = await _userManager.FindByNameAsync("Bob");
-            var data = new UpdateUserCommand(user.Id, userName, firstName, lastName, email, false);
+            var userId = user.Id;
+            var data = new UpdateUserCommand(userId, userId, userName, firstName, lastName, email, false);
             var requestContent = Utilities.GetRequestContent(data);
             var url = Utilities.ComposeUri($"admin/accounts/{user.Id}");
+
+            // Act
+            var response = await Client.PutAsync(url, requestContent);
+
+            // Assert
+            response.StatusCode.ShouldBe(HttpStatusCode.BadRequest);
+        }
+
+        [Fact]
+        public async Task Post_actualizar_usuario_idParam_y_Id_no_iguales_BadRequest()
+        {
+            // Arrange
+            await GetAuthenticatedClientAsync();
+            var user = await _userManager.FindByNameAsync("Bob");
+            var userId = user.Id;
+            var data = new UpdateUserCommand(userId, userId, "Bob112", "Bob112", "Bob212", "bob112@example.com", false);
+            var requestContent = Utilities.GetRequestContent(data);
+            var url = Utilities.ComposeUri($"admin/accounts/no-existe");
 
             // Act
             var response = await Client.PutAsync(url, requestContent);
