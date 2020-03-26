@@ -18,8 +18,8 @@ export class AdminUserUpdateService extends ApiRestBaseService {
     this.baseUrl = `${this.settingsService.baseApiUrl}/${ApiUrls.adminAccounts}`;
   }
 
-  update(userId: string, model: AdminUserUpdateModel): Observable<AdminUserUpdateResultModel> {
-    const url = `${this.baseUrl}/${userId}`;
+  update(model: AdminUserUpdateModel): Observable<AdminUserUpdateResultModel> {
+    const url = `${this.baseUrl}/update`;
 
     return this.http.put<AdminUserUpdateResultModel>(url, model);
   }

@@ -54,7 +54,7 @@ export class AdminUserUpdateComponent implements OnInit {
     this.updating = true;
     this.data = Object.assign(this.data, this.form.value);
 
-    this.adminUserUpdateService.update(this.data.id, this.data)
+    this.adminUserUpdateService.update(this.data)
       .pipe(finalize(() => this.updating = false))
       .subscribe((result: AdminUserUpdateResultModel) => {
         this.toastrService.success('Usuario editado con éxito');

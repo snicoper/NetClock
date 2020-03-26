@@ -6,7 +6,6 @@ namespace NetClock.Application.Admin.AdminAccounts.Commands.UpdateUser
     {
         public UpdateUserValidator()
         {
-            RuleFor(v => v.IdParam).Equal(v => v.Id);
             RuleFor(v => v.Id).NotEmpty();
             RuleFor(v => v.UserName).MinimumLength(5).MaximumLength(20);
             RuleFor(v => v.FirstName).NotEmpty().MaximumLength(50);

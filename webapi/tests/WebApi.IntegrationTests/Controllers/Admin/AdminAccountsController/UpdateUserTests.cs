@@ -28,9 +28,9 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Admin.AdminAccountsContro
             await GetAuthenticatedClientAsync();
             var user = await _userManager.FindByNameAsync("Bob");
             var userId = user.Id;
-            var data = new UpdateUserCommand(userId, userId, "Bob112", "Bob112", "Bob212", "bob112@example.com", false);
+            var data = new UpdateUserCommand(userId, "Bob112", "Bob112", "Bob212", "bob112@example.com", false);
             var requestContent = SerializerUtils.GetRequestContent(data);
-            var url = Utilities.ComposeUri($"admin/accounts/{user.Id}");
+            var url = Utilities.ComposeUri($"admin/accounts/update");
 
             // Act
             var response = await Client.PutAsync(url, requestContent);
@@ -47,9 +47,9 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Admin.AdminAccountsContro
             // Arrange
             var user = await _userManager.FindByNameAsync("Bob");
             var userId = user.Id;
-            var data = new UpdateUserCommand(userId, userId, "Bob112", "Bob112", "Bob212", "bob112@example.com", false);
+            var data = new UpdateUserCommand(userId, "Bob112", "Bob112", "Bob212", "bob112@example.com", false);
             var requestContent = SerializerUtils.GetRequestContent(data);
-            var url = Utilities.ComposeUri($"admin/accounts/{user.Id}");
+            var url = Utilities.ComposeUri($"admin/accounts/update");
 
             // Act
             var response = await Client.PutAsync(url, requestContent);
@@ -77,27 +77,9 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Admin.AdminAccountsContro
             await GetAuthenticatedClientAsync();
             var user = await _userManager.FindByNameAsync("Bob");
             var userId = user.Id;
-            var data = new UpdateUserCommand(userId, userId, userName, firstName, lastName, email, false);
+            var data = new UpdateUserCommand(userId, userName, firstName, lastName, email, false);
             var requestContent = SerializerUtils.GetRequestContent(data);
-            var url = Utilities.ComposeUri($"admin/accounts/{user.Id}");
-
-            // Act
-            var response = await Client.PutAsync(url, requestContent);
-
-            // Assert
-            response.StatusCode.ShouldBe(HttpStatusCode.BadRequest);
-        }
-
-        [Fact]
-        public async Task Post_actualizar_usuario_IdParam_y_Id_no_iguales_BadRequest()
-        {
-            // Arrange
-            await GetAuthenticatedClientAsync();
-            var user = await _userManager.FindByNameAsync("Bob");
-            var userId = user.Id;
-            var data = new UpdateUserCommand(userId, userId, "Bob112", "Bob112", "Bob212", "bob112@example.com", false);
-            var requestContent = SerializerUtils.GetRequestContent(data);
-            var url = Utilities.ComposeUri("admin/accounts/no-existe");
+            var url = Utilities.ComposeUri($"admin/accounts/update");
 
             // Act
             var response = await Client.PutAsync(url, requestContent);

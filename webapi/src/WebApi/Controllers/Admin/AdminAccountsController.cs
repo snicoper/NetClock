@@ -1,4 +1,3 @@
-using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -44,19 +43,15 @@ namespace NetClock.WebApi.Controllers.Admin
             return CreatedAtAction(nameof(GetBySlug), routeValues, applicationUser);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("update")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<UpdateUserViewModel>> UpdateUser(
-            [Required] string id,
-            UpdateUserCommand updateUserCommand)
+        public async Task<ActionResult<UpdateUserViewModel>> UpdateUser(UpdateUserCommand updateUserCommand)
         {
-            updateUserCommand.IdParam = id;
-
             return Ok(await Mediator.Send(updateUserCommand));
         }
 
-        [HttpPost("{id}")]
+        [HttpPost("change-password")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult> ChangePasswordUser(ChangePasswordUserCommand changePassword)

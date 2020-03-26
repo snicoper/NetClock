@@ -7,7 +7,6 @@ namespace NetClock.Application.Admin.AdminAccounts.Commands.UpdateUser
     public class UpdateUserCommand : IRequest<UpdateUserViewModel>
     {
         public UpdateUserCommand(
-            string idParam,
             string id,
             string userName,
             string firstName,
@@ -15,7 +14,6 @@ namespace NetClock.Application.Admin.AdminAccounts.Commands.UpdateUser
             string email,
             bool active)
         {
-            IdParam = idParam;
             Id = id;
             UserName = userName;
             FirstName = firstName;
@@ -23,8 +21,6 @@ namespace NetClock.Application.Admin.AdminAccounts.Commands.UpdateUser
             Email = email;
             Active = active;
         }
-
-        public string IdParam { get; set; }
 
         public string Id { get; }
 
