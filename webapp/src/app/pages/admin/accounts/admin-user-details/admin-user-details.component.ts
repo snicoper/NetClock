@@ -2,14 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { finalize } from 'rxjs/operators';
 
-import { BreadcrumbCollection } from '../../../../components/breadcrumb/models/BreadcrumbCollection';
+import { BreadcrumbCollection } from '../../../../components/breadcrumb/BreadcrumbCollection';
 import { SiteUrls } from '../../../../core';
-import { AdminAccountsRestService } from '../services/admin-accounts-rest.service';
 import { AdminUserDetailsModel } from './admin-user-details.model';
+import { AdminUserDetailsService } from './admin-user-details.service';
 
 @Component({
   selector: 'nc-user-details',
-  templateUrl: './admin-user-details.component.html'
+  templateUrl: './admin-user-details.component.html',
+  providers: [AdminUserDetailsService]
 })
 export class AdminUserDetailsComponent implements OnInit {
   breadcrumb = new BreadcrumbCollection();
@@ -19,7 +20,7 @@ export class AdminUserDetailsComponent implements OnInit {
   private readonly userSlug: string;
 
   constructor(
-    private adminAccountsService: AdminAccountsRestService,
+    private adminUserDetailsService: AdminUserDetailsService,
     private route: ActivatedRoute
   ) {
     this.userSlug = this.route.snapshot.paramMap.get('slug');
@@ -41,7 +42,7 @@ export class AdminUserDetailsComponent implements OnInit {
 
   private loadUser(): void {
     this.loading = true;
-    this.adminAccountsService.getBy(this.userSlug)
+    this.adminUserDetailsService.getBy(this.userSlug)
       .pipe(finalize(() => this.loading = false))
       .subscribe((result: AdminUserDetailsModel) => {
         this.user = result;

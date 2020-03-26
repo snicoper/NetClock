@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { SidebarMenuItemsModel } from '../models/sidebar-menu-items.model';
+import { SidebarMenuItemsModel } from './sidebar-menu-items.model';
 
 @Injectable({
   providedIn: 'root'

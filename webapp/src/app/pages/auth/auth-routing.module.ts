@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+
 import { LoginComponent } from './login/login.component';
 import { RecoveryPasswordSuccessComponent } from './recovery-password-success/recovery-password-success.component';
 import { RecoveryPasswordValidateComponent } from './recovery-password-validate/recovery-password-validate.component';

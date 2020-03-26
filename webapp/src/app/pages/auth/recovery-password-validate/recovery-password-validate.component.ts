@@ -5,11 +5,13 @@ import { ToastrService } from 'ngx-toastr';
 import { SiteUrls } from '../../../core';
 
 import { PasswordMustMatch } from '../../../validators';
-import { AuthRestService } from '../services/auth-rest.service';
+import { RecoveryPasswordValidateService } from './recovery-password-validate.service';
 
 @Component({
   selector: 'nc-recovery-password-validate',
-  templateUrl: './recovery-password-validate.component.html'
+  templateUrl: './recovery-password-validate.component.html',
+  providers: [RecoveryPasswordValidateService]
+
 })
 export class RecoveryPasswordValidateComponent {
   form: FormGroup;
@@ -22,8 +24,8 @@ export class RecoveryPasswordValidateComponent {
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private authService: AuthRestService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private recoveryPasswordValidateService: RecoveryPasswordValidateService
   ) {
     this.buildForm();
     this.route.queryParamMap.subscribe(
@@ -48,7 +50,7 @@ export class RecoveryPasswordValidateComponent {
     }
 
     this.loading = true;
-    this.authService.recoveryPasswordValidate(this.form.value).subscribe(
+    this.recoveryPasswordValidateService.recoveryPasswordValidate(this.form.value).subscribe(
       () => {
         this.toastr.success('Contraseña restablecida con éxito');
         this.router.navigate([SiteUrls.login]);

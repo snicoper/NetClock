@@ -3,17 +3,18 @@ import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 
-import { BreadcrumbCollection } from '../../../../components/breadcrumb/models/BreadcrumbCollection';
-import { TableHeaderConfig } from '../../../../components/tables/table-header/core';
+import { BreadcrumbCollection } from '../../../../components/breadcrumb/BreadcrumbCollection';
+import { TableHeaderConfig } from '../../../../components/tables/table-header/table-header.config';
 import { SiteUrls } from '../../../../core';
 import { ApiResult } from '../../../../models';
-import { AdminAccountsRestService } from '../services/admin-accounts-rest.service';
 import { AdminUserListHeaderConfig } from './admin-user-list-headers.config';
 import { AdminUserListModel } from './admin-user-list.model';
+import { AdminUserListService } from './admin-user-list.service';
 
 @Component({
   selector: 'nc-user-list',
-  templateUrl: './admin-user-list.component.html'
+  templateUrl: './admin-user-list.component.html',
+  providers: [AdminUserListService]
 })
 export class AdminUserListComponent implements OnInit, OnDestroy {
   breadcrumb = new BreadcrumbCollection();
@@ -25,7 +26,7 @@ export class AdminUserListComponent implements OnInit, OnDestroy {
 
   constructor(
     private router: Router,
-    private adminAccountsService: AdminAccountsRestService
+    private adminUserListService: AdminUserListService
   ) {
   }
 
@@ -62,7 +63,7 @@ export class AdminUserListComponent implements OnInit, OnDestroy {
 
   private loadUsers(): void {
     this.loading = true;
-    this.adminAccountsService.getAllPaginated(this.apiResult)
+    this.adminUserListService.getAllPaginated(this.apiResult)
       .pipe(finalize(() => this.loading = false))
       .subscribe((result: ApiResult<AdminUserListModel>) => {
         this.apiResult = result;

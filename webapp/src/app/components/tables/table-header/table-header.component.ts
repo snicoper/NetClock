@@ -1,7 +1,8 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 import { ApiResult, ApiResultItemOrderBy, OrderType } from '../../../models';
-import { ITableHeaderField, TableHeaderConfig } from './core';
+import { ITableHeaderField } from './table-header-field.interface';
+import { TableHeaderConfig } from './table-header.config';
 
 @Component({
   // tslint:disable-next-line:component-selector

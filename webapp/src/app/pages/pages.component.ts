@@ -1,6 +1,6 @@
 import { Component, HostListener } from '@angular/core';
 
-import { SidebarService } from '../components/sidebar/services/sidebar.service';
+import { SidebarService } from '../components/sidebar/sidebar.service';
 
 @Component({
   selector: 'nc-pages',

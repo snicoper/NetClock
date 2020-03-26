@@ -1,3 +1,4 @@
+export { ApiUrls } from './api-urls';
 export { SiteUrls } from './site-urls';
 export { Roles } from './roles';
 export { Utils } from './utils';

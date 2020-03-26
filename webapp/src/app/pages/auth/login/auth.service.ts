@@ -3,19 +3,17 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { SiteUrls } from '../../../core';
 
+import { ApiUrls, SiteUrls } from '../../../core';
 import { DebugService, SettingsService } from '../../../services';
 import { ApiRestBaseService } from '../../../services/rest';
-import { LoginModel } from '../login/login.model';
-import { CurrentUserModel } from '../models/current-user.model';
-import { RecoveryPasswordValidateModel } from '../recovery-password-validate/recovery-password-validate.model';
-import { RecoveryPasswordModel } from '../recovery-password/recovery-password.model';
+import { CurrentUserModel } from './current-user.model';
+import { LoginModel } from './login.model';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthRestService extends ApiRestBaseService implements OnDestroy {
+export class AuthService extends ApiRestBaseService implements OnDestroy {
   readonly currentUser$: Observable<CurrentUserModel>;
 
   private readonly destroy$ = new Subject<void>();
@@ -28,7 +26,7 @@ export class AuthRestService extends ApiRestBaseService implements OnDestroy {
     private router: Router
   ) {
     super(http, debugService);
-    this.baseUrl = `${this.settingsService.baseApiUrl}/auth`;
+    this.baseUrl = `${this.settingsService.baseApiUrl}/${ApiUrls.auth}`;
     this.currentUserSubject = new BehaviorSubject<CurrentUserModel>(JSON.parse(localStorage.getItem('currentUser')));
     this.currentUser$ = this.currentUserSubject.asObservable().pipe(takeUntil(this.destroy$));
   }
@@ -59,18 +57,6 @@ export class AuthRestService extends ApiRestBaseService implements OnDestroy {
     return this.http.post<CurrentUserModel>(url, loginModel);
   }
 
-  recoveryPassword(recoveryPasswordModel: RecoveryPasswordModel): Observable<void> {
-    const url = `${this.baseUrl}/recovery-password`;
-
-    return this.http.post<void>(url, recoveryPasswordModel);
-  }
-
-  recoveryPasswordValidate(recoveryPasswordValidateModel: RecoveryPasswordValidateModel): Observable<void> {
-    const url = `${this.baseUrl}/recovery-password/validate`;
-
-    return this.http.post<void>(url, recoveryPasswordValidateModel);
-  }
-
   setCurrentUser(currentUser: CurrentUserModel): void {
     const data = this.decodeToken(currentUser.token);
     currentUser.expires = new Date(data.exp * 1000);
@@ -81,7 +67,7 @@ export class AuthRestService extends ApiRestBaseService implements OnDestroy {
   logout(): void {
     const url = `${this.baseUrl}/logout`;
 
-    this.http.post<any>(url, null).subscribe(
+    this.http.post<void>(url, null).subscribe(
       () => {
         localStorage.removeItem('currentUser');
         this.currentUserSubject.next(null);

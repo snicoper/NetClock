@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
-import { SidebarService } from '../sidebar/services/sidebar.service';
 
-import { BreadcrumbCollection } from './models/BreadcrumbCollection';
+import { SidebarService } from '../sidebar/sidebar.service';
+import { BreadcrumbCollection } from './BreadcrumbCollection';
 
 @Component({
   selector: 'nc-breadcrumb',

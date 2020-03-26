@@ -4,15 +4,15 @@ import { Router } from '@angular/router';
 import * as HttpStatus from 'http-status-codes';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { SiteUrls } from '../core';
 
-import { AuthRestService } from '../pages/auth/services/auth-rest.service';
+import { SiteUrls } from '../core';
+import { AuthService } from '../pages/auth/login/auth.service';
 import { DebugService } from '../services';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
   constructor(
-    private authenticationService: AuthRestService,
+    private authenticationService: AuthService,
     private router: Router,
     private debugService: DebugService
   ) {

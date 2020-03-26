@@ -5,16 +5,18 @@ import * as HttpStatus from 'http-status-codes';
 import { ToastrService } from 'ngx-toastr';
 import { finalize } from 'rxjs/operators';
 
-import { BreadcrumbCollection } from '../../../../components/breadcrumb/models/BreadcrumbCollection';
+import { BreadcrumbCollection } from '../../../../components/breadcrumb/BreadcrumbCollection';
 import { FormInputTypes } from '../../../../components/forms/form-input/form-input-types.enum';
 import { SiteUrls } from '../../../../core';
 import { DebugService } from '../../../../services';
-import { AdminAccountsRestService } from '../services/admin-accounts-rest.service';
+import { AdminUserUpdateResultModel } from './admin-user-update-result.model';
 import { AdminUserUpdateModel } from './admin-user-update.model';
+import { AdminUserUpdateService } from './admin-user-update.service';
 
 @Component({
   selector: 'nc-admin-user-edit',
-  templateUrl: './admin-user-update.component.html'
+  templateUrl: './admin-user-update.component.html',
+  providers: [AdminUserUpdateService]
 })
 export class AdminUserUpdateComponent implements OnInit {
   breadcrumb = new BreadcrumbCollection();
@@ -29,7 +31,7 @@ export class AdminUserUpdateComponent implements OnInit {
   slug: string;
 
   constructor(
-    private adminAccountsService: AdminAccountsRestService,
+    private adminUserUpdateService: AdminUserUpdateService,
     private fb: FormBuilder,
     private router: Router,
     private route: ActivatedRoute,
@@ -52,9 +54,9 @@ export class AdminUserUpdateComponent implements OnInit {
     this.updating = true;
     this.data = Object.assign(this.data, this.form.value);
 
-    this.adminAccountsService.update(this.data.id, this.data)
+    this.adminUserUpdateService.update(this.data.id, this.data)
       .pipe(finalize(() => this.updating = false))
-      .subscribe((result: AdminUserUpdateModel) => {
+      .subscribe((result: AdminUserUpdateResultModel) => {
         this.toastrService.success('Usuario editado con éxito');
         const url = SiteUrls.replace(SiteUrls.adminUserDetails, { slug: result.slug });
         this.router.navigate([url]);
@@ -68,7 +70,7 @@ export class AdminUserUpdateComponent implements OnInit {
 
   private loadData(): void {
     this.loading = true;
-    this.adminAccountsService.getBy(this.slug)
+    this.adminUserUpdateService.getBy(this.slug)
       .pipe(finalize(() => this.loading = false))
       .subscribe((result: AdminUserUpdateModel) => {
         this.data = result;

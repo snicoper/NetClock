@@ -1,9 +1,9 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../../pages/auth/login/auth.service';
 
-import { AuthRestService } from '../../pages/auth/services/auth-rest.service';
 import { SettingsService } from '../../services';
-import { SidebarService } from './services/sidebar.service';
+import { SidebarService } from './sidebar.service';
 
 @Component({
   selector: 'nc-sidebar',
@@ -23,7 +23,7 @@ export class SidebarComponent implements OnInit {
 
   constructor(
     public sidebarService: SidebarService,
-    public authService: AuthRestService,
+    public authService: AuthService,
     private settingsService: SettingsService
   ) {
     this.siteName = this.settingsService.siteName;

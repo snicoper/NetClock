@@ -1,4 +1,4 @@
-import { OrderType } from '../../../../models';
+import { OrderType } from '../../../models';
 
 export interface ITableHeaderField {
   field: string;

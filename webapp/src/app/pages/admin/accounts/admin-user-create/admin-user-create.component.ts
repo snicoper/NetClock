@@ -5,16 +5,18 @@ import * as HttpStatus from 'http-status-codes';
 import { ToastrService } from 'ngx-toastr';
 import { finalize } from 'rxjs/operators';
 
-import { BreadcrumbCollection } from '../../../../components/breadcrumb/models/BreadcrumbCollection';
+import { BreadcrumbCollection } from '../../../../components/breadcrumb/BreadcrumbCollection';
 import { FormInputTypes } from '../../../../components/forms/form-input/form-input-types.enum';
 import { SiteUrls } from '../../../../core';
 import { DebugService } from '../../../../services';
 import { PasswordMustMatch } from '../../../../validators';
-import { AdminAccountsRestService } from '../services/admin-accounts-rest.service';
+import { AdminUserCreateResult } from './admin-user-create-result.model';
+import { AdminUserCreateService } from './admin-user-create.service';
 
 @Component({
   selector: 'nc-user-create',
-  templateUrl: './admin-user-create.component.html'
+  templateUrl: './admin-user-create.component.html',
+  providers: [AdminUserCreateService]
 })
 export class AdminUserCreateComponent implements OnInit {
   breadcrumb = new BreadcrumbCollection();
@@ -26,7 +28,7 @@ export class AdminUserCreateComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private adminAccountsService: AdminAccountsRestService,
+    private adminUserCreateService: AdminUserCreateService,
     private router: Router,
     private toastrService: ToastrService,
     private debugService: DebugService
@@ -45,11 +47,11 @@ export class AdminUserCreateComponent implements OnInit {
     }
 
     this.loading = true;
-    this.adminAccountsService.create(this.form.value)
+    this.adminUserCreateService.create(this.form.value)
       .pipe(
         finalize(() => this.loading = false)
       )
-      .subscribe((result) => {
+      .subscribe((result: AdminUserCreateResult) => {
         const url = SiteUrls.replace(SiteUrls.adminUserDetails, { slug: result.slug });
         this.toastrService.success('Usuario creado con éxito');
         this.router.navigate([url]);

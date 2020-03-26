@@ -1,19 +1,18 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
+import { ApiUrls } from '../../../../core';
 import { DebugService, SettingsService } from '../../../../services';
 import { ApiRestBaseService } from '../../../../services/rest';
 
-@Injectable({
-  providedIn: 'root'
-})
-export class AdminAccountsRestService extends ApiRestBaseService {
+@Injectable()
+export class AdminUserDetailsService extends ApiRestBaseService {
   constructor(
     protected http: HttpClient,
     protected debugService: DebugService,
     private settingsService: SettingsService
   ) {
     super(http, debugService);
-    this.baseUrl = `${this.settingsService.baseApiUrl}/admin/accounts`;
+    this.baseUrl = `${this.settingsService.baseApiUrl}/${ApiUrls.adminAccounts}`;
   }
 }

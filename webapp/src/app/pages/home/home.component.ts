@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { BreadcrumbCollection } from '../../components/breadcrumb/models/BreadcrumbCollection';
+import { BreadcrumbCollection } from '../../components/breadcrumb/BreadcrumbCollection';
 import { SiteUrls } from '../../core';
 
 @Component({

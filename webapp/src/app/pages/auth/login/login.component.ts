@@ -4,8 +4,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { finalize, timeout } from 'rxjs/operators';
 import { SiteUrls } from '../../../core';
 
-import { CurrentUserModel } from '../models/current-user.model';
-import { AuthRestService } from '../services/auth-rest.service';
+import { AuthService } from './auth.service';
+import { CurrentUserModel } from './current-user.model';
 
 @Component({
   selector: 'nc-login',
@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private authenticationService: AuthRestService
+    private authenticationService: AuthService
   ) {
     if (this.authenticationService.currentUserValue) {
       this.router.navigate([SiteUrls.home]);

@@ -3,17 +3,18 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { ToastrService } from 'ngx-toastr';
 import { finalize } from 'rxjs/operators';
 
-import { BreadcrumbCollection } from '../../../components/breadcrumb/models/BreadcrumbCollection';
+import { BreadcrumbCollection } from '../../../components/breadcrumb/BreadcrumbCollection';
 import { FormInputTypes } from '../../../components/forms/form-input/form-input-types.enum';
 import { SiteUrls } from '../../../core';
 import { PasswordMustMatch } from '../../../validators';
-import { AuthRestService } from '../../auth/services/auth-rest.service';
-import { AccountsRestService } from '../services/accounts-rest.service';
+import { AuthService } from '../../auth/login/auth.service';
 import { ChangePasswordModel } from './change-password.model';
+import { ChangePasswordService } from './change-password.service';
 
 @Component({
   selector: 'nc-change-password',
-  templateUrl: './change-password.component.html'
+  templateUrl: './change-password.component.html',
+  providers: [ChangePasswordService]
 })
 export class ChangePasswordComponent implements OnInit {
   breadcrumb = new BreadcrumbCollection();
@@ -25,8 +26,8 @@ export class ChangePasswordComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private accountsService: AccountsRestService,
-    private authService: AuthRestService,
+    private changePasswordService: ChangePasswordService,
+    private authService: AuthService,
     private toastrService: ToastrService
   ) {
   }
@@ -48,7 +49,7 @@ export class ChangePasswordComponent implements OnInit {
     const changePasswordModel = Object.assign(new ChangePasswordModel(), this.form.value) as ChangePasswordModel;
     changePasswordModel.id = this.authService.currentUserValue.id;
 
-    this.accountsService.changePassword(changePasswordModel)
+    this.changePasswordService.change(changePasswordModel)
       .pipe(finalize(() => this.loading = false))
       .subscribe(() => {
           this.toastrService.success('Contraseña cambiada con éxito.');
@@ -70,7 +71,7 @@ export class ChangePasswordComponent implements OnInit {
   private buildForm(): void {
     this.form = this.fb.group({
         oldPassword: new FormControl('', [Validators.required]),
-        password: new FormControl('', [Validators.required]),
+        newPassword: new FormControl('', [Validators.required]),
         confirmPassword: new FormControl('', [Validators.required])
       },
       {

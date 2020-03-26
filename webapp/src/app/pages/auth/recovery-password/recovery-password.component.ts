@@ -2,13 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { finalize } from 'rxjs/operators';
-import { SiteUrls } from '../../../core';
 
-import { AuthRestService } from '../services/auth-rest.service';
+import { SiteUrls } from '../../../core';
+import { AuthService } from '../login/auth.service';
+import { RecoveryPasswordService } from './recovery-password.service';
 
 @Component({
   selector: 'nc-recovery-password',
-  templateUrl: './recovery-password.component.html'
+  templateUrl: './recovery-password.component.html',
+  providers: [RecoveryPasswordService]
 })
 export class RecoveryPasswordComponent implements OnInit {
   form: FormGroup;
@@ -21,9 +23,10 @@ export class RecoveryPasswordComponent implements OnInit {
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private authenticationService: AuthRestService
+    private recoveryPasswordService: RecoveryPasswordService,
+    private authService: AuthService
   ) {
-    if (this.authenticationService.currentUserValue) {
+    if (this.authService.currentUserValue) {
       this.router.navigate([SiteUrls.home]);
     }
   }
@@ -44,7 +47,7 @@ export class RecoveryPasswordComponent implements OnInit {
       return;
     }
 
-    this.authenticationService.recoveryPassword(this.form.value)
+    this.recoveryPasswordService.recoveryPassword(this.form.value)
       .pipe(finalize(() => this.router.navigate([SiteUrls.recoveryPasswordSuccess])));
   }
 

@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 
-import { BreadcrumbCollection } from '../breadcrumb/models/BreadcrumbCollection';
+import { BreadcrumbCollection } from '../breadcrumb/BreadcrumbCollection';
 
 @Component({
   selector: 'nc-page-base',

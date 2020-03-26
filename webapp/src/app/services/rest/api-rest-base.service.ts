@@ -32,22 +32,6 @@ export abstract class ApiRestBaseService implements OnInit {
     return this.http.get<TModel>(url);
   }
 
-  create<TModel>(model: TModel): Observable<TModel> {
-    return this.http.post<TModel>(this.baseUrl, model);
-  }
-
-  update<TModel>(id: number | string, model: TModel): Observable<TModel> {
-    const url = `${this.baseUrl}/${id}`;
-
-    return this.http.put<TModel>(url, model);
-  }
-
-  delete<TModel>(id: number | string, model: TModel): Observable<void> {
-    const url = `${this.baseUrl}/${id}`;
-
-    return this.http.delete<void>(url, model);
-  }
-
   protected prepareQueryParams<TModel>(apiResult: ApiResult<TModel>): string {
     apiResult = apiResult ? apiResult : new ApiResult<TModel>();
 
