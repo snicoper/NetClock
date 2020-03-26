@@ -1,64 +1,71 @@
 <nc-page-title></nc-page-title>
-<nc-card-align-center cssCard="col-lg-4 col-xl-3">
-  <div class="text-center">
-    <img src="/assets/images/logo_mini.png" alt="logo" width="120">
-  </div>
 
-  <div class="mt-3 text-center">
-    <h6 class="text-primary">Iniciar sesión</h6>
-  </div>
-
-  <div class="card-body mt-3">
-    <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
-      <nc-non-field-errors [errors]="errors"></nc-non-field-errors>
-      <div class="form-group">
-        <div class="input-group has-icon">
-          <i class="fas fa-user has-icon-left"></i>
-          <input [ngClass]="{'is-invalid': submitted && control('userName').errors}"
-                 formControlName="userName"
-                 class="form-control"
-                 type="text"
-                 placeholder="Nombre de usuario"
-                 autofocus>
+<div class="container-fluid fade-in">
+  <div class="row justify-content-center align-items-center vh-100">
+    <div class="col-lg-4 col-xl-3">
+      <div class="card border-0 shadow-sm py-5 px-3">
+        <div class="text-center">
+          <img src="/assets/images/logo_mini.png" alt="logo" width="120">
         </div>
-        <nc-field-error [form]="form"
-                        [errors]="errors"
-                        [submitted]="submitted"
-                        fieldText="Nombre de usuario"
-                        fieldName="userName">
-        </nc-field-error>
-      </div>
 
-      <div class="form-group mt-4">
-        <div class="input-group has-icon">
-          <i class="fas fa-unlock-alt has-icon-left"></i>
-          <input [ngClass]="{'is-invalid': submitted && control('password').errors}"
-                 formControlName="password"
-                 class="form-control"
-                 type="password"
-                 placeholder="Contraseña">
+        <div class="mt-3 text-center">
+          <h6 class="text-primary">Iniciar sesión</h6>
         </div>
-        <nc-field-error [form]="form"
-                        [errors]="errors"
-                        [submitted]="submitted"
-                        fieldText="Contraseña"
-                        fieldName="password">
-        </nc-field-error>
-      </div>
 
-      <button [disabled]="loading" class="btn btn-block btn-primary mt-4">
+        <div class="card-body mt-3">
+          <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+            <nc-non-field-errors [errors]="errors"></nc-non-field-errors>
+            <div class="form-group">
+              <div class="input-group has-icon">
+                <i class="fas fa-user has-icon-left"></i>
+                <input [ngClass]="{'is-invalid': submitted && control('userName').errors}"
+                       formControlName="userName"
+                       class="form-control"
+                       type="text"
+                       placeholder="Nombre de usuario"
+                       autofocus>
+              </div>
+              <nc-field-error [form]="form"
+                              [errors]="errors"
+                              [submitted]="submitted"
+                              fieldText="Nombre de usuario"
+                              fieldName="userName">
+              </nc-field-error>
+            </div>
+
+            <div class="form-group mt-4">
+              <div class="input-group has-icon">
+                <i class="fas fa-unlock-alt has-icon-left"></i>
+                <input [ngClass]="{'is-invalid': submitted && control('password').errors}"
+                       formControlName="password"
+                       class="form-control"
+                       type="password"
+                       placeholder="Contraseña">
+              </div>
+              <nc-field-error [form]="form"
+                              [errors]="errors"
+                              [submitted]="submitted"
+                              fieldText="Contraseña"
+                              fieldName="password">
+              </nc-field-error>
+            </div>
+
+            <button [disabled]="loading" class="btn btn-block btn-primary mt-4">
         <span *ngIf="!loading">
           <i class="fas fa-sign-in-alt"></i>
           Identificarse
         </span>
-        <nc-spinner [loading]="loading" text="loading" color="text-white"></nc-spinner>
-      </button>
+              <nc-spinner [loading]="loading" text="loading" color="text-white"></nc-spinner>
+            </button>
 
-      <div class="text-center small mt-3">
-        <a [routerLink]="[urlsApp.recoveryPassword]">
-          <i class="fas fa-unlock-alt"></i> Recuperar contraseña
-        </a>
+            <div class="text-center small mt-3">
+              <a [routerLink]="[urlsApp.recoveryPassword]">
+                <i class="fas fa-unlock-alt"></i> Recuperar contraseña
+              </a>
+            </div>
+          </form>
+        </div>
       </div>
-    </form>
+    </div>
   </div>
-</nc-card-align-center>
+</div>

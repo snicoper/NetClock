@@ -3,7 +3,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Threading;
 
-namespace NetClock.Application.Common
+namespace NetClock.Application.Common.Utils
 {
     public class LazyConcurrentDictionary<TKey, TValue>
     {

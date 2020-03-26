@@ -1,6 +1,6 @@
 <nc-page-base [breadcrumb]="breadcrumb">
-  <nc-card>
-    <form *ngIf="data" [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+  <nc-card [loading]="loading" [spinnerSize]="100">
+    <form *ngIf="!loading" [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
       <div class="row">
         <div class="col-12">
           <nc-non-field-errors [errors]="errors"></nc-non-field-errors>
@@ -9,51 +9,47 @@
 
       <div class="row">
         <div class="col-12">
-          <nc-form-input
-            formControlName="userName"
-            fieldName="userName"
-            label="Nombre de usuario"
-            [form]="form"
-            [errors]="errors"
-            [submitted]="submitted">
+          <nc-form-input formControlName="userName"
+                         fieldName="userName"
+                         label="Nombre de usuario"
+                         [form]="form"
+                         [errors]="errors"
+                         [submitted]="submitted">
           </nc-form-input>
         </div>
       </div>
 
       <div class="row">
         <div class="col-12 col-md-6 form-group">
-          <nc-form-input
-            formControlName="firstName"
-            fieldName="firstName"
-            label="Nombre"
-            [form]="form"
-            [errors]="errors"
-            [submitted]="submitted">
+          <nc-form-input formControlName="firstName"
+                         fieldName="firstName"
+                         label="Nombre"
+                         [form]="form"
+                         [errors]="errors"
+                         [submitted]="submitted">
           </nc-form-input>
         </div>
 
         <div class="col-12 col-md-6 form-group">
-          <nc-form-input
-            formControlName="lastName"
-            fieldName="lastName"
-            label="Apellidos"
-            [form]="form"
-            [errors]="errors"
-            [submitted]="submitted">
+          <nc-form-input formControlName="lastName"
+                         fieldName="lastName"
+                         label="Apellidos"
+                         [form]="form"
+                         [errors]="errors"
+                         [submitted]="submitted">
           </nc-form-input>
         </div>
       </div>
 
       <div class="row">
         <div class="col-md-6 form-group">
-          <nc-form-input
-            formControlName="email"
-            fieldName="email"
-            label="Correo electrónico"
-            [form]="form"
-            [errors]="errors"
-            [submitted]="submitted"
-            [inputType]="formTypes.email">
+          <nc-form-input formControlName="email"
+                         fieldName="email"
+                         label="Correo electrónico"
+                         [form]="form"
+                         [errors]="errors"
+                         [submitted]="submitted"
+                         [inputType]="formTypes.email">
           </nc-form-input>
         </div>
       </div>
@@ -78,8 +74,6 @@
         </div>
       </div>
     </form>
-
-    <nc-spinner [loading]="loading" [size]="100"></nc-spinner>
 
     <div *ngIf="userNotFound" class="text-center">
       <h5>

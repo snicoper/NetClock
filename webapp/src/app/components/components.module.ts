@@ -7,7 +7,6 @@ import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 
 import { DirectivesModule } from '../directives/directives.module';
 import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
-import { CardAlignCenterComponent } from './cards/card-align-center/card-align-center.component';
 import { CardComponent } from './cards/card/card.component';
 import { FooterComponent } from './footer/footer.component';
 import { FieldErrorComponent } from './forms/field-error/field-error.component';
@@ -30,7 +29,6 @@ import { FormInputComponent } from './forms/form-input/form-input.component';
     PageTitleComponent,
     PageBaseComponent,
     SpinnerComponent,
-    CardAlignCenterComponent,
     SidebarComponent,
     PaginationComponent,
     TableHeaderComponent,
@@ -57,7 +55,6 @@ import { FormInputComponent } from './forms/form-input/form-input.component';
     PageTitleComponent,
     PageBaseComponent,
     SpinnerComponent,
-    CardAlignCenterComponent,
     SidebarComponent,
     PaginationComponent,
     TableHeaderComponent,

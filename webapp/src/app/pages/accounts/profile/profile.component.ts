@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 import { BreadcrumbCollection } from '../../../components/breadcrumb/models/BreadcrumbCollection';
 import { SiteUrls } from '../../../core';
@@ -7,14 +7,11 @@ import { SiteUrls } from '../../../core';
   selector: 'nc-profile',
   templateUrl: './profile.component.html'
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent {
   breadcrumb = new BreadcrumbCollection();
 
   constructor() {
     this.setBreadcrumb();
-  }
-
-  ngOnInit(): void {
   }
 
   private setBreadcrumb(): void {

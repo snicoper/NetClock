@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { finalize } from 'rxjs/operators';
 
 import { BreadcrumbCollection } from '../../../components/breadcrumb/models/BreadcrumbCollection';
+import { FormInputTypes } from '../../../components/forms/form-input/form-input-types.enum';
 import { SiteUrls } from '../../../core';
 import { PasswordMustMatch } from '../../../validators';
 import { AuthRestService } from '../../auth/services/auth-rest.service';
@@ -17,9 +18,10 @@ import { ChangePasswordModel } from './change-password.model';
 export class ChangePasswordComponent implements OnInit {
   breadcrumb = new BreadcrumbCollection();
   form: FormGroup;
-  errors = {};
+  errors = [];
   submitted = false;
   loading = false;
+  formTypes = FormInputTypes;
 
   constructor(
     private fb: FormBuilder,
@@ -36,7 +38,7 @@ export class ChangePasswordComponent implements OnInit {
 
   onSubmit(): void {
     this.submitted = true;
-    this.errors = {};
+    this.errors = [];
 
     if (this.form.invalid) {
       return;

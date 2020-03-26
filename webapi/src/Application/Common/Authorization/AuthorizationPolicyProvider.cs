@@ -2,6 +2,7 @@ using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Options;
+using NetClock.Application.Common.Utils;
 
 namespace NetClock.Application.Common.Authorization
 {

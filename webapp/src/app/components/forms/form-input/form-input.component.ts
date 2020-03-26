@@ -5,7 +5,6 @@ import { FormInputTypes } from './form-input-types.enum';
 @Component({
   selector: 'nc-form-input',
   templateUrl: './form-input.component.html',
-  styleUrls: ['./form-input.component.scss'],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -67,8 +66,8 @@ export class FormInputComponent implements ControlValueAccessor, OnInit {
   }
 
   isValid(): boolean {
-    const field = this.form.get(this.fieldName);
+    const control = this.form.get(this.fieldName);
 
-    return !(this.submitted && !(field.dirty || field.touched) && field.errors);
+    return !(this.submitted && control.invalid);
   }
 }

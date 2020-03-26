@@ -1,13 +1,13 @@
 <nc-page-base [breadcrumb]="breadcrumb">
-  <nc-card *ngIf="user" [loading]="loading">
-    <h1 ncCardTitle *ngIf="!loading">Detalles {{user.userName}}</h1>
+  <nc-card *ngIf="user" [loading]="loading" [spinnerSize]="100">
+    <h1 ncCardTitle>Detalles {{user.userName}}</h1>
 
     <pre class="mt-5">
 {{user | json}}
     </pre>
 
     <!-- '/admin/accounts/{slug}/update' -->
-    <a [routerLink]="['/admin/accounts', user.slug, 'update']" class="btn btn-outline-primary">
+    <a [routerLink]="['/admin/accounts', user.slug, 'update']" class="btn btn-primary">
       Editar usuario
     </a>
 

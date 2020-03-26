@@ -45,11 +45,11 @@ export class AdminUserUpdateComponent implements OnInit {
 
   onSubmit(): void {
     this.submitted = true;
-    this.updating = true;
     if (this.form.invalid) {
       return;
     }
 
+    this.updating = true;
     this.data = Object.assign(this.data, this.form.value);
 
     this.adminAccountsService.update(this.data.id, this.data)

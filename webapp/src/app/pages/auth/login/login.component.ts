@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit {
   loading = false;
   submitted = false;
   returnUrl = '/';
-  errors = {};
+  errors = [];
   urlsApp = SiteUrls;
 
   constructor(
@@ -44,7 +44,7 @@ export class LoginComponent implements OnInit {
 
   onSubmit(): void {
     this.submitted = true;
-    this.errors = {};
+    this.errors = [];
 
     if (this.form.invalid) {
       return;
