@@ -3,8 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { ApiUrls } from '../../../core';
-import { DebugService, SettingsService } from '../../../services';
-import { ApiRestBaseService } from '../../../services/rest';
+import { ApiRestBaseService, DebugService, SettingsService } from '../../../services';
 import { ChangePasswordModel } from './change-password.model';
 
 @Injectable()

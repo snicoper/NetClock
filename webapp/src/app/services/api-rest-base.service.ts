@@ -1,9 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-
-import { ApiResult } from '../../models';
-import { DebugService } from '../debug.service';
+import { ApiResult } from '../models';
+import { DebugService } from './debug.service';
 
 export abstract class ApiRestBaseService implements OnInit {
   protected baseUrl: string;

@@ -5,14 +5,11 @@ import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 import { ApiUrls, SiteUrls } from '../../../core';
-import { DebugService, SettingsService } from '../../../services';
-import { ApiRestBaseService } from '../../../services/rest';
+import { ApiRestBaseService, DebugService, SettingsService } from '../../../services';
 import { CurrentUserModel } from './current-user.model';
 import { LoginModel } from './login.model';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class AuthService extends ApiRestBaseService implements OnDestroy {
   readonly currentUser$: Observable<CurrentUserModel>;
 

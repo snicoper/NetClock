@@ -3,8 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { ApiUrls } from '../../../../core';
-import { DebugService, SettingsService } from '../../../../services';
-import { ApiRestBaseService } from '../../../../services/rest';
+import { ApiRestBaseService, DebugService, SettingsService } from '../../../../services';
 import { AdminUserUpdateResultModel } from './admin-user-update-result.model';
 import { AdminUserUpdateModel } from './admin-user-update.model';
 

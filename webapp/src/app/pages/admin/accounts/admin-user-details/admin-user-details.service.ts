@@ -2,8 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { ApiUrls } from '../../../../core';
-import { DebugService, SettingsService } from '../../../../services';
-import { ApiRestBaseService } from '../../../../services/rest';
+import { ApiRestBaseService, DebugService, SettingsService } from '../../../../services';
 
 @Injectable()
 export class AdminUserDetailsService extends ApiRestBaseService {

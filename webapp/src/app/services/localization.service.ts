@@ -1,15 +1,18 @@
 import { DOCUMENT } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable, OnDestroy } from '@angular/core';
 import * as moment from 'moment';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
-import { LocalizationRestService } from './rest';
+import { ApiUrls } from '../core';
+import { ApiRestBaseService } from './api-rest-base.service';
 
-@Injectable({
-  providedIn: 'root'
-})
-export class LocalizationService implements OnDestroy {
+import { DebugService } from './debug.service';
+import { SettingsService } from './settings.service';
+
+@Injectable({ providedIn: 'root' })
+export class LocalizationService extends ApiRestBaseService implements OnDestroy {
   private readonly defaultCulture = 'es-ES';
   private readonly supportedCultures = ['es-ES', 'ca-ES', 'en-GB'];
 
@@ -19,8 +22,13 @@ export class LocalizationService implements OnDestroy {
 
   constructor(
     @Inject(DOCUMENT) private document: Document,
-    private localizationRestService: LocalizationRestService
+    protected http: HttpClient,
+    protected debugService: DebugService,
+    private settingsService: SettingsService
   ) {
+    super(http, debugService);
+    this.baseUrl = `${this.settingsService.baseApiUrl}/${ApiUrls.localization}`;
+
     const culture = localStorage.getItem('culture');
     if (culture) {
       this.currentCultureSubject$ = new BehaviorSubject<string>(culture);
@@ -50,8 +58,8 @@ export class LocalizationService implements OnDestroy {
 
     localStorage.setItem('culture', culture);
     this.currentCultureSubject$.next(culture);
-    this.localizationRestService.setCulture(this.getCurrentCultureValue());
-    this.document.documentElement.lang = this.getCurrentCultureValue();
+    this.http.post<void>(this.baseUrl, { culture });
+    this.document.documentElement.lang = culture;
     this.configureMoment();
   }
 
