@@ -10,17 +10,17 @@ using NetClock.Domain.Entities.Identity;
 
 namespace NetClock.Application.Admin.AdminAccounts.Commands.ChangePasswordUser
 {
-    public class ChangePasswordUserHandler : IRequestHandler<ChangePasswordUserCommand, Unit>
+    public class ChangePasswordUserHandler : IRequestHandler<ChangePasswordUserCommand>
     {
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly PasswordValidator<ApplicationUser> _passwordValidator;
+        private readonly IPasswordValidator<ApplicationUser> _passwordValidator;
         private readonly IValidationFailureService _validationFailureService;
         private readonly IStringLocalizer<ApplicationUser> _localizer;
         private readonly ILogger<ChangePasswordUserHandler> _logger;
 
         public ChangePasswordUserHandler(
             UserManager<ApplicationUser> userManager,
-            PasswordValidator<ApplicationUser> passwordValidator,
+            IPasswordValidator<ApplicationUser> passwordValidator,
             IValidationFailureService validationFailureService,
             IStringLocalizer<ApplicationUser> localizer,
             ILogger<ChangePasswordUserHandler> logger)
