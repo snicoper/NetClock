@@ -2,10 +2,11 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { AuthGuard } from '../../guards';
+import { AdminUserChangePasswordComponent } from './accounts/admin-change-user-password/admin-user-change-password.component';
 import { AdminUserCreateComponent } from './accounts/admin-user-create/admin-user-create.component';
 import { AdminUserDetailsComponent } from './accounts/admin-user-details/admin-user-details.component';
-import { AdminUserUpdateComponent } from './accounts/admin-user-update/admin-user-update.component';
 import { AdminUserListComponent } from './accounts/admin-user-list/admin-user-list.component';
+import { AdminUserUpdateComponent } from './accounts/admin-user-update/admin-user-update.component';
 import { AdminComponent } from './admin.component';
 
 const routes: Routes = [
@@ -32,6 +33,12 @@ const routes: Routes = [
     component: AdminUserUpdateComponent,
     canActivate: [AuthGuard],
     data: { title: 'Editar usuario' }
+  },
+  {
+    path: 'accounts/:slug/change-password',
+    component: AdminUserChangePasswordComponent,
+    canActivate: [AuthGuard],
+    data: { title: 'Cambiar contraseña de usuario' }
   },
   {
     path: 'accounts/create',

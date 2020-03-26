@@ -2,6 +2,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using NetClock.Application.Admin.AdminAccounts.Commands.ChangePasswordUser;
 using NetClock.Application.Admin.AdminAccounts.Commands.CreateUser;
 using NetClock.Application.Admin.AdminAccounts.Commands.UpdateUser;
 using NetClock.Application.Admin.AdminAccounts.Queries.GetBySlug;
@@ -53,6 +54,14 @@ namespace NetClock.WebApi.Controllers.Admin
             updateUserCommand.IdParam = id;
 
             return Ok(await Mediator.Send(updateUserCommand));
+        }
+
+        [HttpPost("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult> ChangePasswordUser(ChangePasswordUserCommand changePassword)
+        {
+            return Ok(await Mediator.Send(changePassword));
         }
     }
 }

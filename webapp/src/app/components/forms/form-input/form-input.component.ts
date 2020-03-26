@@ -1,4 +1,4 @@
-import { Component, forwardRef, Input, OnInit } from '@angular/core';
+import { Component, forwardRef, Input } from '@angular/core';
 import { ControlValueAccessor, FormGroup, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 import { FormInputTypes } from './form-input-types.enum';
@@ -14,7 +14,7 @@ import { FormInputTypes } from './form-input-types.enum';
     }
   ]
 })
-export class FormInputComponent implements ControlValueAccessor, OnInit {
+export class FormInputComponent implements ControlValueAccessor {
   @Input() id: string;
   @Input() form: FormGroup;
   @Input() fieldName: string;
@@ -36,9 +36,6 @@ export class FormInputComponent implements ControlValueAccessor, OnInit {
   }
 
   onTouch = () => {
-  }
-
-  ngOnInit(): void {
   }
 
   writeValue(value: any): void {
