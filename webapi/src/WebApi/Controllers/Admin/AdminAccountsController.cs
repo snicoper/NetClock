@@ -54,9 +54,9 @@ namespace NetClock.WebApi.Controllers.Admin
         [HttpPost("change-password")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult> ChangePasswordUser(ChangePasswordUserCommand changePassword)
+        public async Task<ActionResult> ChangePasswordUser(ChangePasswordUserCommand changePasswordUserCommand)
         {
-            return Ok(await Mediator.Send(changePassword));
+            return Ok(await Mediator.Send(changePasswordUserCommand));
         }
     }
 }
