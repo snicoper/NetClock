@@ -41,7 +41,7 @@ namespace NetClock.WebApi.Middlewares
             {
                 case ValidationException validationException:
                     code = HttpStatusCode.BadRequest;
-                    result = JsonConvert.SerializeObject(validationException.Failures);
+                    result = JsonConvert.SerializeObject(validationException.Errors);
                     break;
                 case NotFoundException _:
                     code = HttpStatusCode.NotFound;

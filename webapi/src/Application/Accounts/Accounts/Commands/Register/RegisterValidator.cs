@@ -13,7 +13,7 @@ namespace NetClock.Application.Accounts.Accounts.Commands.Register
             IStringLocalizer<IdentityLocalizer> localizer,
             UserManager<ApplicationUser> userManager)
         {
-            RuleFor(v => v.UserName).MinimumLength(5).MaximumLength(20).UniqueUserName(userManager);
+            RuleFor(v => v.UserName).NotEmpty().MaximumLength(20).UniqueUserName(userManager);
             RuleFor(v => v.Email).NotEmpty().EmailAddress().UniqueEmail(userManager);
             RuleFor(v => v.Password).MinimumLength(6);
             RuleFor(v => v.ConfirmPassword)

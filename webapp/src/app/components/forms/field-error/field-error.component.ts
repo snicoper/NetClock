@@ -28,7 +28,7 @@ export class FieldErrorComponent implements OnInit {
   }
 
   controlHasErrors(): boolean {
-    return !!(this.control && this.control.dirty || this.submitted && this.control.errors);
+    return !!(this.control && this.control.dirty && this.control.errors || this.submitted && this.control.errors);
   }
 
   getBadRequestErrors(): string[] {

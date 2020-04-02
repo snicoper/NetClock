@@ -11,7 +11,7 @@ namespace NetClock.Application.Common.Exceptions
         public ValidationException()
             : base("One or more validation failures have occurred.")
         {
-            Failures = new Dictionary<string, string[]>();
+            Errors = new Dictionary<string, string[]>();
         }
 
         public ValidationException(IReadOnlyCollection<ValidationFailure> failures)
@@ -28,10 +28,10 @@ namespace NetClock.Application.Common.Exceptions
                     .Select(e => e.ErrorMessage)
                     .ToArray();
 
-                Failures.Add(propertyName.LowerCaseFirst(), propertyFailures);
+                Errors.Add(propertyName.LowerCaseFirst(), propertyFailures);
             }
         }
 
-        public IDictionary<string, string[]> Failures { get; }
+        public IDictionary<string, string[]> Errors { get; }
     }
 }
