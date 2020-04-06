@@ -30,7 +30,7 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Admin.AdminAccountsContro
             var userId = user.Id;
             var data = new UpdateUserCommand(userId, "Bob112", "Bob112", "Bob212", "bob112@example.com", false);
             var requestContent = SerializerUtils.GetRequestContent(data);
-            var url = Utilities.ComposeUri($"admin/accounts/update");
+            var url = Utilities.ComposeUri("admin/accounts/update");
 
             // Act
             var response = await Client.PutAsync(url, requestContent);
@@ -59,7 +59,6 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Admin.AdminAccountsContro
         }
 
         [Theory]
-        [InlineData("Abc", "Test", "User", "test@example.com")] // UserName corto mínimo 5.
         [InlineData("Admin", "Test", "User", "test@example.com")] // UserName en uso.
         [InlineData("Abc123", "Admin", "Admin", "test@example.com")] // FirstName y LastName en uso.
         [InlineData("Abc123", "Test", "User", "test@example")] // Invalid email.
