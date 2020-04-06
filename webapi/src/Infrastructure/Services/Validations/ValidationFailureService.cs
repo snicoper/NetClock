@@ -10,24 +10,24 @@ namespace NetClock.Infrastructure.Services.Validations
     {
         public ValidationFailureService()
         {
-            Failures = new List<ValidationFailure>();
+            Errors = new List<ValidationFailure>();
         }
 
-        private List<ValidationFailure> Failures { get; }
+        private List<ValidationFailure> Errors { get; }
 
         public bool HasErrors()
         {
-            return Failures.Any();
+            return Errors.Any();
         }
 
         public int ErrorsCount()
         {
-            return Failures.Count;
+            return Errors.Count;
         }
 
         public void Add(string property, string error)
         {
-            Failures.Add(new ValidationFailure(property, error));
+            Errors.Add(new ValidationFailure(property, error));
         }
 
         public void Add(Dictionary<string, string> errors)
@@ -38,32 +38,32 @@ namespace NetClock.Infrastructure.Services.Validations
             }
         }
 
-        public void AddAndRaiseExceptions(string key, string value)
+        public void AddAndRaiseException(string key, string value)
         {
             Add(key, value);
-            RaiseExceptions();
+            RaiseException();
         }
 
-        public void AddAndRaiseExceptions(Dictionary<string, string> errors)
+        public void AddAndRaiseException(Dictionary<string, string> errors)
         {
             foreach (var (key, value) in errors)
             {
                 Add(key, value);
             }
 
-            RaiseExceptions();
+            RaiseException();
         }
 
-        public void RaiseExceptions()
+        public void RaiseException()
         {
-            throw new ValidationException(Failures);
+            throw new ValidationException(Errors);
         }
 
-        public void RaiseExceptionsIfExistsFailures()
+        public void RaiseExceptionIfExistsErrors()
         {
             if (HasErrors())
             {
-                throw new ValidationException(Failures);
+                throw new ValidationException(Errors);
             }
         }
     }

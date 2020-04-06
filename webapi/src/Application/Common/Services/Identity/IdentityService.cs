@@ -47,7 +47,7 @@ namespace NetClock.Application.Common.Services.Identity
             await UserValidationAsync(applicationUser);
             await PasswordValidationAsync(applicationUser, password);
             await UserCreateAsync(applicationUser, password);
-            _validationFailureService.RaiseExceptionsIfExistsFailures();
+            _validationFailureService.RaiseExceptionIfExistsErrors();
 
             return applicationUser;
         }
@@ -69,7 +69,7 @@ namespace NetClock.Application.Common.Services.Identity
             {
                 // Si existe, lanza al excepción para no llegar hacer la consulta ya que daria un 500.
                 var errorMessage = _localizer["Ya existe un usuario con ese nombre y apellidos"];
-                _validationFailureService.AddAndRaiseExceptions(nameof(applicationUser.FirstName), errorMessage);
+                _validationFailureService.AddAndRaiseException(nameof(applicationUser.FirstName), errorMessage);
             }
         }
 

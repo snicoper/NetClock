@@ -45,7 +45,7 @@ namespace NetClock.Application.Accounts.Accounts.Commands.ChangeEmailValidate
                     _validationFailureService.Add(Errors.NonFieldErrors, error.Description);
                 }
 
-                _validationFailureService.RaiseExceptions();
+                _validationFailureService.RaiseException();
             }
 
             _logger.LogInformation($"El usuario {user.Id} ha validado con éxito el cambio de email");

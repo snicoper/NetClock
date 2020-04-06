@@ -56,7 +56,7 @@ namespace NetClock.Application.Accounts.Auth.Commands.Login
             if (user.Active is false)
             {
                 var error = _localizer["La cuenta no esta activa, por favor habla con un administrador"];
-                _validationFailureService.AddAndRaiseExceptions(Errors.NonFieldErrors, error);
+                _validationFailureService.AddAndRaiseException(Errors.NonFieldErrors, error);
             }
 
             var result = await _signInManager.PasswordSignInAsync(
@@ -84,9 +84,8 @@ namespace NetClock.Application.Accounts.Auth.Commands.Login
             LoginCommand request,
             CancellationToken cancellationToken)
         {
-            var user = await _userManager
-                .Users.FirstOrDefaultAsync(
-                    u => u.UserName == request.UserName || u.Email == request.UserName, cancellationToken);
+            var user = await _userManager.Users.FirstOrDefaultAsync(
+                u => u.UserName == request.UserName || u.Email == request.UserName, cancellationToken);
 
             if (user is null)
             {
@@ -100,7 +99,7 @@ namespace NetClock.Application.Accounts.Auth.Commands.Login
         {
             _logger.LogWarning($"Error al identificarse {request.UserName}");
             var errorMessage = _localizer["Nombre de usuario o contraseña no valido"];
-            _validationFailureService.AddAndRaiseExceptions( Errors.NonFieldErrors, errorMessage);
+            _validationFailureService.AddAndRaiseException(Errors.NonFieldErrors, errorMessage);
         }
     }
 }

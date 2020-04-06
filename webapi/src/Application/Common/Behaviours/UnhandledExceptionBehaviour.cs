@@ -15,7 +15,10 @@ namespace NetClock.Application.Common.Behaviours
             _logger = logger;
         }
 
-        public async Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate<TResponse> next)
+        public async Task<TResponse> Handle(
+            TRequest request,
+            CancellationToken cancellationToken,
+            RequestHandlerDelegate<TResponse> next)
         {
             try
             {
@@ -25,7 +28,11 @@ namespace NetClock.Application.Common.Behaviours
             {
                 var requestName = typeof(TRequest).Name;
 
-                _logger.LogError(ex, "NetClock Request: Unhandled Exception for Request {Name} {@Request}", requestName, request);
+                _logger.LogError(
+                    ex,
+                    "NetClock Request: Unhandled Exception for Request {Name} {@Request}",
+                    requestName,
+                    request);
 
                 throw;
             }

@@ -14,21 +14,21 @@ namespace NetClock.Application.Common.Exceptions
             Errors = new Dictionary<string, string[]>();
         }
 
-        public ValidationException(IReadOnlyCollection<ValidationFailure> failures)
+        public ValidationException(IReadOnlyCollection<ValidationFailure> errors)
             : this()
         {
-            var propertyNames = failures
+            var propertyNames = errors
                 .Select(e => e.PropertyName)
                 .Distinct();
 
             foreach (var propertyName in propertyNames)
             {
-                var propertyFailures = failures
+                var propertyErrors = errors
                     .Where(e => e.PropertyName == propertyName)
                     .Select(e => e.ErrorMessage)
                     .ToArray();
 
-                Errors.Add(propertyName.LowerCaseFirst(), propertyFailures);
+                Errors.Add(propertyName.LowerCaseFirst(), propertyErrors);
             }
         }
 

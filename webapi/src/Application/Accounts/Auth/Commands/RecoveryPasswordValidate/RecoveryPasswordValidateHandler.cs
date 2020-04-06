@@ -48,7 +48,7 @@ namespace NetClock.Application.Accounts.Auth.Commands.RecoveryPasswordValidate
                     _validationFailureService.Add(nameof(error.Code), error.Description);
                 }
 
-                _validationFailureService.RaiseExceptionsIfExistsFailures();
+                _validationFailureService.RaiseExceptionIfExistsErrors();
             }
 
             _logger.LogInformation($"El usuario {user.Id} ha restablecido la contraseña con éxito");

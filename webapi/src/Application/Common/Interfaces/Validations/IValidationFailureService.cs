@@ -28,21 +28,21 @@ namespace NetClock.Application.Common.Interfaces.Validations
         /// <summary>
         /// Añade un error y lanza la excepción con los errores.
         /// </summary>
-        void AddAndRaiseExceptions(string key, string value);
+        void AddAndRaiseException(string key, string value);
 
         /// <summary>
         /// Añade un diccionario con errores y lanza la excepción con los errores.
         /// </summary>
-        void AddAndRaiseExceptions(Dictionary<string, string> errors);
+        void AddAndRaiseException(Dictionary<string, string> errors);
 
         /// <summary>
         /// Lanza la excepción tenga o no errores.
         /// </summary>
-        void RaiseExceptions();
+        void RaiseException();
 
         /// <summary>
         /// Lanza la excepción si tiene errores.
         /// </summary>
-        void RaiseExceptionsIfExistsFailures();
+        void RaiseExceptionIfExistsErrors();
     }
 }

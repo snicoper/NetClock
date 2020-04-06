@@ -82,7 +82,7 @@ namespace NetClock.Application.Admin.AdminAccounts.Commands.UpdateUser
                 _validationFailureService.Add(nameof(request.Email), message);
             }
 
-            _validationFailureService.RaiseExceptionsIfExistsFailures();
+            _validationFailureService.RaiseExceptionIfExistsErrors();
         }
     }
 }

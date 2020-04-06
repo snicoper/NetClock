@@ -68,7 +68,7 @@ namespace NetClock.Application.Accounts.Accounts.Commands.ChangePassword
                     _validationFailureService.Add(Errors.NonFieldErrors, error.Description);
                 }
 
-                _validationFailureService.RaiseExceptions();
+                _validationFailureService.RaiseException();
             }
 
             var changePasswordViewModel = _mapper.Map<ChangePasswordDto>(user);
