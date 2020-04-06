@@ -1,6 +1,6 @@
 namespace NetClock.Application.Accounts.Accounts.Commands.ChangeEmail
 {
-    public class ChangeEmailViewModel
+    public class ChangeEmailDto
     {
         public string Id { get; set; }
 

@@ -18,7 +18,7 @@ namespace NetClock.WebApi.Controllers.Accounts
         [HttpPost("register")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<RegisterViewModel>> Register(RegisterCommand registerCommand)
+        public async Task<ActionResult<RegisterDto>> Register(RegisterCommand registerCommand)
         {
             var result = await Mediator.Send(registerCommand);
 

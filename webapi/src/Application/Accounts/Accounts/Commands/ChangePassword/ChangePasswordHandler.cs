@@ -71,7 +71,7 @@ namespace NetClock.Application.Accounts.Accounts.Commands.ChangePassword
                 _validationFailureService.RaiseExceptions();
             }
 
-            var changePasswordViewModel = _mapper.Map<ChangePasswordViewModel>(user);
+            var changePasswordViewModel = _mapper.Map<ChangePasswordDto>(user);
             changePasswordViewModel.SiteName = _webApiConfig.SiteName;
             await EmailNotifyChangePasswordAsync(changePasswordViewModel);
             _logger.LogInformation($"El usuario {user.Id} ha cambiado contraseña con éxito");
@@ -79,13 +79,13 @@ namespace NetClock.Application.Accounts.Accounts.Commands.ChangePassword
             return Unit.Value;
         }
 
-        private async Task EmailNotifyChangePasswordAsync(ChangePasswordViewModel changePasswordViewModel)
+        private async Task EmailNotifyChangePasswordAsync(ChangePasswordDto changePasswordDto)
         {
             _emailService.Subject = _localizer["Cambio de contraseña"];
             _emailService.IsHtml = true;
-            _emailService.To = new List<MailAddress> { new MailAddress(changePasswordViewModel.Email) };
-            await _emailService.SendEmailAsync(EmailTemplates.ChangePassword, changePasswordViewModel);
-            _logger.LogInformation($"Se ha notificado el cambio de contraseña a {changePasswordViewModel.Email}");
+            _emailService.To = new List<MailAddress> { new MailAddress(changePasswordDto.Email) };
+            await _emailService.SendEmailAsync(EmailTemplates.ChangePassword, changePasswordDto);
+            _logger.LogInformation($"Se ha notificado el cambio de contraseña a {changePasswordDto.Email}");
         }
     }
 }

@@ -34,7 +34,7 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Admin.AdminAccountsContro
 
             // Act
             var response = await Client.PutAsync(url, requestContent);
-            var responseContent = await SerializerUtils.GetResponseContentAsync<UpdateUserViewModel>(response);
+            var responseContent = await SerializerUtils.GetResponseContentAsync<UpdateUserDto>(response);
 
             // Assert
             response.EnsureSuccessStatusCode();

@@ -18,7 +18,7 @@ using NetClock.Domain.Entities.Identity;
 
 namespace NetClock.Application.Accounts.Accounts.Commands.Register
 {
-    public class RegisterHandler : IRequestHandler<RegisterCommand, RegisterViewModel>
+    public class RegisterHandler : IRequestHandler<RegisterCommand, RegisterDto>
     {
         private readonly WebApiConfig _webApiConfig;
         private readonly IStringLocalizer<IdentityLocalizer> _localizer;
@@ -46,11 +46,11 @@ namespace NetClock.Application.Accounts.Accounts.Commands.Register
             _mapper = mapper;
         }
 
-        public async Task<RegisterViewModel> Handle(RegisterCommand request, CancellationToken cancellationToken)
+        public async Task<RegisterDto> Handle(RegisterCommand request, CancellationToken cancellationToken)
         {
             var applicationUser = request.MappingToApplicationUser();
             await _identityService.CreateUser(applicationUser, request.Password);
-            var registerViewModel = _mapper.Map<ApplicationUser, RegisterViewModel>(applicationUser);
+            var registerViewModel = _mapper.Map<ApplicationUser, RegisterDto>(applicationUser);
 
             // Generar code de validación y enviar email.
             var code = await _userManager.GenerateEmailConfirmationTokenAsync(applicationUser);
@@ -61,12 +61,12 @@ namespace NetClock.Application.Accounts.Accounts.Commands.Register
             return registerViewModel;
         }
 
-        private async Task SendEmailNotificationAsync(RegisterViewModel registerViewModel)
+        private async Task SendEmailNotificationAsync(RegisterDto registerDto)
         {
             _emailService.Subject = _localizer["Confirmación de email en {0}", _webApiConfig.SiteName];
-            _emailService.To.Add(new MailAddress(registerViewModel.Email));
+            _emailService.To.Add(new MailAddress(registerDto.Email));
             _emailService.IsHtml = true;
-            await _emailService.SendEmailAsync(EmailTemplates.RegisterUser, registerViewModel);
+            await _emailService.SendEmailAsync(EmailTemplates.RegisterUser, registerDto);
         }
 
         private string GenerateCallBack(string id, string code)

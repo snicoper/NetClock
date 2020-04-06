@@ -2,9 +2,9 @@ using AutoMapper;
 using NetClock.Application.Common.Mappings;
 using NetClock.Domain.Entities.Identity;
 
-namespace NetClock.Application.Accounts.Accounts.Commands.ChangePassword
+namespace NetClock.Application.Accounts.Accounts.Commands.Register
 {
-    public class ChangePasswordViewModel : IMapFrom<ApplicationUser>
+    public class RegisterDto : IMapFrom<ApplicationUser>
     {
         public string Id { get; set; }
 
@@ -14,12 +14,17 @@ namespace NetClock.Application.Accounts.Accounts.Commands.ChangePassword
 
         public string SiteName { get; set; }
 
+        public string Callback { get; set; }
+
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<ChangePasswordViewModel, ApplicationUser>()
+            profile.CreateMap<RegisterDto, ApplicationUser>()
+                .ForMember(dest => dest.Active, opt => opt.Ignore())
+                .ForMember(dest => dest.Slug, opt => opt.Ignore())
                 .ForMember(dest => dest.FirstName, opt => opt.Ignore())
                 .ForMember(dest => dest.LastName, opt => opt.Ignore())
-                .ForMember(dest => dest.Active, opt => opt.Ignore())
+                .ForMember(dest => dest.Created, opt => opt.Ignore())
+                .ForMember(dest => dest.LastModified, opt => opt.Ignore())
                 .ForMember(dest => dest.NormalizedUserName, opt => opt.Ignore())
                 .ForMember(dest => dest.NormalizedEmail, opt => opt.Ignore())
                 .ForMember(dest => dest.EmailConfirmed, opt => opt.Ignore())
@@ -31,12 +36,10 @@ namespace NetClock.Application.Accounts.Accounts.Commands.ChangePassword
                 .ForMember(dest => dest.TwoFactorEnabled, opt => opt.Ignore())
                 .ForMember(dest => dest.LockoutEnd, opt => opt.Ignore())
                 .ForMember(dest => dest.LockoutEnabled, opt => opt.Ignore())
-                .ForMember(dest => dest.Slug, opt => opt.Ignore())
-                .ForMember(dest => dest.Created, opt => opt.Ignore())
-                .ForMember(dest => dest.LastModified, opt => opt.Ignore())
                 .ForMember(dest => dest.AccessFailedCount, opt => opt.Ignore());
 
-            profile.CreateMap<ApplicationUser, ChangePasswordViewModel>()
+            profile.CreateMap<ApplicationUser, RegisterDto>()
+                .ForMember(dest => dest.Callback, opt => opt.Ignore())
                 .ForMember(dest => dest.SiteName, opt => opt.Ignore());
         }
     }

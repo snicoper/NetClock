@@ -16,7 +16,7 @@ namespace NetClock.WebApi.Controllers.Admin
     {
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<ResponseData<AdminUserListViewModel>>> GetUsers(
+        public async Task<ActionResult<ResponseData<AdminUserListDto>>> GetUsers(
             [FromQuery] RequestData requestData)
         {
             return await Mediator.Send(new GetUsersQuery(requestData));
@@ -25,7 +25,7 @@ namespace NetClock.WebApi.Controllers.Admin
         [HttpGet("{slug}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<AdminUserDetailsViewModel> GetBySlug(string slug)
+        public async Task<AdminUserDetailsDto> GetBySlug(string slug)
         {
             return await Mediator.Send(new GetBySlugQuery(slug));
         }
@@ -33,7 +33,7 @@ namespace NetClock.WebApi.Controllers.Admin
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<CreateUserViewModel>> CreateUser(
+        public async Task<ActionResult<CreateUserDto>> CreateUser(
             CreateUserCommand createUserCommand,
             ApiVersion version)
         {
@@ -46,7 +46,7 @@ namespace NetClock.WebApi.Controllers.Admin
         [HttpPut("update")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<UpdateUserViewModel>> UpdateUser(UpdateUserCommand updateUserCommand)
+        public async Task<ActionResult<UpdateUserDto>> UpdateUser(UpdateUserCommand updateUserCommand)
         {
             return Ok(await Mediator.Send(updateUserCommand));
         }

@@ -81,7 +81,7 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Accounts.AccountsControll
 
             // Act
             var response = await Client.PostAsync(BaseUrl, requestContent);
-            var responseContent = await SerializerUtils.GetResponseContentAsync<CurrentUserViewModel>(response);
+            var responseContent = await SerializerUtils.GetResponseContentAsync<CurrentUserDto>(response);
             var user = await userManager.FindByNameAsync(responseContent.UserName);
 
             // Assert

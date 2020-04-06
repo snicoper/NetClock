@@ -69,14 +69,14 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Accounts.AccountsControll
         /// Registrar usuario con userName perico.
         /// </summary>
         /// <returns>Información básica del registro</returns>
-        private async Task<RegisterViewModel> RegisterUser()
+        private async Task<RegisterDto> RegisterUser()
         {
             var guid = Guid.NewGuid().ToString().Substring(0, 7);
             var uri = Utilities.ComposeUri("accounts/register");
             var data = new RegisterCommand(guid, guid, guid, $"{guid}@example.com", "123456", "123456");
             var requestContent = SerializerUtils.GetRequestContent(data);
             var response = await Client.PostAsync(uri, requestContent);
-            var responseContent = await SerializerUtils.GetResponseContentAsync<RegisterViewModel>(response);
+            var responseContent = await SerializerUtils.GetResponseContentAsync<RegisterDto>(response);
 
             return responseContent;
         }

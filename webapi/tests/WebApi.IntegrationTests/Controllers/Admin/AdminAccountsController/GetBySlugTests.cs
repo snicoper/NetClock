@@ -29,11 +29,11 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Admin.AdminAccountsContro
 
             // Act
             var response = await Client.GetAsync(uri);
-            var responseContent = await SerializerUtils.GetResponseContentAsync<AdminUserListViewModel>(response);
+            var responseContent = await SerializerUtils.GetResponseContentAsync<AdminUserListDto>(response);
 
             // Assert
             response.EnsureSuccessStatusCode();
-            responseContent.ShouldBeOfType<AdminUserListViewModel>();
+            responseContent.ShouldBeOfType<AdminUserListDto>();
             responseContent.UserName.ShouldNotBeEmpty();
         }
 

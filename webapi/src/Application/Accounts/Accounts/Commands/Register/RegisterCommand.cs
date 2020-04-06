@@ -4,7 +4,7 @@ using NetClock.Domain.Entities.Identity;
 
 namespace NetClock.Application.Accounts.Accounts.Commands.Register
 {
-    public class RegisterCommand : IRequest<RegisterViewModel>
+    public class RegisterCommand : IRequest<RegisterDto>
     {
         public RegisterCommand(
             string userName,

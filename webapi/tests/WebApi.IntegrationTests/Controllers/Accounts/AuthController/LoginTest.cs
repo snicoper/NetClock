@@ -28,7 +28,7 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Accounts.AuthController
 
             // Act
             var response = await Client.PostAsync(BaseUrl, requestContent);
-            var responseContent = await SerializerUtils.GetResponseContentAsync<CurrentUserViewModel>(response);
+            var responseContent = await SerializerUtils.GetResponseContentAsync<CurrentUserDto>(response);
 
             // Assert
             response.StatusCode.ShouldBe(HttpStatusCode.OK);

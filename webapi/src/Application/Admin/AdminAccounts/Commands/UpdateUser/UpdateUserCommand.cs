@@ -4,7 +4,7 @@ using NetClock.Domain.Entities.Identity;
 
 namespace NetClock.Application.Admin.AdminAccounts.Commands.UpdateUser
 {
-    public class UpdateUserCommand : IRequest<UpdateUserViewModel>
+    public class UpdateUserCommand : IRequest<UpdateUserDto>
     {
         public UpdateUserCommand(
             string id,

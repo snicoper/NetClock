@@ -11,7 +11,7 @@ using NetClock.Domain.Entities.Identity;
 
 namespace NetClock.Application.Admin.AdminAccounts.Commands.UpdateUser
 {
-    public class UpdateUserHandler : IRequestHandler<UpdateUserCommand, UpdateUserViewModel>
+    public class UpdateUserHandler : IRequestHandler<UpdateUserCommand, UpdateUserDto>
     {
         private readonly IStringLocalizer<ApplicationUser> _localizer;
         private readonly ILogger<UpdateUserHandler> _logger;
@@ -30,7 +30,7 @@ namespace NetClock.Application.Admin.AdminAccounts.Commands.UpdateUser
             _validationFailureService = validationFailureService;
         }
 
-        public async Task<UpdateUserViewModel> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
+        public async Task<UpdateUserDto> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
         {
             var applicationUser = await _userManager.FindByIdAsync(request.Id);
             if (applicationUser == null)
@@ -45,7 +45,7 @@ namespace NetClock.Application.Admin.AdminAccounts.Commands.UpdateUser
             await _userManager.UpdateAsync(applicationUser);
             _logger.LogInformation($"Se ha actualizado correctamente el usuario {request.UserName}");
 
-            return new UpdateUserViewModel(applicationUser.Slug);
+            return new UpdateUserDto(applicationUser.Slug);
         }
 
         private async Task ValidateDataIfExists(UpdateUserCommand request)

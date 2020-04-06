@@ -31,11 +31,11 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Accounts.AccountsControll
 
             // Act
             var response = await Client.PostAsync(BaseUrl, requestContent);
-            var responseContent = SerializerUtils.GetResponseContentAsync<ChangePasswordViewModel>(response);
+            var responseContent = SerializerUtils.GetResponseContentAsync<ChangePasswordDto>(response);
 
             // Assert
             response.EnsureSuccessStatusCode();
-            responseContent.Result.ShouldBeOfType<ChangePasswordViewModel>();
+            responseContent.Result.ShouldBeOfType<ChangePasswordDto>();
         }
 
         [Fact]

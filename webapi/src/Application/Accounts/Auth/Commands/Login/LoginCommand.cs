@@ -3,7 +3,7 @@ using MediatR;
 
 namespace NetClock.Application.Accounts.Auth.Commands.Login
 {
-    public class LoginCommand : IRequest<CurrentUserViewModel>
+    public class LoginCommand : IRequest<CurrentUserDto>
     {
         public LoginCommand(string userName, string password, bool rememberMe)
         {

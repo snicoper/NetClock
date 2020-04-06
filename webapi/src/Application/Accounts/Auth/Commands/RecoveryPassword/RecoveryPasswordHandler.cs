@@ -55,7 +55,7 @@ namespace NetClock.Application.Accounts.Auth.Commands.RecoveryPassword
             }
 
             var code = await _userManager.GeneratePasswordResetTokenAsync(user);
-            var recoveryPasswordViewModel = new RecoveryPasswordViewModel
+            var recoveryPasswordViewModel = new RecoveryPasswordDto
             {
                 UserName = user.UserName, CallBack = GenerateCallBack(user.Id, code)
             };
@@ -68,12 +68,12 @@ namespace NetClock.Application.Accounts.Auth.Commands.RecoveryPassword
 
         private async Task SendEmailNotificationAsync(
             ApplicationUser applicationUser,
-            RecoveryPasswordViewModel recoveryPasswordViewModel)
+            RecoveryPasswordDto recoveryPasswordDto)
         {
             _emailService.Subject = _localizer["Confirmación de cambio de email en {0}", _webApiConfig.SiteName];
             _emailService.To.Add(new MailAddress(applicationUser.Email));
             _emailService.IsHtml = true;
-            await _emailService.SendEmailAsync(EmailTemplates.RecoveryPassword, recoveryPasswordViewModel);
+            await _emailService.SendEmailAsync(EmailTemplates.RecoveryPassword, recoveryPasswordDto);
         }
 
         private string GenerateCallBack(string id, string code)

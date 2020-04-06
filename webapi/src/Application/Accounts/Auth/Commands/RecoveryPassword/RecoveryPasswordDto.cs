@@ -1,6 +1,6 @@
 namespace NetClock.Application.Accounts.Auth.Commands.RecoveryPassword
 {
-    public class RecoveryPasswordViewModel
+    public class RecoveryPasswordDto
     {
         public string UserName { get; set; }
 

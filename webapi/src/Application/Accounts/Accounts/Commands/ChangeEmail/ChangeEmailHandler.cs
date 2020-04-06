@@ -52,7 +52,7 @@ namespace NetClock.Application.Accounts.Accounts.Commands.ChangeEmail
             }
 
             var code = await _userManager.GenerateChangeEmailTokenAsync(user, request.NewEmail);
-            var changeEmailViewModel = new ChangeEmailViewModel
+            var changeEmailViewModel = new ChangeEmailDto
             {
                 Id = user.Id,
                 UserName = user.UserName,
@@ -68,12 +68,12 @@ namespace NetClock.Application.Accounts.Accounts.Commands.ChangeEmail
 
         private async Task SendEmailNotificationAsync(
             ApplicationUser applicationUser,
-            ChangeEmailViewModel registerViewModel)
+            ChangeEmailDto registerDto)
         {
             _emailService.Subject = _localizer["Confirmación de cambio de email en {0}", _webApiConfig.SiteName];
             _emailService.To.Add(new MailAddress(applicationUser.Email));
             _emailService.IsHtml = true;
-            await _emailService.SendEmailAsync(EmailTemplates.ChangeEmailConfirmation, registerViewModel);
+            await _emailService.SendEmailAsync(EmailTemplates.ChangeEmailConfirmation, registerDto);
         }
 
         private string GenerateCallBack(string id, string code, string newEmail)

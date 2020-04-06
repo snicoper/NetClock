@@ -9,7 +9,7 @@ using NetClock.Domain.Entities.Identity;
 
 namespace NetClock.Application.Admin.AdminAccounts.Queries.GetBySlug
 {
-    public class GetBySlugHandler : IRequestHandler<GetBySlugQuery, AdminUserDetailsViewModel>
+    public class GetBySlugHandler : IRequestHandler<GetBySlugQuery, AdminUserDetailsDto>
     {
         private readonly IMapper _mapper;
         private readonly IIdentityService _identityService;
@@ -22,14 +22,14 @@ namespace NetClock.Application.Admin.AdminAccounts.Queries.GetBySlug
             _logger = logger;
         }
 
-        public async Task<AdminUserDetailsViewModel> Handle(GetBySlugQuery request, CancellationToken cancellationToken)
+        public async Task<AdminUserDetailsDto> Handle(GetBySlugQuery request, CancellationToken cancellationToken)
         {
             _logger.LogInformation($"Se va a obtener el usuario {request.Slug}");
             var user = await _identityService.FirstOrDefaultBySlugAsync(request.Slug);
 
             if (user != null)
             {
-                return _mapper.Map<AdminUserDetailsViewModel>(user);
+                return _mapper.Map<AdminUserDetailsDto>(user);
             }
 
             _logger.LogWarning($"El usuario {request.Slug} no existe en la base de datos");
