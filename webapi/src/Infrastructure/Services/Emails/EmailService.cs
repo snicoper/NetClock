@@ -62,10 +62,7 @@ namespace NetClock.Infrastructure.Services.Emails
         public async Task SendEmailAsync()
         {
             Validate();
-            if (From is null)
-            {
-                From = new MailAddress(_smtpConfig.DefaultFrom);
-            }
+            From ??= new MailAddress(_smtpConfig.DefaultFrom);
 
             if (_environment.IsDevelopment() || _environment.IsEnvironment("Test"))
             {
