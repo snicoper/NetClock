@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -17,7 +15,6 @@ using NetClock.Infrastructure.Persistence;
 using NetClock.WebApi.Extensions.Configure;
 using NetClock.WebApi.Extensions.ConfigureServices;
 using NetClock.WebApi.Middlewares;
-using NSwag.AspNetCore;
 
 namespace NetClock.WebApi
 {
@@ -48,7 +45,7 @@ namespace NetClock.WebApi
             services.ConfigureAuthentication(Configuration);
             services.ConfigureApiControllers();
             services.ConfigureCors(Environment, DefaultCors);
-            services.ConfigureSwagger(Environment);
+            services.ConfigureSwagger();
 
             // Localization.
             services.AddLocalization(options => options.ResourcesPath = "Resources");
