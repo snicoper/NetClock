@@ -110,6 +110,10 @@ namespace NetClock.WebApi
             {
                 settings.Path = "/swagger";
             });
+            app.UseReDoc(settings =>
+            {
+                settings.Path = "/swagger/docs";
+            });
 
             app.UseRouting();
 

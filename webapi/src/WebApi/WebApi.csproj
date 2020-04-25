@@ -37,4 +37,9 @@
     <RemoveDir Directories="$(OutDir)References" />
   </Target>
 
+  <PropertyGroup>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>$(NoWarn);1591</NoWarn>
+  </PropertyGroup>
+
 </Project>

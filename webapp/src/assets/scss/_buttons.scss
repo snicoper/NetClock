@@ -17,3 +17,11 @@
     width: 70px;
   }
 }
+
+.unfocus:focus {
+  box-shadow: none;
+
+  &.active {
+    box-shadow: none !important;
+  }
+}

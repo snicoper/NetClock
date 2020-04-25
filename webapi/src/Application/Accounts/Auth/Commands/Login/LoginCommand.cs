@@ -12,6 +12,9 @@ namespace NetClock.Application.Accounts.Auth.Commands.Login
             RememberMe = rememberMe;
         }
 
+        /// <summary>
+        /// Nombre de usuario.
+        /// </summary>
         [Display(Name = "Nombre de usuario")]
         public string UserName { get; }
 
