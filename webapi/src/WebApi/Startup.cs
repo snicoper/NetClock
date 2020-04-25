@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -15,6 +17,7 @@ using NetClock.Infrastructure.Persistence;
 using NetClock.WebApi.Extensions.Configure;
 using NetClock.WebApi.Extensions.ConfigureServices;
 using NetClock.WebApi.Middlewares;
+using NSwag.AspNetCore;
 
 namespace NetClock.WebApi
 {
@@ -106,14 +109,8 @@ namespace NetClock.WebApi
             app.UseStaticFiles();
 
             app.UseOpenApi();
-            app.UseSwaggerUi3(settings =>
-            {
-                settings.Path = "/swagger";
-            });
-            app.UseReDoc(settings =>
-            {
-                settings.Path = "/swagger/docs";
-            });
+            app.UseSwaggerUi3(settings => { settings.Path = string.Empty; });
+            app.UseReDoc(settings => { settings.Path = "/docs"; });
 
             app.UseRouting();
 

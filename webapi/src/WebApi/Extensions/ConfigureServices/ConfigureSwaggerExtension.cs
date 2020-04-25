@@ -13,23 +13,20 @@ namespace NetClock.WebApi.Extensions.ConfigureServices
             this IServiceCollection services,
             IWebHostEnvironment environment)
         {
-            if (environment.IsDevelopment())
+            // Register the Swagger services.
+            services.AddOpenApiDocument(configure =>
             {
-                // Register the Swagger services.
-                services.AddOpenApiDocument(configure =>
+                configure.Title = "NetClock API";
+                configure.AddSecurity("JWT", Enumerable.Empty<string>(), new OpenApiSecurityScheme
                 {
-                    configure.Title = "NetClock API";
-                    configure.AddSecurity("JWT", Enumerable.Empty<string>(), new OpenApiSecurityScheme
-                    {
-                        Type = OpenApiSecuritySchemeType.ApiKey,
-                        Name = "Authorization",
-                        In = OpenApiSecurityApiKeyLocation.Header,
-                        Description = "Type into the text box: Bearer {your JWT token}."
-                    });
-
-                    configure.OperationProcessors.Add(new AspNetCoreOperationSecurityScopeProcessor("JWT"));
+                    Type = OpenApiSecuritySchemeType.ApiKey,
+                    Name = "Authorization",
+                    In = OpenApiSecurityApiKeyLocation.Header,
+                    Description = "Type into the text box: Bearer {your JWT token}."
                 });
-            }
+
+                configure.OperationProcessors.Add(new AspNetCoreOperationSecurityScopeProcessor("JWT"));
+            });
 
             return services;
         }
