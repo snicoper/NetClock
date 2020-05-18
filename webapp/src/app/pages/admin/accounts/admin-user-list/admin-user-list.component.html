@@ -15,15 +15,6 @@
               <i class="fas fa-filter"></i>
             </button>
           </div>
-
-          <div class="ml-2">
-            <nc-pagination *ngIf="apiResult"
-                           [apiResult]="apiResult"
-                           [showPageList]="false"
-                           [showPagesButtons]="false"
-                           (changePage)="onReloadData()">
-            </nc-pagination>
-          </div>
         </div><!-- end toolbar -->
 
         <nc-table [apiResult]="apiResult" [loading]="loading">
