@@ -36,6 +36,19 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Admin.AdminAccountsContro
         }
 
         [Fact]
+        public async Task Get_usuario_bob_no_tiene_permisos_para_ver_lista_usuarios_Forbidden()
+        {
+            // Arrange
+            await GetAuthenticatedClientAsync("Bob", "123456");
+
+            // Act
+            var response = await Client.GetAsync(BaseUrl);
+
+            // Assert
+            response.StatusCode.ShouldBe(HttpStatusCode.Forbidden);
+        }
+
+        [Fact]
         public async Task Get_obtener_lista_de_usuarios_anonymous_Unauthorized()
         {
             // Arrange
