@@ -36,6 +36,22 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Admin.AdminAccountsContro
             responseContent.ShouldBeOfType<AdminUserListDto>();
             responseContent.UserName.ShouldNotBeEmpty();
         }
+        [Fact]
+        public async Task Get_usuario_Bob_Forbidden()
+        {
+            // Arrange
+            await GetAuthenticatedClientAsync("Bob", "123456");
+            var userManager = ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+            var userBob = await userManager.FindByNameAsync("Bob");
+            var uri = Utilities.ComposeUri($"admin/accounts/{userBob.Slug}");
+
+            // Act
+            var response = await Client.GetAsync(uri);
+
+            // Assert
+            response.StatusCode.ShouldBe(HttpStatusCode.Forbidden);
+        }
+
 
         [Fact]
         public async Task Get_usuario_no_logueado_obtiene_resultado_Unauthorized()

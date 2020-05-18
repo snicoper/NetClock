@@ -42,6 +42,24 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Admin.AdminAccountsContro
         }
 
         [Fact]
+        public async Task Post_actualizar_usuario_Bob_Forbidden()
+        {
+            // Arrange
+            await GetAuthenticatedClientAsync("Bob", "123456");
+            var user = await _userManager.FindByNameAsync("Bob");
+            var userId = user.Id;
+            var data = new UpdateUserCommand(userId, "Bob112", "Bob112", "Bob212", "bob112@example.com", false);
+            var requestContent = SerializerUtils.GetRequestContent(data);
+            var url = Utilities.ComposeUri($"admin/accounts/update");
+
+            // Act
+            var response = await Client.PutAsync(url, requestContent);
+
+            // Assert
+            response.StatusCode.ShouldBe(HttpStatusCode.Forbidden);
+        }
+
+        [Fact]
         public async Task Post_actualizar_usuario_no_autenticado_Unauthorized()
         {
             // Arrange

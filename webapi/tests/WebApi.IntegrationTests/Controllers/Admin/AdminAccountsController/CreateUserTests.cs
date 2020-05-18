@@ -32,7 +32,21 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Admin.AdminAccountsContro
             response.StatusCode.ShouldBe(HttpStatusCode.Created);
         }
 
-        // TODO: Crear un test para comprobar que tiene permisos para crear usuarios.
+        [Fact]
+        public async Task Post_registro_usuario_Bob_Forbidden()
+        {
+            // Arrange
+            await GetAuthenticatedClientAsync("Bob", "123456");
+            var data = new CreateUserCommand("testUser", "test", "User", "test@example.com", "123123", "123123", true);
+            var requestContent = SerializerUtils.GetRequestContent(data);
+
+            // Act
+            var response = await Client.PostAsync(BaseUrl, requestContent);
+
+            // Assert
+            response.StatusCode.ShouldBe(HttpStatusCode.Forbidden);
+        }
+
         [Fact]
         public async Task Post_registro_usuario_no_authenticated_Unauthorized()
         {

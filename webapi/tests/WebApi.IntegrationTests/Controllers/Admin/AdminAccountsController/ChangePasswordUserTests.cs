@@ -39,6 +39,24 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Admin.AdminAccountsContro
         }
 
         [Fact]
+        public async Task Post_actualizar_password_usuario_Bob_Forbidden()
+        {
+            // Arrange
+            await GetAuthenticatedClientAsync("Bob", "123456");
+            var user = await _userManager.FindByNameAsync("Alice");
+            var userId = user.Id;
+            var data = new ChangePasswordUserCommand(userId, "123123", "123123");
+            var requestContent = SerializerUtils.GetRequestContent(data);
+            var url = Utilities.ComposeUri("admin/accounts/change-password");
+
+            // Act
+            var response = await Client.PostAsync(url, requestContent);
+
+            // Assert
+            response.StatusCode.ShouldBe(HttpStatusCode.Forbidden);
+        }
+
+        [Fact]
         public async Task Post_actualizar_password_usuario_anonimo_Unauthorized()
         {
             // Arrange

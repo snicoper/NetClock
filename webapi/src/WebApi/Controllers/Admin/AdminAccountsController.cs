@@ -12,11 +12,11 @@ using NetClock.Application.Common.Http;
 
 namespace NetClock.WebApi.Controllers.Admin
 {
+    [Authorize(Roles = "Superuser,Admin")]
     [Route("api/v{version:apiVersion}/admin/accounts")]
     public class AdminAccountsController : ApiControllerBase
     {
         [HttpGet]
-        [Authorize(Roles = "Superuser,Admin")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<ResponseData<AdminUserListDto>>> GetUsers([FromQuery] RequestData requestData)
         {
