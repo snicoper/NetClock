@@ -29,20 +29,30 @@ namespace NetClock.Application.Common.Services.Identity
             {
                 Audience = _jwtConfig.ValidAudience,
                 Issuer = _jwtConfig.ValidIssuer,
-                Subject = new ClaimsIdentity(new[]
-                {
-                    new Claim(ClaimTypes.Name, user.UserName), new Claim(ClaimTypes.Email, user.Email),
-                    new Claim(ClaimTypes.NameIdentifier, user.Id),
-                    new Claim(ClaimTypes.Role, string.Join(",", roles.ToList()))
-                }),
+                Subject = AddClaimsRoles(user, roles),
                 Expires = DateTime.UtcNow.AddHours(_jwtConfig.ExpiryMinutes),
                 SigningCredentials = new SigningCredentials(
                     new SymmetricSecurityKey(key),
                     SecurityAlgorithms.HmacSha256Signature)
             };
+
             var token = tokenHandler.CreateToken(tokenDescriptor);
 
             return tokenHandler.WriteToken(token);
+        }
+
+        private ClaimsIdentity AddClaimsRoles(ApplicationUser user, IEnumerable<string> roles)
+        {
+            var claimsIdentity = new ClaimsIdentity();
+            claimsIdentity.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.Id));
+            claimsIdentity.AddClaim(new Claim(ClaimTypes.Name, user.UserName));
+            claimsIdentity.AddClaim(new Claim(ClaimTypes.Email, user.Email));
+            foreach (var role in roles)
+            {
+                claimsIdentity.AddClaim(new Claim(ClaimTypes.Role, role));
+            }
+
+            return claimsIdentity;
         }
     }
 }

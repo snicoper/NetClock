@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NetClock.Application.Admin.AdminAccounts.Commands.ChangePasswordUser;
@@ -15,9 +16,9 @@ namespace NetClock.WebApi.Controllers.Admin
     public class AdminAccountsController : ApiControllerBase
     {
         [HttpGet]
+        [Authorize(Roles = "Superuser,Admin")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<ResponseData<AdminUserListDto>>> GetUsers(
-            [FromQuery] RequestData requestData)
+        public async Task<ActionResult<ResponseData<AdminUserListDto>>> GetUsers([FromQuery] RequestData requestData)
         {
             return await Mediator.Send(new GetUsersQuery(requestData));
         }
