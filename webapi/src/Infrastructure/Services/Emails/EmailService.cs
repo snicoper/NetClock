@@ -10,6 +10,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using NetClock.Application.Common.Configurations;
+using NetClock.Application.Common.Constants;
 using NetClock.Application.Common.Interfaces.Emails;
 using NetClock.Application.Common.Interfaces.Views;
 
@@ -64,9 +65,9 @@ namespace NetClock.Infrastructure.Services.Emails
             Validate();
             From ??= new MailAddress(_smtpConfig.DefaultFrom);
 
-            if (_environment.IsDevelopment() || _environment.IsEnvironment("Test"))
+            if (_environment.IsDevelopment() || _environment.IsEnvironment(CommonConstants.Test))
             {
-                LoggerEmail();
+                LoggerEmailInConsole();
 
                 return;
             }
@@ -117,9 +118,9 @@ namespace NetClock.Infrastructure.Services.Emails
         }
 
         /// <summary>
-        /// Muestra el log del email.
+        /// Muestra el log del email en consola.
         /// </summary>
-        private void LoggerEmail()
+        private void LoggerEmailInConsole()
         {
             var toList = To.Select(to => to.Address).ToList();
             var logEmail = new StringBuilder();

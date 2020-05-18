@@ -2,6 +2,7 @@ using System;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using NetClock.Application.Common.Constants;
 
 namespace NetClock.WebApi.Extensions.ConfigureServices
 {
@@ -33,7 +34,7 @@ namespace NetClock.WebApi.Extensions.ConfigureServices
                 return ConfigureCorsDevelopment();
             }
 
-            if (environment.IsEnvironment("Test"))
+            if (environment.IsEnvironment(CommonConstants.Test))
             {
                 return ConfigureCorsTest();
             }

@@ -2,6 +2,7 @@ using System;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.Extensions.Hosting;
+using NetClock.Application.Common.Constants;
 
 namespace NetClock.WebApi.Extensions.Configure
 {
@@ -32,7 +33,7 @@ namespace NetClock.WebApi.Extensions.Configure
                 ConfigureDevelopment();
             }
 
-            if (environment.IsEnvironment("Test"))
+            if (environment.IsEnvironment(CommonConstants.Test))
             {
                 hasConfigure = true;
                 ConfigureTest();

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using NetClock.Application.Common.Constants;
 using NetClock.Infrastructure.Persistence;
 using Xunit;
 
@@ -17,8 +18,8 @@ namespace NetClock.WebApi.IntegrationTests
             builder.ConfigureServices(services =>
             {
                 // Remove the apps ApplicationDbContext registration.
-                var descriptor =
-                    services.SingleOrDefault(d => d.ServiceType == typeof(DbContextOptions<ApplicationDbContext>));
+                var descriptor = services
+                    .SingleOrDefault(d => d.ServiceType == typeof(DbContextOptions<ApplicationDbContext>));
 
                 if (descriptor != null)
                 {
@@ -33,7 +34,7 @@ namespace NetClock.WebApi.IntegrationTests
 
                 // Build the service provider.
                 services.BuildServiceProvider();
-            }).UseEnvironment("Test");
+            }).UseEnvironment(CommonConstants.Test);
         }
     }
 }
