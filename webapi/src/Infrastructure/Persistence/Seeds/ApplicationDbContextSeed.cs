@@ -1,9 +1,12 @@
 using System;
+using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using NetClock.Application.Common.Authorization;
 using NetClock.Domain.Entities.Identity;
 using NetClock.Domain.Extensions;
 
@@ -24,6 +27,7 @@ namespace NetClock.Infrastructure.Persistence.Seeds
 
             await SeedRoles();
             await SeedUsers();
+            await SeedPolicies();
         }
 
         private static async Task SeedRoles()
@@ -42,6 +46,62 @@ namespace NetClock.Infrastructure.Persistence.Seeds
                 await roleManager.CreateAsync(new IdentityRole { Name = role });
                 _logger.LogInformation($"Role {role} creado con éxito");
             }
+        }
+
+        private static async Task SeedPolicies()
+        {
+            var roleManager = _serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+            var role = await roleManager.FindByNameAsync("Superuser");
+            var roleClaims = await roleManager.GetClaimsAsync(role);
+            if (roleClaims.Any())
+            {
+                return;
+            }
+
+            await roleManager.AddClaimAsync(role, new Claim(CustomClaimTypes.Permission, Permissions.Superusers.Full));
+            await roleManager.AddClaimAsync(role, new Claim(CustomClaimTypes.Permission, Permissions.Superusers.View));
+            await roleManager.AddClaimAsync(role, new Claim(CustomClaimTypes.Permission, Permissions.Superusers.Create));
+            await roleManager.AddClaimAsync(role, new Claim(CustomClaimTypes.Permission, Permissions.Superusers.Update));
+            await roleManager.AddClaimAsync(role, new Claim(CustomClaimTypes.Permission, Permissions.Superusers.Delete));
+
+            role = await roleManager.FindByNameAsync("Admin");
+            roleClaims = await roleManager.GetClaimsAsync(role);
+            if (roleClaims.Any())
+            {
+                return;
+            }
+
+            await roleManager.AddClaimAsync(role, new Claim(CustomClaimTypes.Permission, Permissions.Admins.Full));
+            await roleManager.AddClaimAsync(role, new Claim(CustomClaimTypes.Permission, Permissions.Admins.View));
+            await roleManager.AddClaimAsync(role, new Claim(CustomClaimTypes.Permission, Permissions.Admins.Create));
+            await roleManager.AddClaimAsync(role, new Claim(CustomClaimTypes.Permission, Permissions.Admins.Update));
+            await roleManager.AddClaimAsync(role, new Claim(CustomClaimTypes.Permission, Permissions.Admins.Delete));
+
+            role = await roleManager.FindByNameAsync("Staff");
+            roleClaims = await roleManager.GetClaimsAsync(role);
+            if (roleClaims.Any())
+            {
+                return;
+            }
+
+            await roleManager.AddClaimAsync(role, new Claim(CustomClaimTypes.Permission, Permissions.Staffs.Full));
+            await roleManager.AddClaimAsync(role, new Claim(CustomClaimTypes.Permission, Permissions.Staffs.View));
+            await roleManager.AddClaimAsync(role, new Claim(CustomClaimTypes.Permission, Permissions.Staffs.Create));
+            await roleManager.AddClaimAsync(role, new Claim(CustomClaimTypes.Permission, Permissions.Staffs.Update));
+            await roleManager.AddClaimAsync(role, new Claim(CustomClaimTypes.Permission, Permissions.Staffs.Delete));
+
+            role = await roleManager.FindByNameAsync("Employee");
+            roleClaims = await roleManager.GetClaimsAsync(role);
+            if (roleClaims.Any())
+            {
+                return;
+            }
+
+            await roleManager.AddClaimAsync(role, new Claim(CustomClaimTypes.Permission, Permissions.Employees.Full));
+            await roleManager.AddClaimAsync(role, new Claim(CustomClaimTypes.Permission, Permissions.Employees.View));
+            await roleManager.AddClaimAsync(role, new Claim(CustomClaimTypes.Permission, Permissions.Employees.Create));
+            await roleManager.AddClaimAsync(role, new Claim(CustomClaimTypes.Permission, Permissions.Employees.Update));
+            await roleManager.AddClaimAsync(role, new Claim(CustomClaimTypes.Permission, Permissions.Employees.Delete));
         }
 
 

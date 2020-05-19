@@ -6,7 +6,7 @@ using NetClock.Infrastructure.Persistence;
 
 namespace NetClock.Infrastructure
 {
-    public static class ServiceCollectionExtension
+    public static class InfrastructureRegistry
     {
         public static IServiceCollection AddInfrastructure(
             this IServiceCollection services,

@@ -24,6 +24,7 @@ export class ErrorInterceptor implements HttpInterceptor {
 
       switch (error.status) {
         case HttpStatus.UNAUTHORIZED:
+        case HttpStatus.FORBIDDEN:
           this.unauthorizedHandler();
           break;
         case HttpStatus.BAD_REQUEST:

@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace NetClock.Application.Common.Controllers
+namespace NetClock.Application.Common.Api
 {
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ApiController]

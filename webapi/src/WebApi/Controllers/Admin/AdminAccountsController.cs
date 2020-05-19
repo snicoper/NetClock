@@ -7,12 +7,13 @@ using NetClock.Application.Admin.AdminAccounts.Commands.CreateUser;
 using NetClock.Application.Admin.AdminAccounts.Commands.UpdateUser;
 using NetClock.Application.Admin.AdminAccounts.Queries.GetBySlug;
 using NetClock.Application.Admin.AdminAccounts.Queries.GetUsers;
-using NetClock.Application.Common.Controllers;
+using NetClock.Application.Common.Api;
+using NetClock.Application.Common.Authorization;
 using NetClock.Application.Common.Http;
 
 namespace NetClock.WebApi.Controllers.Admin
 {
-    [Authorize(Roles = "Superuser,Admin")]
+    [Authorize(Permissions.Admins.Full)]
     [Route("api/v{version:apiVersion}/admin/accounts")]
     public class AdminAccountsController : ApiControllerBase
     {
