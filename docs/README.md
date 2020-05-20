@@ -18,3 +18,7 @@ Crear un backup `.sql`
 ```bash
 pg_dump -U netclock NetClock >> ~/NetClock.sql
 ```
+
+## User secrets
+
+Copiar `compose/usersecrets/netclock-6c9ba5ff-19f7-4984-bfc9-281d3df753c2/secrets.json` a `~/.microsoft/usersecrets/`
