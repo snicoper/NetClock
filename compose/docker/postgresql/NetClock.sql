@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 11.6
--- Dumped by pg_dump version 11.6
+-- Dumped from database version 11.7
+-- Dumped by pg_dump version 11.7
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -245,6 +245,24 @@ ALTER TABLE public."__EFMigrationsHistory" OWNER TO netclock;
 --
 
 COPY public."AspNetRoleClaims" ("Id", "RoleId", "ClaimType", "ClaimValue") FROM stdin;
+1	c2d3ae7d-8aad-434c-8f9a-34692cf44716	permission	Permissions.Accounts.View
+2	c2d3ae7d-8aad-434c-8f9a-34692cf44716	permission	Permissions.Accounts.Create
+3	c2d3ae7d-8aad-434c-8f9a-34692cf44716	permission	Permissions.Accounts.Update
+4	c2d3ae7d-8aad-434c-8f9a-34692cf44716	permission	Permissions.Accounts.Delete
+5	c2d3ae7d-8aad-434c-8f9a-34692cf44716	permission	Permissions.AdminAccounts.View
+6	c2d3ae7d-8aad-434c-8f9a-34692cf44716	permission	Permissions.AdminAccounts.Create
+7	c2d3ae7d-8aad-434c-8f9a-34692cf44716	permission	Permissions.AdminAccounts.Update
+8	c2d3ae7d-8aad-434c-8f9a-34692cf44716	permission	Permissions.AdminAccounts.Delete
+9	2549659f-3c40-4ad5-852a-3fdb1a36cf7b	permission	Permissions.Accounts.View
+10	2549659f-3c40-4ad5-852a-3fdb1a36cf7b	permission	Permissions.Accounts.Create
+11	2549659f-3c40-4ad5-852a-3fdb1a36cf7b	permission	Permissions.Accounts.Update
+12	2549659f-3c40-4ad5-852a-3fdb1a36cf7b	permission	Permissions.Accounts.Delete
+13	2549659f-3c40-4ad5-852a-3fdb1a36cf7b	permission	Permissions.AdminAccounts.View
+14	2549659f-3c40-4ad5-852a-3fdb1a36cf7b	permission	Permissions.AdminAccounts.Create
+15	2549659f-3c40-4ad5-852a-3fdb1a36cf7b	permission	Permissions.AdminAccounts.Update
+16	2549659f-3c40-4ad5-852a-3fdb1a36cf7b	permission	Permissions.AdminAccounts.Delete
+17	d23195be-31af-487f-8993-a76b762940d9	permission	Permissions.Accounts.View
+18	d23195be-31af-487f-8993-a76b762940d9	permission	Permissions.Accounts.Update
 \.
 
 
@@ -253,10 +271,9 @@ COPY public."AspNetRoleClaims" ("Id", "RoleId", "ClaimType", "ClaimValue") FROM 
 --
 
 COPY public."AspNetRoles" ("Id", "Name", "NormalizedName", "ConcurrencyStamp") FROM stdin;
-0bddc623-84b2-4e2f-b0a7-c9d96009fd06	Superuser	SUPERUSER	651d9e26-cc8d-4676-bec8-4ea458669b05
-38df1ee6-c224-4c26-91fa-428a69b3aae4	Admin	ADMIN	7b6bf068-97d8-406c-b649-a079aea39b83
-f62119e8-5ebe-4c8e-a321-bfa90f8740d6	Staff	STAFF	52f73b4c-9f37-4578-a4e2-be7356c53cc2
-b3cca1a0-cf7b-4a8e-b67e-6d7d4aa9b31d	Employee	EMPLOYEE	769847b1-9e24-44ed-b55e-b82a5078c067
+c2d3ae7d-8aad-434c-8f9a-34692cf44716	Superuser	SUPERUSER	a2c29de7-0a75-4bda-aa92-cd7c5beba110
+2549659f-3c40-4ad5-852a-3fdb1a36cf7b	Staff	STAFF	2709af51-7fa4-4286-8723-5f6477f6fee0
+d23195be-31af-487f-8993-a76b762940d9	Employee	EMPLOYEE	0abc8ff0-510b-47d0-ad3d-7c2e29db497e
 \.
 
 
@@ -281,20 +298,20 @@ COPY public."AspNetUserLogins" ("LoginProvider", "ProviderKey", "ProviderDisplay
 --
 
 COPY public."AspNetUserRoles" ("UserId", "RoleId") FROM stdin;
-cb89981e-f54f-4d1f-880d-ccbe3d2b1158	b3cca1a0-cf7b-4a8e-b67e-6d7d4aa9b31d
-cb89981e-f54f-4d1f-880d-ccbe3d2b1158	0bddc623-84b2-4e2f-b0a7-c9d96009fd06
-cb89981e-f54f-4d1f-880d-ccbe3d2b1158	38df1ee6-c224-4c26-91fa-428a69b3aae4
-cb89981e-f54f-4d1f-880d-ccbe3d2b1158	f62119e8-5ebe-4c8e-a321-bfa90f8740d6
-854950eb-d834-455b-8f81-50f7d2b06380	b3cca1a0-cf7b-4a8e-b67e-6d7d4aa9b31d
-cb7315ea-c2c4-4cbc-9c7d-1f745fd7813d	b3cca1a0-cf7b-4a8e-b67e-6d7d4aa9b31d
-9c6d6d9f-adad-4279-9460-244ba182bdbb	b3cca1a0-cf7b-4a8e-b67e-6d7d4aa9b31d
-61599082-ad0e-40c4-b9a4-631b266758a8	b3cca1a0-cf7b-4a8e-b67e-6d7d4aa9b31d
-5e1da5d6-8fe1-40f0-ade3-14dedc6e9c91	b3cca1a0-cf7b-4a8e-b67e-6d7d4aa9b31d
-ad1e2b80-08ce-4c67-9713-644510f0a8eb	b3cca1a0-cf7b-4a8e-b67e-6d7d4aa9b31d
-cb0f4497-d10a-47f4-8a14-29f113eee09d	b3cca1a0-cf7b-4a8e-b67e-6d7d4aa9b31d
-fdcaa3e3-ed4a-4e4b-abe1-17104e7addbe	b3cca1a0-cf7b-4a8e-b67e-6d7d4aa9b31d
-2176eee3-2912-4cac-91cc-4cf6eada585c	b3cca1a0-cf7b-4a8e-b67e-6d7d4aa9b31d
-07e20cf9-9c5b-40ee-b988-7c65a228754f	b3cca1a0-cf7b-4a8e-b67e-6d7d4aa9b31d
+929b430e-688a-4844-9b70-eb84aee00e2b	d23195be-31af-487f-8993-a76b762940d9
+929b430e-688a-4844-9b70-eb84aee00e2b	2549659f-3c40-4ad5-852a-3fdb1a36cf7b
+929b430e-688a-4844-9b70-eb84aee00e2b	c2d3ae7d-8aad-434c-8f9a-34692cf44716
+d66ce9e3-88c7-4f3d-8b1d-57ff025d734b	d23195be-31af-487f-8993-a76b762940d9
+d66ce9e3-88c7-4f3d-8b1d-57ff025d734b	2549659f-3c40-4ad5-852a-3fdb1a36cf7b
+c991e7a0-2a16-483a-990b-f7fe4225eba8	d23195be-31af-487f-8993-a76b762940d9
+f5a10fa5-7c8e-4bc3-a872-3e8b3038d069	d23195be-31af-487f-8993-a76b762940d9
+ff0d3d8f-61b9-4408-87d8-b48224effca0	d23195be-31af-487f-8993-a76b762940d9
+79103f0b-9d25-45d5-b9a8-69b771dd9c5f	d23195be-31af-487f-8993-a76b762940d9
+7440f049-d3a8-4ccb-8d6f-827493390bd2	d23195be-31af-487f-8993-a76b762940d9
+42fdbc7d-42fd-4541-ba94-9a4a153fe730	d23195be-31af-487f-8993-a76b762940d9
+4d8622d4-d4d6-4215-947b-6ea457195e86	d23195be-31af-487f-8993-a76b762940d9
+a1d9a2b9-889a-4aa3-a62d-3e344bc45e2a	d23195be-31af-487f-8993-a76b762940d9
+776f6480-ff8b-4ae1-98ca-0eb17d057824	d23195be-31af-487f-8993-a76b762940d9
 \.
 
 
@@ -311,17 +328,17 @@ COPY public."AspNetUserTokens" ("UserId", "LoginProvider", "Name", "Value") FROM
 --
 
 COPY public."AspNetUsers" ("Id", "UserName", "NormalizedUserName", "Email", "NormalizedEmail", "EmailConfirmed", "PasswordHash", "SecurityStamp", "ConcurrencyStamp", "PhoneNumber", "PhoneNumberConfirmed", "TwoFactorEnabled", "LockoutEnd", "LockoutEnabled", "AccessFailedCount", "Slug", "FirstName", "LastName", "Active", "Created", "LastModified") FROM stdin;
-07e20cf9-9c5b-40ee-b988-7c65a228754f	Lorena	LORENA	lorena@example.com	LORENA@EXAMPLE.COM	t	AQAAAAEAACcQAAAAEL4zMY/W5fPJ8Xs3yiODsPdk7btP1PicOUSTNSjxGYZQ1jQPnQbX/QwVZ6EXzeKnGA==	DPYCQVURTFTDW2G4JKMJIMCXXIAK5B2V	7bea8643-3054-4a95-991a-54f97c849093	\N	f	f	\N	t	0	lorena	Lorena	Lorena	t	2020-02-17 22:21:43	2020-02-16 22:21:43.495614
-cb89981e-f54f-4d1f-880d-ccbe3d2b1158	Admin	ADMIN	admin@example.com	ADMIN@EXAMPLE.COM	t	AQAAAAEAACcQAAAAEAk9eUMcewjdSEVvykcZN3XoR0Rzxl7CCpsTZzvVE6pyVYAZEZtlAzOTciztnSeGjQ==	ASY63RIBANHYAXUEHD5LCGSSB5LUVNPE	c2ce2cab-5b30-44f6-a5ed-d0b86e48e0f7	\N	f	f	\N	t	0	admin	Admin	Admin	t	2020-02-16 22:21:43.139048	2020-02-16 22:21:43.139108
-854950eb-d834-455b-8f81-50f7d2b06380	Alice	ALICE	alice@example.com	ALICE@EXAMPLE.COM	t	AQAAAAEAACcQAAAAEBeeYEpw0eSJOD5UHoeXmxdgCPp3c6lq3KoAjDisWoqUo+jQuqMLDMKYKU4ut2pSVQ==	53NEBAKCTYHYSQNQ24VAHQVRZS66PAHG	79f8bd08-61d7-426b-bcbf-2b9109f4012a	\N	f	f	\N	t	0	alice	Alice	Alice	t	2020-02-16 22:21:43.29564	2020-02-16 22:21:43.295643
-cb7315ea-c2c4-4cbc-9c7d-1f745fd7813d	Bob	BOB	bob@example.com	BOB@EXAMPLE.COM	t	AQAAAAEAACcQAAAAEDXLMsuMCzIuTBRkQDgzyLcv3SViQB7+T8cFfxblqBGZ4HU9+k1wunb12ot4vWIW0A==	RVTD5BJXVKGVCCX4N32I3UBJSSJ2VNNQ	04cfdab2-c1ef-4b39-9d93-33777e066698	\N	f	f	\N	t	0	bob	Bob	Bob	t	2020-02-16 22:21:43.317494	2020-02-16 22:21:43.317495
-9c6d6d9f-adad-4279-9460-244ba182bdbb	Joe	JOE	joe@example.com	JOE@EXAMPLE.COM	t	AQAAAAEAACcQAAAAEIHITAuq6qtJZX3kUi+aNmWRnnFIi9ef5m1z9/d+u7lYJROJDR99DwiYLbhPC7pi5w==	PRDJ2AY6L7JILNY4SU5P4JPIMVAB7POQ	e5ba90fa-3513-45df-9206-1167a15ec3ca	\N	f	f	\N	t	0	joe	Joe	Joe	t	2020-02-16 22:21:43.334995	2020-02-16 22:21:43.334997
-61599082-ad0e-40c4-b9a4-631b266758a8	Maria	MARIA	maria@example.com	MARIA@EXAMPLE.COM	t	AQAAAAEAACcQAAAAEONOy3gUeDyGeuZx/CNailtG+Jvj5qip7+nzv4xN80OIkYq/n5t6ptlyCNJEV7zrsw==	ASDYLECX65GDCRCXFTWIQYAJOIQALHNR	47e4af9b-fabb-4ebd-84ba-bc8d5318d8b5	\N	f	f	\N	t	0	maria	Maria	Maria	t	2020-02-16 22:21:43.351658	2020-02-16 22:21:43.351659
-5e1da5d6-8fe1-40f0-ade3-14dedc6e9c91	Jordi	JORDI	jordi@example.com	JORDI@EXAMPLE.COM	t	AQAAAAEAACcQAAAAEB3ef7oYjMtImT299ChRTLGQZOomIqjupQYkDclGBfK2tY4GlYTEL/Tem5DPA1KUdg==	XZM5CONFJO7SLM2D5QK4H5EYQZTUBTRH	83c5f601-eed7-40ec-bf0e-24b829eba35f	\N	f	f	\N	t	0	jordi	Jordi	Jordi	t	2020-02-16 22:21:43.371033	2020-02-16 22:21:43.371034
-ad1e2b80-08ce-4c67-9713-644510f0a8eb	Sonia	SONIA	sonia@example.com	SONIA@EXAMPLE.COM	t	AQAAAAEAACcQAAAAEL/Ni5+0y4u29s2w9DHiuyGGqzDmCFZvDkcEEBb2bAIVQBNTatxH9TkHTWK3TVGwRw==	SE3KXABWPBYMSFJXHUNGDGX3W4E2HWLF	115fe8d5-ceba-4a33-86d5-059452d013c6	\N	f	f	\N	t	0	sonia	Sonia	Sonia	t	2020-02-16 22:21:43.390094	2020-02-16 22:21:43.390095
-cb0f4497-d10a-47f4-8a14-29f113eee09d	Sara	SARA	sara@example.com	SARA@EXAMPLE.COM	t	AQAAAAEAACcQAAAAEPF3VmrgrrHwVbkVuZ7rZMuBBn6ta499JlDeiJbxefOCnZTOCXFADdPRvlcRDnGCOA==	FWKSR2ZZP6FYF572IRMHAAPYIEVGYQLP	daf2728e-5cce-4745-af77-c881ec4e1c53	\N	f	f	\N	t	0	sara	Sara	Sara	t	2020-02-16 22:21:43.411785	2020-02-16 22:21:43.411786
-fdcaa3e3-ed4a-4e4b-abe1-17104e7addbe	Perico	PERICO	perico@example.com	PERICO@EXAMPLE.COM	t	AQAAAAEAACcQAAAAEGIJTb0FV6HXI5egrF4stpisotBRbD5dbGY8srk5HzGzWWXnT5Ej+wflqAjU5rCMzQ==	VMZIZYCINO6ZJ6O3WSKJ4GIVI64ZGZFS	a277f8f8-fe23-437e-bce3-96bf8859b39d	\N	f	f	\N	t	0	perico	Perico	Perico	t	2020-02-16 22:21:43.429902	2020-02-16 22:21:43.429904
-2176eee3-2912-4cac-91cc-4cf6eada585c	Palote	PALOTE	palote@example.com	PALOTE@EXAMPLE.COM	t	AQAAAAEAACcQAAAAEBbfS75xFouvGFm9lRp8FRjwbAx5Km5MTP4xt75WuNDxcshjSig20PV7/TFDYjXyrQ==	V75RCKZKMLWTLHQRTZDZICT7QW6FNWGM	d8aeec15-7b57-490a-818e-f92f9167b0cc	\N	f	f	\N	t	0	palote	Palote	Palote	t	2020-02-16 22:21:43.474785	2020-02-16 22:21:43.474787
+776f6480-ff8b-4ae1-98ca-0eb17d057824	Lorena	LORENA	lorena@example.com	LORENA@EXAMPLE.COM	t	AQAAAAEAACcQAAAAEPoIhElNY3BfQRxgbkzsPB0B8pqGiiS69zNTRaPbkxzNF0HDpqgG+pMbLNSh8prj4w==	SVTFEBJRQD3A2SUQ2773PGDZ4DQKZ3WE	e5d5e796-48c1-4a03-8cd9-e208010024ee	\N	f	f	\N	t	0	lorena	Lorena	Lorena	t	2020-05-21 00:09:01.282594	2020-05-21 00:09:01.282595
+929b430e-688a-4844-9b70-eb84aee00e2b	Admin	ADMIN	admin@example.com	ADMIN@EXAMPLE.COM	t	AQAAAAEAACcQAAAAEOw3p0u/jQ3JpGNR05PCrAx8DaEk8u1Vi+nYb1WojPfxYl7Ri9dKMDj/jVMJOh12PQ==	C73LB4CEXKFCQNKBNM6UALTO4SWW4BLE	22029a24-e5dd-4be5-8687-c993fc0d5846	\N	f	f	\N	t	0	admin	Admin	Admin	t	2020-05-21 00:09:00.914861	2020-05-21 00:09:00.914891
+d66ce9e3-88c7-4f3d-8b1d-57ff025d734b	Alice	ALICE	alice@example.com	ALICE@EXAMPLE.COM	t	AQAAAAEAACcQAAAAEGvAXNiQFGpx6JnKbTO/ioWkhhDcU+nNRej+Z0IAPzrnlksBXa+gKkmwA+bKnNVLdg==	PF3ENBN6JMRIPHBLAHWTPOHHOLXZEE73	2fbc5844-26b7-4cf6-940b-32fdb01428f0	\N	f	f	\N	t	0	alice	Alice	Alice	t	2020-05-21 00:09:01.033881	2020-05-21 00:09:01.033886
+c991e7a0-2a16-483a-990b-f7fe4225eba8	Bob	BOB	bob@example.com	BOB@EXAMPLE.COM	t	AQAAAAEAACcQAAAAEE5tGpDdFjnLmiZaG6AZZDSPiyOCeRCuHptchHEZL8/d51yinQC6etCAjeDWR9SMhg==	JVCBQOAYH6KK4XO3W2IXROEWFRYPJYPE	e024f7c9-32ef-4dd7-b0d4-070202817c53	\N	f	f	\N	t	0	bob	Bob	Bob	t	2020-05-21 00:09:01.071664	2020-05-21 00:09:01.071666
+f5a10fa5-7c8e-4bc3-a872-3e8b3038d069	Joe	JOE	joe@example.com	JOE@EXAMPLE.COM	t	AQAAAAEAACcQAAAAEMUXFN+XrGIvy6zzE49wXbl8ob26z2xviOvHamTldDHK5L2PEihdSETka/vyZpptfQ==	YCFS7U6E6XDJK6KMHVJV37ECK6CQ6EPI	d4311433-edc9-4859-9b81-f7424feee72d	\N	f	f	\N	t	0	joe	Joe	Joe	t	2020-05-21 00:09:01.097573	2020-05-21 00:09:01.097574
+ff0d3d8f-61b9-4408-87d8-b48224effca0	Maria	MARIA	maria@example.com	MARIA@EXAMPLE.COM	t	AQAAAAEAACcQAAAAEH12YuQkrKJlLVXeItfzi4NR3vTHV8N7W7dbn2rJ2ZncF0E1Xjw0vN/79vnQrjbHDQ==	XO3KEQIMZWIMDFWNCPKOBPWKWFTU66FN	fd5c6dfc-3b9c-42dc-9a95-53711f2ef473	\N	f	f	\N	t	0	maria	Maria	Maria	t	2020-05-21 00:09:01.118678	2020-05-21 00:09:01.118679
+79103f0b-9d25-45d5-b9a8-69b771dd9c5f	Jordi	JORDI	jordi@example.com	JORDI@EXAMPLE.COM	t	AQAAAAEAACcQAAAAEOZyzuf6eI+/rrreo53bMvsVlsmXzc2PjD4+sD7PQ0RCjnSS+EqsMa3eROIodCVTKw==	7MYTPCQ6CNIIGO3TZKKWLG3RFRDKQOCQ	5ccc5aba-98e8-44d2-8f5f-edad27ff0773	\N	f	f	\N	t	0	jordi	Jordi	Jordi	t	2020-05-21 00:09:01.142162	2020-05-21 00:09:01.142164
+7440f049-d3a8-4ccb-8d6f-827493390bd2	Sonia	SONIA	sonia@example.com	SONIA@EXAMPLE.COM	t	AQAAAAEAACcQAAAAEKCNK7tth8U3V0zXt1b0sLLWbRponhMHp6eFyg021xv0SoZIGz6kzSQxTGOEECKhPA==	AS7KX3KF5WZZ4CYHB2FHP45VFBVSQ4DA	31455a09-fd57-4a6e-8a46-cdb088f4a38f	\N	f	f	\N	t	0	sonia	Sonia	Sonia	t	2020-05-21 00:09:01.167729	2020-05-21 00:09:01.167731
+42fdbc7d-42fd-4541-ba94-9a4a153fe730	Sara	SARA	sara@example.com	SARA@EXAMPLE.COM	t	AQAAAAEAACcQAAAAECR+H5ql6TUzt5BpmmRVbCcGxSgTOgvgDaxUim/wnDx0LFxwZxL9aL/tgqadpiBudQ==	YE2MCAIVCJOSXH5CNOSWW32BYFUA5C4J	bbd44aab-7376-4727-9e65-82488cc263a3	\N	f	f	\N	t	0	sara	Sara	Sara	t	2020-05-21 00:09:01.191756	2020-05-21 00:09:01.191757
+4d8622d4-d4d6-4215-947b-6ea457195e86	Perico	PERICO	perico@example.com	PERICO@EXAMPLE.COM	t	AQAAAAEAACcQAAAAENo4B2teomY6y41TJlXUhaXYBAP6kSr9XwS65snz78P/YFTNyzMI+JqLnDN9waHnTA==	DD6QWMFW3WP26MPLFPWUCPAYXMU7UWXK	8aae264c-eae5-4938-b230-3776ec70de2c	\N	f	f	\N	t	0	perico	Perico	Perico	t	2020-05-21 00:09:01.214469	2020-05-21 00:09:01.21447
+a1d9a2b9-889a-4aa3-a62d-3e344bc45e2a	Palote	PALOTE	palote@example.com	PALOTE@EXAMPLE.COM	t	AQAAAAEAACcQAAAAEO5tnKWPRhW8RPi6oPoNI8rcSAxlUFqY7b+B9wIs51zY7lU1ops1dzFmMtvI4WFZhA==	ENPZDMADR4J5DLQQNCO5UP5A66CISVNG	ba03b5c3-4316-4c1d-a83e-09108e8beeef	\N	f	f	\N	t	0	palote	Palote	Palote	t	2020-05-21 00:09:01.238081	2020-05-21 00:09:01.238083
 \.
 
 
@@ -354,7 +371,7 @@ COPY public."Schedules" ("Id", "CreatedBy", "Created", "LastModifiedBy", "LastMo
 --
 
 COPY public."__EFMigrationsHistory" ("MigrationId", "ProductVersion") FROM stdin;
-20200216212112_init	3.1.1
+20200323184831_InitialApplication	3.1.4
 \.
 
 
@@ -362,7 +379,7 @@ COPY public."__EFMigrationsHistory" ("MigrationId", "ProductVersion") FROM stdin
 -- Name: AspNetRoleClaims_Id_seq; Type: SEQUENCE SET; Schema: public; Owner: netclock
 --
 
-SELECT pg_catalog.setval('public."AspNetRoleClaims_Id_seq"', 1, false);
+SELECT pg_catalog.setval('public."AspNetRoleClaims_Id_seq"', 18, true);
 
 
 --
