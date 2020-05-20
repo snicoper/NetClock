@@ -1,9 +1,10 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <RootNamespace>NetClock.WebApi</RootNamespace>
     <AssemblyName>NetClock.WebApi</AssemblyName>
+    <UserSecretsId>netclock-6c9ba5ff-19f7-4984-bfc9-281d3df753c2</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
