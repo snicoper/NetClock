@@ -57,7 +57,6 @@ namespace NetClock.WebApi.IntegrationTests
         {
             var dbContext = ServiceProvider.GetRequiredService<ApplicationDbContext>();
             await dbContext.Database.EnsureDeletedAsync();
-            await dbContext.Database.EnsureCreatedAsync();
             await ApplicationDbContextSeed.SeedAsync(ServiceProvider);
         }
     }

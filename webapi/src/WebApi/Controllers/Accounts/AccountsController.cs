@@ -8,6 +8,7 @@ using NetClock.Application.Accounts.Accounts.Commands.ChangePassword;
 using NetClock.Application.Accounts.Accounts.Commands.Register;
 using NetClock.Application.Accounts.Accounts.Commands.RegisterValidate;
 using NetClock.Application.Common.Api;
+using NetClock.Application.Common.Authorization;
 
 namespace NetClock.WebApi.Controllers.Accounts
 {
@@ -36,6 +37,7 @@ namespace NetClock.WebApi.Controllers.Accounts
         }
 
         [HttpPost("change-password")]
+        [Authorize(Permissions.Accounts.Update)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -45,6 +47,7 @@ namespace NetClock.WebApi.Controllers.Accounts
         }
 
         [HttpPost("change-email")]
+        [Authorize(Permissions.Accounts.Update)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -54,6 +57,7 @@ namespace NetClock.WebApi.Controllers.Accounts
         }
 
         [HttpPost("change-email/validate")]
+        [Authorize(Permissions.Accounts.Update)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

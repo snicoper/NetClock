@@ -13,11 +13,12 @@ using NetClock.Application.Common.Http;
 
 namespace NetClock.WebApi.Controllers.Admin
 {
-    [Authorize(Permissions.Admins.Full)]
+    [Authorize(Roles = "Superuser,Staff")]
     [Route("api/v{version:apiVersion}/admin/accounts")]
     public class AdminAccountsController : ApiControllerBase
     {
         [HttpGet]
+        [Authorize(Permissions.AdminAccounts.View)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<ResponseData<AdminUserListDto>>> GetUsers([FromQuery] RequestData requestData)
         {
@@ -25,6 +26,7 @@ namespace NetClock.WebApi.Controllers.Admin
         }
 
         [HttpGet("{slug}")]
+        [Authorize(Permissions.AdminAccounts.View)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<AdminUserDetailsDto> GetBySlug(string slug)
@@ -33,6 +35,7 @@ namespace NetClock.WebApi.Controllers.Admin
         }
 
         [HttpPost]
+        [Authorize(Permissions.AdminAccounts.Create)]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<CreateUserDto>> CreateUser(
@@ -46,6 +49,7 @@ namespace NetClock.WebApi.Controllers.Admin
         }
 
         [HttpPut("update")]
+        [Authorize(Permissions.AdminAccounts.Update)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<UpdateUserDto>> UpdateUser(UpdateUserCommand updateUserCommand)
@@ -54,6 +58,7 @@ namespace NetClock.WebApi.Controllers.Admin
         }
 
         [HttpPost("change-password")]
+        [Authorize(Permissions.AdminAccounts.Update)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult> ChangePasswordUser(ChangePasswordUserCommand changePasswordUserCommand)
