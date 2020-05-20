@@ -16,6 +16,7 @@ import { AppComponent } from './app.component';
 import { ComponentsModule } from './components/components.module';
 import { GuardsModule } from './guards/guards.module';
 import { CultureInterceptor, ErrorInterceptor, ApiResultInterceptor, JwtInterceptor } from './interceptors';
+import { Error404Component } from './pages/errors/error404/error404.component';
 import { PagesComponent } from './pages/pages.component';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -25,7 +26,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 @NgModule({
   declarations: [
     AppComponent,
-    PagesComponent
+    PagesComponent,
+    Error404Component
   ],
   imports: [
     AppRoutingModule,

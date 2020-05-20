@@ -1,18 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { Error404Component } from './error404/error404.component';
+import { Error403Component } from './error403/error403.component';
 
 const routes: Routes = [
   {
-    path: '404',
-    component: Error404Component,
-    data: { title: 'Pagina no encontrada' }
-  },
-  {
-    path: '',
-    redirectTo: '404',
-    pathMatch: 'full'
+    path: '403',
+    component: Error403Component,
+    data: { title: 'Sin autorización' }
   }
 ];
 

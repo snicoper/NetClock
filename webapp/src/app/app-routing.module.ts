@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { Error403Component } from './pages/errors/error403/error403.component';
+import { Error404Component } from './pages/errors/error404/error404.component';
 
 import { PagesComponent } from './pages/pages.component';
 
@@ -23,9 +23,8 @@ const routes: Routes = [
         loadChildren: () => import('./pages/admin/admin.module').then(m => m.AdminModule)
       },
       {
-        path: 'errors/403',
-        component: Error403Component,
-        data: { title: 'Sin autorización' }
+        path: 'errors',
+        loadChildren: () => import('./pages/errors/errors.module').then(m => m.ErrorsModule)
       }
     ]
   },
@@ -36,12 +35,13 @@ const routes: Routes = [
     loadChildren: () => import('./pages/auth/auth.module').then(m => m.AuthModule)
   },
   {
-    path: 'errors',
-    loadChildren: () => import('./pages/errors/errors.module').then(m => m.ErrorsModule)
+    path: 'error/404',
+    component: Error404Component,
+    data: { title: 'Pagina no encontrada' }
   },
   {
     path: '**',
-    redirectTo: 'errors',
+    redirectTo: 'error/404',
     pathMatch: 'full'
   }
 ];
