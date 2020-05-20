@@ -25,6 +25,9 @@ export const SiteUrls = {
   adminUserUpdate: '/admin/accounts/{slug}/update',
   adminUserCreate: '/admin/accounts/create',
 
+  /** Errors. */
+  forbidden: '/errors/403',
+
   /**
    * Utiliza una de las propiedades de UrlsApp para remplazar {algo} por valor en los args.
    *

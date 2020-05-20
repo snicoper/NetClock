@@ -24,8 +24,10 @@ export class ErrorInterceptor implements HttpInterceptor {
 
       switch (error.status) {
         case HttpStatus.UNAUTHORIZED:
-        case HttpStatus.FORBIDDEN:
           this.unauthorizedHandler();
+          break;
+        case HttpStatus.FORBIDDEN:
+          this.forbiddenHandler();
           break;
         case HttpStatus.BAD_REQUEST:
           this.errorHandler();
@@ -41,6 +43,10 @@ export class ErrorInterceptor implements HttpInterceptor {
   private unauthorizedHandler(): void {
     this.authenticationService.logout();
     this.router.navigate([SiteUrls.login]);
+  }
+
+  private forbiddenHandler(): void {
+    this.router.navigate([SiteUrls.forbidden]);
   }
 
   private errorHandler(): void {

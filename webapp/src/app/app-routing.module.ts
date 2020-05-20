@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { Error403Component } from './pages/errors/error403/error403.component';
 
 import { PagesComponent } from './pages/pages.component';
 
@@ -20,6 +21,11 @@ const routes: Routes = [
       {
         path: 'admin',
         loadChildren: () => import('./pages/admin/admin.module').then(m => m.AdminModule)
+      },
+      {
+        path: 'errors/403',
+        component: Error403Component,
+        data: { title: 'Sin autorización' }
       }
     ]
   },
