@@ -2,7 +2,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using NetClock.Application.Admin.AdminRoles.Queries;
 using NetClock.Application.Admin.AdminRoles.Queries.GetRole;
 using NetClock.Application.Admin.AdminRoles.Queries.GetRoles;
 using NetClock.Application.Common.Api;

@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -41,9 +42,9 @@ namespace NetClock.WebApi.Controllers.Accounts
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult> ChangePassword(ChangePasswordCommand changePasswordCommand)
+        public async Task<ActionResult<Unit>> ChangePassword(ChangePasswordCommand changePasswordCommand)
         {
-            return Ok(await Mediator.Send(changePasswordCommand));
+            return await Mediator.Send(changePasswordCommand);
         }
 
         [HttpPost("change-email")]
@@ -51,9 +52,9 @@ namespace NetClock.WebApi.Controllers.Accounts
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult> ChangeEmail(ChangeEmailCommand changeEmailCommand)
+        public async Task<ActionResult<Unit>> ChangeEmail(ChangeEmailCommand changeEmailCommand)
         {
-            return Ok(await Mediator.Send(changeEmailCommand));
+            return await Mediator.Send(changeEmailCommand);
         }
 
         [HttpPost("change-email/validate")]
@@ -61,9 +62,9 @@ namespace NetClock.WebApi.Controllers.Accounts
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult> ChangeEmailValidate(ChangeEmailValidateCommand changeEmailValidateCommand)
+        public async Task<ActionResult<Unit>> ChangeEmailValidate(ChangeEmailValidateCommand changeEmailValidateCommand)
         {
-            return Ok(await Mediator.Send(changeEmailValidateCommand));
+            return await Mediator.Send(changeEmailValidateCommand);
         }
     }
 }

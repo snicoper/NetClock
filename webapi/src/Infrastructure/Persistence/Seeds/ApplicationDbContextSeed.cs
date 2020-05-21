@@ -57,39 +57,19 @@ namespace NetClock.Infrastructure.Persistence.Seeds
             // FIXME: Los tests no pasan
             var roleManager = _serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
 
-            // Role Superuser.
+            // Role Superuser, all permissions.
             var role = await roleManager.FindByNameAsync(AppRoles.Superuser);
-            await roleManager.AddClaimAsync(role, new Claim(CustomClaimTypes.Permission, Permissions.Accounts.View));
-            await roleManager.AddClaimAsync(role, new Claim(CustomClaimTypes.Permission, Permissions.Accounts.Create));
-            await roleManager.AddClaimAsync(role, new Claim(CustomClaimTypes.Permission, Permissions.Accounts.Update));
-            await roleManager.AddClaimAsync(role, new Claim(CustomClaimTypes.Permission, Permissions.Accounts.Delete));
+            foreach (var permission in PermissionsHelper.GetAllPermissionValues())
+            {
+                await roleManager.AddClaimAsync(role, new Claim(CustomClaimTypes.Permission, permission));
+            }
 
-            await roleManager.AddClaimAsync(role, new Claim(CustomClaimTypes.Permission, Permissions.AdminAccounts.View));
-            await roleManager.AddClaimAsync(role, new Claim(CustomClaimTypes.Permission, Permissions.AdminAccounts.Create));
-            await roleManager.AddClaimAsync(role, new Claim(CustomClaimTypes.Permission, Permissions.AdminAccounts.Update));
-            await roleManager.AddClaimAsync(role, new Claim(CustomClaimTypes.Permission, Permissions.AdminAccounts.Delete));
-
-            await roleManager.AddClaimAsync(role, new Claim(CustomClaimTypes.Permission, Permissions.AdminRoles.View));
-            await roleManager.AddClaimAsync(role, new Claim(CustomClaimTypes.Permission, Permissions.AdminRoles.Create));
-            await roleManager.AddClaimAsync(role, new Claim(CustomClaimTypes.Permission, Permissions.AdminRoles.Update));
-            await roleManager.AddClaimAsync(role, new Claim(CustomClaimTypes.Permission, Permissions.AdminRoles.Delete));
-
-            // Role Staff.
+            // Role Staff, all permissions.
             role = await roleManager.FindByNameAsync(AppRoles.Staff);
-            await roleManager.AddClaimAsync(role, new Claim(CustomClaimTypes.Permission, Permissions.Accounts.View));
-            await roleManager.AddClaimAsync(role, new Claim(CustomClaimTypes.Permission, Permissions.Accounts.Create));
-            await roleManager.AddClaimAsync(role, new Claim(CustomClaimTypes.Permission, Permissions.Accounts.Update));
-            await roleManager.AddClaimAsync(role, new Claim(CustomClaimTypes.Permission, Permissions.Accounts.Delete));
-
-            await roleManager.AddClaimAsync(role, new Claim(CustomClaimTypes.Permission, Permissions.AdminAccounts.View));
-            await roleManager.AddClaimAsync(role, new Claim(CustomClaimTypes.Permission, Permissions.AdminAccounts.Create));
-            await roleManager.AddClaimAsync(role, new Claim(CustomClaimTypes.Permission, Permissions.AdminAccounts.Update));
-            await roleManager.AddClaimAsync(role, new Claim(CustomClaimTypes.Permission, Permissions.AdminAccounts.Delete));
-
-            await roleManager.AddClaimAsync(role, new Claim(CustomClaimTypes.Permission, Permissions.AdminRoles.View));
-            await roleManager.AddClaimAsync(role, new Claim(CustomClaimTypes.Permission, Permissions.AdminRoles.Create));
-            await roleManager.AddClaimAsync(role, new Claim(CustomClaimTypes.Permission, Permissions.AdminRoles.Update));
-            await roleManager.AddClaimAsync(role, new Claim(CustomClaimTypes.Permission, Permissions.AdminRoles.Delete));
+            foreach (var permission in PermissionsHelper.GetAllPermissionValues())
+            {
+                await roleManager.AddClaimAsync(role, new Claim(CustomClaimTypes.Permission, permission));
+            }
 
             // Role Employee.
             role = await roleManager.FindByNameAsync(AppRoles.Employee);

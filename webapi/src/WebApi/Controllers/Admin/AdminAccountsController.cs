@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -54,16 +55,16 @@ namespace NetClock.WebApi.Controllers.Admin
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<UpdateUserDto>> UpdateAccount(UpdateUserCommand updateUserCommand)
         {
-            return Ok(await Mediator.Send(updateUserCommand));
+            return await Mediator.Send(updateUserCommand);
         }
 
         [HttpPost("change-password")]
         [Authorize(Permissions.AdminAccounts.Update)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult> ChangePasswordAccount(ChangePasswordAccountCommand changePasswordAccountCommand)
+        public async Task<ActionResult<Unit>> ChangePasswordAccount(ChangePasswordAccountCommand changePasswordAccountCommand)
         {
-            return Ok(await Mediator.Send(changePasswordAccountCommand));
+            return await Mediator.Send(changePasswordAccountCommand);
         }
     }
 }
