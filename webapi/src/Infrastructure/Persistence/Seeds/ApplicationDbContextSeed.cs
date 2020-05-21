@@ -69,6 +69,11 @@ namespace NetClock.Infrastructure.Persistence.Seeds
             await roleManager.AddClaimAsync(role, new Claim(CustomClaimTypes.Permission, Permissions.AdminAccounts.Update));
             await roleManager.AddClaimAsync(role, new Claim(CustomClaimTypes.Permission, Permissions.AdminAccounts.Delete));
 
+            await roleManager.AddClaimAsync(role, new Claim(CustomClaimTypes.Permission, Permissions.AdminRoles.View));
+            await roleManager.AddClaimAsync(role, new Claim(CustomClaimTypes.Permission, Permissions.AdminRoles.Create));
+            await roleManager.AddClaimAsync(role, new Claim(CustomClaimTypes.Permission, Permissions.AdminRoles.Update));
+            await roleManager.AddClaimAsync(role, new Claim(CustomClaimTypes.Permission, Permissions.AdminRoles.Delete));
+
             // Role Staff.
             role = await roleManager.FindByNameAsync(AppRoles.Staff);
             await roleManager.AddClaimAsync(role, new Claim(CustomClaimTypes.Permission, Permissions.Accounts.View));
@@ -80,6 +85,11 @@ namespace NetClock.Infrastructure.Persistence.Seeds
             await roleManager.AddClaimAsync(role, new Claim(CustomClaimTypes.Permission, Permissions.AdminAccounts.Create));
             await roleManager.AddClaimAsync(role, new Claim(CustomClaimTypes.Permission, Permissions.AdminAccounts.Update));
             await roleManager.AddClaimAsync(role, new Claim(CustomClaimTypes.Permission, Permissions.AdminAccounts.Delete));
+
+            await roleManager.AddClaimAsync(role, new Claim(CustomClaimTypes.Permission, Permissions.AdminRoles.View));
+            await roleManager.AddClaimAsync(role, new Claim(CustomClaimTypes.Permission, Permissions.AdminRoles.Create));
+            await roleManager.AddClaimAsync(role, new Claim(CustomClaimTypes.Permission, Permissions.AdminRoles.Update));
+            await roleManager.AddClaimAsync(role, new Claim(CustomClaimTypes.Permission, Permissions.AdminRoles.Delete));
 
             // Role Employee.
             role = await roleManager.FindByNameAsync(AppRoles.Employee);

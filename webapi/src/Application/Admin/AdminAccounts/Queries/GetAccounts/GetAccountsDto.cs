@@ -5,7 +5,7 @@ using NetClock.Domain.Entities.Identity;
 
 namespace NetClock.Application.Admin.AdminAccounts.Queries.GetAccounts
 {
-    public class AdminAccountsListDto : IMapFrom<ApplicationUser>
+    public class GetAccountsDto : IMapFrom<ApplicationUser>
     {
         public string UserName { get; set; }
 
@@ -21,7 +21,7 @@ namespace NetClock.Application.Admin.AdminAccounts.Queries.GetAccounts
 
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<ApplicationUser, AdminAccountsListDto>()
+            profile.CreateMap<ApplicationUser, GetAccountsDto>()
                 .ForMember(dest => dest.FullName, m => m.MapFrom(src => $"{src.FirstName} {src.LastName}"));
         }
     }

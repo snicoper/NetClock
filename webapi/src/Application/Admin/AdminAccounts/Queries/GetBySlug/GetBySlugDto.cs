@@ -5,7 +5,7 @@ using NetClock.Domain.Entities.Identity;
 
 namespace NetClock.Application.Admin.AdminAccounts.Queries.GetBySlug
 {
-    public class AdminUserDetailsDto : IMapFrom<ApplicationUser>
+    public class GetBySlugDto : IMapFrom<ApplicationUser>
     {
         public string Id { get; set; }
 
@@ -29,7 +29,7 @@ namespace NetClock.Application.Admin.AdminAccounts.Queries.GetBySlug
 
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<ApplicationUser, AdminUserDetailsDto>()
+            profile.CreateMap<ApplicationUser, GetBySlugDto>()
                 .ForMember(dest => dest.FullName, m => m.MapFrom(src => $"{src.FirstName} {src.LastName}"));
         }
     }

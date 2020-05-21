@@ -20,7 +20,7 @@ namespace NetClock.WebApi.Controllers.Admin
         [HttpGet]
         [Authorize(Permissions.AdminAccounts.View)]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<ResponseData<AdminAccountsListDto>>> GetAccounts([FromQuery] RequestData requestData)
+        public async Task<ActionResult<ResponseData<GetAccountsDto>>> GetAccounts([FromQuery] RequestData requestData)
         {
             return await Mediator.Send(new GetAccountsQuery(requestData));
         }
@@ -29,7 +29,7 @@ namespace NetClock.WebApi.Controllers.Admin
         [Authorize(Permissions.AdminAccounts.View)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<AdminUserDetailsDto> GetBySlug(string slug)
+        public async Task<GetBySlugDto> GetBySlug(string slug)
         {
             return await Mediator.Send(new GetBySlugQuery(slug));
         }

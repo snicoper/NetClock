@@ -2,7 +2,7 @@ using MediatR;
 
 namespace NetClock.Application.Admin.AdminAccounts.Queries.GetBySlug
 {
-    public class GetBySlugQuery : IRequest<AdminUserDetailsDto>
+    public class GetBySlugQuery : IRequest<GetBySlugDto>
     {
         public GetBySlugQuery(string slug)
         {

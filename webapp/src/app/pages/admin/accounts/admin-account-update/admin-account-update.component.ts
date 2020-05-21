@@ -27,7 +27,7 @@ export class AdminAccountUpdateComponent implements OnInit {
   loading = false;
   formTypes = FormInputTypes;
   errors = [];
-  userNotFound = false;
+  accountNotFound = false;
   slug: string;
 
   constructor(
@@ -79,7 +79,7 @@ export class AdminAccountUpdateComponent implements OnInit {
       }, (errors) => {
         this.debugService.errors(errors);
         if (errors.status === HttpStatus.NOT_FOUND) {
-          this.userNotFound = true;
+          this.accountNotFound = true;
         }
       });
   }

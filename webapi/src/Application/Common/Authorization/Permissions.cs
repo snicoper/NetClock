@@ -28,5 +28,13 @@ namespace NetClock.Application.Common.Authorization
             public const string Update = "Permissions.AdminAccounts.Update";
             public const string Delete = "Permissions.AdminAccounts.Delete";
         }
+
+        public static class AdminRoles
+        {
+            public const string View = "Permissions.AdminRoles.View";
+            public const string Create = "Permissions.AdminRoles.Create";
+            public const string Update = "Permissions.AdminRoles.Update";
+            public const string Delete = "Permissions.AdminRoles.Delete";
+        }
     }
 }
