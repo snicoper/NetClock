@@ -1,7 +1,5 @@
 <div class="form-group">
-  <label *ngIf="label"
-         [for]="id"
-         [ngClass]="{'text-danger': !isValid(), 'text-primary': isValid()}">
+  <label *ngIf="label" [for]="id" [ngClass]="{'text-danger': !isValid(), 'text-primary': isValid()}">
     {{label}}
   </label>
 

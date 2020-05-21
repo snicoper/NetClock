@@ -3,16 +3,16 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  @RenderSection("metas", false)
+  @RenderSectionAsync("metas", false)
   <title>&nbsp;</title>
 
-  @RenderSection("styles", false)
+  @RenderSectionAsync("styles", false)
 </head>
 <body id="body">
   <main id="main">
     @RenderBody()
   </main>
 
-  @RenderSection("scripts", false)
+  @RenderSectionAsync("scripts", false)
 </body>
 </html>

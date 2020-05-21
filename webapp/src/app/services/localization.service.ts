@@ -7,7 +7,6 @@ import { takeUntil } from 'rxjs/operators';
 
 import { ApiUrls } from '../core';
 import { ApiRestBaseService } from './api-rest-base.service';
-
 import { DebugService } from './debug.service';
 import { SettingsService } from './settings.service';
 
@@ -53,7 +52,7 @@ export class LocalizationService extends ApiRestBaseService implements OnDestroy
 
   setCulture(culture: string): void {
     if (this.supportedCultures.indexOf(culture) < 0) {
-      throw new Error(`Culture ${culture} no soportada`);
+      throw new Error(`Culture ${culture} no soportada.`);
     }
 
     localStorage.setItem('culture', culture);
@@ -69,10 +68,9 @@ export class LocalizationService extends ApiRestBaseService implements OnDestroy
 
   private configureMoment(): void {
     // @see: https://stackoverflow.com/a/55827203
-    const index = this.getCurrentCultureValue().indexOf('-');
-    const locale = index > 0
-      ? this.getCurrentCultureValue().substr(0, index)
-      : this.getCurrentCultureValue();
+    const currentCulture = this.getCurrentCultureValue();
+    const index = currentCulture.indexOf('-');
+    const locale = index > 0 ? currentCulture.substr(0, index) : currentCulture;
 
     moment.locale(locale);
   }

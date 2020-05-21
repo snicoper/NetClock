@@ -2,7 +2,7 @@ using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
-using NetClock.Application.Admin.AdminAccounts.Queries.GetUsers;
+using NetClock.Application.Admin.AdminAccounts.Queries.GetAccounts;
 using NetClock.Application.Common.Utils;
 using NetClock.Domain.Entities.Identity;
 using NetClock.WebApi.IntegrationTests.Helpers;
@@ -29,11 +29,11 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Admin.AdminAccountsContro
 
             // Act
             var response = await Client.GetAsync(uri);
-            var responseContent = await SerializerUtils.GetResponseContentAsync<AdminUserListDto>(response);
+            var responseContent = await SerializerUtils.GetResponseContentAsync<AdminAccountsListDto>(response);
 
             // Assert
             response.EnsureSuccessStatusCode();
-            responseContent.ShouldBeOfType<AdminUserListDto>();
+            responseContent.ShouldBeOfType<AdminAccountsListDto>();
             responseContent.UserName.ShouldNotBeEmpty();
         }
         [Fact]

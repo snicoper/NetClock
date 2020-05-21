@@ -2,11 +2,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using NetClock.Application.Admin.AdminAccounts.Commands.ChangePasswordUser;
-using NetClock.Application.Admin.AdminAccounts.Commands.CreateUser;
-using NetClock.Application.Admin.AdminAccounts.Commands.UpdateUser;
+using NetClock.Application.Admin.AdminAccounts.Commands.ChangePasswordAccount;
+using NetClock.Application.Admin.AdminAccounts.Commands.CreateAccount;
+using NetClock.Application.Admin.AdminAccounts.Commands.UpdateAccount;
+using NetClock.Application.Admin.AdminAccounts.Queries.GetAccounts;
 using NetClock.Application.Admin.AdminAccounts.Queries.GetBySlug;
-using NetClock.Application.Admin.AdminAccounts.Queries.GetUsers;
 using NetClock.Application.Common.Api;
 using NetClock.Application.Common.Authorization;
 using NetClock.Application.Common.Http;
@@ -20,9 +20,9 @@ namespace NetClock.WebApi.Controllers.Admin
         [HttpGet]
         [Authorize(Permissions.AdminAccounts.View)]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<ResponseData<AdminUserListDto>>> GetUsers([FromQuery] RequestData requestData)
+        public async Task<ActionResult<ResponseData<AdminAccountsListDto>>> GetAccounts([FromQuery] RequestData requestData)
         {
-            return await Mediator.Send(new GetUsersQuery(requestData));
+            return await Mediator.Send(new GetAccountsQuery(requestData));
         }
 
         [HttpGet("{slug}")]
@@ -38,7 +38,7 @@ namespace NetClock.WebApi.Controllers.Admin
         [Authorize(Permissions.AdminAccounts.Create)]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<CreateUserDto>> CreateUser(
+        public async Task<ActionResult<CreateUserDto>> CreateAccount(
             CreateUserCommand createUserCommand,
             ApiVersion version)
         {
@@ -52,7 +52,7 @@ namespace NetClock.WebApi.Controllers.Admin
         [Authorize(Permissions.AdminAccounts.Update)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<UpdateUserDto>> UpdateUser(UpdateUserCommand updateUserCommand)
+        public async Task<ActionResult<UpdateUserDto>> UpdateAccount(UpdateUserCommand updateUserCommand)
         {
             return Ok(await Mediator.Send(updateUserCommand));
         }
@@ -61,9 +61,9 @@ namespace NetClock.WebApi.Controllers.Admin
         [Authorize(Permissions.AdminAccounts.Update)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult> ChangePasswordUser(ChangePasswordUserCommand changePasswordUserCommand)
+        public async Task<ActionResult> ChangePasswordAccount(ChangePasswordAccountCommand changePasswordAccountCommand)
         {
-            return Ok(await Mediator.Send(changePasswordUserCommand));
+            return Ok(await Mediator.Send(changePasswordAccountCommand));
         }
     }
 }

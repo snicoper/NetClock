@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
-using NetClock.Application.Admin.AdminAccounts.Commands.CreateUser;
+using NetClock.Application.Admin.AdminAccounts.Commands.CreateAccount;
 using NetClock.Application.Common.Constants;
 using NetClock.Application.Common.Interfaces.Identity;
 using NetClock.Application.Common.Interfaces.Validations;

@@ -1,7 +1,7 @@
 // Fonts.
 $fa-font-path: "/assets/fonts/font-awesome" !default;
 
-// Color system
+// Color system.
 $white: #fff !default;
 $gray-100: #f8f9fa !default;
 $gray-200: #e9ecef !default;
@@ -88,7 +88,7 @@ $theme-colors: map-merge(
     $theme-colors
 );
 
-// Options
+// Options.
 //
 // Quickly modify global styling by enabling or disabling optional features.
 $enable-caret: true !default;
@@ -104,7 +104,7 @@ $enable-responsive-font-sizes: false !default;
 $enable-validation-icons: true !default;
 $enable-deprecation-messages: true !default;
 
-// Body
+// Body.
 //
 // Settings for the `<body>` element.
 $body-bg: #f7f9fb !default;

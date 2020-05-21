@@ -2,11 +2,11 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { AuthGuard } from '../../guards';
-import { AdminUserChangePasswordComponent } from './accounts/admin-change-user-password/admin-user-change-password.component';
-import { AdminUserCreateComponent } from './accounts/admin-user-create/admin-user-create.component';
-import { AdminUserDetailsComponent } from './accounts/admin-user-details/admin-user-details.component';
-import { AdminUserListComponent } from './accounts/admin-user-list/admin-user-list.component';
-import { AdminUserUpdateComponent } from './accounts/admin-user-update/admin-user-update.component';
+import { AdminAccountCreateComponent } from './accounts/admin-account-create/admin-account-create.component';
+import { AdminAccountDetailsComponent } from './accounts/admin-account-details/admin-account-details.component';
+import { AdminAccountListComponent } from './accounts/admin-account-list/admin-account-list.component';
+import { AdminAccountUpdateComponent } from './accounts/admin-account-update/admin-account-update.component';
+import { AdminAccountChangePasswordComponent } from './accounts/admin-change-account-password/admin-account-change-password.component';
 import { AdminComponent } from './admin.component';
 
 const routes: Routes = [
@@ -18,31 +18,31 @@ const routes: Routes = [
   },
   {
     path: 'accounts',
-    component: AdminUserListComponent,
+    component: AdminAccountListComponent,
     canActivate: [AuthGuard],
     data: { title: 'Lista de usuarios' }
   },
   {
     path: 'accounts/:slug/details',
-    component: AdminUserDetailsComponent,
+    component: AdminAccountDetailsComponent,
     canActivate: [AuthGuard],
     data: { title: 'Detalle de usuario' }
   },
   {
     path: 'accounts/:slug/update',
-    component: AdminUserUpdateComponent,
+    component: AdminAccountUpdateComponent,
     canActivate: [AuthGuard],
     data: { title: 'Editar usuario' }
   },
   {
     path: 'accounts/:slug/change-password',
-    component: AdminUserChangePasswordComponent,
+    component: AdminAccountChangePasswordComponent,
     canActivate: [AuthGuard],
     data: { title: 'Cambiar contraseña de usuario' }
   },
   {
     path: 'accounts/create',
-    component: AdminUserCreateComponent,
+    component: AdminAccountCreateComponent,
     canActivate: [AuthGuard],
     data: { title: 'Nuevo usuario' }
   }

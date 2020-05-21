@@ -5,22 +5,22 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ComponentsModule } from '../../components/components.module';
 import { DirectivesModule } from '../../directives/directives.module';
 import { PipesModule } from '../../pipes/pipes.module';
-import { AdminUserChangePasswordComponent } from './accounts/admin-change-user-password/admin-user-change-password.component';
-import { AdminUserCreateComponent } from './accounts/admin-user-create/admin-user-create.component';
-import { AdminUserDetailsComponent } from './accounts/admin-user-details/admin-user-details.component';
-import { AdminUserListComponent } from './accounts/admin-user-list/admin-user-list.component';
-import { AdminUserUpdateComponent } from './accounts/admin-user-update/admin-user-update.component';
+import { AdminAccountCreateComponent } from './accounts/admin-account-create/admin-account-create.component';
+import { AdminAccountDetailsComponent } from './accounts/admin-account-details/admin-account-details.component';
+import { AdminAccountListComponent } from './accounts/admin-account-list/admin-account-list.component';
+import { AdminAccountUpdateComponent } from './accounts/admin-account-update/admin-account-update.component';
+import { AdminAccountChangePasswordComponent } from './accounts/admin-change-account-password/admin-account-change-password.component';
 import { AdminRoutingModule } from './admin-routing.module';
 import { AdminComponent } from './admin.component';
 
 @NgModule({
   declarations: [
     AdminComponent,
-    AdminUserListComponent,
-    AdminUserDetailsComponent,
-    AdminUserCreateComponent,
-    AdminUserUpdateComponent,
-    AdminUserChangePasswordComponent
+    AdminAccountListComponent,
+    AdminAccountDetailsComponent,
+    AdminAccountCreateComponent,
+    AdminAccountUpdateComponent,
+    AdminAccountChangePasswordComponent
   ],
   imports: [
     CommonModule,

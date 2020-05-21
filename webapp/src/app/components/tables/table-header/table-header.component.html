@@ -9,9 +9,7 @@
     </span><!-- end text header -->
 
     <!-- sortable -->
-    <div *ngIf="header.sortable"
-         (click)="onClickOrder(header)"
-         class="cursor-pointer ml-auto">
+    <div *ngIf="header.sortable" (click)="onClickOrder(header)" class="cursor-pointer ml-auto">
       <!-- sort order -->
       <span *ngIf="header.orderType !== orderings.none">
         <span class="badge mr-2 opacity3">
