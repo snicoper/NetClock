@@ -7,7 +7,7 @@ using NetClock.Domain.Entities.Identity;
 
 namespace NetClock.Application.Admin.AdminAccounts.Commands.CreateAccount
 {
-    public class CreateUserValidator : AbstractValidator<CreateUserCommand>
+    public class CreateUserValidator : AbstractValidator<CreateAccountCommand>
     {
         public CreateUserValidator(
             IStringLocalizer<IdentityLocalizer> localizer,

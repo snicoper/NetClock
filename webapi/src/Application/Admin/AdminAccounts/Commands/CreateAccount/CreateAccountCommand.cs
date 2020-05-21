@@ -4,9 +4,9 @@ using NetClock.Domain.Entities.Identity;
 
 namespace NetClock.Application.Admin.AdminAccounts.Commands.CreateAccount
 {
-    public class CreateUserCommand : IRequest<CreateUserDto>
+    public class CreateAccountCommand : IRequest<CreateAccountDto>
     {
-        public CreateUserCommand(
+        public CreateAccountCommand(
             string userName,
             string firstName,
             string lastName,

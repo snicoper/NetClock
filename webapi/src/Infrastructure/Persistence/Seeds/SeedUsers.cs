@@ -63,7 +63,7 @@ namespace NetClock.Infrastructure.Persistence.Seeds
                 }
 
                 // Add role Superuser.
-                if (Array.IndexOf(superusers, newUser.UserName) < 0)
+                if (Array.IndexOf(superusers, newUser.UserName) == -1)
                 {
                     continue;
                 }

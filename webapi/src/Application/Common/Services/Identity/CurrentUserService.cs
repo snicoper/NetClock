@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
 using NetClock.Application.Common.Interfaces.Identity;
@@ -13,7 +14,7 @@ namespace NetClock.Application.Common.Services.Identity
             Id = httpContextAccessor.HttpContext?.User?.FindFirstValue(ClaimTypes.NameIdentifier);
             UserName = httpContextAccessor.HttpContext?.User?.FindFirstValue(ClaimTypes.Name);
             Email = httpContextAccessor.HttpContext?.User?.FindFirstValue(ClaimTypes.Email);
-            Roles = httpContextAccessor.HttpContext?.User?.FindFirstValue(ClaimTypes.Role)?.Split(",");
+            Roles = httpContextAccessor.HttpContext?.User?.FindAll(ClaimTypes.Role).Select(r => r.Value).ToList();
         }
 
         public ClaimsPrincipal User { get; }

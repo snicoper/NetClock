@@ -21,7 +21,7 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Admin.AdminAccountsContro
         {
             // Arrange
             await GetAuthenticatedClientAsync();
-            var data = new CreateUserCommand("testUser", "test", "User", "test@example.com", "123123", "123123", true);
+            var data = new CreateAccountCommand("testUser", "test", "User", "test@example.com", "123123", "123123", true);
             var requestContent = SerializerUtils.GetRequestContent(data);
 
             // Act
@@ -37,7 +37,7 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Admin.AdminAccountsContro
         {
             // Arrange
             await GetAuthenticatedClientAsync("Bob", "123456");
-            var data = new CreateUserCommand("testUser", "test", "User", "test@example.com", "123123", "123123", true);
+            var data = new CreateAccountCommand("testUser", "test", "User", "test@example.com", "123123", "123123", true);
             var requestContent = SerializerUtils.GetRequestContent(data);
 
             // Act
@@ -51,7 +51,7 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Admin.AdminAccountsContro
         public async Task Post_registro_usuario_no_authenticated_Unauthorized()
         {
             // Arrange
-            var data = new CreateUserCommand("testUser", "test", "User", "test@example.com", "123123", "123123", true);
+            var data = new CreateAccountCommand("testUser", "test", "User", "test@example.com", "123123", "123123", true);
             var requestContent = SerializerUtils.GetRequestContent(data);
 
             // Act
@@ -87,7 +87,7 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Admin.AdminAccountsContro
         {
             // Arrange
             await GetAuthenticatedClientAsync();
-            var data = new CreateUserCommand(username, firstName, lastName, email, password, confirmPassword, active);
+            var data = new CreateAccountCommand(username, firstName, lastName, email, password, confirmPassword, active);
             var requestContent = SerializerUtils.GetRequestContent(data);
 
             // Act

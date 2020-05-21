@@ -39,11 +39,11 @@ namespace NetClock.WebApi.Controllers.Admin
         [Authorize(Permissions.AdminAccounts.Create)]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<CreateUserDto>> CreateAccount(
-            CreateUserCommand createUserCommand,
+        public async Task<ActionResult<CreateAccountDto>> CreateAccount(
+            CreateAccountCommand createAccountCommand,
             ApiVersion version)
         {
-            var applicationUser = await Mediator.Send(createUserCommand);
+            var applicationUser = await Mediator.Send(createAccountCommand);
             var routeValues = new { slug = applicationUser.Slug, version = version.ToString() };
 
             return CreatedAtAction(nameof(GetBySlug), routeValues, applicationUser);
@@ -53,16 +53,17 @@ namespace NetClock.WebApi.Controllers.Admin
         [Authorize(Permissions.AdminAccounts.Update)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<UpdateUserDto>> UpdateAccount(UpdateUserCommand updateUserCommand)
+        public async Task<ActionResult<UpdateUserDto>> UpdateAccount(UpdateUserCommand updateAccountCommand)
         {
-            return await Mediator.Send(updateUserCommand);
+            return await Mediator.Send(updateAccountCommand);
         }
 
         [HttpPost("change-password")]
         [Authorize(Permissions.AdminAccounts.Update)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<Unit>> ChangePasswordAccount(ChangePasswordAccountCommand changePasswordAccountCommand)
+        public async Task<ActionResult<Unit>> ChangePasswordAccount(
+            ChangePasswordAccountCommand changePasswordAccountCommand)
         {
             return await Mediator.Send(changePasswordAccountCommand);
         }

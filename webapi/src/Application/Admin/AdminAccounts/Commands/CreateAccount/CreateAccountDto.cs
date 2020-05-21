@@ -1,8 +1,8 @@
 namespace NetClock.Application.Admin.AdminAccounts.Commands.CreateAccount
 {
-    public class CreateUserDto
+    public class CreateAccountDto
     {
-        public CreateUserDto(string slug)
+        public CreateAccountDto(string slug)
         {
             Slug = slug;
         }
