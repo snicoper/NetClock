@@ -4,8 +4,7 @@ import { ApiResult } from '../../../models';
 
 @Component({
   selector: 'nc-table',
-  templateUrl: './table.component.html',
-  styleUrls: ['./table.component.scss']
+  templateUrl: './table.component.html'
 })
 export class TableComponent<T> {
   @Input() apiResult: ApiResult<T>;

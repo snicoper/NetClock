@@ -8,11 +8,15 @@
 @import "~@fortawesome/fontawesome-free/scss/brands";
 
 // Bootstrap.
-@import "~bootstrap/scss/bootstrap";
+ @import "~bootstrap/scss/bootstrap";
 
 // Perfect scrollbar.
 @import '~perfect-scrollbar/css/perfect-scrollbar.css';
 
+// Mixins.
+@import "mixins/main";
+
+// Components.
 @import "base";
 @import "buttons";
 @import "fade-in";
