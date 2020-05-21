@@ -1,7 +1,7 @@
 using MediatR;
 using NetClock.Application.Common.Http;
 
-namespace NetClock.Application.Admin.AdminRoles.Queries
+namespace NetClock.Application.Admin.AdminRoles.Queries.GetRoles
 {
     public class GetRolesQuery : IRequest<ResponseData<GetRolesDto>>
     {

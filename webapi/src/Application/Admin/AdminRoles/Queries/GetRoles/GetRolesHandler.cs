@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using NetClock.Application.Common.Http;
 using NetClock.Application.Common.Interfaces.Http;
 
-namespace NetClock.Application.Admin.AdminRoles.Queries
+namespace NetClock.Application.Admin.AdminRoles.Queries.GetRoles
 {
     public class GetRolesHandler : IRequestHandler<GetRolesQuery, ResponseData<GetRolesDto>>
     {
