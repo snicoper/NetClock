@@ -10,12 +10,11 @@ namespace NetClock.Infrastructure.Persistence.Seeds
         public static async Task SeedAsync(IServiceProvider serviceProvider)
         {
             var logger = serviceProvider.GetRequiredService<ILogger<ApplicationDbContext>>();
-
             var dbContext = serviceProvider.GetRequiredService<ApplicationDbContext>();
             await dbContext.Database.EnsureCreatedAsync();
 
             await SeedRoles.SeedAsync(serviceProvider, logger);
-            await SeedPolicies.SeedAsync(serviceProvider, logger);
+            await SeedRoleClaims.SeedAsync(serviceProvider, logger);
             await SeedUsers.SeedAsync(serviceProvider, logger);
         }
     }

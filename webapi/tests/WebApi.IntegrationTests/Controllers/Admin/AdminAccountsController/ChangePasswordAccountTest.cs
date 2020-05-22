@@ -15,7 +15,8 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Admin.AdminAccountsContro
     {
         private readonly UserManager<ApplicationUser> _userManager;
 
-        public ChangePasswordAccountTest(CustomWebApplicationFactory<Startup> factory) : base(factory)
+        public ChangePasswordAccountTest(CustomWebApplicationFactory<Startup> factory)
+            : base(factory)
         {
             _userManager = ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
         }

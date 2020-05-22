@@ -20,15 +20,15 @@ namespace NetClock.Infrastructure.Persistence.Seeds
                 AppRoles.Employee
             };
 
+            if (await roleManager.Roles.AnyAsync())
+            {
+                return;
+            }
+
             foreach (var role in roles)
             {
-                if (await roleManager.Roles.AnyAsync(r => r.Name == role))
-                {
-                    logger.LogInformation($"Role {role} ya existe en la base de datos");
-                    continue;
-                }
-
-                await roleManager.CreateAsync(new IdentityRole { Name = role });
+                var newRole = new IdentityRole { Name = role };
+                await roleManager.CreateAsync(newRole);
                 logger.LogInformation($"Role {role} creado con éxito");
             }
         }

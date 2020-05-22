@@ -1,6 +1,5 @@
 using System.Net;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using NetClock.Application.Admin.AdminRoles.Queries.GetRol;
@@ -16,7 +15,8 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Admin.AdminRolesControlle
     {
         private readonly IdentityRole _rol;
 
-        public GetRolTest(CustomWebApplicationFactory<Startup> factory) : base(factory)
+        public GetRolTest(CustomWebApplicationFactory<Startup> factory)
+            : base(factory)
         {
             var roleManager = ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
             _rol = roleManager.FindByNameAsync(AppRoles.Superuser).GetAwaiter().GetResult();
