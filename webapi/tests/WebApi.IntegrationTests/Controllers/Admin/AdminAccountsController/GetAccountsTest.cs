@@ -10,9 +10,9 @@ using Xunit;
 
 namespace NetClock.WebApi.IntegrationTests.Controllers.Admin.AdminAccountsController
 {
-    public class GetAccountsTests : BaseControllerTest
+    public class GetAccountsTest : BaseControllerTest
     {
-        public GetAccountsTests(CustomWebApplicationFactory<Startup> factory)
+        public GetAccountsTest(CustomWebApplicationFactory<Startup> factory)
             : base(factory)
         {
             BaseUrl = Utilities.ComposeUri("admin/accounts");
@@ -60,7 +60,7 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Admin.AdminAccountsContro
             response.StatusCode.ShouldBe(HttpStatusCode.Unauthorized);
         }
 
-        [Fact(Skip = "Cuando se implemente los permisos")]
+        [Fact]
         public async Task Get_obtener_lista_de_usuarios_registrado_sin_permisos_Unauthorized()
         {
             // Arrange

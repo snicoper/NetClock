@@ -11,11 +11,11 @@ using Xunit;
 
 namespace NetClock.WebApi.IntegrationTests.Controllers.Admin.AdminAccountsController
 {
-    public class UpdateAccountTests : BaseControllerTest
+    public class UpdateAccountTest : BaseControllerTest
     {
         private readonly UserManager<ApplicationUser> _userManager;
 
-        public UpdateAccountTests(CustomWebApplicationFactory<Startup> factory)
+        public UpdateAccountTest(CustomWebApplicationFactory<Startup> factory)
             : base(factory)
         {
             _userManager = ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();

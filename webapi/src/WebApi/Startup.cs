@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using NetClock.Application;
+using NetClock.Application.Common.Constants;
 using NetClock.Domain;
 using NetClock.Infrastructure;
 using NetClock.Infrastructure.Persistence;
@@ -49,6 +50,13 @@ namespace NetClock.WebApi
 
             // Localization.
             services.AddLocalization(options => options.ResourcesPath = "Resources");
+
+            // Configure supported languages.
+            services.Configure<RequestLocalizationOptions>(options =>
+            {
+                options.SupportedCultures = Cultures.SupportedCultures;
+                options.SupportedUICultures = Cultures.SupportedCultures;
+            });
 
             // Routing.
             services.AddRouting(options => { options.LowercaseUrls = true; });

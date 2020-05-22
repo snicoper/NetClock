@@ -8,9 +8,9 @@ using Xunit;
 
 namespace NetClock.WebApi.IntegrationTests.Controllers.LocalizationController
 {
-    public class SetCulture : BaseControllerTest
+    public class SetCultureTest : BaseControllerTest
     {
-        public SetCulture(CustomWebApplicationFactory<Startup> factory)
+        public SetCultureTest(CustomWebApplicationFactory<Startup> factory)
             : base(factory)
         {
             BaseUrl = Utilities.ComposeUri("localization");

@@ -8,9 +8,9 @@ using Xunit;
 
 namespace NetClock.WebApi.IntegrationTests.Controllers.Admin.AdminAccountsController
 {
-    public class CreateAccountTests : BaseControllerTest
+    public class CreateAccountTest : BaseControllerTest
     {
-        public CreateAccountTests(CustomWebApplicationFactory<Startup> factory)
+        public CreateAccountTest(CustomWebApplicationFactory<Startup> factory)
             : base(factory)
         {
             BaseUrl = Utilities.ComposeUri("admin/accounts");

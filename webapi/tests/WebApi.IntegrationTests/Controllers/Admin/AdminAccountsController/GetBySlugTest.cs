@@ -11,9 +11,9 @@ using Xunit;
 
 namespace NetClock.WebApi.IntegrationTests.Controllers.Admin.AdminAccountsController
 {
-    public class GetBySlugTests : BaseControllerTest
+    public class GetBySlugTest : BaseControllerTest
     {
-        public GetBySlugTests(CustomWebApplicationFactory<Startup> factory)
+        public GetBySlugTest(CustomWebApplicationFactory<Startup> factory)
             : base(factory)
         {
         }

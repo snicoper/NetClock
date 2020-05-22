@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Localization;
 using NetClock.Application.Common.Constants;
 
 namespace NetClock.WebApi.Extensions.Configure
@@ -9,20 +10,14 @@ namespace NetClock.WebApi.Extensions.Configure
         {
             // Localization.
             // @see: https://docs.microsoft.com/es-es/openspecs/windows_protocols/ms-lcid/a9eac961-e77d-41a6-90a5-ce1a8b0cdb9c
-            var supportedCultures = new[]
+            var localizationOptions = new RequestLocalizationOptions
             {
-                SupportedCultures.EsEs,
-                SupportedCultures.EsCa,
-                SupportedCultures.EnGb
+                SupportedCultures = Cultures.SupportedCultures,
+                SupportedUICultures = Cultures.SupportedCultures,
+                DefaultRequestCulture = new RequestCulture(Cultures.DefaultCulture)
             };
 
-            app.UseRequestLocalization(options =>
-            {
-                options
-                    .AddSupportedCultures(supportedCultures)
-                    .AddSupportedUICultures(supportedCultures)
-                    .SetDefaultCulture(SupportedCultures.DefaultCulture);
-            });
+            app.UseRequestLocalization(localizationOptions);
         }
     }
 }
