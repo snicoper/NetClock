@@ -2,7 +2,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using NetClock.Application.Admin.AdminRoles.Queries.GetRole;
+using NetClock.Application.Admin.AdminRoles.Queries.GetRol;
 using NetClock.Application.Admin.AdminRoles.Queries.GetRoles;
 using NetClock.Application.Common.Api;
 using NetClock.Application.Common.Authorization;
@@ -26,9 +26,9 @@ namespace NetClock.WebApi.Controllers.Admin
         [Authorize(Permissions.AdminRoles.View)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<GetRoleDto>> GetRol(string id)
+        public async Task<ActionResult<GetRolDto>> GetRol(string id)
         {
-            return await Mediator.Send(new GetRoleQuery(id));
+            return await Mediator.Send(new GetRolQuery(id));
         }
     }
 }

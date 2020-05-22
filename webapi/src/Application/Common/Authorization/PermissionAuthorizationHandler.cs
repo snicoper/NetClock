@@ -1,5 +1,6 @@
 using System.Linq;
 using System.Threading.Tasks;
+using IdentityServer4.Extensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using NetClock.Domain.Entities.Identity;
@@ -23,7 +24,7 @@ namespace NetClock.Application.Common.Authorization
             AuthorizationHandlerContext context,
             PermissionRequirement requirement)
         {
-            if (context.User == null)
+            if (!context.User.IsAuthenticated() || context.User == null)
             {
                 return;
             }

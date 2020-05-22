@@ -2,9 +2,9 @@ using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using NetClock.Application.Common.Mappings;
 
-namespace NetClock.Application.Admin.AdminRoles.Queries.GetRole
+namespace NetClock.Application.Admin.AdminRoles.Queries.GetRol
 {
-    public class GetRoleDto : IMapFrom<IdentityRole>
+    public class GetRolDto : IMapFrom<IdentityRole>
     {
         public string Id { get; set; }
 
@@ -12,9 +12,9 @@ namespace NetClock.Application.Admin.AdminRoles.Queries.GetRole
 
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<IdentityRole, GetRoleDto>();
+            profile.CreateMap<IdentityRole, GetRolDto>();
 
-            profile.CreateMap<GetRoleDto, IdentityRole>()
+            profile.CreateMap<GetRolDto, IdentityRole>()
                 .ForMember(dest => dest.ConcurrencyStamp, opt => opt.Ignore())
                 .ForMember(dest => dest.NormalizedName, opt => opt.Ignore());
         }
