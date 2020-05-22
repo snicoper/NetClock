@@ -5,10 +5,10 @@ using NetClock.Domain.Entities;
 
 namespace NetClock.Application.Common.Interfaces.Database
 {
-    public interface IApplicationDbContext
-    {
-        DbSet<Schedule> Schedules { get; set; }
-
-        Task<int> SaveChangesAsync(CancellationToken cancellationToken);
-    }
+    // public interface IApplicationDbContext
+    // {
+    //     DbSet<Schedule> Schedules { get; set; }
+    //
+    //     Task<int> SaveChangesAsync(CancellationToken cancellationToken);
+    // }
 }

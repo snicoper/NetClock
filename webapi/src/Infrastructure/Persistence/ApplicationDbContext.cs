@@ -1,13 +1,11 @@
 using System;
-using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using IdentityServer4.EntityFramework.Options;
-using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using NetClock.Application.Common.Interfaces.Common;
-using NetClock.Application.Common.Interfaces.Database;
 using NetClock.Application.Common.Interfaces.Identity;
 using NetClock.Domain.Common;
 using NetClock.Domain.Entities;
@@ -15,7 +13,11 @@ using NetClock.Domain.Entities.Identity;
 
 namespace NetClock.Infrastructure.Persistence
 {
-    public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>, IApplicationDbContext
+    public class ApplicationDbContext
+        : IdentityDbContext<
+            ApplicationUser, ApplicationRole, string,
+            ApplicationUserClaim, ApplicationUserRole, ApplicationUserLogin,
+            ApplicationRoleClaim, ApplicationUserToken>
     {
         private readonly ICurrentUserService _currentUserService;
         private readonly IDateTime _dateTime;
@@ -25,7 +27,7 @@ namespace NetClock.Infrastructure.Persistence
             IOptions<OperationalStoreOptions> operationalStoreOptions,
             ICurrentUserService currentUserService,
             IDateTime dateTime)
-            : base(options, operationalStoreOptions)
+            : base(options)
         {
             _currentUserService = currentUserService;
             _dateTime = dateTime;
@@ -59,19 +61,6 @@ namespace NetClock.Infrastructure.Persistence
             }
 
             return base.SaveChangesAsync(cancellationToken);
-        }
-
-        protected override void OnModelCreating(ModelBuilder builder)
-        {
-            base.OnModelCreating(builder);
-
-            builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
-        }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            base.OnConfiguring(optionsBuilder);
-            // optionsBuilder.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
         }
     }
 }

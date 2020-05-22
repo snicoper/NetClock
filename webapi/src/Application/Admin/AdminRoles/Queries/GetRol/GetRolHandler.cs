@@ -5,16 +5,17 @@ using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using NetClock.Application.Common.Exceptions;
+using NetClock.Domain.Entities.Identity;
 
 namespace NetClock.Application.Admin.AdminRoles.Queries.GetRol
 {
     public class GetRolHandler : IRequestHandler<GetRolQuery, GetRolDto>
     {
         private readonly IMapper _mapper;
-        private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly RoleManager<ApplicationRole> _roleManager;
         private readonly ILogger<GetRolHandler> _logger;
 
-        public GetRolHandler(IMapper mapper, RoleManager<IdentityRole> roleManager, ILogger<GetRolHandler> logger)
+        public GetRolHandler(IMapper mapper, RoleManager<ApplicationRole> roleManager, ILogger<GetRolHandler> logger)
         {
             _mapper = mapper;
             _roleManager = roleManager;
@@ -32,7 +33,7 @@ namespace NetClock.Application.Admin.AdminRoles.Queries.GetRol
             }
 
             _logger.LogWarning($"El rol {request.Id} no existe en la base de datos");
-            throw new NotFoundException(nameof(IdentityRole), nameof(IdentityRole.Id));
+            throw new NotFoundException(nameof(ApplicationRole), nameof(ApplicationRole.Id));
         }
     }
 }

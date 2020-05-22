@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using NetClock.Application.Common.Authorization;
+using NetClock.Domain.Entities.Identity;
 
 namespace NetClock.Infrastructure.Persistence.Seeds
 {
@@ -12,7 +13,7 @@ namespace NetClock.Infrastructure.Persistence.Seeds
     {
         public static async Task SeedAsync(IServiceProvider serviceProvider, ILogger<ApplicationDbContext> logger)
         {
-            var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+            var roleManager = serviceProvider.GetRequiredService<RoleManager<ApplicationRole>>();
             var roles = new[]
             {
                 AppRoles.Superuser,
@@ -27,7 +28,7 @@ namespace NetClock.Infrastructure.Persistence.Seeds
 
             foreach (var role in roles)
             {
-                var newRole = new IdentityRole { Name = role };
+                var newRole = new ApplicationRole { Name = role };
                 await roleManager.CreateAsync(newRole);
                 logger.LogInformation($"Role {role} creado con éxito");
             }

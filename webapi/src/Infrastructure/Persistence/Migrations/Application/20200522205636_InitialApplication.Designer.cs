@@ -10,7 +10,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace NetClock.Infrastructure.Persistence.Migrations.Application
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200520230708_InitialApplication")]
+    [Migration("20200522205636_InitialApplication")]
     partial class InitialApplication
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -21,89 +21,7 @@ namespace NetClock.Infrastructure.Persistence.Migrations.Application
                 .HasAnnotation("ProductVersion", "3.1.4")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
-            modelBuilder.Entity("IdentityServer4.EntityFramework.Entities.DeviceFlowCodes", b =>
-                {
-                    b.Property<string>("UserCode")
-                        .HasColumnType("character varying(200)")
-                        .HasMaxLength(200);
-
-                    b.Property<string>("ClientId")
-                        .IsRequired()
-                        .HasColumnType("character varying(200)")
-                        .HasMaxLength(200);
-
-                    b.Property<DateTime>("CreationTime")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<string>("Data")
-                        .IsRequired()
-                        .HasColumnType("character varying(50000)")
-                        .HasMaxLength(50000);
-
-                    b.Property<string>("DeviceCode")
-                        .IsRequired()
-                        .HasColumnType("character varying(200)")
-                        .HasMaxLength(200);
-
-                    b.Property<DateTime?>("Expiration")
-                        .IsRequired()
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<string>("SubjectId")
-                        .HasColumnType("character varying(200)")
-                        .HasMaxLength(200);
-
-                    b.HasKey("UserCode");
-
-                    b.HasIndex("DeviceCode")
-                        .IsUnique();
-
-                    b.HasIndex("Expiration");
-
-                    b.ToTable("DeviceCodes");
-                });
-
-            modelBuilder.Entity("IdentityServer4.EntityFramework.Entities.PersistedGrant", b =>
-                {
-                    b.Property<string>("Key")
-                        .HasColumnType("character varying(200)")
-                        .HasMaxLength(200);
-
-                    b.Property<string>("ClientId")
-                        .IsRequired()
-                        .HasColumnType("character varying(200)")
-                        .HasMaxLength(200);
-
-                    b.Property<DateTime>("CreationTime")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<string>("Data")
-                        .IsRequired()
-                        .HasColumnType("character varying(50000)")
-                        .HasMaxLength(50000);
-
-                    b.Property<DateTime?>("Expiration")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<string>("SubjectId")
-                        .HasColumnType("character varying(200)")
-                        .HasMaxLength(200);
-
-                    b.Property<string>("Type")
-                        .IsRequired()
-                        .HasColumnType("character varying(50)")
-                        .HasMaxLength(50);
-
-                    b.HasKey("Key");
-
-                    b.HasIndex("Expiration");
-
-                    b.HasIndex("SubjectId", "ClientId", "Type");
-
-                    b.ToTable("PersistedGrants");
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
+            modelBuilder.Entity("NetClock.Domain.Entities.Identity.ApplicationRole", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("text");
@@ -129,7 +47,7 @@ namespace NetClock.Infrastructure.Persistence.Migrations.Application
                     b.ToTable("AspNetRoles");
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+            modelBuilder.Entity("NetClock.Domain.Entities.Identity.ApplicationRoleClaim", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -146,95 +64,16 @@ namespace NetClock.Infrastructure.Persistence.Migrations.Application
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<string>("RoleId1")
+                        .HasColumnType("text");
+
                     b.HasKey("Id");
 
                     b.HasIndex("RoleId");
+
+                    b.HasIndex("RoleId1");
 
                     b.ToTable("AspNetRoleClaims");
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<string>("ClaimType")
-                        .HasColumnType("text");
-
-                    b.Property<string>("ClaimValue")
-                        .HasColumnType("text");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("AspNetUserClaims");
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
-                {
-                    b.Property<string>("LoginProvider")
-                        .HasColumnType("character varying(128)")
-                        .HasMaxLength(128);
-
-                    b.Property<string>("ProviderKey")
-                        .HasColumnType("character varying(128)")
-                        .HasMaxLength(128);
-
-                    b.Property<string>("ProviderDisplayName")
-                        .HasColumnType("text");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("LoginProvider", "ProviderKey");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("AspNetUserLogins");
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
-                {
-                    b.Property<string>("UserId")
-                        .HasColumnType("text");
-
-                    b.Property<string>("RoleId")
-                        .HasColumnType("text");
-
-                    b.HasKey("UserId", "RoleId");
-
-                    b.HasIndex("RoleId");
-
-                    b.ToTable("AspNetUserRoles");
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
-                {
-                    b.Property<string>("UserId")
-                        .HasColumnType("text");
-
-                    b.Property<string>("LoginProvider")
-                        .HasColumnType("character varying(128)")
-                        .HasMaxLength(128);
-
-                    b.Property<string>("Name")
-                        .HasColumnType("character varying(128)")
-                        .HasMaxLength(128);
-
-                    b.Property<string>("Value")
-                        .HasColumnType("text");
-
-                    b.HasKey("UserId", "LoginProvider", "Name");
-
-                    b.ToTable("AspNetUserTokens");
                 });
 
             modelBuilder.Entity("NetClock.Domain.Entities.Identity.ApplicationUser", b =>
@@ -263,17 +102,13 @@ namespace NetClock.Infrastructure.Persistence.Migrations.Application
                         .HasColumnType("boolean");
 
                     b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("character varying(50)")
-                        .HasMaxLength(50);
+                        .HasColumnType("text");
 
                     b.Property<DateTime>("LastModified")
                         .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("character varying(50)")
-                        .HasMaxLength(50);
+                        .HasColumnType("text");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("boolean");
@@ -302,9 +137,7 @@ namespace NetClock.Infrastructure.Persistence.Migrations.Application
                         .HasColumnType("text");
 
                     b.Property<string>("Slug")
-                        .IsRequired()
-                        .HasColumnType("character varying(256)")
-                        .HasMaxLength(256);
+                        .HasColumnType("text");
 
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("boolean");
@@ -322,13 +155,116 @@ namespace NetClock.Infrastructure.Persistence.Migrations.Application
                         .IsUnique()
                         .HasName("UserNameIndex");
 
-                    b.HasIndex("Slug")
-                        .IsUnique();
-
-                    b.HasIndex("FirstName", "LastName")
-                        .IsUnique();
-
                     b.ToTable("AspNetUsers");
+                });
+
+            modelBuilder.Entity("NetClock.Domain.Entities.Identity.ApplicationUserClaim", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("text");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("UserId1")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.HasIndex("UserId1");
+
+                    b.ToTable("AspNetUserClaims");
+                });
+
+            modelBuilder.Entity("NetClock.Domain.Entities.Identity.ApplicationUserLogin", b =>
+                {
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("character varying(128)")
+                        .HasMaxLength(128);
+
+                    b.Property<string>("ProviderKey")
+                        .HasColumnType("character varying(128)")
+                        .HasMaxLength(128);
+
+                    b.Property<string>("ProviderDisplayName")
+                        .HasColumnType("text");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("UserId1")
+                        .HasColumnType("text");
+
+                    b.HasKey("LoginProvider", "ProviderKey");
+
+                    b.HasIndex("UserId");
+
+                    b.HasIndex("UserId1");
+
+                    b.ToTable("AspNetUserLogins");
+                });
+
+            modelBuilder.Entity("NetClock.Domain.Entities.Identity.ApplicationUserRole", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("text");
+
+                    b.Property<string>("RoleId")
+                        .HasColumnType("text");
+
+                    b.Property<string>("RoleId1")
+                        .HasColumnType("text");
+
+                    b.Property<string>("UserId1")
+                        .HasColumnType("text");
+
+                    b.HasKey("UserId", "RoleId");
+
+                    b.HasIndex("RoleId");
+
+                    b.HasIndex("RoleId1");
+
+                    b.HasIndex("UserId1");
+
+                    b.ToTable("AspNetUserRoles");
+                });
+
+            modelBuilder.Entity("NetClock.Domain.Entities.Identity.ApplicationUserToken", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("text");
+
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("character varying(128)")
+                        .HasMaxLength(128);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("character varying(128)")
+                        .HasMaxLength(128);
+
+                    b.Property<string>("UserId1")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Value")
+                        .HasColumnType("text");
+
+                    b.HasKey("UserId", "LoginProvider", "Name");
+
+                    b.HasIndex("UserId1");
+
+                    b.ToTable("AspNetUserTokens");
                 });
 
             modelBuilder.Entity("NetClock.Domain.Entities.Schedule", b =>
@@ -367,55 +303,79 @@ namespace NetClock.Infrastructure.Persistence.Migrations.Application
                     b.ToTable("Schedules");
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+            modelBuilder.Entity("NetClock.Domain.Entities.Identity.ApplicationRoleClaim", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
-                        .WithMany()
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
-                {
-                    b.HasOne("NetClock.Domain.Entities.Identity.ApplicationUser", null)
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
-                {
-                    b.HasOne("NetClock.Domain.Entities.Identity.ApplicationUser", null)
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
-                {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                    b.HasOne("NetClock.Domain.Entities.Identity.ApplicationRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("NetClock.Domain.Entities.Identity.ApplicationUser", null)
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("NetClock.Domain.Entities.Identity.ApplicationRole", "Role")
+                        .WithMany("RoleClaims")
+                        .HasForeignKey("RoleId1");
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+            modelBuilder.Entity("NetClock.Domain.Entities.Identity.ApplicationUserClaim", b =>
                 {
                     b.HasOne("NetClock.Domain.Entities.Identity.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("NetClock.Domain.Entities.Identity.ApplicationUser", "User")
+                        .WithMany("Claims")
+                        .HasForeignKey("UserId1");
+                });
+
+            modelBuilder.Entity("NetClock.Domain.Entities.Identity.ApplicationUserLogin", b =>
+                {
+                    b.HasOne("NetClock.Domain.Entities.Identity.ApplicationUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("NetClock.Domain.Entities.Identity.ApplicationUser", "User")
+                        .WithMany("Logins")
+                        .HasForeignKey("UserId1");
+                });
+
+            modelBuilder.Entity("NetClock.Domain.Entities.Identity.ApplicationUserRole", b =>
+                {
+                    b.HasOne("NetClock.Domain.Entities.Identity.ApplicationRole", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("NetClock.Domain.Entities.Identity.ApplicationRole", "Role")
+                        .WithMany("UserRoles")
+                        .HasForeignKey("RoleId1");
+
+                    b.HasOne("NetClock.Domain.Entities.Identity.ApplicationUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("NetClock.Domain.Entities.Identity.ApplicationUser", "User")
+                        .WithMany("UserRoles")
+                        .HasForeignKey("UserId1");
+                });
+
+            modelBuilder.Entity("NetClock.Domain.Entities.Identity.ApplicationUserToken", b =>
+                {
+                    b.HasOne("NetClock.Domain.Entities.Identity.ApplicationUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("NetClock.Domain.Entities.Identity.ApplicationUser", "User")
+                        .WithMany("Tokens")
+                        .HasForeignKey("UserId1");
                 });
 #pragma warning restore 612, 618
         }

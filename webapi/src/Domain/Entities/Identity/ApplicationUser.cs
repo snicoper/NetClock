@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Identity;
 using NetClock.Domain.Extensions;
 
@@ -12,6 +13,14 @@ namespace NetClock.Domain.Entities.Identity
             Created = DateTime.Now;
             LastModified = DateTime.Now;
         }
+
+        public virtual ICollection<ApplicationUserClaim> Claims { get; set; }
+
+        public virtual ICollection<ApplicationUserLogin> Logins { get; set; }
+
+        public virtual ICollection<ApplicationUserToken> Tokens { get; set; }
+
+        public virtual ICollection<ApplicationUserRole> UserRoles { get; set; }
 
         public string Slug
         {

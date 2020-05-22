@@ -2,8 +2,8 @@ using System.Globalization;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.Extensions.DependencyInjection;
-using NetClock.Application.Common.Interfaces.Database;
 using NetClock.Application.Common.Localizations;
+using NetClock.Infrastructure.Persistence;
 using Newtonsoft.Json;
 
 namespace NetClock.WebApi.Extensions.ConfigureServices
@@ -22,7 +22,7 @@ namespace NetClock.WebApi.Extensions.ConfigureServices
                     options.SerializerSettings.DateFormatString = "yyyy-MM-dd'T'HH:mm:ss.FFFFFF'Z'";
                     options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
                 })
-                .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<IApplicationDbContext>())
+                .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<ApplicationDbContext>())
                 .AddDataAnnotationsLocalization(options =>
                 {
                     options.DataAnnotationLocalizerProvider = (type, factory)
