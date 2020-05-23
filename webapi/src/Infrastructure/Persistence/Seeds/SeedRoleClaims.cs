@@ -8,7 +8,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using NetClock.Application.Common.Authorization;
 using NetClock.Application.Common.Authorization.Constants;
-using NetClock.Domain.Entities.Identity;
 
 namespace NetClock.Infrastructure.Persistence.Seeds
 {
@@ -41,7 +40,7 @@ namespace NetClock.Infrastructure.Persistence.Seeds
             await dbContext.RoleClaims.AddRangeAsync(roleClaims);
             foreach (var roleClaim in roleClaims)
             {
-                dbContext.Entry(roleClaim).State = EntityState.Added;
+                dbContext.Entry(roleClaim).State = EntityState.Detached;
             }
 
             await dbContext.SaveChangesAsync();
@@ -59,7 +58,9 @@ namespace NetClock.Infrastructure.Persistence.Seeds
         {
             return new IdentityRoleClaim<string>()
             {
-                RoleId = role.Id, ClaimType = CustomClaimTypes.Permission, ClaimValue = claimValue
+                RoleId = role.Id,
+                ClaimType = CustomClaimTypes.Permission,
+                ClaimValue = claimValue
             };
         }
     }
