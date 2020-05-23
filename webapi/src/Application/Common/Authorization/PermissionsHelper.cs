@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using NetClock.Application.Common.Authorization.Constants;
 
 namespace NetClock.Application.Common.Authorization
 {

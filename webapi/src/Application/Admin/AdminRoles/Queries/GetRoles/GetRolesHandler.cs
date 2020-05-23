@@ -4,18 +4,17 @@ using MediatR;
 using Microsoft.AspNetCore.Identity;
 using NetClock.Application.Common.Http;
 using NetClock.Application.Common.Interfaces.Http;
-using NetClock.Domain.Entities.Identity;
 
 namespace NetClock.Application.Admin.AdminRoles.Queries.GetRoles
 {
     public class GetRolesHandler : IRequestHandler<GetRolesQuery, ResponseData<GetRolesDto>>
     {
-        private readonly RoleManager<ApplicationRole> _roleManager;
-        private readonly IResponseDataService<ApplicationRole, GetRolesDto> _responseDataService;
+        private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly IResponseDataService<IdentityRole, GetRolesDto> _responseDataService;
 
         public GetRolesHandler(
-            RoleManager<ApplicationRole> roleManager,
-            IResponseDataService<ApplicationRole, GetRolesDto> responseDataService)
+            RoleManager<IdentityRole> roleManager,
+            IResponseDataService<IdentityRole, GetRolesDto> responseDataService)
         {
             _roleManager = roleManager;
             _responseDataService = responseDataService;

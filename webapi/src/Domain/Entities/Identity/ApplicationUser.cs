@@ -14,14 +14,6 @@ namespace NetClock.Domain.Entities.Identity
             LastModified = DateTime.Now;
         }
 
-        public virtual ICollection<ApplicationUserClaim> Claims { get; set; }
-
-        public virtual ICollection<ApplicationUserLogin> Logins { get; set; }
-
-        public virtual ICollection<ApplicationUserToken> Tokens { get; set; }
-
-        public virtual ICollection<ApplicationUserRole> UserRoles { get; set; }
-
         public string Slug
         {
             get => UserName?.Slugify() ?? string.Empty;

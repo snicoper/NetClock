@@ -23,7 +23,7 @@ namespace NetClock.WebApi.Extensions.ConfigureServices
                     options.Password.RequireUppercase = false;
                     options.Password.RequireDigit = false;
                 })
-                .AddRoles<ApplicationRole>()
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddErrorDescriber<SpanishIdentityErrorDescriber>();
 

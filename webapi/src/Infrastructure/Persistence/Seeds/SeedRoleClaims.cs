@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using NetClock.Application.Common.Authorization;
+using NetClock.Application.Common.Authorization.Constants;
 using NetClock.Domain.Entities.Identity;
 
 namespace NetClock.Infrastructure.Persistence.Seeds
@@ -17,7 +18,7 @@ namespace NetClock.Infrastructure.Persistence.Seeds
         {
             // FIXME: Los tests no pasan.
             var dbContext = serviceProvider.GetRequiredService<ApplicationDbContext>();
-            var roleManager = serviceProvider.GetRequiredService<RoleManager<ApplicationRole>>();
+            var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
             var permissions = PermissionsHelper.GetAllPermissionValues().ToArray();
 
             // Role Superuser, all permissions.
@@ -47,16 +48,16 @@ namespace NetClock.Infrastructure.Persistence.Seeds
         }
 
         private static void AddClaimsRolesForEmployees(
-            ICollection<ApplicationRoleClaim> roleClaims,
-            ApplicationRole role)
+            ICollection<IdentityRoleClaim<string>> roleClaims,
+            IdentityRole role)
         {
             roleClaims.Add(CreateRoleClaim(role, Permissions.Accounts.View));
             roleClaims.Add(CreateRoleClaim(role, Permissions.Accounts.Update));
         }
 
-        private static ApplicationRoleClaim CreateRoleClaim(ApplicationRole role, string claimValue)
+        private static IdentityRoleClaim<string> CreateRoleClaim(IdentityRole role, string claimValue)
         {
-            return new ApplicationRoleClaim
+            return new IdentityRoleClaim<string>()
             {
                 RoleId = role.Id, ClaimType = CustomClaimTypes.Permission, ClaimValue = claimValue
             };

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using NetClock.Application.Admin.AdminRoles.Queries.GetRol;
 using NetClock.Application.Common.Authorization;
+using NetClock.Application.Common.Authorization.Constants;
 using NetClock.Application.Common.Utils;
 using NetClock.Domain.Entities.Identity;
 using NetClock.WebApi.IntegrationTests.Helpers;
@@ -14,12 +15,12 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Admin.AdminRolesControlle
 {
     public class GetRolTest : BaseControllerTest
     {
-        private readonly ApplicationRole _rol;
+        private readonly IdentityRole _rol;
 
         public GetRolTest(CustomWebApplicationFactory<Startup> factory)
             : base(factory)
         {
-            var roleManager = ServiceProvider.GetRequiredService<RoleManager<ApplicationRole>>();
+            var roleManager = ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
             _rol = roleManager.FindByNameAsync(AppRoles.Superuser).GetAwaiter().GetResult();
             BaseUrl = Utilities.ComposeUri($"admin/roles/{_rol.Id}");
         }

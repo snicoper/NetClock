@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using NetClock.Application.Common.Authorization;
+using NetClock.Application.Common.Authorization.Constants;
 using NetClock.Domain.Entities.Identity;
 using NetClock.Domain.Extensions;
 

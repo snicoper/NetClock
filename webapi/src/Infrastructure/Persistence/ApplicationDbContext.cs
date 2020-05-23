@@ -13,11 +13,7 @@ using NetClock.Domain.Entities.Identity;
 
 namespace NetClock.Infrastructure.Persistence
 {
-    public class ApplicationDbContext
-        : IdentityDbContext<
-            ApplicationUser, ApplicationRole, string,
-            ApplicationUserClaim, ApplicationUserRole, ApplicationUserLogin,
-            ApplicationRoleClaim, ApplicationUserToken>
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         private readonly ICurrentUserService _currentUserService;
         private readonly IDateTime _dateTime;

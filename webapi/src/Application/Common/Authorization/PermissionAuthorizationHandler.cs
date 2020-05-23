@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using IdentityServer4.Extensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using NetClock.Application.Common.Authorization.Constants;
 using NetClock.Domain.Entities.Identity;
 
 namespace NetClock.Application.Common.Authorization
@@ -10,11 +11,11 @@ namespace NetClock.Application.Common.Authorization
     internal class PermissionAuthorizationHandler : AuthorizationHandler<PermissionRequirement>
     {
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly RoleManager<ApplicationRole> _roleManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
         public PermissionAuthorizationHandler(
             UserManager<ApplicationUser> userManager,
-            RoleManager<ApplicationRole> roleManager)
+            RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
             _roleManager = roleManager;

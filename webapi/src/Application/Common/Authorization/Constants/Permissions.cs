@@ -1,4 +1,4 @@
-namespace NetClock.Application.Common.Authorization
+namespace NetClock.Application.Common.Authorization.Constants
 {
     /// <summary>
     /// Permisos de los controllers.
