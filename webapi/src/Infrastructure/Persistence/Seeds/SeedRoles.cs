@@ -4,9 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using NetClock.Application.Common.Authorization;
 using NetClock.Application.Common.Authorization.Constants;
-using NetClock.Domain.Entities.Identity;
 
 namespace NetClock.Infrastructure.Persistence.Seeds
 {

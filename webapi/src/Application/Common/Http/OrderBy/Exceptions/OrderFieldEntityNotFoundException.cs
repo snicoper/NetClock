@@ -1,6 +1,6 @@
 using System;
 
-namespace NetClock.Application.Common.Http.OrderBy
+namespace NetClock.Application.Common.Http.OrderBy.Exceptions
 {
     public class OrderFieldEntityNotFoundException : Exception
     {

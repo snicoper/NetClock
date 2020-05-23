@@ -4,6 +4,7 @@ using System.Linq;
 using System.Linq.Dynamic.Core;
 using System.Linq.Expressions;
 using NetClock.Application.Common.Extensions;
+using NetClock.Application.Common.Http.OrderBy.Exceptions;
 using NetClock.Domain.Entities.Identity;
 using Newtonsoft.Json;
 

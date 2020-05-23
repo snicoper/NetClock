@@ -10,11 +10,10 @@ namespace NetClock.Application.Common.Utils
     public static class ReflectionUtils
     {
         /// <summary>
-        /// Obtener todos los valores de las contantes de una clase concreta.
+        /// Obtener todos los valores de un tipo en las contantes de una clase concreta.
         /// </summary>
         /// <see cref="PermissionsHelper"/>
         /// <typeparam name="T">Tipo de valor de las contantes.</typeparam>
-        /// <returns></returns>
         public static IEnumerable<T> GetAllConstantValues<T>(this IReflect type)
         {
             return type

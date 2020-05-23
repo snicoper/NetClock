@@ -9,7 +9,6 @@ using NetClock.Application.Admin.AdminAccounts.Commands.UpdateAccount;
 using NetClock.Application.Admin.AdminAccounts.Queries.GetAccounts;
 using NetClock.Application.Admin.AdminAccounts.Queries.GetBySlug;
 using NetClock.Application.Common.Api;
-using NetClock.Application.Common.Authorization;
 using NetClock.Application.Common.Authorization.Constants;
 using NetClock.Application.Common.Http;
 
