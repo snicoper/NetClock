@@ -56,7 +56,7 @@ namespace NetClock.Infrastructure.Persistence.Seeds
 
         private static IdentityRoleClaim<string> CreateRoleClaim(IdentityRole role, string claimValue)
         {
-            return new IdentityRoleClaim<string>()
+            return new IdentityRoleClaim<string>
             {
                 RoleId = role.Id,
                 ClaimType = CustomClaimTypes.Permission,
