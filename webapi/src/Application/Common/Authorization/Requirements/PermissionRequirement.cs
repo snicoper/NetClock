@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 
-namespace NetClock.Application.Common.Authorization
+namespace NetClock.Application.Common.Authorization.Requirements
 {
     internal class PermissionRequirement : IAuthorizationRequirement
     {

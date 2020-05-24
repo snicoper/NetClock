@@ -4,6 +4,7 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.DependencyInjection;
 using NetClock.Application.Common.Authorization;
+using NetClock.Application.Common.Authorization.Handlers;
 using NetClock.Application.Common.Behaviours;
 using NetClock.Application.Common.Interfaces.Http;
 using NetClock.Application.Common.Services.Http;
@@ -23,7 +24,7 @@ namespace NetClock.Application
 
             services.AddHttpContextAccessor();
 
-            // Authorization handler.
+            // Authorization.
             services.AddSingleton<IAuthorizationPolicyProvider, PermissionPolicyProvider>();
             services.AddScoped<IAuthorizationHandler, PermissionAuthorizationHandler>();
 

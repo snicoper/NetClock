@@ -4,9 +4,10 @@ using IdentityServer4.Extensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using NetClock.Application.Common.Authorization.Constants;
+using NetClock.Application.Common.Authorization.Requirements;
 using NetClock.Domain.Entities.Identity;
 
-namespace NetClock.Application.Common.Authorization
+namespace NetClock.Application.Common.Authorization.Handlers
 {
     internal class PermissionAuthorizationHandler : AuthorizationHandler<PermissionRequirement>
     {

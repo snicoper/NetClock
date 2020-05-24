@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using NetClock.Application.Common.Authorization.Constants;
+using NetClock.Application.Common.Extensions;
 using NetClock.Application.Common.Utils;
 
-namespace NetClock.Application.Common.Authorization
+namespace NetClock.Application.Common.Authorization.Constants
 {
     public static class PermissionsHelper
     {
@@ -12,7 +12,7 @@ namespace NetClock.Application.Common.Authorization
         {
             var types = GetPermissionTypes();
 
-            return types.SelectMany(ReflectionUtils.GetAllConstantValues<string>).ToList();
+            return types.SelectMany(ReflectionExtensions.GetAllConstantValues<string>).ToList();
         }
 
         private static IEnumerable<Type> GetPermissionTypes()
