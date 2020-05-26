@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using NetClock.Application.Common.Authorization;
 using NetClock.Application.Common.Authorization.Constants;
 
 namespace NetClock.Infrastructure.Persistence.Seeds
@@ -38,11 +36,6 @@ namespace NetClock.Infrastructure.Persistence.Seeds
             logger.LogInformation($"Se han creado los claims para el role {role.Name}");
 
             await dbContext.RoleClaims.AddRangeAsync(roleClaims);
-            foreach (var roleClaim in roleClaims)
-            {
-                dbContext.Entry(roleClaim).State = EntityState.Detached;
-            }
-
             await dbContext.SaveChangesAsync();
         }
 
