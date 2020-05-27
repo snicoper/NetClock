@@ -61,7 +61,7 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Admin.AdminAccountsContro
         }
 
         [Fact]
-        public async Task Get_obtener_lista_de_usuarios_registrado_sin_permisos_Unauthorized()
+        public async Task Get_obtener_lista_de_usuarios_registrado_sin_permisos_Forbiden()
         {
             // Arrange
             await GetAuthenticatedClientAsync("Bob", "123456");
@@ -70,7 +70,7 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Admin.AdminAccountsContro
             var response = await Client.GetAsync(BaseUrl);
 
             // Assert
-            response.StatusCode.ShouldBe(HttpStatusCode.Unauthorized);
+            response.StatusCode.ShouldBe(HttpStatusCode.Forbidden);
         }
     }
 }
