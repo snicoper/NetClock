@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
@@ -13,48 +14,40 @@ namespace NetClock.Infrastructure.Persistence.Seeds
     {
         public static async Task SeedAsync(IServiceProvider serviceProvider, ILogger<ApplicationDbContext> logger)
         {
-            // FIXME: Los tests no pasan.
-            var dbContext = serviceProvider.GetRequiredService<ApplicationDbContext>();
             var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
             var permissions = PermissionsHelper.GetAllPermissionValues().ToArray();
 
             // Role Superuser, all permissions.
             var role = await roleManager.FindByNameAsync(AppRoles.Superuser);
-            var roleClaims = permissions
-                .Select(permission => CreateRoleClaim(role, permission))
-                .ToList();
+            await AddClaimsAsync(roleManager, role, permissions);
             logger.LogInformation($"Se han creado los claims para el role {role.Name}");
 
-            // Role Staff, all permissions.
+            // Role Staff.
             role = await roleManager.FindByNameAsync(AppRoles.Staff);
-            roleClaims.AddRange(permissions.Select(permission => CreateRoleClaim(role, permission)));
+            await AddClaimsAsync(roleManager, role, permissions);
             logger.LogInformation($"Se han creado los claims para el role {role.Name}");
 
             // Role Employee.
             role = await roleManager.FindByNameAsync(AppRoles.Employee);
-            AddClaimsRolesForEmployees(roleClaims, role);
-            logger.LogInformation($"Se han creado los claims para el role {role.Name}");
-
-            await dbContext.RoleClaims.AddRangeAsync(roleClaims);
-            await dbContext.SaveChangesAsync();
-        }
-
-        private static void AddClaimsRolesForEmployees(
-            ICollection<IdentityRoleClaim<string>> roleClaims,
-            IdentityRole role)
-        {
-            roleClaims.Add(CreateRoleClaim(role, Permissions.Accounts.View));
-            roleClaims.Add(CreateRoleClaim(role, Permissions.Accounts.Update));
-        }
-
-        private static IdentityRoleClaim<string> CreateRoleClaim(IdentityRole role, string claimValue)
-        {
-            return new IdentityRoleClaim<string>
+            var permissionsRoleEmployee = new[]
             {
-                RoleId = role.Id,
-                ClaimType = CustomClaimTypes.Permission,
-                ClaimValue = claimValue
+                Permissions.Accounts.View,
+                Permissions.Accounts.Update
             };
+
+            await AddClaimsAsync(roleManager, role, permissionsRoleEmployee);
+            logger.LogInformation($"Se han creado los claims para el role {role.Name}");
+        }
+
+        private static async Task AddClaimsAsync(
+            RoleManager<IdentityRole> roleManager,
+            IdentityRole role,
+            IEnumerable<string> claims)
+        {
+            foreach (var claim in claims)
+            {
+                await roleManager.AddClaimAsync(role, new Claim(CustomClaimTypes.Permission, claim));
+            }
         }
     }
 }

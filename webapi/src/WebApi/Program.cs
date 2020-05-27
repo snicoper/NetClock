@@ -51,7 +51,7 @@ namespace NetClock.WebApi
                     var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
                     await context.Database.MigrateAsync();
 
-                    await ApplicationDbContextSeed.SeedAsync(scope.ServiceProvider);
+                    await ApplicationDbContextSeed.SeedAsync(scope.ServiceProvider, context);
                     Log.Information("Done seeding database.");
 
                     return;

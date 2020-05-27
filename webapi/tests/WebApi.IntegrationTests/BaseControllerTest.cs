@@ -3,6 +3,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using IdentityModel.Client;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using NetClock.Application.Accounts.Auth.Commands.Login;
 using NetClock.Application.Common.Utils;
 using NetClock.Infrastructure.Persistence;
@@ -55,9 +56,10 @@ namespace NetClock.WebApi.IntegrationTests
         /// </summary>
         private async Task RestoreDatabase()
         {
-            var dbContext = ServiceProvider.GetRequiredService<ApplicationDbContext>();
-            await dbContext.Database.EnsureDeletedAsync();
-            await ApplicationDbContextSeed.SeedAsync(ServiceProvider);
+            var iHost = ServiceProvider.GetRequiredService<IHost>();
+            using var scope = iHost.Services.CreateScope();
+            var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+            await ApplicationDbContextSeed.SeedAsync(ServiceProvider, dbContext);
         }
     }
 }
