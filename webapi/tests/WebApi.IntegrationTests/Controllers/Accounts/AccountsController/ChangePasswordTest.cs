@@ -24,7 +24,7 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Accounts.AccountsControll
         {
             // Arrange
             await GetAuthenticatedClientAsync();
-            var userManager = ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+            var userManager = Factory.Services.GetRequiredService<UserManager<ApplicationUser>>();
             var user = await userManager.FindByNameAsync("Admin");
             var data = new ChangePasswordCommand(user.Id, "123456", "1234567", "1234567");
             var requestContent = SerializerUtils.GetRequestContent(data);
@@ -43,7 +43,7 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Accounts.AccountsControll
         {
             // Arrange
             await GetAuthenticatedClientAsync();
-            var userManager = ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+            var userManager = Factory.Services.GetRequiredService<UserManager<ApplicationUser>>();
             var user = await userManager.FindByNameAsync("Admin");
             var data = new ChangePasswordCommand(user.Id, "123456789", "1234567", "1234567");
             var requestContent = SerializerUtils.GetRequestContent(data);
@@ -60,7 +60,7 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Accounts.AccountsControll
         {
             // Arrange
             await GetAuthenticatedClientAsync();
-            var userManager = ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+            var userManager = Factory.Services.GetRequiredService<UserManager<ApplicationUser>>();
             var user = await userManager.FindByNameAsync("Admin");
             var data = new ChangePasswordCommand(user.Id, "123456", "1234567", "1234567999");
             var requestContent = SerializerUtils.GetRequestContent(data);

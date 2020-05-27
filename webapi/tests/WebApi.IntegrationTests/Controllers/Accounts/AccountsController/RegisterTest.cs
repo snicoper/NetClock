@@ -77,7 +77,7 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Accounts.AccountsControll
             var guid = Guid.NewGuid().ToString().Substring(0, 7);
             var data = new RegisterCommand(guid, guid, guid, $"{guid}@example.com", "123456", "123456");
             var requestContent = SerializerUtils.GetRequestContent(data);
-            var userManager = ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+            var userManager = Factory.Services.GetRequiredService<UserManager<ApplicationUser>>();
 
             // Act
             var response = await Client.PostAsync(BaseUrl, requestContent);

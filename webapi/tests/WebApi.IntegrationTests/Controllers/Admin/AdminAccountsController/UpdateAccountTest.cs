@@ -18,7 +18,7 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Admin.AdminAccountsContro
         public UpdateAccountTest(CustomWebApplicationFactory<Startup> factory)
             : base(factory)
         {
-            _userManager = ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+            _userManager = Factory.Services.GetRequiredService<UserManager<ApplicationUser>>();
         }
 
         [Fact]

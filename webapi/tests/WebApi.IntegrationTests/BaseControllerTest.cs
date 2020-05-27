@@ -1,4 +1,3 @@
-using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 using IdentityModel.Client;
@@ -16,16 +15,14 @@ namespace NetClock.WebApi.IntegrationTests
     public class BaseControllerTest : IClassFixture<CustomWebApplicationFactory<Startup>>
     {
         protected readonly CustomWebApplicationFactory<Startup> Factory;
-        protected readonly IServiceProvider ServiceProvider;
         protected readonly HttpClient Client;
         protected string BaseUrl;
 
         protected BaseControllerTest(CustomWebApplicationFactory<Startup> factory)
         {
             Factory = factory;
-            ServiceProvider = Factory.Services;
-            RestoreDatabase().GetAwaiter().GetResult();
             Client = Factory.CreateClient();
+            RestoreDatabase().GetAwaiter().GetResult();
         }
 
         protected async Task GetAuthenticatedClientAsync()
@@ -56,10 +53,10 @@ namespace NetClock.WebApi.IntegrationTests
         /// </summary>
         private async Task RestoreDatabase()
         {
-            var iHost = ServiceProvider.GetRequiredService<IHost>();
-            using var scope = iHost.Services.CreateScope();
+            var host = Factory.Services.GetRequiredService<IHost>();
+            using var scope = host.Services.CreateScope();
             var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-            await ApplicationDbContextSeed.SeedAsync(ServiceProvider, dbContext);
+            await ApplicationDbContextSeed.SeedAsync(Factory.Services, dbContext);
         }
     }
 }

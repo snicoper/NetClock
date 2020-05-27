@@ -71,7 +71,7 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Accounts.AuthController
         public async Task Post_usuario_no_activo_no_puede_loguear_BadRequest()
         {
             // Arrange
-            var userManager = ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+            var userManager = Factory.Services.GetRequiredService<UserManager<ApplicationUser>>();
             var bob = await userManager.FindByNameAsync("Bob");
             bob.Active = false;
             await userManager.UpdateAsync(bob);

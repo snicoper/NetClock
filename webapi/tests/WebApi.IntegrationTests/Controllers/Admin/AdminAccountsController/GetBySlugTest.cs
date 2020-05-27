@@ -23,7 +23,7 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Admin.AdminAccountsContro
         {
             // Arrange
             await GetAuthenticatedClientAsync();
-            var userManager = ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+            var userManager = Factory.Services.GetRequiredService<UserManager<ApplicationUser>>();
             var userBob = await userManager.FindByNameAsync("Bob");
             var uri = Utilities.ComposeUri($"admin/accounts/{userBob.Slug}");
 
@@ -41,7 +41,7 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Admin.AdminAccountsContro
         {
             // Arrange
             await GetAuthenticatedClientAsync("Bob", "123456");
-            var userManager = ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+            var userManager = Factory.Services.GetRequiredService<UserManager<ApplicationUser>>();
             var userBob = await userManager.FindByNameAsync("Bob");
             var uri = Utilities.ComposeUri($"admin/accounts/{userBob.Slug}");
 
@@ -57,7 +57,7 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Admin.AdminAccountsContro
         public async Task Get_usuario_no_logueado_obtiene_resultado_Unauthorized()
         {
             // Arrange
-            var userManager = ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+            var userManager = Factory.Services.GetRequiredService<UserManager<ApplicationUser>>();
             var userBob = await userManager.FindByNameAsync("Bob");
             var uri = Utilities.ComposeUri($"admin/accounts/{userBob.Slug}");
 

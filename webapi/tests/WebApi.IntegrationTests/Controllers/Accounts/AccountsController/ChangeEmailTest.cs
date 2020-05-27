@@ -24,7 +24,7 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Accounts.AccountsControll
         {
             // Arrange
             await GetAuthenticatedClientAsync();
-            var userManager = ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+            var userManager = Factory.Services.GetRequiredService<UserManager<ApplicationUser>>();
             var user = await userManager.FindByNameAsync("Admin");
             var data = new ChangeEmailCommand(user.Id, "nuevo@example.com");
             var requestContent = SerializerUtils.GetRequestContent(data);
@@ -41,7 +41,7 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Accounts.AccountsControll
         {
             // Arrange
             await GetAuthenticatedClientAsync();
-            var userManager = ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+            var userManager = Factory.Services.GetRequiredService<UserManager<ApplicationUser>>();
             var user = await userManager.FindByNameAsync("Admin");
             var data = new ChangeEmailCommand("123123213", user.Email);
             var requestContent = SerializerUtils.GetRequestContent(data);
@@ -60,7 +60,7 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Accounts.AccountsControll
         {
             // Arrange
             await GetAuthenticatedClientAsync();
-            var userManager = ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+            var userManager = Factory.Services.GetRequiredService<UserManager<ApplicationUser>>();
             var user = await userManager.FindByNameAsync("Admin");
             var data = new ChangeEmailCommand(user.Id, email);
             var requestContent = SerializerUtils.GetRequestContent(data);
