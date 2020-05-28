@@ -15,7 +15,6 @@ using NetClock.Infrastructure;
 using NetClock.Infrastructure.Persistence;
 using NetClock.WebApi.Extensions.Configure;
 using NetClock.WebApi.Extensions.ConfigureServices;
-using NetClock.WebApi.Middlewares;
 
 namespace NetClock.WebApi
 {
@@ -108,8 +107,6 @@ namespace NetClock.WebApi
             app.UseCors(DefaultCors);
 
             app.UseHttpsRedirection();
-
-            app.UseMiddleware(typeof(CustomExceptionHandlerMiddleware));
 
             app.UseStaticFiles();
 

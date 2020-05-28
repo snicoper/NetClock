@@ -37,6 +37,13 @@ namespace NetClock.Application.Common.Services.Identity
             _logger = logger;
         }
 
+        public async Task<string> GetUserNameAsync(string userId)
+        {
+            var user = await _userManager.Users.FirstAsync(u => u.Id == userId);
+
+            return user.UserName;
+        }
+
         public async Task<ApplicationUser> FirstOrDefaultBySlugAsync(string slug)
         {
             return await _userManager.Users.FirstOrDefaultAsync(u => u.Slug == slug);

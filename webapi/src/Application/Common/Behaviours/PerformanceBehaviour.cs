@@ -7,13 +7,13 @@ using NetClock.Application.Common.Interfaces.Identity;
 
 namespace NetClock.Application.Common.Behaviours
 {
-    public class RequestPerformanceBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
+    public class PerformanceBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
     {
         private readonly Stopwatch _timer;
         private readonly ILogger<TRequest> _logger;
         private readonly ICurrentUserService _currentUserService;
 
-        public RequestPerformanceBehaviour(ILogger<TRequest> logger, ICurrentUserService currentUserService)
+        public PerformanceBehaviour(ILogger<TRequest> logger, ICurrentUserService currentUserService)
         {
             _timer = new Stopwatch();
             _logger = logger;

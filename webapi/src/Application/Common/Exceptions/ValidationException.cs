@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using FluentValidation.Results;
-using NetClock.Application.Common.Extensions;
 
 namespace NetClock.Application.Common.Exceptions
 {
@@ -14,21 +13,18 @@ namespace NetClock.Application.Common.Exceptions
             Errors = new Dictionary<string, string[]>();
         }
 
-        public ValidationException(IReadOnlyCollection<ValidationFailure> errors)
+        public ValidationException(IEnumerable<ValidationFailure> failures)
             : this()
         {
-            var propertyNames = errors
-                .Select(e => e.PropertyName)
-                .Distinct();
+            var failureGroups = failures
+                .GroupBy(e => e.PropertyName, e => e.ErrorMessage);
 
-            foreach (var propertyName in propertyNames)
+            foreach (var failureGroup in failureGroups)
             {
-                var propertyErrors = errors
-                    .Where(e => e.PropertyName == propertyName)
-                    .Select(e => e.ErrorMessage)
-                    .ToArray();
+                var propertyName = failureGroup.Key;
+                var propertyFailures = failureGroup.ToArray();
 
-                Errors.Add(propertyName.LowerCaseFirst(), propertyErrors);
+                Errors.Add(propertyName, propertyFailures);
             }
         }
 

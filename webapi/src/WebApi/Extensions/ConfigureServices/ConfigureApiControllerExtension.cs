@@ -2,6 +2,7 @@ using System.Globalization;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.Extensions.DependencyInjection;
 using NetClock.Application.Common.Localizations;
+using NetClock.WebApi.Filters;
 using Newtonsoft.Json;
 
 namespace NetClock.WebApi.Extensions.ConfigureServices
@@ -11,7 +12,10 @@ namespace NetClock.WebApi.Extensions.ConfigureServices
         public static IServiceCollection ConfigureApiControllers(this IServiceCollection services)
         {
             services
-                .AddControllers()
+                .AddControllers(options =>
+                {
+                    options.Filters.Add(new ApiExceptionFilter());
+                })
                 .AddNewtonsoftJson(options =>
                 {
                     options.SerializerSettings.Culture = CultureInfo.CurrentCulture;
