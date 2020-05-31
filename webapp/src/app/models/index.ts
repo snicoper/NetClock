@@ -1,7 +1,7 @@
-export { OrderType } from './api-result/order-type';
-export { ApiResultItemOrderBy } from './api-result/api-result-item-order-by';
-export { LogicalOperator } from './api-result/logical-operator';
-export { RelationalOperator } from './api-result/relational-operator';
-export { ApiResultItemFilter } from './api-result/api-result-item-filter';
 export { ApiResult } from './api-result/api-result';
+export { ApiResultItemFilter } from './api-result/api-result-item-filter';
+export { ApiResultItemOrderBy } from './api-result/api-result-item-order-by';
 export { AuditableEntity } from './auditable-entity';
+export { LogicalOperator } from './api-result/types/logical-operator';
+export { OrderType } from './api-result/types/order-type';
+export { RelationalOperator } from './api-result/types/relational-operator';

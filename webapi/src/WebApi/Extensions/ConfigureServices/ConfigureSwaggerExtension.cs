@@ -9,7 +9,7 @@ namespace NetClock.WebApi.Extensions.ConfigureServices
     {
         public static IServiceCollection ConfigureSwagger(this IServiceCollection services)
         {
-            // Register the Swagger services.
+            // Register the Swagger.
             services.AddOpenApiDocument(configure =>
             {
                 configure.Title = "NetClock API";

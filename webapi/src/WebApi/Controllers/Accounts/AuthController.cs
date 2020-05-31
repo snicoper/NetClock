@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -19,7 +20,7 @@ namespace NetClock.WebApi.Controllers.Accounts
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<CurrentUserDto>> Login(LoginCommand loginCommand)
         {
-            return Ok(await Mediator.Send(loginCommand));
+            return await Mediator.Send(loginCommand);
         }
 
         [HttpPost("logout")]
@@ -48,10 +49,10 @@ namespace NetClock.WebApi.Controllers.Accounts
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult> RecoveryPasswordValidate(
+        public async Task<ActionResult<Unit>> RecoveryPasswordValidate(
             RecoveryPasswordValidateCommand recoveryPasswordValidateCommand)
         {
-            return Ok(await Mediator.Send(recoveryPasswordValidateCommand));
+            return await Mediator.Send(recoveryPasswordValidateCommand);
         }
     }
 }

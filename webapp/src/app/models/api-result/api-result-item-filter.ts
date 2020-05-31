@@ -1,5 +1,5 @@
-import { LogicalOperator } from './logical-operator';
-import { RelationalOperator } from './relational-operator';
+import { LogicalOperator } from './types/logical-operator';
+import { RelationalOperator } from './types/relational-operator';
 
 export class ApiResultItemFilter {
   propertyName: string;

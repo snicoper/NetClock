@@ -6,7 +6,7 @@ import { SidebarMenuItemsModel } from './sidebar-menu-items.model';
   providedIn: 'root'
 })
 export class SidebarService {
-  menus: Array<any>;
+  menus: any[];
   toggled = false;
 
   constructor() {
@@ -42,7 +42,7 @@ export class SidebarService {
     return this.menus;
   }
 
-  private loadFromLocalStorage(): Array<any> {
+  private loadFromLocalStorage(): any[] {
     return JSON.parse(localStorage.getItem('sidebar'));
   }
 

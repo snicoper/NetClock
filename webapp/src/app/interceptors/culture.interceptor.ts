@@ -2,7 +2,7 @@ import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/c
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { LocalizationService } from '../services/localization.service';
+import { LocalizationService } from '../services';
 
 @Injectable()
 export class CultureInterceptor implements HttpInterceptor {

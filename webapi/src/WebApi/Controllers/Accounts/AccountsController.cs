@@ -32,9 +32,9 @@ namespace NetClock.WebApi.Controllers.Accounts
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> RegisterValidateCode(RegisterValidateCommand registerValidateCommand)
+        public async Task<ActionResult<Unit>> RegisterValidateCode(RegisterValidateCommand registerValidateCommand)
         {
-            return Ok(await Mediator.Send(registerValidateCommand));
+            return await Mediator.Send(registerValidateCommand);
         }
 
         [HttpPost("change-password")]

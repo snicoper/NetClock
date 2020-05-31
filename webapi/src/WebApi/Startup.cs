@@ -103,22 +103,15 @@ namespace NetClock.WebApi
         {
             app.ConfigureCulture();
             app.ConfigureByEnvironment(env);
-
             app.UseCors(DefaultCors);
-
             app.UseHttpsRedirection();
-
             app.UseStaticFiles();
-
             app.UseOpenApi();
             app.UseSwaggerUi3(settings => { settings.Path = string.Empty; });
             app.UseReDoc(settings => { settings.Path = "/docs"; });
-
             app.UseRouting();
-
             app.UseAuthentication();
             app.UseAuthorization();
-
             app.ConfigureEndpoints();
         }
     }

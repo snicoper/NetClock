@@ -1,8 +1,8 @@
 import { ApiResultItemFilter } from './api-result-item-filter';
 import { ApiResultItemOrderBy } from './api-result-item-order-by';
-import { LogicalOperator } from './logical-operator';
-import { OrderType } from './order-type';
-import { RelationalOperator } from './relational-operator';
+import { LogicalOperator } from './types/logical-operator';
+import { OrderType } from './types/order-type';
+import { RelationalOperator } from './types/relational-operator';
 
 export class ApiResult<T> {
   hasPreviousPage: boolean;

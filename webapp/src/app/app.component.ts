@@ -1,7 +1,7 @@
 import { DOCUMENT } from '@angular/common';
 import { Component, Inject } from '@angular/core';
 
-import { LocalizationService } from './services/localization.service';
+import { LocalizationService } from './services';
 
 @Component({
   selector: 'nc-root',

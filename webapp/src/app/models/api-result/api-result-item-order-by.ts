@@ -1,4 +1,4 @@
-import { OrderType } from './order-type';
+import { OrderType } from './types/order-type';
 
 export class ApiResultItemOrderBy {
   propertyName: string;
