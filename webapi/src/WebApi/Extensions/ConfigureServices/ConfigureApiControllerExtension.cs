@@ -14,7 +14,7 @@ namespace NetClock.WebApi.Extensions.ConfigureServices
             services
                 .AddControllers(options =>
                 {
-                    options.Filters.Add(new ApiExceptionFilter());
+                    options.Filters.Add(new ApiExceptionFilterAttribute());
                 })
                 .AddNewtonsoftJson(options =>
                 {
