@@ -1,6 +1,6 @@
 namespace NetClock.Application.Common.Constants
 {
-    public abstract class EmailTemplates
+    public static class EmailTemplates
     {
         // Accounts.
         public const string RegisterUser = "Accounts/RegisterUser";

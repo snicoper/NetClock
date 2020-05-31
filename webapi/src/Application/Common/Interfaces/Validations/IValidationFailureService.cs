@@ -18,7 +18,7 @@ namespace NetClock.Application.Common.Interfaces.Validations
         /// <summary>
         /// Añadir un error.
         /// </summary>
-        void Add(string key, string value);
+        void Add(string property, string error);
 
         /// <summary>
         /// Añadir un diccionario con errores.

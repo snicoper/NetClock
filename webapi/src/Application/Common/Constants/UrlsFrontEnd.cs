@@ -1,6 +1,6 @@
 namespace NetClock.Application.Common.Constants
 {
-    public abstract class UrlsFrontEnd
+    public static class UrlsFrontEnd
     {
         // Auth.
         public const string AccountsRecoveryPasswordValidate = "auth/recovery-password/validate";

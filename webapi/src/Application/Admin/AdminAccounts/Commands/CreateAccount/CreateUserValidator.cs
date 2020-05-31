@@ -20,7 +20,7 @@ namespace NetClock.Application.Admin.AdminAccounts.Commands.CreateAccount
             RuleFor(v => v.Password).MinimumLength(6);
             RuleFor(v => v.ConfirmPassword)
                 .Equal(v => v.Password)
-                .WithMessage(localizer["Las contraseñas deben ser iguales"]);;
+                .WithMessage(localizer["Las contraseñas deben ser iguales"]);
         }
     }
 }
