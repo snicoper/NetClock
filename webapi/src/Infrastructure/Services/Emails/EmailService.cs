@@ -103,17 +103,17 @@ namespace NetClock.Infrastructure.Services.Emails
         {
             if (string.IsNullOrEmpty(Subject))
             {
-                throw new ArgumentNullException(nameof(EmailService), "El campo Subject es requerido");
+                throw new ArgumentNullException($"El campo {nameof(Subject)} es requerido");
             }
 
             if (string.IsNullOrEmpty(Body))
             {
-                throw new ArgumentNullException(nameof(EmailService), "El campo Body es requerido");
+                throw new ArgumentNullException($"El campo {nameof(Body)} es requerido");
             }
 
             if (!To.Any())
             {
-                throw new ArgumentNullException(nameof(EmailService), "El campo To al menos requiere un destinatario");
+                throw new ArgumentNullException($"El campo {nameof(To)} al menos requiere un destinatario");
             }
         }
 

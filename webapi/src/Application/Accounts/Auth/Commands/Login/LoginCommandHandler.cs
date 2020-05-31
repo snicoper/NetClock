@@ -1,3 +1,4 @@
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -6,6 +7,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 using NetClock.Application.Common.Constants;
@@ -27,24 +29,16 @@ namespace NetClock.Application.Accounts.Auth.Commands.Login
         private readonly IValidationFailureService _validationFailureService;
         private readonly ILogger<LoginCommandHandler> _logger;
 
-        public LoginCommandHandler(
-            IMapper mapper,
-            IStringLocalizer<IdentityLocalizer> localizer,
-            IHttpContextAccessor httpContextAccessor,
-            IJwtSecurityTokenService jwtSecurityTokenService,
-            SignInManager<ApplicationUser> signInManager,
-            UserManager<ApplicationUser> userManager,
-            IValidationFailureService validationFailureService,
-            ILogger<LoginCommandHandler> logger)
+        public LoginCommandHandler(IServiceProvider serviceProvider)
         {
-            _mapper = mapper;
-            _localizer = localizer;
-            _httpContextAccessor = httpContextAccessor;
-            _jwtSecurityTokenService = jwtSecurityTokenService;
-            _signInManager = signInManager;
-            _userManager = userManager;
-            _validationFailureService = validationFailureService;
-            _logger = logger;
+            _mapper = serviceProvider.GetRequiredService<IMapper>();
+            _localizer = serviceProvider.GetRequiredService<IStringLocalizer<IdentityLocalizer>>();
+            _httpContextAccessor = serviceProvider.GetRequiredService<IHttpContextAccessor>();
+            _jwtSecurityTokenService = serviceProvider.GetRequiredService<IJwtSecurityTokenService>();
+            _signInManager = serviceProvider.GetRequiredService<SignInManager<ApplicationUser>>();
+            _userManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+            _validationFailureService = serviceProvider.GetRequiredService<IValidationFailureService>();
+            _logger = serviceProvider.GetRequiredService<ILogger<LoginCommandHandler>>();
         }
 
         public async Task<CurrentUserDto> Handle(LoginCommand request, CancellationToken cancellationToken)

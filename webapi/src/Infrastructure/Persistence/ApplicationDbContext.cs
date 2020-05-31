@@ -52,7 +52,7 @@ namespace NetClock.Infrastructure.Persistence
                     case EntityState.Deleted:
                         break;
                     default:
-                        throw new ArgumentOutOfRangeException();
+                        throw new ArgumentOutOfRangeException($@"Estado ""{entry.State}"" no implementado");
                 }
             }
 

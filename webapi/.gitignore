@@ -8,6 +8,7 @@ node_modules/
 # Editors and IDEs
 .idea/
 .vs/
+.sonarqube
 
 # Build results
 [Dd]ebug/

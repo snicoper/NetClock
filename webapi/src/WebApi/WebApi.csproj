@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <Version>0.0.1</Version>
     <RootNamespace>NetClock.WebApi</RootNamespace>
     <AssemblyName>NetClock.WebApi</AssemblyName>
     <UserSecretsId>aspnet-netclock-6c9ba5ff-19f7-4984-bfc9-281d3df753c2</UserSecretsId>

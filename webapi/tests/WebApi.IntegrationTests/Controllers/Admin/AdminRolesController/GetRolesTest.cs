@@ -33,13 +33,15 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.Admin.AdminRolesControlle
         }
 
         [Fact]
-        public async Task Get_obtener_lista_roles_anonimo_Forbidden()
+        public Task Get_obtener_lista_roles_anonimo_Forbidden()
         {
+            return Task.CompletedTask;
         }
 
         [Fact]
-        public async Task Get_obtener_lista_roles_requiere_superuser_staff_Forbidden()
+        public Task Get_obtener_lista_roles_requiere_superuser_staff_Forbidden()
         {
+            return Task.CompletedTask;
         }
     }
 }
