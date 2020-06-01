@@ -5,8 +5,7 @@ import { SiteUrls } from '../../core';
 
 @Component({
   selector: 'nc-admin',
-  templateUrl: './admin.component.html',
-  styleUrls: ['./admin.component.scss']
+  templateUrl: './admin.component.html'
 })
 export class AdminComponent implements OnInit {
   breadcrumb = new BreadcrumbCollection();
