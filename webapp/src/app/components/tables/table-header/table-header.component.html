@@ -17,15 +17,15 @@
         </span>
 
         <span>
-          <i *ngIf="header.orderType !== orderings.none"
+          <span *ngIf="header.orderType !== orderings.none"
              [ngClass]="{'fa-rotate-180': header.orderType === orderings.ascending}"
              class="fas fa-angle-down arrow opacity3">
-          </i>
+          </span>
         </span>
       </span>
 
       <span *ngIf="header.orderType === orderings.none" class="ml-auto opacity3">
-        <i class="fas fa-arrows-alt-v"></i>
+        <span class="fas fa-arrows-alt-v"></span>
       </span><!-- end sort order -->
     </div><!-- end sortable -->
   </div>

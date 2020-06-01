@@ -17,7 +17,7 @@
             <nc-non-field-errors [errors]="errors"></nc-non-field-errors>
             <div class="form-group">
               <div class="input-group has-icon">
-                <i class="fas fa-user has-icon-left"></i>
+                <span class="fas fa-user has-icon-left"></span>
                 <input [ngClass]="{'is-invalid': submitted && control('userName').errors}"
                        formControlName="userName"
                        class="form-control"
@@ -35,7 +35,7 @@
 
             <div class="form-group mt-4">
               <div class="input-group has-icon">
-                <i class="fas fa-unlock-alt has-icon-left"></i>
+                <span class="fas fa-unlock-alt has-icon-left"></span>
                 <input [ngClass]="{'is-invalid': submitted && control('password').errors}"
                        formControlName="password"
                        class="form-control"
@@ -52,7 +52,7 @@
 
             <button [disabled]="loading" class="btn btn-block btn-primary mt-4">
         <span *ngIf="!loading">
-          <i class="fas fa-sign-in-alt"></i>
+          <span class="fas fa-sign-in-alt"></span>
           Identificarse
         </span>
               <nc-spinner [loading]="loading" text="loading" color="text-white"></nc-spinner>
@@ -60,7 +60,7 @@
 
             <div class="text-center small mt-3">
               <a [routerLink]="[urlsApp.recoveryPassword]">
-                <i class="fas fa-unlock-alt"></i> Recuperar contraseña
+                <span class="fas fa-unlock-alt"></span> Recuperar contraseña
               </a>
             </div>
           </form>

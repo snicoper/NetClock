@@ -11,9 +11,9 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class IconBooleanPipe implements PipeTransform {
   transform(value: boolean): string {
     if (value) {
-      return '<i class="fas fa-check text-success"></i>';
+      return '<span class="fas fa-check text-success"></span>';
     }
 
-    return '<i class="fas fa-times text-danger"></i>';
+    return '<span class="fas fa-times text-danger"></span>';
   }
 }

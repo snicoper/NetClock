@@ -18,7 +18,7 @@
       <li *ngIf="!apiResult.hasPreviousPage" class="page-item disabled">
         <a class="page-link" href="#" aria-label="Previous">
           <span aria-hidden="true">
-            <i class="fas fa-angle-double-left text-muted"></i>
+            <span class="fas fa-angle-double-left text-muted"></span>
           </span>
           <span class="sr-only">Previous</span>
         </a>
@@ -27,7 +27,7 @@
       <li *ngIf="apiResult.hasPreviousPage" class="page-item" tooltip="Primera">
         <a (click)="onChangePage(1)" class="page-link cursor-pointer" aria-label="Previous">
           <span aria-hidden="true">
-            <i class="fas fa-angle-double-left"></i>
+            <span class="fas fa-angle-double-left"></span>
           </span>
           <span class="sr-only">Previous</span>
         </a>
@@ -37,7 +37,7 @@
       <li *ngIf="!apiResult.hasPreviousPage" class="page-item disabled mr-2">
         <a class="page-link" href="#" aria-label="Previous">
           <span aria-hidden="true">
-            <i class="fas fa-angle-left text-muted"></i>
+            <span class="fas fa-angle-left text-muted"></span>
           </span>
           <span class="sr-only">Previous</span>
         </a>
@@ -45,7 +45,7 @@
       <li *ngIf="apiResult.hasPreviousPage" class="page-item mr-2" tooltip="Anterior">
         <a (click)="onChangePage(apiResult.pageNumber - 1)" class="page-link cursor-pointer" aria-label="Previous">
           <span aria-hidden="true">
-            <i class="fas fa-angle-left"></i>
+            <span class="fas fa-angle-left"></span>
           </span>
           <span class="sr-only">Previous</span>
         </a>
@@ -66,7 +66,7 @@
       <li *ngIf="!apiResult.hasNextPage" class="page-item disabled ml-2">
         <a class="page-link" href="#" aria-label="Previous">
           <span aria-hidden="true">
-            <i class="fas fa-angle-right text-muted"></i>
+            <span class="fas fa-angle-right text-muted"></span>
           </span>
           <span class="sr-only">Previous</span>
         </a>
@@ -75,7 +75,7 @@
       <li *ngIf="apiResult.hasNextPage" class="page-item ml-2" tooltip="Siguiente">
         <a (click)="onChangePage(apiResult.pageNumber + 1)" class="page-link cursor-pointer" aria-label="Next">
           <span aria-hidden="true">
-            <i class="fas fa-angle-right"></i>
+            <span class="fas fa-angle-right"></span>
           </span>
           <span class="sr-only">Next</span>
         </a>
@@ -85,7 +85,7 @@
       <li *ngIf="!apiResult.hasNextPage" class="page-item disabled">
         <a class="page-link" href="#" aria-label="Next">
           <span aria-hidden="true">
-            <i class="fas fa-angle-double-right text-muted"></i>
+            <span class="fas fa-angle-double-right text-muted"></span>
           </span>
           <span class="sr-only">Next</span>
         </a>
@@ -93,7 +93,7 @@
       <li *ngIf="apiResult.hasNextPage" class="page-item" tooltip="Última">
         <a (click)="onChangePage(apiResult.totalPages)" class="page-link cursor-pointer" aria-label="Next">
           <span aria-hidden="true">
-            <i class="fas fa-angle-double-right"></i>
+            <span class="fas fa-angle-double-right"></span>
           </span>
           <span class="sr-only">Next</span>
         </a>

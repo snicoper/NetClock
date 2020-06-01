@@ -67,7 +67,7 @@
         <div class="col-12">
           <button [disabled]="updating" class="btn btn-primary" type="submit">
             <span *ngIf="updating">
-              <i class="fas fa-circle-notch fa-spin"></i>
+              <span class="fas fa-circle-notch fa-spin"></span>
             </span>
             Editar usuario
           </button>
@@ -77,7 +77,7 @@
 
     <div *ngIf="accountNotFound" class="text-center">
       <h5>
-        <i class="fas fa-user-slash"></i>
+        <span class="fas fa-user-slash"></span>
         Usuario {{ slug }} no encontrado
       </h5>
     </div>

@@ -1,7 +1,7 @@
 <nav *ngIf="breadcrumb.hasItems()" class="nav-breadcrumb" aria-label="breadcrumb">
   <ol class="breadcrumb bg-white shadow-sm">
     <li (click)="toggleSidebar()" class="hide-sidebar small mr-2 cursor-pointer">
-      <i class="fas fa-bars"></i>
+      <span class="fas fa-bars"></span>
     </li>
 
     <li *ngFor="let breadcrumb of breadcrumb.getItems()"
@@ -9,13 +9,13 @@
         class="breadcrumb-item small">
       <a *ngIf="breadcrumb.active" [routerLink]="breadcrumb.link">
         <span *ngIf="breadcrumb.icon" class="icon is-small">
-          <i [ngClass]="breadcrumb.icon" aria-hidden="true"></i>
+          <span [ngClass]="breadcrumb.icon" aria-hidden="true"></span>
         </span>
         {{breadcrumb.text}}
       </a>
 
       <span *ngIf="!breadcrumb.active" class="text-muted">
-        <i [ngClass]="breadcrumb.icon" aria-hidden="true"></i>
+        <span [ngClass]="breadcrumb.icon" aria-hidden="true"></span>
         {{breadcrumb.text}}
       </span>
     </li>
