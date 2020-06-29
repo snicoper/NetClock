@@ -1,21 +1,19 @@
 import { HttpClient } from '@angular/common/http';
 import { OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
+
+import { RaiseError } from '../core';
 import { ApiResult } from '../models';
-import { DebugService } from './debug.service';
 
 export abstract class ApiRestBaseService implements OnInit {
   protected baseUrl: string;
 
-  protected constructor(
-    protected http: HttpClient,
-    protected debugService: DebugService
-  ) {
+  protected constructor(protected http: HttpClient) {
   }
 
   ngOnInit(): void {
     if (!this.baseUrl) {
-      this.debugService.raiseError('baseUrl no puede estar vacío.');
+      RaiseError('baseUrl no puede estar vacío.');
     }
   }
 

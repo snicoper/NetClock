@@ -7,8 +7,7 @@ import { finalize } from 'rxjs/operators';
 
 import { BreadcrumbCollection } from '../../../../components/breadcrumb/BreadcrumbCollection';
 import { FormInputTypes } from '../../../../components/forms/form-input/form-input-types.enum';
-import { SiteUrls } from '../../../../core';
-import { DebugService } from '../../../../services';
+import { DebugErrors, SiteUrls } from '../../../../core';
 import { AdminAccountUpdateResultModel } from './admin-account-update-result.model';
 import { AdminAccountUpdateModel } from './admin-account-update.model';
 import { AdminAccountUpdateService } from './admin-account-update.service';
@@ -35,8 +34,7 @@ export class AdminAccountUpdateComponent implements OnInit {
     private fb: FormBuilder,
     private router: Router,
     private route: ActivatedRoute,
-    private toastrService: ToastrService,
-    private debugService: DebugService
+    private toastrService: ToastrService
   ) {
     this.slug = this.route.snapshot.paramMap.get('slug');
   }
@@ -61,7 +59,7 @@ export class AdminAccountUpdateComponent implements OnInit {
         const url = SiteUrls.replace(SiteUrls.adminUserDetails, { slug: result.slug });
         this.router.navigate([url]);
       }, ((error) => {
-        this.debugService.errors(error.error);
+        DebugErrors(error.error);
         if (error.status === HttpStatus.BAD_REQUEST) {
           this.errors = error.error;
         }
@@ -77,7 +75,7 @@ export class AdminAccountUpdateComponent implements OnInit {
         this.setBreadcrumb();
         this.buildForm();
       }, (errors) => {
-        this.debugService.errors(errors);
+        DebugErrors(errors);
         if (errors.status === HttpStatus.NOT_FOUND) {
           this.accountNotFound = true;
         }

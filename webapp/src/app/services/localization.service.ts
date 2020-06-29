@@ -5,10 +5,9 @@ import * as moment from 'moment';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
+import { AppConfig } from '../app.config';
 import { ApiUrls } from '../core';
 import { ApiRestBaseService } from './api-rest-base.service';
-import { DebugService } from './debug.service';
-import { SettingsService } from './settings.service';
 
 @Injectable({ providedIn: 'root' })
 export class LocalizationService extends ApiRestBaseService implements OnDestroy {
@@ -21,12 +20,10 @@ export class LocalizationService extends ApiRestBaseService implements OnDestroy
 
   constructor(
     @Inject(DOCUMENT) private document: Document,
-    protected http: HttpClient,
-    protected debugService: DebugService,
-    private settingsService: SettingsService
+    protected http: HttpClient
   ) {
-    super(http, debugService);
-    this.baseUrl = `${this.settingsService.baseApiUrl}/${ApiUrls.localization}`;
+    super(http);
+    this.baseUrl = `${AppConfig.baseApiUrl}/${ApiUrls.localization}`;
 
     const culture = localStorage.getItem('culture');
     if (culture) {

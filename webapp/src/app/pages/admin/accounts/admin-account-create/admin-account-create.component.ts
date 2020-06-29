@@ -7,8 +7,7 @@ import { finalize } from 'rxjs/operators';
 
 import { BreadcrumbCollection } from '../../../../components/breadcrumb/BreadcrumbCollection';
 import { FormInputTypes } from '../../../../components/forms/form-input/form-input-types.enum';
-import { SiteUrls } from '../../../../core';
-import { DebugService } from '../../../../services';
+import { DebugErrors, SiteUrls } from '../../../../core';
 import { PasswordMustMatch } from '../../../../validators';
 import { AdminAccountCreateResult } from './admin-account-create-result.model';
 import { AdminAccountCreateService } from './admin-account-create.service';
@@ -30,8 +29,7 @@ export class AdminAccountCreateComponent implements OnInit {
     private fb: FormBuilder,
     private adminUserCreateService: AdminAccountCreateService,
     private router: Router,
-    private toastrService: ToastrService,
-    private debugService: DebugService
+    private toastrService: ToastrService
   ) {
   }
 
@@ -56,7 +54,7 @@ export class AdminAccountCreateComponent implements OnInit {
         this.toastrService.success('Usuario creado con éxito');
         this.router.navigate([url]);
       }, ((error) => {
-        this.debugService.errors(error.error);
+        DebugErrors(error.error);
         if (error.status === HttpStatus.BAD_REQUEST) {
           this.errors = error.error;
         }
