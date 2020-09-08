@@ -56,14 +56,14 @@ namespace NetClock.Infrastructure.Services.Validations
 
         public void RaiseException()
         {
-            throw new ValidationException(Errors);
+            throw new CustomValidationException(Errors);
         }
 
         public void RaiseExceptionIfExistsErrors()
         {
             if (HasErrors())
             {
-                throw new ValidationException(Errors);
+                throw new CustomValidationException(Errors);
             }
         }
     }

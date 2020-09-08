@@ -23,7 +23,7 @@ export class AdminAccountCreateComponent implements OnInit {
   errors = [];
   submitted = false;
   loading = false;
-  formTypes = FormInputTypes;
+  formInputTypes = FormInputTypes;
 
   constructor(
     private fb: FormBuilder,
@@ -46,19 +46,18 @@ export class AdminAccountCreateComponent implements OnInit {
 
     this.loading = true;
     this.adminUserCreateService.create(this.form.value)
-      .pipe(
-        finalize(() => this.loading = false)
-      )
+      .pipe(finalize(() => this.loading = false))
       .subscribe((result: AdminAccountCreateResult) => {
-        const url = SiteUrls.replace(SiteUrls.adminUserDetails, { slug: result.slug });
-        this.toastrService.success('Usuario creado con éxito');
-        this.router.navigate([url]);
-      }, ((error) => {
-        DebugErrors(error.error);
-        if (error.status === HttpStatus.BAD_REQUEST) {
-          this.errors = error.error;
-        }
-      }));
+          const url = SiteUrls.replace(SiteUrls.adminUserDetails, { slug: result.slug });
+          this.toastrService.success('Usuario creado con éxito');
+          this.router.navigate([url]);
+        },
+        ((error) => {
+          DebugErrors(error.error);
+          if (error.status === HttpStatus.BAD_REQUEST) {
+            this.errors = error.error;
+          }
+        }));
   }
 
   private setBreadcrumb(): void {

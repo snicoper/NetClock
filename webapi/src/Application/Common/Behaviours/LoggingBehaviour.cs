@@ -33,8 +33,12 @@ namespace NetClock.Application.Common.Behaviours
                 userName = await _identityService.GetUserNameAsync(userId);
             }
 
-            _logger.LogInformation("CleanArchitecture Request: {Name} {@UserId} {@UserName} {@Request}",
-                requestName, userId, userName, request);
+            _logger.LogInformation(
+                "NetClock Request: {Name} {@UserId} {@UserName} {@Request}",
+                requestName,
+                userId,
+                userName,
+                request);
         }
     }
 }

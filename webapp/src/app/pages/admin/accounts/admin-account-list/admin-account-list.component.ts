@@ -5,7 +5,7 @@ import { finalize } from 'rxjs/operators';
 
 import { BreadcrumbCollection } from '../../../../components/breadcrumb/BreadcrumbCollection';
 import { TableHeaderConfig } from '../../../../components/tables/table-header/table-header.config';
-import { SiteUrls } from '../../../../core';
+import { DebugErrors, SiteUrls } from '../../../../core';
 import { ApiResult } from '../../../../models';
 import { AdminAccountListHeaderConfig } from './admin-account-list-headers.config';
 import { AdminAccountListModel } from './admin-account-list.model';
@@ -66,7 +66,9 @@ export class AdminAccountListComponent implements OnInit, OnDestroy {
     this.adminUserListService.getAllPaginated(this.apiResult)
       .pipe(finalize(() => this.loading = false))
       .subscribe((result: ApiResult<AdminAccountListModel>) => {
-        this.apiResult = result;
-      });
+          this.apiResult = result;
+        }, (error) => {
+          DebugErrors(error);
+        });
   }
 }

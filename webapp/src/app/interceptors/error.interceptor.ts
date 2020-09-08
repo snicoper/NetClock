@@ -27,8 +27,6 @@ export class ErrorInterceptor implements HttpInterceptor {
         case HttpStatus.BAD_REQUEST:
           this.errorHandler();
           break;
-        default:
-        // Nothing.
       }
 
       return throwError(error);

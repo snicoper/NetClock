@@ -58,8 +58,7 @@ namespace NetClock.Application.Accounts.Accounts.Commands.ChangePassword
             }
 
             // Cambiar contraseña.
-            var changePasswordResult =
-                await _userManager.ChangePasswordAsync(user, request.OldPassword, request.NewPassword);
+            var changePasswordResult = await _userManager.ChangePasswordAsync(user, request.OldPassword, request.NewPassword);
             if (!changePasswordResult.Succeeded)
             {
                 foreach (var error in changePasswordResult.Errors)

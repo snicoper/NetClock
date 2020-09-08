@@ -9,10 +9,10 @@ namespace NetClock.Application.Common.Interfaces.Http
     /// Wrapper para inyectar IMapper a la paginación.
     /// </summary>
     /// <typeparam name="TQueryModel">Resultado IQueryable.</typeparam>
-    /// <typeparam name="TResultViewModel">Tipo a devolver en ResponseData.Items.</typeparam>
-    public interface IResponseDataService<in TQueryModel, TResultViewModel>
+    /// <typeparam name="TResultDto">Tipo a devolver en ResponseData.Items.</typeparam>
+    public interface IResponseDataService<in TQueryModel, TResultDto>
         where TQueryModel : class
-        where TResultViewModel : class
+        where TResultDto : class
     {
         /// <summary>
         /// Wrapper de ResponseData.CreateAsync().
@@ -21,7 +21,7 @@ namespace NetClock.Application.Common.Interfaces.Http
         /// <param name="request">RequestData original.</param>
         /// <param name="cancellationToken">Cancellation Token.</param>
         /// <returns>Un ResponseData con el resultado.</returns>
-        Task<ResponseData<TResultViewModel>> CreateAsync(
+        Task<ResponseData<TResultDto>> CreateAsync(
             IQueryable<TQueryModel> source,
             RequestData request,
             CancellationToken cancellationToken);

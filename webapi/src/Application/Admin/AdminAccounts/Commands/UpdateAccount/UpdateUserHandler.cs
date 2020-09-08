@@ -41,7 +41,6 @@ namespace NetClock.Application.Admin.AdminAccounts.Commands.UpdateAccount
             await ValidateDataIfExists(request);
 
             _logger.LogInformation($"Se ha obtenido correctamente el usuario {request.UserName}");
-            applicationUser = request.MappingToApplicationUser(applicationUser);
             await _userManager.UpdateAsync(applicationUser);
             _logger.LogInformation($"Se ha actualizado correctamente el usuario {request.UserName}");
 
@@ -51,8 +50,9 @@ namespace NetClock.Application.Admin.AdminAccounts.Commands.UpdateAccount
         private async Task ValidateDataIfExists(UpdateUserCommand request)
         {
             _logger.LogInformation($"Comprobar si el {nameof(request.UserName)} existe en la base de datos.");
-            var user = await _userManager.Users.AnyAsync(u =>
-                u.UserName.ToLower() == request.UserName.ToLower() && u.Id != request.Id);
+            var user = await _userManager
+                .Users
+                .AnyAsync(u => u.UserName.ToLower() == request.UserName.ToLower() && u.Id != request.Id);
 
             if (user)
             {

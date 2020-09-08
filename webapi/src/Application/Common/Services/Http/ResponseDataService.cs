@@ -7,10 +7,10 @@ using NetClock.Application.Common.Interfaces.Http;
 
 namespace NetClock.Application.Common.Services.Http
 {
-    public class ResponseDataService<TQueryModel, TResultViewModel>
-        : IResponseDataService<TQueryModel, TResultViewModel>
+    public class ResponseDataService<TQueryModel, TResultDto>
+        : IResponseDataService<TQueryModel, TResultDto>
         where TQueryModel : class
-        where TResultViewModel : class
+        where TResultDto : class
     {
         private readonly IMapper _mapper;
 
@@ -19,12 +19,12 @@ namespace NetClock.Application.Common.Services.Http
             _mapper = mapper;
         }
 
-        public async Task<ResponseData<TResultViewModel>> CreateAsync(
+        public async Task<ResponseData<TResultDto>> CreateAsync(
             IQueryable<TQueryModel> source,
             RequestData request,
             CancellationToken cancellationToken)
         {
-            return await ResponseData<TResultViewModel>.CreateAsync(source, request, _mapper, cancellationToken);
+            return await ResponseData<TResultDto>.CreateAsync(source, request, _mapper, cancellationToken);
         }
     }
 }

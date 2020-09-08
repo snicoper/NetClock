@@ -43,8 +43,7 @@ namespace NetClock.Application.Accounts.Auth.Commands.RecoveryPasswordValidate
             {
                 foreach (var error in resetResult.Errors)
                 {
-                    _logger.LogWarning(
-                        $"Error al validar contraseña. Code: {error.Code}, Description: {error.Description}");
+                    _logger.LogWarning($"Error al validar contraseña. Code: {error.Code}, Description: {error.Description}");
                     _validationFailureService.Add(nameof(error.Code), error.Description);
                 }
 

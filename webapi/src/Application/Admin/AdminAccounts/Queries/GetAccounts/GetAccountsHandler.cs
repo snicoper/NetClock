@@ -21,9 +21,7 @@ namespace NetClock.Application.Admin.AdminAccounts.Queries.GetAccounts
             _responseDataService = responseDataService;
         }
 
-        public async Task<ResponseData<GetAccountsDto>> Handle(
-            GetAccountsQuery request,
-            CancellationToken cancellationToken)
+        public async Task<ResponseData<GetAccountsDto>> Handle(GetAccountsQuery request, CancellationToken cancellationToken)
         {
             var users = _userManager.Users;
 

@@ -30,9 +30,7 @@ namespace NetClock.Application.Common.Services.Identity
                 Issuer = _jwtConfig.ValidIssuer,
                 Subject = AddClaimsRoles(user, roles),
                 Expires = DateTime.UtcNow.AddHours(_jwtConfig.ExpiryMinutes),
-                SigningCredentials = new SigningCredentials(
-                    new SymmetricSecurityKey(key),
-                    SecurityAlgorithms.HmacSha256Signature)
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
 
             var token = tokenHandler.CreateToken(tokenDescriptor);

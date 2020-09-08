@@ -66,9 +66,7 @@ namespace NetClock.Application.Accounts.Accounts.Commands.ChangeEmail
             return Unit.Value;
         }
 
-        private async Task SendEmailNotificationAsync(
-            ApplicationUser applicationUser,
-            ChangeEmailDto registerDto)
+        private async Task SendEmailNotificationAsync(ApplicationUser applicationUser, ChangeEmailDto registerDto)
         {
             _emailService.Subject = _localizer["Confirmación de cambio de email en {0}", _webApiConfig.SiteName];
             _emailService.To.Add(new MailAddress(applicationUser.Email));
@@ -79,15 +77,13 @@ namespace NetClock.Application.Accounts.Accounts.Commands.ChangeEmail
         private string GenerateCallBack(string id, string code, string newEmail)
         {
             var queryParams = new Dictionary<string, string>
-            {
-                ["userId"] = id,
-                ["code"] = code,
-                ["newEmail"] = newEmail
-            };
+                {
+                    ["userId"] = id,
+                    ["code"] = code,
+                    ["newEmail"] = newEmail
+                };
 
-            return _linkGeneratorService.GenerateFrontEnd(
-                UrlsFrontEnd.AccountsRegisterValidateChangeEmail,
-                queryParams);
+            return _linkGeneratorService.GenerateFrontEnd(UrlsFrontEnd.AccountsRegisterValidateChangeEmail, queryParams);
         }
     }
 }

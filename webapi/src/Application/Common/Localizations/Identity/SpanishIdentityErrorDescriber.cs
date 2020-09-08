@@ -14,8 +14,7 @@ namespace NetClock.Application.Common.Localizations.Identity
             return new IdentityError
             {
                 Code = nameof(ConcurrencyFailure),
-                Description =
-                    "Ha ocurrido un error, el objeto ya ha sido modificado (Optimistic concurrency failure)."
+                Description = "Ha ocurrido un error, el objeto ya ha sido modificado (Optimistic concurrency failure)."
             };
         }
 
@@ -42,8 +41,7 @@ namespace NetClock.Application.Common.Localizations.Identity
             return new IdentityError
             {
                 Code = nameof(InvalidUserName),
-                Description =
-                    $"El nombre de usuario '{userName}' es inválido. Solo puede contener letras y números."
+                Description = $"El nombre de usuario '{userName}' es inválido. Solo puede contener letras y números."
             };
         }
 

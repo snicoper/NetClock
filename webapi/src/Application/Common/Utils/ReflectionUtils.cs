@@ -20,8 +20,8 @@ namespace NetClock.Application.Common.Utils
 
             return assemblyTypes
                 .Select(assemblyType => assemblyType.Name)
-                .Select(controllerName =>
-                    controllerName.Substring(0, controllerName.IndexOf("Controller", StringComparison.Ordinal)))
+                .Select(
+                    controllerName => controllerName.Substring(0, controllerName.IndexOf("Controller", StringComparison.Ordinal)))
                 .ToList();
         }
     }

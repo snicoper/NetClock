@@ -4,7 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using FluentValidation;
 using MediatR;
-using ValidationException = NetClock.Application.Common.Exceptions.ValidationException;
+using NetClock.Application.Common.Exceptions;
 
 namespace NetClock.Application.Common.Behaviours
 {
@@ -33,9 +33,9 @@ namespace NetClock.Application.Common.Behaviours
             var validationResults = await Task.WhenAll(_validators.Select(v => v.ValidateAsync(context, cancellationToken)));
             var failures = validationResults.SelectMany(r => r.Errors).Where(f => f != null).ToList();
 
-            if (failures.Count != 0)
+            if (failures.Any())
             {
-                throw new ValidationException(failures);
+                throw new CustomValidationException(failures);
             }
 
             return await next();

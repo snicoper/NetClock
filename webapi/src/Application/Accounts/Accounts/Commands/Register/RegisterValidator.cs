@@ -9,9 +9,7 @@ namespace NetClock.Application.Accounts.Accounts.Commands.Register
 {
     public class RegisterValidator : AbstractValidator<RegisterCommand>
     {
-        public RegisterValidator(
-            IStringLocalizer<IdentityLocalizer> localizer,
-            UserManager<ApplicationUser> userManager)
+        public RegisterValidator(IStringLocalizer<IdentityLocalizer> localizer, UserManager<ApplicationUser> userManager)
         {
             RuleFor(v => v.UserName).NotEmpty().MaximumLength(20).UniqueUserName(userManager);
             RuleFor(v => v.Email).NotEmpty().EmailAddress().UniqueEmail(userManager);

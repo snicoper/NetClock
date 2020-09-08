@@ -16,7 +16,7 @@ namespace NetClock.WebApi.Filters
             // Register known exception types and handlers.
             _exceptionHandlers = new Dictionary<Type, Action<ExceptionContext>>
             {
-                { typeof(ValidationException), HandleValidationException },
+                { typeof(CustomValidationException), HandleValidationException },
                 { typeof(NotFoundException), HandleNotFoundException }
             };
         }
@@ -59,7 +59,7 @@ namespace NetClock.WebApi.Filters
 
         private void HandleValidationException(ExceptionContext context)
         {
-            var exception = context.Exception as ValidationException;
+            var exception = context.Exception as CustomValidationException;
 
             var details = new ValidationProblemDetails(exception?.Errors)
             {

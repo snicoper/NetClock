@@ -43,8 +43,7 @@ namespace NetClock.Application.Admin.AdminAccounts.Commands.ChangePasswordAccoun
                 throw new NotFoundException(nameof(ApplicationUser), nameof(request.Id));
             }
 
-            var validPassword =
-                await _passwordValidator.ValidateAsync(_userManager, applicationUser, request.NewPassword);
+            var validPassword = await _passwordValidator.ValidateAsync(_userManager, applicationUser, request.NewPassword);
 
             if (!validPassword.Succeeded)
             {
@@ -53,9 +52,7 @@ namespace NetClock.Application.Admin.AdminAccounts.Commands.ChangePasswordAccoun
                 _validationFailureService.Add("Password", errorMessage);
             }
 
-            applicationUser.PasswordHash =
-                _userManager.PasswordHasher.HashPassword(applicationUser, request.NewPassword);
-
+            applicationUser.PasswordHash = _userManager.PasswordHasher.HashPassword(applicationUser, request.NewPassword);
             await _userManager.UpdateAsync(applicationUser);
             _logger.LogInformation($"Usuario {request.Id} contraseña cambiada con éxito");
 

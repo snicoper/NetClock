@@ -53,11 +53,7 @@ namespace NetClock.Application.Accounts.Auth.Commands.Login
                 _validationFailureService.AddAndRaiseException(Errors.NonFieldErrors, error);
             }
 
-            var result = await _signInManager.PasswordSignInAsync(
-                user.UserName,
-                request.Password,
-                request.RememberMe,
-                false);
+            var result = await _signInManager.PasswordSignInAsync(user.UserName, request.Password, request.RememberMe, false);
 
             if (!result.Succeeded)
             {
@@ -67,19 +63,18 @@ namespace NetClock.Application.Accounts.Auth.Commands.Login
             var roles = await _userManager.GetRolesAsync(user);
             var token = _jwtSecurityTokenService.CreateToken(user, roles);
 
-            var loginCommandVm = _mapper.Map<CurrentUserDto>(user);
-            loginCommandVm.Token = token;
+            var currentUserDto = _mapper.Map<CurrentUserDto>(user);
+            currentUserDto.Token = token;
             _logger.LogInformation($"Se ha identificado con éxito {request.UserName}");
 
-            return loginCommandVm;
+            return currentUserDto;
         }
 
-        private async Task<ApplicationUser> GetUserByUserNameOrEmail(
-            LoginCommand request,
-            CancellationToken cancellationToken)
+        private async Task<ApplicationUser> GetUserByUserNameOrEmail(LoginCommand request, CancellationToken cancellationToken)
         {
-            var user = await _userManager.Users.FirstOrDefaultAsync(
-                u => u.UserName == request.UserName || u.Email == request.UserName, cancellationToken);
+            var user = await _userManager
+                .Users
+                .FirstOrDefaultAsync(u => u.UserName == request.UserName || u.Email == request.UserName, cancellationToken);
 
             if (user is null)
             {
