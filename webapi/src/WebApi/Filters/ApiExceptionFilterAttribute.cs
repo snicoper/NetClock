@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using NetClock.Application.Common.Exceptions;
+using NetClock.Application.Common.Extensions;
 
 namespace NetClock.WebApi.Filters
 {
@@ -60,8 +61,14 @@ namespace NetClock.WebApi.Filters
         private void HandleValidationException(ExceptionContext context)
         {
             var exception = context.Exception as CustomValidationException;
+            var errors = new Dictionary<string, string[]>();
 
-            var details = new ValidationProblemDetails(exception?.Errors)
+            if (exception?.Errors != null)
+            {
+                errors = AddModelErrors(exception);
+            }
+
+            var details = new ValidationProblemDetails(errors)
             {
                 Type = "https://tools.ietf.org/html/rfc7231#section-6.5.1"
             };
@@ -85,6 +92,17 @@ namespace NetClock.WebApi.Filters
             context.Result = new NotFoundObjectResult(details);
 
             context.ExceptionHandled = true;
+        }
+
+        private Dictionary<string, string[]> AddModelErrors(CustomValidationException exception)
+        {
+            var errors = new Dictionary<string, string[]>();
+            foreach (var (key, error) in exception.Errors)
+            {
+                errors.Add(key.LowerCaseFirst(), error);
+            }
+
+            return errors;
         }
     }
 }

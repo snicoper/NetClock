@@ -1,8 +1,15 @@
 {
   "extends": "tslint:recommended",
   "rules": {
+    "align": {
+      "options": [
+        "parameters",
+        "statements"
+      ]
+    },
     "array-type": false,
     "arrow-parens": false,
+    "arrow-return-shorthand": true,
     "deprecation": {
       "severity": "warning"
     },
@@ -15,7 +22,16 @@
     "directive-class-suffix": true,
     "triple-equals": true,
     "unnecessary-constructor": true,
-    "max-file-line-count": [true, 500],
+    "import-spacing": true,
+    "max-file-line-count": [
+      true,
+      500
+    ],
+    "indent": {
+      "options": [
+        "spaces"
+      ]
+    },
     "no-duplicate-imports": [true, {"allow-namespace-imports": true}],
     "no-unnecessary-callback-wrapper": true,
     "one-variable-per-declaration": true,
@@ -105,10 +121,45 @@
     "no-output-on-prefix": true,
     "no-output-rename": true,
     "no-outputs-metadata-property": true,
+    "typedef-whitespace": {
+      "options": [
+        {
+          "call-signature": "nospace",
+          "index-signature": "nospace",
+          "parameter": "nospace",
+          "property-declaration": "nospace",
+          "variable-declaration": "nospace"
+        },
+        {
+          "call-signature": "onespace",
+          "index-signature": "onespace",
+          "parameter": "onespace",
+          "property-declaration": "onespace",
+          "variable-declaration": "onespace"
+        }
+      ]
+    },
     "template-banana-in-box": true,
     "template-no-negated-async": true,
     "use-lifecycle-interface": true,
-    "use-pipe-transform-interface": true
+    "use-pipe-transform-interface": true,
+    "variable-name": {
+      "options": [
+        "ban-keywords",
+        "check-format",
+        "allow-pascal-case"
+      ]
+    },
+    "whitespace": {
+      "options": [
+        "check-branch",
+        "check-decl",
+        "check-operator",
+        "check-separator",
+        "check-type",
+        "check-typecast"
+      ]
+    }
   },
   "rulesDirectory": [
     "codelyzer"

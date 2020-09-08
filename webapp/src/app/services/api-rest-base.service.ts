@@ -1,10 +1,11 @@
 import { HttpClient } from '@angular/common/http';
-import { OnInit } from '@angular/core';
+import { OnInit, Directive } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { RaiseError } from '../core';
 import { ApiResult } from '../models';
 
+@Directive()
 export abstract class ApiRestBaseService implements OnInit {
   protected baseUrl: string;
 
