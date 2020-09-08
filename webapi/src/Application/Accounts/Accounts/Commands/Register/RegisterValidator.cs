@@ -11,8 +11,8 @@ namespace NetClock.Application.Accounts.Accounts.Commands.Register
     {
         public RegisterValidator(IStringLocalizer<IdentityLocalizer> localizer, UserManager<ApplicationUser> userManager)
         {
-            RuleFor(v => v.UserName).NotEmpty().MaximumLength(20).UniqueUserName(userManager);
-            RuleFor(v => v.Email).NotEmpty().EmailAddress().UniqueEmail(userManager);
+            RuleFor(v => v.UserName).NotEmpty().MaximumLength(20).UniqueUserName(userManager, localizer);
+            RuleFor(v => v.Email).NotEmpty().EmailAddress().UniqueEmail(userManager, localizer);
             RuleFor(v => v.Password).MinimumLength(6);
             RuleFor(v => v.ConfirmPassword)
                 .Equal(v => v.Password)

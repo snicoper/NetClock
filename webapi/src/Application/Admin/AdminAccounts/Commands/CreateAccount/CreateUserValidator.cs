@@ -9,14 +9,12 @@ namespace NetClock.Application.Admin.AdminAccounts.Commands.CreateAccount
 {
     public class CreateUserValidator : AbstractValidator<CreateAccountCommand>
     {
-        public CreateUserValidator(
-            IStringLocalizer<IdentityLocalizer> localizer,
-            UserManager<ApplicationUser> userManager)
+        public CreateUserValidator(IStringLocalizer<IdentityLocalizer> localizer, UserManager<ApplicationUser> userManager)
         {
-            RuleFor(v => v.UserName).NotEmpty().MaximumLength(20).UniqueUserName(userManager);
+            RuleFor(v => v.UserName).NotEmpty().MaximumLength(20).UniqueUserName(userManager, localizer);
             RuleFor(v => v.FirstName).NotEmpty().MaximumLength(50);
             RuleFor(v => v.LastName).NotEmpty().MaximumLength(50);
-            RuleFor(v => v.Email).NotEmpty().EmailAddress().UniqueEmail(userManager);
+            RuleFor(v => v.Email).NotEmpty().EmailAddress().UniqueEmail(userManager, localizer);
             RuleFor(v => v.Password).MinimumLength(6);
             RuleFor(v => v.ConfirmPassword)
                 .Equal(v => v.Password)

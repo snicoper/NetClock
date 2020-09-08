@@ -35,6 +35,7 @@ namespace NetClock.WebApi.Filters
             if (_exceptionHandlers.ContainsKey(type))
             {
                 _exceptionHandlers[type].Invoke(context);
+
                 return;
             }
 

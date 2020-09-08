@@ -1,21 +1,12 @@
 import { HttpClient } from '@angular/common/http';
-import { OnInit, Directive } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { RaiseError } from '../core';
 import { ApiResult } from '../models';
 
-@Directive()
-export abstract class ApiRestBaseService implements OnInit {
+export abstract class ApiRestBaseService {
   protected baseUrl: string;
 
   protected constructor(protected http: HttpClient) {
-  }
-
-  ngOnInit(): void {
-    if (!this.baseUrl) {
-      RaiseError('baseUrl no puede estar vacío.');
-    }
   }
 
   getAllPaginated<TModel>(apiResult: ApiResult<TModel>): Observable<ApiResult<TModel>> {
