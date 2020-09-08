@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { finalize, timeout } from 'rxjs/operators';
-import { SiteUrls } from '../../../core';
 
+import { SiteUrls } from '../../../core';
+import { BadRequest } from '../../../types';
 import { AuthService } from './auth.service';
 import { CurrentUserModel } from './current-user.model';
 
@@ -16,7 +17,7 @@ export class LoginComponent implements OnInit {
   loading = false;
   submitted = false;
   returnUrl = '/';
-  errors = [];
+  badRequest: BadRequest;
   urlsApp = SiteUrls;
 
   constructor(
@@ -44,7 +45,7 @@ export class LoginComponent implements OnInit {
 
   onSubmit(): void {
     this.submitted = true;
-    this.errors = [];
+    this.badRequest = null;
 
     if (this.form.invalid) {
       return;
@@ -62,7 +63,7 @@ export class LoginComponent implements OnInit {
           this.router.navigate([this.returnUrl]);
         },
         (error: any) => {
-          this.errors = error.error;
+          this.badRequest = error.error;
         }
       );
   }

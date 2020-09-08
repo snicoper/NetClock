@@ -1,6 +1,7 @@
 import { Component, forwardRef, Input } from '@angular/core';
 import { ControlValueAccessor, FormGroup, NG_VALUE_ACCESSOR } from '@angular/forms';
 
+import { BadRequest } from '../../../types';
 import { FormInputTypes } from './form-input-types.enum';
 
 @Component({
@@ -21,7 +22,7 @@ export class FormInputComponent implements ControlValueAccessor {
   @Input() inputType = FormInputTypes.text;
   @Input() label: string;
   @Input() extraCss: string;
-  @Input() errors = [];
+  @Input() badRequest: BadRequest;
   @Input() submitted = false;
   @Input() placeholder = '';
 

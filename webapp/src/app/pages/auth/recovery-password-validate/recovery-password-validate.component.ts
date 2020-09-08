@@ -2,8 +2,9 @@ import { Component } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { SiteUrls } from '../../../core';
 
+import { SiteUrls } from '../../../core';
+import { BadRequest } from '../../../types';
 import { PasswordMustMatch } from '../../../validators';
 import { RecoveryPasswordValidateService } from './recovery-password-validate.service';
 
@@ -15,7 +16,7 @@ import { RecoveryPasswordValidateService } from './recovery-password-validate.se
 })
 export class RecoveryPasswordValidateComponent {
   form: FormGroup;
-  errors = {};
+  badRequest: BadRequest;
   loading = false;
   submitted = false;
   errorChangePassword = false;
@@ -44,6 +45,7 @@ export class RecoveryPasswordValidateComponent {
 
   onSubmit(): void {
     this.submitted = true;
+    this.badRequest = null;
 
     if (this.form.invalid) {
       return;

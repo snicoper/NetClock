@@ -1,7 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AbstractControl, FormGroup } from '@angular/forms';
+import * as HttpStatus from 'http-status-codes';
 
-import { BadRequest } from './bad-request';
+import { BadRequest } from '../../../types';
+
 
 @Component({
   selector: 'nc-field-error',
@@ -11,7 +13,7 @@ export class FieldErrorComponent implements OnInit {
   @Input() submitted = false;
   @Input() fieldText: string;
   @Input() fieldName: string;
-  @Input() errors: BadRequest;
+  @Input() badRequest: BadRequest;
   @Input() form: FormGroup;
 
   control: AbstractControl;
@@ -34,8 +36,8 @@ export class FieldErrorComponent implements OnInit {
   }
 
   getBadRequestErrors(): string[] {
-    if (this.errors && 'errors' in this.errors) {
-      return this.errors.errors[this.fieldName];
+    if (this.badRequest && this.badRequest.status === HttpStatus.BAD_REQUEST) {
+      return this.badRequest.errors[this.fieldName];
     }
   }
 }

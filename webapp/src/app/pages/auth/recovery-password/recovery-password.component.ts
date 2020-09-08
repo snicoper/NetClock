@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { finalize } from 'rxjs/operators';
 
 import { SiteUrls } from '../../../core';
+import { BadRequest } from '../../../types';
 import { AuthService } from '../login/auth.service';
 import { RecoveryPasswordService } from './recovery-password.service';
 
@@ -16,7 +17,7 @@ export class RecoveryPasswordComponent implements OnInit {
   form: FormGroup;
   loading = false;
   submitted = false;
-  errors = {};
+  errors: BadRequest;
   urlsApp = SiteUrls;
 
   constructor(
@@ -41,7 +42,7 @@ export class RecoveryPasswordComponent implements OnInit {
 
   onSubmit(): void {
     this.submitted = true;
-    this.errors = {};
+    this.errors = null;
 
     if (this.form.invalid) {
       return;
