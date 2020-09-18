@@ -4,7 +4,6 @@ import * as HttpStatus from 'http-status-codes';
 
 import { BadRequest } from '../../../types';
 
-
 @Component({
   selector: 'nc-field-error',
   templateUrl: './field-error.component.html'
