@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AbstractControl, FormGroup } from '@angular/forms';
-import * as HttpStatus from 'http-status-codes';
+import { StatusCodes } from 'http-status-codes';
 
 import { BadRequest } from '../../../types';
 
@@ -35,7 +35,7 @@ export class FieldErrorComponent implements OnInit {
   }
 
   getBadRequestErrors(): string[] {
-    if (this.badRequest && this.badRequest.status === HttpStatus.BAD_REQUEST) {
+    if (this.badRequest && this.badRequest.status === StatusCodes.BAD_REQUEST) {
       return this.badRequest.errors[this.fieldName];
     }
   }

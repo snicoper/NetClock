@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import * as HttpStatus from 'http-status-codes';
+import { StatusCodes } from 'http-status-codes';
 import { ToastrService } from 'ngx-toastr';
 import { finalize } from 'rxjs/operators';
 
@@ -60,7 +60,7 @@ export class AdminAccountUpdateComponent implements OnInit {
         this.router.navigate([url]);
       }, ((error) => {
         DebugErrors(error.error);
-        if (error.status === HttpStatus.BAD_REQUEST) {
+        if (error.status === StatusCodes.BAD_REQUEST) {
           this.errors = error.error;
         }
       }));
@@ -76,7 +76,7 @@ export class AdminAccountUpdateComponent implements OnInit {
         this.buildForm();
       }, (errors) => {
         DebugErrors(errors);
-        if (errors.status === HttpStatus.NOT_FOUND) {
+        if (errors.status === StatusCodes.NOT_FOUND) {
           this.accountNotFound = true;
         }
       });

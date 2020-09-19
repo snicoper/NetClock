@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import * as HttpStatus from 'http-status-codes';
+import { StatusCodes } from 'http-status-codes';
 import { ToastrService } from 'ngx-toastr';
 import { finalize } from 'rxjs/operators';
 
@@ -54,7 +54,7 @@ export class AdminAccountCreateComponent implements OnInit {
         },
         ((error) => {
           DebugErrors(error.error);
-          if (error.status === HttpStatus.BAD_REQUEST) {
+          if (error.status === StatusCodes.BAD_REQUEST) {
             this.errors = error.error;
           }
         }));

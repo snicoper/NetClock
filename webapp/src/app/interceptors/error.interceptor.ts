@@ -1,7 +1,7 @@
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import * as HttpStatus from 'http-status-codes';
+import { StatusCodes } from 'http-status-codes';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
@@ -18,13 +18,13 @@ export class ErrorInterceptor implements HttpInterceptor {
       DebugErrors(error);
 
       switch (error.status) {
-        case HttpStatus.UNAUTHORIZED:
+        case StatusCodes.UNAUTHORIZED:
           this.unauthorizedHandler();
           break;
-        case HttpStatus.FORBIDDEN:
+        case StatusCodes.FORBIDDEN:
           this.forbiddenHandler();
           break;
-        case HttpStatus.BAD_REQUEST:
+        case StatusCodes.BAD_REQUEST:
           this.errorHandler();
           break;
       }
