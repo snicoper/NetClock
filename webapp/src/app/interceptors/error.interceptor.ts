@@ -35,11 +35,11 @@ export class ErrorInterceptor implements HttpInterceptor {
 
   private unauthorizedHandler(): void {
     this.authenticationService.logout();
-    this.router.navigate([SiteUrls.login]);
+    this.router.navigate([SiteUrls.authLogin]);
   }
 
   private forbiddenHandler(): void {
-    this.router.navigate([SiteUrls.forbidden]);
+    this.router.navigate([SiteUrls.errorsForbidden]);
   }
 
   private errorHandler(): void {

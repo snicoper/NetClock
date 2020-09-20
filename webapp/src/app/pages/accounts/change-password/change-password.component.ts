@@ -64,8 +64,8 @@ export class ChangePasswordComponent implements OnInit {
   private setBreadcrumb(): void {
     this.breadcrumb
       .add('Inicio', SiteUrls.home, 'fas fa-home')
-      .add('Perfil', SiteUrls.accounts, 'fas fa-user-cog')
-      .add('Cambiar contraseña', SiteUrls.changePassword, 'fas fa-user-lock', false);
+      .add('Perfil', SiteUrls.accountsProfile, 'fas fa-user-cog')
+      .add('Cambiar contraseña', SiteUrls.accountsChangePassword, 'fas fa-user-lock', false);
   }
 
   private buildForm(): void {

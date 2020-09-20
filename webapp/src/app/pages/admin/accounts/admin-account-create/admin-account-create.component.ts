@@ -48,7 +48,7 @@ export class AdminAccountCreateComponent implements OnInit {
     this.adminUserCreateService.create(this.form.value)
       .pipe(finalize(() => this.loading = false))
       .subscribe((result: AdminAccountCreateResult) => {
-          const url = SiteUrls.replace(SiteUrls.adminUserDetails, { slug: result.slug });
+          const url = SiteUrls.replace(SiteUrls.adminAccountsDetails, { slug: result.slug });
           this.toastrService.success('Usuario creado con éxito');
           this.router.navigate([url]);
         },
@@ -64,8 +64,8 @@ export class AdminAccountCreateComponent implements OnInit {
     this.breadcrumb
       .add('Inicio', SiteUrls.home, 'fas fa-home')
       .add('Administración', SiteUrls.admin, 'fas fa-user-shield')
-      .add('Usuarios', SiteUrls.adminUserList, 'fas fa-users')
-      .add('Nuevo', SiteUrls.adminUserCreate, 'fas fa-user-plus', false);
+      .add('Usuarios', SiteUrls.adminAccounts, 'fas fa-users')
+      .add('Nuevo', SiteUrls.adminAccountsCreate, 'fas fa-user-plus', false);
   }
 
   private buildForm(): void {

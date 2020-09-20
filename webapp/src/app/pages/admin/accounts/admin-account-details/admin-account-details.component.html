@@ -7,11 +7,11 @@
     </pre>
 
     <!-- '/admin/accounts/{slug}/update' -->
-    <a [routerLink]="['/admin/accounts', user.slug, 'update']" class="btn btn-primary">
+    <a [routerLink]="[siteUrls.replace(siteUrls.adminAccountsUpdate, { slug: user.slug })]" class="btn btn-primary">
       Editar usuario
     </a>
 
-    <a [routerLink]="['/admin/accounts', user.slug, 'change-password']" class="btn btn-primary">
+    <a [routerLink]="[siteUrls.replace(siteUrls.adminAccountsChangePassword, { slug: user.slug })]" class="btn btn-primary">
       Cambiar contraseña
     </a>
 

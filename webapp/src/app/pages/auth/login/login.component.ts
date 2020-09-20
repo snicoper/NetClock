@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
   submitted = false;
   returnUrl = '/';
   badRequest: BadRequest;
-  urlsApp = SiteUrls;
+  siteUrls = SiteUrls;
 
   constructor(
     private fb: FormBuilder,

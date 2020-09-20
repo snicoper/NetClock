@@ -16,6 +16,7 @@ export class AdminAccountDetailsComponent implements OnInit {
   breadcrumb = new BreadcrumbCollection();
   user: AdminAccountDetailsModel;
   loading = false;
+  siteUrls = SiteUrls;
 
   private readonly userSlug: string;
 
@@ -36,8 +37,8 @@ export class AdminAccountDetailsComponent implements OnInit {
     this.breadcrumb
       .add('Inicio', SiteUrls.home, 'fas fa-home')
       .add('Administración', SiteUrls.admin, 'fas fa-user-shield')
-      .add('Usuarios', SiteUrls.adminUserList, 'fas fa-users')
-      .add(fullName, SiteUrls.adminUserList, 'fas fa-user', false);
+      .add('Usuarios', SiteUrls.adminAccounts, 'fas fa-users')
+      .add(fullName, SiteUrls.adminAccounts, 'fas fa-user', false);
   }
 
   private loadUser(): void {

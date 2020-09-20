@@ -3,7 +3,7 @@
     <form *ngIf="!loading" [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
       <div class="row">
         <div class="col-12">
-          <nc-non-field-errors [badRequest]="errors"></nc-non-field-errors>
+          <nc-non-field-errors [badRequest]="badRequest"></nc-non-field-errors>
         </div>
       </div>
 
@@ -13,7 +13,7 @@
                          fieldName="userName"
                          label="Nombre de usuario"
                          [form]="form"
-                         [badRequest]="errors"
+                         [badRequest]="badRequest"
                          [submitted]="submitted">
           </nc-form-input>
         </div>
@@ -25,7 +25,7 @@
                          fieldName="firstName"
                          label="Nombre"
                          [form]="form"
-                         [badRequest]="errors"
+                         [badRequest]="badRequest"
                          [submitted]="submitted">
           </nc-form-input>
         </div>
@@ -35,7 +35,7 @@
                          fieldName="lastName"
                          label="Apellidos"
                          [form]="form"
-                         [badRequest]="errors"
+                         [badRequest]="badRequest"
                          [submitted]="submitted">
           </nc-form-input>
         </div>
@@ -47,7 +47,7 @@
                          fieldName="email"
                          label="Correo electrónico"
                          [form]="form"
-                         [badRequest]="errors"
+                         [badRequest]="badRequest"
                          [submitted]="submitted"
                          [inputType]="formTypes.email">
           </nc-form-input>

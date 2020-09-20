@@ -20,6 +20,7 @@ export class AdminAccountListComponent implements OnInit, OnDestroy {
   breadcrumb = new BreadcrumbCollection();
   apiResult: ApiResult<AdminAccountListModel>;
   tableHeaderConfig = new TableHeaderConfig();
+  siteUrls = SiteUrls;
   loading = false;
 
   private destroy$ = new Subject<void>();
@@ -42,7 +43,7 @@ export class AdminAccountListComponent implements OnInit, OnDestroy {
   }
 
   onSelectItem(user: AdminAccountListModel): void {
-    const url = SiteUrls.replace(SiteUrls.adminUserDetails, { slug: user.slug });
+    const url = SiteUrls.replace(SiteUrls.adminAccountsDetails, { slug: user.slug });
     this.router.navigate([url]);
   }
 
@@ -58,7 +59,7 @@ export class AdminAccountListComponent implements OnInit, OnDestroy {
     this.breadcrumb
       .add('Inicio', SiteUrls.home, 'fas fa-home')
       .add('Administración', SiteUrls.admin, 'fas fa-user-shield')
-      .add('Usuarios', SiteUrls.adminUserList, 'fas fa-users', false);
+      .add('Usuarios', SiteUrls.adminAccounts, 'fas fa-users', false);
   }
 
   private loadUsers(): void {

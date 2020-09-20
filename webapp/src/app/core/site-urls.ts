@@ -9,24 +9,25 @@ export const SiteUrls = {
   home: '/',
 
   /** Auth. */
-  login: '/auth/login',
-  logout: '/auth/logout',
-  recoveryPassword: '/auth/recovery-password',
-  recoveryPasswordSuccess: '/auth/recovery-password/success',
+  authLogin: '/auth/login',
+  authLogout: '/auth/logout',
+  authRecoveryPassword: '/auth/recovery-password',
+  authRecoveryPasswordSuccess: '/auth/recovery-password/success',
 
   /** Accounts. */
-  accounts: '/accounts/profile',
-  changePassword: '/accounts/change-password',
+  accountsProfile: '/accounts/profile',
+  accountsChangePassword: '/accounts/change-password',
 
   /** Admin. */
   admin: '/admin',
-  adminUserList: '/admin/accounts',
-  adminUserDetails: '/admin/accounts/{slug}/details',
-  adminUserUpdate: '/admin/accounts/{slug}/update',
-  adminUserCreate: '/admin/accounts/create',
+  adminAccounts: '/admin/accounts',
+  adminAccountsDetails: '/admin/accounts/{slug}/details',
+  adminAccountsUpdate: '/admin/accounts/{slug}/update',
+  adminAccountsCreate: '/admin/accounts/create',
+  adminAccountsChangePassword: '/admin/accounts/{slug}/change-password',
 
   /** Errors. */
-  forbidden: '/errors/403',
+  errorsForbidden: '/errors/403',
 
   /**
    * Utiliza una de las propiedades de UrlsApp para remplazar {algo} por valor en los args.

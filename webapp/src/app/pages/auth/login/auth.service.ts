@@ -64,7 +64,7 @@ export class AuthService extends ApiRestBaseService implements OnDestroy {
       () => {
         localStorage.removeItem('currentUser');
         this.currentUserSubject.next(null);
-        this.router.navigate([SiteUrls.login]);
+        this.router.navigate([SiteUrls.authLogin]);
       }
     );
   }

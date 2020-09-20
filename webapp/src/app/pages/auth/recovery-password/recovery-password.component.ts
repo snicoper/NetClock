@@ -18,7 +18,7 @@ export class RecoveryPasswordComponent implements OnInit {
   loading = false;
   submitted = false;
   errors: BadRequest;
-  urlsApp = SiteUrls;
+  siteUrls = SiteUrls;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -49,7 +49,7 @@ export class RecoveryPasswordComponent implements OnInit {
     }
 
     this.recoveryPasswordService.recoveryPassword(this.form.value)
-      .pipe(finalize(() => this.router.navigate([SiteUrls.recoveryPasswordSuccess])));
+      .pipe(finalize(() => this.router.navigate([SiteUrls.authRecoveryPasswordSuccess])));
   }
 
   private buildForm(): void {

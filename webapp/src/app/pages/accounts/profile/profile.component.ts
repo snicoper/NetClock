@@ -17,6 +17,6 @@ export class ProfileComponent {
   private setBreadcrumb(): void {
     this.breadcrumb
       .add('Inicio', SiteUrls.home, 'fas fa-home')
-      .add('Perfil', SiteUrls.accounts, 'fas fa-user-cog', false);
+      .add('Perfil', SiteUrls.accountsProfile, 'fas fa-user-cog', false);
   }
 }

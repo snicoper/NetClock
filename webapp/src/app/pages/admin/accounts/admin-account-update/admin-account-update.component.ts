@@ -8,6 +8,7 @@ import { finalize } from 'rxjs/operators';
 import { BreadcrumbCollection } from '../../../../components/breadcrumb/BreadcrumbCollection';
 import { FormInputTypes } from '../../../../components/forms/form-input/form-input-types.enum';
 import { DebugErrors, SiteUrls } from '../../../../core';
+import { BadRequest } from '../../../../types';
 import { AdminAccountUpdateResultModel } from './admin-account-update-result.model';
 import { AdminAccountUpdateModel } from './admin-account-update.model';
 import { AdminAccountUpdateService } from './admin-account-update.service';
@@ -25,7 +26,7 @@ export class AdminAccountUpdateComponent implements OnInit {
   updating = false;
   loading = false;
   formTypes = FormInputTypes;
-  errors = [];
+  badRequest: BadRequest;
   accountNotFound = false;
   slug: string;
 
@@ -56,12 +57,12 @@ export class AdminAccountUpdateComponent implements OnInit {
       .pipe(finalize(() => this.updating = false))
       .subscribe((result: AdminAccountUpdateResultModel) => {
         this.toastrService.success('Usuario editado con éxito');
-        const url = SiteUrls.replace(SiteUrls.adminUserDetails, { slug: result.slug });
+        const url = SiteUrls.replace(SiteUrls.adminAccountsDetails, { slug: result.slug });
         this.router.navigate([url]);
       }, ((error) => {
         DebugErrors(error.error);
         if (error.status === StatusCodes.BAD_REQUEST) {
-          this.errors = error.error;
+          this.badRequest = error.error;
         }
       }));
   }
@@ -83,15 +84,15 @@ export class AdminAccountUpdateComponent implements OnInit {
   }
 
   private setBreadcrumb(): void {
-    const urlUserDetails = SiteUrls.replace(SiteUrls.adminUserDetails, { slug: this.slug });
+    const urlUserDetails = SiteUrls.replace(SiteUrls.adminAccountsDetails, { slug: this.slug });
     const fullName = `${this.data.firstName} ${this.data.lastName}`;
 
     this.breadcrumb
       .add('Inicio', SiteUrls.home, 'fas fa-home')
       .add('Administración', SiteUrls.admin, 'fas fa-user-shield')
-      .add('Usuarios', SiteUrls.adminUserList, 'fas fa-users')
+      .add('Usuarios', SiteUrls.adminAccounts, 'fas fa-users')
       .add(fullName, urlUserDetails, 'fas fa-user')
-      .add('Editar', SiteUrls.adminUserCreate, 'fas fa-user-edit', false);
+      .add('Editar', SiteUrls.adminAccountsCreate, 'fas fa-user-edit', false);
   }
 
   private buildForm(): void {

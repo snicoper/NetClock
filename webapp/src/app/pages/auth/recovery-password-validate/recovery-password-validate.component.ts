@@ -55,7 +55,7 @@ export class RecoveryPasswordValidateComponent {
     this.recoveryPasswordValidateService.recoveryPasswordValidate(this.form.value).subscribe(
       () => {
         this.toastr.success('Contraseña restablecida con éxito');
-        this.router.navigate([SiteUrls.login]);
+        this.router.navigate([SiteUrls.authLogin]);
       },
       () => {
         this.errorChangePassword = true;

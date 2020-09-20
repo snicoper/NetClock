@@ -59,7 +59,7 @@ export class AdminAccountChangePasswordComponent implements OnInit {
       .pipe(finalize(() => this.updating = false))
       .subscribe(() => {
         this.toastrService.success('Contraseña actualizada con éxito');
-        const url = SiteUrls.replace(SiteUrls.adminUserDetails, { slug: this.user.slug });
+        const url = SiteUrls.replace(SiteUrls.adminAccountsDetails, { slug: this.user.slug });
 
         this.router.navigate([url]);
       });
@@ -76,15 +76,15 @@ export class AdminAccountChangePasswordComponent implements OnInit {
   }
 
   private setBreadcrumb(): void {
-    const urlUserDetails = SiteUrls.replace(SiteUrls.adminUserDetails, { slug: this.slug });
+    const urlUserDetails = SiteUrls.replace(SiteUrls.adminAccountsDetails, { slug: this.slug });
     const fullName = `${this.user.firstName} ${this.user.lastName}`;
 
     this.breadcrumb
       .add('Inicio', SiteUrls.home, 'fas fa-home')
       .add('Administración', SiteUrls.admin, 'fas fa-user-shield')
-      .add('Usuarios', SiteUrls.adminUserList, 'fas fa-users')
+      .add('Usuarios', SiteUrls.adminAccounts, 'fas fa-users')
       .add(fullName, urlUserDetails, 'fas fa-user')
-      .add('Cambiar contraseña', SiteUrls.adminUserCreate, 'fas fa-user-edit', false);
+      .add('Cambiar contraseña', SiteUrls.adminAccountsCreate, 'fas fa-user-edit', false);
   }
 
   private buildForm(): void {
