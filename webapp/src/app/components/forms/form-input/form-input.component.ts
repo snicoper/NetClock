@@ -64,9 +64,13 @@ export class FormInputComponent implements ControlValueAccessor {
     this.onChange(value);
   }
 
-  isValid(): boolean {
+  isInvalid(): boolean {
     const control = this.form.get(this.fieldName);
 
-    return !(this.submitted && control.invalid);
+    if (this.submitted && control.invalid || this.badRequest.errors && this.fieldName in this.badRequest.errors) {
+      return true;
+    }
+
+    return false;
   }
 }

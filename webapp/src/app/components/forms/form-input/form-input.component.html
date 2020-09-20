@@ -1,16 +1,16 @@
 <div class="form-group">
-  <label *ngIf="label" [for]="id" [ngClass]="{'text-danger': !isValid(), 'text-primary': isValid()}">
+  <label *ngIf="label" [for]="id" [ngClass]="{'text-danger': isInvalid(), 'text-primary': !isInvalid()}">
     {{label}}
   </label>
 
   <input [(ngModel)]="value"
+         [id]="id"
          [value]="value"
          [disabled]="isDisabled"
          [type]="inputType"
-         [ngClass]="{extraCss: true, 'is-invalid': !isValid()}"
+         [ngClass]="{extraCss: true, 'is-invalid': isInvalid()}"
          [placeholder]="placeholder"
          (ngModelChange)="onChangeValue($event)"
-         [id]="id"
          class="form-control">
 
   <nc-field-error *ngIf="form"
