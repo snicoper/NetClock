@@ -7,7 +7,8 @@ import { finalize } from 'rxjs/operators';
 
 import { BreadcrumbCollection } from '../../../../components/breadcrumb/BreadcrumbCollection';
 import { FormInputTypes } from '../../../../components/forms/form-input/form-input-types.enum';
-import { DebugErrors, SiteUrls } from '../../../../core';
+import { SiteUrls } from '../../../../core';
+import { BadRequest } from '../../../../types';
 import { PasswordMustMatch } from '../../../../validators';
 import { AdminAccountCreateResult } from './admin-account-create-result.model';
 import { AdminAccountCreateService } from './admin-account-create.service';
@@ -20,7 +21,7 @@ import { AdminAccountCreateService } from './admin-account-create.service';
 export class AdminAccountCreateComponent implements OnInit {
   breadcrumb = new BreadcrumbCollection();
   form: FormGroup;
-  errors = [];
+  badRequest: BadRequest;
   submitted = false;
   loading = false;
   formInputTypes = FormInputTypes;
@@ -53,9 +54,8 @@ export class AdminAccountCreateComponent implements OnInit {
           this.router.navigate([url]);
         },
         ((error) => {
-          DebugErrors(error.error);
           if (error.status === StatusCodes.BAD_REQUEST) {
-            this.errors = error.error;
+            this.badRequest = error.error;
           }
         }));
   }

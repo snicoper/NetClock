@@ -1,5 +1,9 @@
 @import "variables";
 
+label {
+  font-size: 0.9rem;
+}
+
 .form-control:focus {
   border-color: $primary;
   box-shadow: none !important;

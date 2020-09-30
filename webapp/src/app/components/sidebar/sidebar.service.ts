@@ -2,9 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { SidebarMenuItemsModel } from './sidebar-menu-items.model';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class SidebarService {
   menus: any[];
   toggled = false;

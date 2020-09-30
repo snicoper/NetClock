@@ -1,8 +1,8 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+
 import { AppConfig } from '../../app.config';
 import { AuthService } from '../../pages/auth/login/auth.service';
-
 import { SidebarService } from './sidebar.service';
 
 @Component({
@@ -17,15 +17,12 @@ import { SidebarService } from './sidebar.service';
     ])
   ]
 })
-export class SidebarComponent implements OnInit {
+export class SidebarComponent {
   siteName = AppConfig.siteName;
   menus = [];
 
   constructor(public sidebarService: SidebarService, public authService: AuthService) {
     this.menus = sidebarService.getMenuList();
-  }
-
-  ngOnInit(): void {
   }
 
   getSideBarState(): boolean {
@@ -47,7 +44,7 @@ export class SidebarComponent implements OnInit {
   }
 
   getState(currentMenu): string {
-    return currentMenu.active ? 'down': 'up';
+    return currentMenu.active ? 'down' : 'up';
   }
 
   logout(): void {

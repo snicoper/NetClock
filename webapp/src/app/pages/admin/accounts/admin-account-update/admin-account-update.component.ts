@@ -7,7 +7,7 @@ import { finalize } from 'rxjs/operators';
 
 import { BreadcrumbCollection } from '../../../../components/breadcrumb/BreadcrumbCollection';
 import { FormInputTypes } from '../../../../components/forms/form-input/form-input-types.enum';
-import { DebugErrors, SiteUrls } from '../../../../core';
+import { SiteUrls } from '../../../../core';
 import { BadRequest } from '../../../../types';
 import { AdminAccountUpdateResultModel } from './admin-account-update-result.model';
 import { AdminAccountUpdateModel } from './admin-account-update.model';
@@ -54,13 +54,14 @@ export class AdminAccountUpdateComponent implements OnInit {
     this.data = Object.assign(this.data, this.form.value);
 
     this.adminUserUpdateService.update(this.data)
-      .pipe(finalize(() => this.updating = false))
+      .pipe(
+        finalize(() => this.updating = false)
+      )
       .subscribe((result: AdminAccountUpdateResultModel) => {
         this.toastrService.success('Usuario editado con éxito');
         const url = SiteUrls.replace(SiteUrls.adminAccountsDetails, { slug: result.slug });
         this.router.navigate([url]);
       }, ((error) => {
-        DebugErrors(error.error);
         if (error.status === StatusCodes.BAD_REQUEST) {
           this.badRequest = error.error;
         }
@@ -76,7 +77,6 @@ export class AdminAccountUpdateComponent implements OnInit {
         this.setBreadcrumb();
         this.buildForm();
       }, (errors) => {
-        DebugErrors(errors);
         if (errors.status === StatusCodes.NOT_FOUND) {
           this.accountNotFound = true;
         }
@@ -100,7 +100,7 @@ export class AdminAccountUpdateComponent implements OnInit {
       userName: new FormControl(this.data.userName || '', [Validators.required]),
       firstName: new FormControl(this.data.firstName || '', [Validators.required]),
       lastName: new FormControl(this.data.lastName || '', [Validators.required]),
-      email: new FormControl(this.data.email || '', [Validators.required]),
+      email: new FormControl(this.data.email || '', [Validators.required, Validators.email]),
       active: new FormControl(this.data.active)
     });
   }
