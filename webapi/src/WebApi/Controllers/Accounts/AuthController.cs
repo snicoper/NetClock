@@ -18,7 +18,7 @@ namespace NetClock.WebApi.Controllers.Accounts
         [AllowAnonymous]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<CurrentUserDto>> Login(LoginCommand loginCommand)
+        public async Task<ActionResult<LoginDto>> Login(LoginCommand loginCommand)
         {
             return await Mediator.Send(loginCommand);
         }

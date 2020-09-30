@@ -76,7 +76,8 @@ namespace NetClock.Application.Common.Services.Identity
             {
                 // Si existe, lanza al excepción para no llegar hacer la consulta ya que daria un 500.
                 var errorMessage = _localizer["Ya existe un usuario con ese nombre y apellidos"];
-                _validationFailureService.AddAndRaiseException(nameof(applicationUser.FirstName), errorMessage);
+                _validationFailureService.Add(nameof(applicationUser.FirstName), errorMessage);
+                _validationFailureService.AddAndRaiseException(nameof(applicationUser.LastName), errorMessage);
             }
         }
 

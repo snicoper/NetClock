@@ -23,19 +23,10 @@ namespace NetClock.Application.Admin.AdminAccounts.Commands.UpdateAccount
         }
 
         public string Id { get; }
-
-        [Display(Name = "Nombre de usuario")]
         public string UserName { get; }
-
-        [Display(Name = "Nombre")]
         public string FirstName { get; }
-
-        [Display(Name = "Apellidos")]
         public string LastName { get; }
-
-        [Display(Name = "Correo electrónico")]
         public string Email { get; }
-
         public bool Active { get; }
 
         public ApplicationUser MappingToApplicationUser(ApplicationUser applicationUser)

@@ -18,7 +18,7 @@ using NetClock.Domain.Entities.Identity;
 
 namespace NetClock.Application.Accounts.Auth.Commands.Login
 {
-    public class LoginCommandHandler : IRequestHandler<LoginCommand, CurrentUserDto>
+    public class LoginCommandHandler : IRequestHandler<LoginCommand, LoginDto>
     {
         private readonly IMapper _mapper;
         private readonly IStringLocalizer<IdentityLocalizer> _localizer;
@@ -41,7 +41,7 @@ namespace NetClock.Application.Accounts.Auth.Commands.Login
             _logger = serviceProvider.GetRequiredService<ILogger<LoginCommandHandler>>();
         }
 
-        public async Task<CurrentUserDto> Handle(LoginCommand request, CancellationToken cancellationToken)
+        public async Task<LoginDto> Handle(LoginCommand request, CancellationToken cancellationToken)
         {
             await _signInManager.SignOutAsync();
             await _httpContextAccessor.HttpContext.SignOutAsync();
@@ -63,7 +63,7 @@ namespace NetClock.Application.Accounts.Auth.Commands.Login
             var roles = await _userManager.GetRolesAsync(user);
             var token = _jwtSecurityTokenService.CreateToken(user, roles);
 
-            var currentUserDto = _mapper.Map<CurrentUserDto>(user);
+            var currentUserDto = _mapper.Map<LoginDto>(user);
             currentUserDto.Token = token;
             _logger.LogInformation($"Se ha identificado con éxito {request.UserName}");
 

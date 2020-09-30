@@ -8,15 +8,10 @@ namespace NetClock.Application.Admin.AdminAccounts.Queries.GetAccounts
     public class GetAccountsDto : IMapFrom<ApplicationUser>
     {
         public string UserName { get; set; }
-
         public string Slug { get; set; }
-
         public string FullName { get; set; }
-
         public string Email { get; set; }
-
         public bool Active { get; set; }
-
         public DateTime Created { get; set; }
 
         public void Mapping(Profile profile)

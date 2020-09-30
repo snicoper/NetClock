@@ -73,7 +73,7 @@ export class AdminAccountCreateComponent implements OnInit {
         userName: new FormControl('', [Validators.required]),
         firstName: new FormControl('', [Validators.required]),
         lastName: new FormControl('', [Validators.required]),
-        email: new FormControl('', [Validators.required]),
+        email: new FormControl('', [Validators.required, Validators.email]),
         password: new FormControl('', [Validators.required]),
         confirmPassword: new FormControl('', [Validators.required]),
         active: new FormControl(true)

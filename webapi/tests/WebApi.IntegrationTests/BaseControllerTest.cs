@@ -42,7 +42,7 @@ namespace NetClock.WebApi.IntegrationTests
             var data = new LoginCommand(userName, password, true);
             var requestContent = SerializerUtils.GetRequestContent(data);
             var response = await Client.PostAsync(uri, requestContent);
-            var responseContent = await SerializerUtils.GetResponseContentAsync<CurrentUserDto>(response);
+            var responseContent = await SerializerUtils.GetResponseContentAsync<LoginDto>(response);
 
             return responseContent.Token;
         }

@@ -1,4 +1,3 @@
-using System.ComponentModel.DataAnnotations;
 using MediatR;
 
 namespace NetClock.Application.Accounts.Accounts.Commands.ChangePassword
@@ -14,14 +13,8 @@ namespace NetClock.Application.Accounts.Accounts.Commands.ChangePassword
         }
 
         public string Id { get; }
-
-        [Display(Name = "Contraseña actual")]
         public string OldPassword { get; }
-
-        [Display(Name = "Nueva contraseña")]
         public string NewPassword { get; }
-
-        [Display(Name = "Repetir contraseña")]
         public string ConfirmPassword { get; }
     }
 }

@@ -13,11 +13,8 @@ namespace NetClock.Application.Accounts.Auth.Commands.RecoveryPasswordValidate
         }
 
         public string UserId { get; }
-
         public string Code { get; }
-
         public string Password { get; }
-
         public string ConfirmPassword { get; }
     }
 }

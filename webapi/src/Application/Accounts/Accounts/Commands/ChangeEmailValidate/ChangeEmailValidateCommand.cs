@@ -1,4 +1,3 @@
-using System.ComponentModel.DataAnnotations;
 using MediatR;
 
 namespace NetClock.Application.Accounts.Accounts.Commands.ChangeEmailValidate
@@ -12,13 +11,8 @@ namespace NetClock.Application.Accounts.Accounts.Commands.ChangeEmailValidate
             Code = code;
         }
 
-        [Display(Name = "Id usuario")]
         public string UserId { get; }
-
-        [Display(Name = "Nuevo email")]
         public string NewEmail { get; }
-
-        [Display(Name = "Código")]
         public string Code { get; }
     }
 }

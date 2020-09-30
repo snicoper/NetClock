@@ -4,25 +4,19 @@ using NetClock.Domain.Entities.Identity;
 
 namespace NetClock.Application.Accounts.Auth.Commands.Login
 {
-    public class CurrentUserDto : IMapFrom<ApplicationUser>
+    public class LoginDto : IMapFrom<ApplicationUser>
     {
         public string Id { get; set; }
-
         public string UserName { get; set; }
-
         public string FirstName { get; set; }
-
         public string LastName { get; set; }
-
         public string FullName { get; set; }
-
         public string Email { get; set; }
-
         public string Token { get; set; }
 
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<CurrentUserDto, ApplicationUser>()
+            profile.CreateMap<LoginDto, ApplicationUser>()
                 .ForMember(dest => dest.Active, opt => opt.Ignore())
                 .ForMember(dest => dest.Slug, opt => opt.Ignore())
                 .ForMember(dest => dest.Created, opt => opt.Ignore())
@@ -40,7 +34,7 @@ namespace NetClock.Application.Accounts.Auth.Commands.Login
                 .ForMember(dest => dest.LockoutEnabled, opt => opt.Ignore())
                 .ForMember(dest => dest.AccessFailedCount, opt => opt.Ignore());
 
-            profile.CreateMap<ApplicationUser, CurrentUserDto>()
+            profile.CreateMap<ApplicationUser, LoginDto>()
                 .ForMember(dest => dest.FullName, opt => opt.MapFrom(src => $"{src.FirstName} {src.LastName}"))
                 .ForMember(dest => dest.Token, opt => opt.Ignore());
         }
