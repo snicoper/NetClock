@@ -15,7 +15,7 @@ export abstract class ApiRestBaseService {
     return this.http.get<ApiResult<TModel>>(url);
   }
 
-  getBy<TModel>(param: any): Observable<TModel> {
+  getBy<TModel>(param: string | number): Observable<TModel> {
     const url = `${this.baseUrl}/${param}`;
 
     return this.http.get<TModel>(url);

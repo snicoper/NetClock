@@ -21,15 +21,15 @@ namespace NetClock.WebApi.Controllers
         }
 
         [AllowAnonymous]
-        [HttpGet("supported-cultures")]
+        [HttpGet("cultures")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public ActionResult<IEnumerable<string>> GetSupportedCultures()
+        public ActionResult<IEnumerable<string>> GetCultures()
         {
             return _cultureService.GetCultures().Select(c => c.Name).ToList();
         }
 
         [AllowAnonymous]
-        [HttpGet("current")]
+        [HttpGet("cultures/current")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public ActionResult<string> GetCurrentCulture()
         {

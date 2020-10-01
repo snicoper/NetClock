@@ -30,8 +30,8 @@ namespace NetClock.WebApi.Controllers.Accounts
         [AllowAnonymous]
         [HttpPost("register/validate")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<Unit>> RegisterValidateCode(RegisterValidateCommand registerValidateCommand)
         {
             return await Mediator.Send(registerValidateCommand);
@@ -40,8 +40,8 @@ namespace NetClock.WebApi.Controllers.Accounts
         [HttpPost("change-password")]
         [Authorize(Permissions.Accounts.Update)]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<Unit>> ChangePassword(ChangePasswordCommand changePasswordCommand)
         {
             return await Mediator.Send(changePasswordCommand);
@@ -50,8 +50,8 @@ namespace NetClock.WebApi.Controllers.Accounts
         [HttpPost("change-email")]
         [Authorize(Permissions.Accounts.Update)]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<Unit>> ChangeEmail(ChangeEmailCommand changeEmailCommand)
         {
             return await Mediator.Send(changeEmailCommand);
@@ -60,8 +60,8 @@ namespace NetClock.WebApi.Controllers.Accounts
         [HttpPost("change-email/validate")]
         [Authorize(Permissions.Accounts.Update)]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<Unit>> ChangeEmailValidate(ChangeEmailValidateCommand changeEmailValidateCommand)
         {
             return await Mediator.Send(changeEmailValidateCommand);

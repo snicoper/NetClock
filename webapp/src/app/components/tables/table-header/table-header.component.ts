@@ -67,6 +67,7 @@ export class TableHeaderComponent<T> {
 
   private getHttpApiResultItemByHeader(header: ITableHeaderField): ApiResultItemOrderBy {
     this.apiResult = Object.assign(new ApiResult<T>(), this.apiResult);
+
     return this.apiResult.orders.find((field) => field.propertyName === header.field);
   }
 }
