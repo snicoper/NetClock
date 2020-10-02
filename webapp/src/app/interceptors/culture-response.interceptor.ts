@@ -12,7 +12,7 @@ export class CultureResponseInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     if (!request.headers.has('Content-Language')) {
       request = request.clone({
-        headers: request.headers.set('Accept-Language', this.localizationService.getCurrentCultureValue())
+        headers: request.headers.set('Accept-Language', this.localizationService.getCultureValue())
       });
     }
 

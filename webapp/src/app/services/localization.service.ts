@@ -15,23 +15,25 @@ export class LocalizationService {
   constructor(@Inject(DOCUMENT) private document: Document) {
   }
 
+  /** Observable de cultura. */
+  get culture(): Observable<string> {
+    return this.currentCultureSubject$.asObservable();
+  }
+
+  /** Observable del timezone. */
+  get timezone(): Observable<string> {
+    return this.timezoneSubject$.asObservable();
+  }
+
   /** Establecer valores por defecto de cultura y timezone. */
   initialize(): void {
     // Establecer cultura por defecto.
-    const culture = localStorage.getItem('culture');
-    if (culture) {
-      this.currentCultureSubject$ = new BehaviorSubject<string>(culture);
-    } else {
-      this.setCulture(this.defaultCulture);
-    }
+    const culture = localStorage.getItem('culture') || this.defaultCulture;
+    this.setCulture(culture);
 
     // Establecer timezone por defecto.
-    const timezone = localStorage.getItem('timezone');
-    if (timezone) {
-      this.setTimezone(timezone);
-    } else {
-      this.setTimezone(Intl.DateTimeFormat().resolvedOptions().timeZone);
-    }
+    const timezone = localStorage.getItem('timezone') || Intl.DateTimeFormat().resolvedOptions().timeZone;
+    this.setTimezone(timezone);
   }
 
   /**
@@ -50,21 +52,14 @@ export class LocalizationService {
 
     // Culturas soportadas por moment.
     // @see: https://stackoverflow.com/a/55827203
-    const currentCulture = this.getCurrentCultureValue();
-    const index = currentCulture.indexOf('-');
-    const locale = index > 0 ? currentCulture.substr(0, index) : currentCulture;
-
+    const index = culture.indexOf('-');
+    const locale = index > 0 ? culture.substr(0, index) : culture;
     moment.locale(locale);
   }
 
-  /** Obtener cultura actual. */
-  getCurrentCultureValue(): string {
+  /** Obtener el valor de la cultura actual. */
+  getCultureValue(): string {
     return this.currentCultureSubject$.value;
-  }
-
-  /** Obtener observable de la cultura. */
-  culture(): Observable<string> {
-    return this.currentCultureSubject$.asObservable();
   }
 
   /**
@@ -73,19 +68,14 @@ export class LocalizationService {
    * @param timezone Timezone a establecer.
    */
   setTimezone(timezone: string): void {
-    this.timezoneSubject$.next(timezone);
     moment.tz.setDefault(timezone);
-    localStorage.setItem('timezone', this.getCurrentTimezoneValue());
+    this.timezoneSubject$.next(timezone);
+    localStorage.setItem('timezone', timezone);
   }
 
-  /** Obtener timezone actual. */
-  getCurrentTimezoneValue(): string {
+  /** Obtener el valor timezone actual. */
+  getTimezoneValue(): string {
     return this.timezoneSubject$.value;
-  }
-
-  /** Obtener observable del timezone. */
-  timezone(): Observable<string> {
-    return this.timezoneSubject$.asObservable();
   }
 
   /** Obtener el offset actual de moment. */
