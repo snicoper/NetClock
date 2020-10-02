@@ -50,7 +50,9 @@ export class ChangePasswordComponent implements OnInit {
     changePasswordModel.id = this.authService.currentUserValue.id;
 
     this.changePasswordService.change(changePasswordModel)
-      .pipe(finalize(() => this.loading = false))
+      .pipe(
+        finalize(() => this.loading = false)
+      )
       .subscribe(() => {
           this.toastrService.success('Contraseña cambiada con éxito.');
           this.authService.logout();

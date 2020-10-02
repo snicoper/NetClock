@@ -47,7 +47,9 @@ export class AdminAccountCreateComponent implements OnInit {
 
     this.loading = true;
     this.adminUserCreateService.create(this.form.value)
-      .pipe(finalize(() => this.loading = false))
+      .pipe(
+        finalize(() => this.loading = false)
+      )
       .subscribe((result: AdminAccountCreateResult) => {
           const url = SiteUrls.replace(SiteUrls.adminAccountsDetails, { slug: result.slug });
           this.toastrService.success('Usuario creado con éxito');

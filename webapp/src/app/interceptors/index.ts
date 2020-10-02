@@ -1,4 +1,4 @@
-export { CultureInterceptor } from './culture.interceptor';
-export { ApiResultInterceptor } from './api-result.interceptor';
-export { JwtInterceptor } from './jwt.interceptor';
-export { ErrorInterceptor } from './error.interceptor';
+export { ApiResultRequestInterceptor } from './api-result-request.interceptor';
+export { CultureResponseInterceptor } from './culture-response.interceptor';
+export { ErrorRequestInterceptor } from './error-request.interceptor';
+export { JwtResponseInterceptor } from './jwt-response.interceptor';

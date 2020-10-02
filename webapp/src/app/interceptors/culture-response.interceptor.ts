@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { LocalizationService } from '../services';
 
 @Injectable()
-export class CultureInterceptor implements HttpInterceptor {
+export class CultureResponseInterceptor implements HttpInterceptor {
   constructor(private localizationService: LocalizationService) {
   }
 

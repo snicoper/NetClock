@@ -71,7 +71,9 @@ export class AdminAccountUpdateComponent implements OnInit {
   private loadData(): void {
     this.loading = true;
     this.adminUserUpdateService.getBy(this.slug)
-      .pipe(finalize(() => this.loading = false))
+      .pipe(
+        finalize(() => this.loading = false)
+      )
       .subscribe((result: AdminAccountUpdateModel) => {
         this.data = result;
         this.setBreadcrumb();

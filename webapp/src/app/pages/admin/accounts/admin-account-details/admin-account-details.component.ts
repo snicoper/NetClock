@@ -44,7 +44,9 @@ export class AdminAccountDetailsComponent implements OnInit {
   private loadUser(): void {
     this.loading = true;
     this.adminUserDetailsService.getBy(this.userSlug)
-      .pipe(finalize(() => this.loading = false))
+      .pipe(
+        finalize(() => this.loading = false)
+      )
       .subscribe((result: AdminAccountDetailsModel) => {
         this.user = result;
         this.setBreadcrumb();

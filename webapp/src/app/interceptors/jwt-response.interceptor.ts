@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { AuthService } from '../pages/auth/login/auth.service';
 
 @Injectable()
-export class JwtInterceptor implements HttpInterceptor {
+export class JwtResponseInterceptor implements HttpInterceptor {
   constructor(private authenticationService: AuthService) {
   }
 

@@ -9,28 +9,30 @@ import { DebugErrors, SiteUrls } from '../core';
 import { AuthService } from '../pages/auth/login/auth.service';
 
 @Injectable()
-export class ErrorInterceptor implements HttpInterceptor {
+export class ErrorRequestInterceptor implements HttpInterceptor {
   constructor(private authenticationService: AuthService, private router: Router) {
   }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    return next.handle(request).pipe(catchError(error => {
-      DebugErrors(error.error);
+    return next.handle(request)
+      .pipe(
+        catchError(error => {
+          DebugErrors(error.error);
 
-      switch (error.status) {
-        case StatusCodes.UNAUTHORIZED:
-          this.unauthorizedHandler();
-          break;
-        case StatusCodes.FORBIDDEN:
-          this.forbiddenHandler();
-          break;
-        case StatusCodes.BAD_REQUEST:
-          this.errorHandler();
-          break;
-      }
+          switch (error.status) {
+            case StatusCodes.UNAUTHORIZED:
+              this.unauthorizedHandler();
+              break;
+            case StatusCodes.FORBIDDEN:
+              this.forbiddenHandler();
+              break;
+            case StatusCodes.BAD_REQUEST:
+              this.errorHandler();
+              break;
+          }
 
-      return throwError(error);
-    }));
+          return throwError(error);
+        }));
   }
 
   private unauthorizedHandler(): void {

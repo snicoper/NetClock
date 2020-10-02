@@ -9,7 +9,6 @@ import { LocalizationService } from './services';
 })
 export class AppComponent {
   constructor(
-    @Inject(DOCUMENT) private document: Document,
     private localizationService: LocalizationService
   ) {
     this.localizationService.initialize();

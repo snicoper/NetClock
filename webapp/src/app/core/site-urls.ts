@@ -30,7 +30,7 @@ export const SiteUrls = {
   errorsForbidden: '/errors/403',
 
   /**
-   * Utiliza una de las propiedades de UrlsApp para remplazar {algo} por valor en los args.
+   * Utiliza una de las propiedades de SiteUrls para remplazar {algo} por valor en los args.
    *
    * @param url Una de las propiedades.
    * @param args Remplaza el {key} por el value de.

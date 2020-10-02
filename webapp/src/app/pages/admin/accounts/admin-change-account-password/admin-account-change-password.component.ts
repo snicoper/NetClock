@@ -56,7 +56,9 @@ export class AdminAccountChangePasswordComponent implements OnInit {
     model.id = this.user.id;
 
     this.adminUserChangePasswordService.change(model)
-      .pipe(finalize(() => this.updating = false))
+      .pipe(
+        finalize(() => this.updating = false)
+      )
       .subscribe(() => {
         this.toastrService.success('Contraseña actualizada con éxito');
         const url = SiteUrls.replace(SiteUrls.adminAccountsDetails, { slug: this.user.slug });
@@ -68,7 +70,9 @@ export class AdminAccountChangePasswordComponent implements OnInit {
   private loadUser(): void {
     this.loading = true;
     this.adminUserChangePasswordService.getBy(this.slug)
-      .pipe(finalize(() => this.loading = false))
+      .pipe(
+        finalize(() => this.loading = false)
+      )
       .subscribe((result: AdminAccountDetailsModel) => {
         this.user = result;
         this.setBreadcrumb();

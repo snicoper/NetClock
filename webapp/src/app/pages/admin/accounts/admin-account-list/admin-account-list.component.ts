@@ -65,11 +65,13 @@ export class AdminAccountListComponent implements OnInit, OnDestroy {
   private loadUsers(): void {
     this.loading = true;
     this.adminUserListService.getAllPaginated(this.apiResult)
-      .pipe(finalize(() => this.loading = false))
+      .pipe(
+        finalize(() => this.loading = false)
+      )
       .subscribe((result: ApiResult<AdminAccountListModel>) => {
-          this.apiResult = result;
-        }, (error) => {
-          DebugErrors(error);
-        });
+        this.apiResult = result;
+      }, (error) => {
+        DebugErrors(error);
+      });
   }
 }
