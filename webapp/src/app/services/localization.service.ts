@@ -48,6 +48,7 @@ export class LocalizationService {
     this.currentCultureSubject$.next(culture);
     this.document.documentElement.lang = culture;
 
+    // Culturas soportadas por moment.
     // @see: https://stackoverflow.com/a/55827203
     const currentCulture = this.getCurrentCultureValue();
     const index = currentCulture.indexOf('-');
@@ -85,5 +86,10 @@ export class LocalizationService {
   /** Obtener observable del timezone. */
   timezone(): Observable<string> {
     return this.timezoneSubject$.asObservable();
+  }
+
+  /** Obtener el offset actual de moment. */
+  utcOffset(): number {
+    return moment().utcOffset();
   }
 }
