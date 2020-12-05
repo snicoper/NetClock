@@ -23,7 +23,7 @@ namespace NetClock.Domain.Common
                     return false;
                 }
 
-                if (thisValues.Current != null && !thisValues.Current.Equals(otherValues.Current))
+                if (thisValues.Current is not null && !thisValues.Current.Equals(otherValues.Current))
                 {
                     return false;
                 }
@@ -35,7 +35,7 @@ namespace NetClock.Domain.Common
         public override int GetHashCode()
         {
             return GetAtomicValues()
-                .Select(x => x != null ? x.GetHashCode() : 0)
+                .Select(x => x is not null ? x.GetHashCode() : 0)
                 .Aggregate((x, y) => x ^ y);
         }
 

@@ -49,7 +49,7 @@ namespace NetClock.Application.Accounts.Accounts.Commands.Register
         public async Task<RegisterDto> Handle(RegisterCommand request, CancellationToken cancellationToken)
         {
             var applicationUser = request.MappingToApplicationUser();
-            await _identityService.CreateUser(applicationUser, request.Password);
+            await _identityService.CreateUserAsync(applicationUser, request.Password);
             var registerViewModel = _mapper.Map<ApplicationUser, RegisterDto>(applicationUser);
 
             // Generar code de validación y enviar email.

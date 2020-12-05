@@ -26,7 +26,7 @@ namespace NetClock.Application.Admin.AdminRoles.Queries.GetRol
             _logger.LogInformation($"Se va a obtener el rol {request.Id}");
             var rol = await _roleManager.FindByIdAsync(request.Id);
 
-            if (rol != null)
+            if (rol is not null)
             {
                 return _mapper.Map<GetRolDto>(rol);
             }

@@ -49,7 +49,7 @@ namespace NetClock.Application.Common.Services.Identity
             return await _userManager.Users.FirstOrDefaultAsync(u => u.Slug == slug);
         }
 
-        public async Task<ApplicationUser> CreateUser(ApplicationUser applicationUser, string password)
+        public async Task<ApplicationUser> CreateUserAsync(ApplicationUser applicationUser, string password)
         {
             await UserValidationAsync(applicationUser);
             await PasswordValidationAsync(applicationUser, password);
@@ -72,7 +72,7 @@ namespace NetClock.Application.Common.Services.Identity
             // Comprueba si existe un FirstName y LastName iguales en la base de datos.
             var userExists = _userManager.Users.FirstOrDefault(
                 u => u.FirstName == applicationUser.FirstName && u.LastName == applicationUser.LastName);
-            if (userExists != null)
+            if (userExists is not null)
             {
                 // Si existe, lanza al excepción para no llegar hacer la consulta ya que daria un 500.
                 var errorMessage = _localizer["Ya existe un usuario con ese nombre y apellidos"];

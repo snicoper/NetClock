@@ -64,7 +64,7 @@ namespace NetClock.WebApi.Filters
             var exception = context.Exception as CustomValidationException;
             var errors = new Dictionary<string, string[]>();
 
-            if (exception?.Errors != null)
+            if (exception?.Errors is not null)
             {
                 errors = AddModelErrors(exception);
             }

@@ -21,7 +21,7 @@ namespace NetClock.WebApi.IntegrationTests
                 var descriptor = services
                     .SingleOrDefault(d => d.ServiceType == typeof(DbContextOptions<ApplicationDbContext>));
 
-                if (descriptor != null)
+                if (descriptor is not null)
                 {
                     services.Remove(descriptor);
                 }
@@ -32,7 +32,7 @@ namespace NetClock.WebApi.IntegrationTests
                     context.UseInMemoryDatabase("InMemoryDbForTesting");
                 });
 
-                // Build the service provider.
+                // Build the service provider
                 services.BuildServiceProvider();
             }).UseEnvironment(CommonConstants.Test);
         }

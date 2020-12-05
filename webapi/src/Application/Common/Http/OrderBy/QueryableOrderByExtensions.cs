@@ -45,7 +45,7 @@ namespace NetClock.Application.Common.Http.OrderBy
             var propertyInfo = typeof(TEntity).GetProperty(nameof(ApplicationUser.Created))
                                ?? typeof(TEntity).GetProperty(nameof(ApplicationUser.Id));
 
-            return propertyInfo != null ? source.OrderBy($"{propertyInfo.Name} DESC") : source;
+            return propertyInfo is not null ? source.OrderBy($"{propertyInfo.Name} DESC") : source;
         }
 
         private static IOrderedQueryable<TEntity> HandleOrderByCommand<TEntity>(

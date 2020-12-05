@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
+using Microsoft.Extensions.Hosting;
 using NetClock.Application;
 using NetClock.Application.Common.Constants;
 using NetClock.Domain;
@@ -97,6 +98,11 @@ namespace NetClock.WebApi
                     return Task.CompletedTask;
                 };
             });
+
+            if (Environment.IsDevelopment())
+            {
+                services.AddDatabaseDeveloperPageExceptionFilter();
+            }
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

@@ -63,7 +63,6 @@ namespace NetClock.WebApi.Extensions.Configure
         private static void ConfigureDevelopment()
         {
             _application.UseDeveloperExceptionPage();
-            _application.UseDatabaseErrorPage();
         }
 
         private static void ConfigureTest()

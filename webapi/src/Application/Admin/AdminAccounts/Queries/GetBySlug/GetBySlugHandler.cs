@@ -27,7 +27,7 @@ namespace NetClock.Application.Admin.AdminAccounts.Queries.GetBySlug
             _logger.LogInformation($"Se va a obtener el usuario {request.Slug}");
             var user = await _identityService.FirstOrDefaultBySlugAsync(request.Slug);
 
-            if (user != null)
+            if (user is not null)
             {
                 return _mapper.Map<GetBySlugDto>(user);
             }
