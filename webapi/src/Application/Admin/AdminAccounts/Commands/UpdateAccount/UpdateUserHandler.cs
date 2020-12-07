@@ -41,6 +41,7 @@ namespace NetClock.Application.Admin.AdminAccounts.Commands.UpdateAccount
             await ValidateDataIfExists(request);
 
             _logger.LogInformation($"Se ha obtenido correctamente el usuario {request.UserName}");
+            applicationUser = request.MappingToApplicationUser(applicationUser);
             await _userManager.UpdateAsync(applicationUser);
             _logger.LogInformation($"Se ha actualizado correctamente el usuario {request.UserName}");
 
@@ -78,7 +79,7 @@ namespace NetClock.Application.Admin.AdminAccounts.Commands.UpdateAccount
 
             if (user)
             {
-                var message = _localizer["El existe un usuario con ese correo electrónico"];
+                var message = _localizer["Ya existe un usuario con ese correo electrónico"];
                 _validationFailureService.Add(nameof(request.Email), message);
             }
 

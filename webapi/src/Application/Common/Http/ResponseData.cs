@@ -49,7 +49,7 @@ namespace NetClock.Application.Common.Http
             IEnumerable<TDto> items,
             int totalItems)
         {
-            return new ResponseData<TDto>
+            return new()
             {
                 TotalItems = totalItems,
                 PageNumber = request.PageNumber,
