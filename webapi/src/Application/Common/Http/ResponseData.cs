@@ -18,7 +18,7 @@ namespace NetClock.Application.Common.Http
             Items = new HashSet<TDto>();
         }
 
-        public IEnumerable<TDto> Items { get; private set; }
+        public IEnumerable<TDto> Items { get; private init; }
 
         public bool HasPreviousPage => PageNumber > 1;
 

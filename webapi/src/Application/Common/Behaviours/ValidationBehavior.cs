@@ -20,18 +20,20 @@ namespace NetClock.Application.Common.Behaviours
 
         public async Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate<TResponse> next)
         {
-            if (_validators.Any())
+            if (!_validators.Any())
             {
-                var context = new ValidationContext<TRequest>(request);
-
-                var validationResults = await Task.WhenAll(_validators.Select(v => v.ValidateAsync(context, cancellationToken)));
-                var failures = validationResults.SelectMany(r => r.Errors).Where(f => f is not null).ToList();
-
-                if (failures.Count != 0)
-                {
-                    throw new CustomValidationException(failures);
-                }
+                return await next();
             }
+
+            var context = new ValidationContext<TRequest>(request);
+            var validationResults = await Task.WhenAll(_validators.Select(v => v.ValidateAsync(context, cancellationToken)));
+            var failures = validationResults.SelectMany(r => r.Errors).Where(f => f is not null).ToList();
+
+            if (failures.Any())
+            {
+                throw new CustomValidationException(failures);
+            }
+
             return await next();
         }
     }

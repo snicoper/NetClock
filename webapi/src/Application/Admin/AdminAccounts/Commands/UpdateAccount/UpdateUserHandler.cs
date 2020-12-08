@@ -33,7 +33,7 @@ namespace NetClock.Application.Admin.AdminAccounts.Commands.UpdateAccount
         public async Task<UpdateUserDto> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
         {
             var applicationUser = await _userManager.FindByIdAsync(request.Id);
-            if (applicationUser == null)
+            if (applicationUser is null)
             {
                 throw new NotFoundException(nameof(applicationUser), nameof(applicationUser.UserName));
             }
