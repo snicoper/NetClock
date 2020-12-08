@@ -1,4 +1,3 @@
-using System;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
@@ -7,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 using NetClock.Application.Common.Exceptions;
+using NetClock.Application.Common.Interfaces.Common;
 using NetClock.Application.Common.Interfaces.Validations;
 using NetClock.Domain.Entities.Identity;
 
@@ -17,17 +17,21 @@ namespace NetClock.Application.Admin.AdminAccounts.Commands.UpdateAccount
         private readonly IStringLocalizer<ApplicationUser> _localizer;
         private readonly ILogger<UpdateUserHandler> _logger;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IDateTime _dateTime;
+        private readonly IApplicationDbContext _dbContext;
         private readonly IValidationFailureService _validationFailureService;
 
         public UpdateUserHandler(
             IStringLocalizer<ApplicationUser> localizer,
             ILogger<UpdateUserHandler> logger,
             UserManager<ApplicationUser> userManager,
+            IDateTime dateTime,
             IValidationFailureService validationFailureService)
         {
             _localizer = localizer;
             _logger = logger;
             _userManager = userManager;
+            _dateTime = dateTime;
             _validationFailureService = validationFailureService;
         }
 
@@ -43,7 +47,9 @@ namespace NetClock.Application.Admin.AdminAccounts.Commands.UpdateAccount
 
             _logger.LogInformation($"Se ha obtenido correctamente el usuario {request.UserName}");
             applicationUser = request.MappingToApplicationUser(applicationUser);
+            applicationUser.LastModified = _dateTime.Now;
             await _userManager.UpdateAsync(applicationUser);
+
             _logger.LogInformation($"Se ha actualizado correctamente el usuario {request.UserName}");
 
             return new UpdateUserDto(applicationUser.Slug);

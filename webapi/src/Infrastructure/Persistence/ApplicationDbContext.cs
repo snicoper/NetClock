@@ -4,11 +4,10 @@ using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using IdentityServer4.EntityFramework.Options;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using NetClock.Application.Common.Interfaces.Common;
-using NetClock.Application.Common.Interfaces.Domain;
 using NetClock.Application.Common.Interfaces.Identity;
 using NetClock.Domain.Common;
 using NetClock.Domain.Entities;
@@ -16,7 +15,7 @@ using NetClock.Domain.Entities.Identity;
 
 namespace NetClock.Infrastructure.Persistence
 {
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplicationDbContext
+    public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>, IApplicationDbContext
     {
         private readonly ICurrentUserService _currentUserService;
         private readonly IDateTime _dateTime;
@@ -28,13 +27,14 @@ namespace NetClock.Infrastructure.Persistence
             ICurrentUserService currentUserService,
             IDomainEventService domainEventService,
             IDateTime dateTime)
-            : base(options)
+            : base(options, operationalStoreOptions)
         {
             _currentUserService = currentUserService;
             _domainEventService = domainEventService;
             _dateTime = dateTime;
         }
 
+        public DbSet<ApplicationUser> ApplicationUsers { get; set; }
         public DbSet<Schedule> Schedules { get; set; }
 
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new())

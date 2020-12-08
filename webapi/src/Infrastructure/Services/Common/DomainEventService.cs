@@ -2,11 +2,11 @@ using System;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.Extensions.Logging;
-using NetClock.Application.Common.Interfaces.Domain;
+using NetClock.Application.Common.Interfaces.Common;
 using NetClock.Application.Common.Models;
 using NetClock.Domain.Common;
 
-namespace NetClock.Infrastructure.Services.Domain
+namespace NetClock.Infrastructure.Services.Common
 {
     public class DomainEventService : IDomainEventService
     {

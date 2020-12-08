@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NetClock.Application.Common.Interfaces.Common;
 using NetClock.Infrastructure.Persistence;
+using NetClock.Infrastructure.Services.Common;
 
 namespace NetClock.Infrastructure
 {
@@ -18,14 +19,14 @@ namespace NetClock.Infrastructure
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseNpgsql(connectionString, b => b.MigrationsAssembly(assembly)));
 
-            services.AddScoped<IApplicationDbContext>(provider => provider.GetService<ApplicationDbContext>());
-
-            // DI.
             services.Scan(scan =>
                 scan.FromCallingAssembly()
                     .AddClasses(classes => classes.Where(type => type.Name.EndsWith("Service")))
                     .AsImplementedInterfaces()
                     .WithTransientLifetime());
+
+            services.AddScoped<IApplicationDbContext>(provider => provider.GetService<ApplicationDbContext>());
+            services.AddScoped<IDomainEventService, DomainEventService>();
 
             return services;
         }
