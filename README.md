@@ -1,8 +1,8 @@
 # NetClock
 
-Herramientas de dotnet ef ahora se instalan global
+[CleanArchitecture](https://github.com/jasontaylordev/CleanArchitecture)
 
-[https://www.nuget.org/packages/dotnet-ef/3.1.0](https://www.nuget.org/packages/dotnet-ef/3.1.0)
+Herramientas de dotnet ef ahora se instalan global
 
 `dotnet tool install -g dotnet-ef`
 
@@ -18,3 +18,5 @@ dotnet ef migrations add Initial \
 
 dotnet ef database update -c ApplicationDbContext
 ```
+
+[Ver](commands/restore_dev.sh)
