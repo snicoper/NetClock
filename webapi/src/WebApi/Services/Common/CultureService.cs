@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Options;
 using NetClock.Application.Common.Interfaces.Common;
 
-namespace NetClock.Application.Common.Services.Common
+namespace NetClock.WebApi.Services.Common
 {
     public class CultureService : ICultureService
     {

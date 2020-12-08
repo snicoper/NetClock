@@ -18,7 +18,7 @@ namespace NetClock.Infrastructure.Persistence
     public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>, IApplicationDbContext
     {
         private readonly ICurrentUserService _currentUserService;
-        private readonly IDateTime _dateTime;
+        private readonly IDateTimeService _dateTimeService;
         private readonly IDomainEventService _domainEventService;
 
         public ApplicationDbContext(
@@ -26,12 +26,12 @@ namespace NetClock.Infrastructure.Persistence
             IOptions<OperationalStoreOptions> operationalStoreOptions,
             ICurrentUserService currentUserService,
             IDomainEventService domainEventService,
-            IDateTime dateTime)
+            IDateTimeService dateTimeService)
             : base(options, operationalStoreOptions)
         {
             _currentUserService = currentUserService;
             _domainEventService = domainEventService;
-            _dateTime = dateTime;
+            _dateTimeService = dateTimeService;
         }
 
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
@@ -62,11 +62,11 @@ namespace NetClock.Infrastructure.Persistence
                 {
                     case EntityState.Added:
                         entry.Entity.CreatedBy = _currentUserService.Id;
-                        entry.Entity.Created = _dateTime.Now;
+                        entry.Entity.Created = _dateTimeService.Now;
                         break;
                     case EntityState.Modified:
                         entry.Entity.LastModifiedBy = _currentUserService.Id;
-                        entry.Entity.LastModified = _dateTime.Now;
+                        entry.Entity.LastModified = _dateTimeService.Now;
                         break;
                     case EntityState.Detached:
                         break;
@@ -87,10 +87,10 @@ namespace NetClock.Infrastructure.Persistence
                 switch (entry.State)
                 {
                     case EntityState.Added:
-                        entry.Entity.Created = _dateTime.Now;
+                        entry.Entity.Created = _dateTimeService.Now;
                         break;
                     case EntityState.Modified:
-                        entry.Entity.LastModified = _dateTime.Now;
+                        entry.Entity.LastModified = _dateTimeService.Now;
                         break;
                     case EntityState.Detached:
                         break;

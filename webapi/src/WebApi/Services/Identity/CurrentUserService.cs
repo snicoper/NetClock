@@ -4,7 +4,7 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
 using NetClock.Application.Common.Interfaces.Identity;
 
-namespace NetClock.Application.Common.Services.Identity
+namespace NetClock.WebApi.Services.Identity
 {
     public class CurrentUserService : ICurrentUserService
     {

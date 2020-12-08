@@ -10,7 +10,7 @@ namespace NetClock.Infrastructure.IntegrationTests.Persistence
     {
         private readonly string _userId;
         private readonly DateTime _dateTime;
-        private readonly Mock<IDateTime> _dateTimeMock;
+        private readonly Mock<IDateTimeService> _dateTimeMock;
         private readonly Mock<ICurrentUserService> _currentUserServiceMock;
         private readonly ApplicationDbContext _sut;
 

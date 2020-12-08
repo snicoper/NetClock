@@ -5,7 +5,7 @@ using AutoMapper;
 using NetClock.Application.Common.Http;
 using NetClock.Application.Common.Interfaces.Http;
 
-namespace NetClock.Application.Common.Services.Http
+namespace NetClock.WebApi.Services.Http
 {
     public class ResponseDataService<TQueryModel, TResultDto>
         : IResponseDataService<TQueryModel, TResultDto>

@@ -16,7 +16,6 @@ using NetClock.Infrastructure;
 using NetClock.Infrastructure.Persistence;
 using NetClock.WebApi.Extensions.Configure;
 using NetClock.WebApi.Extensions.ConfigureServices;
-using NetClock.WebApi.Validators;
 
 namespace NetClock.WebApi
 {
@@ -36,10 +35,13 @@ namespace NetClock.WebApi
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddHttpContextAccessor();
+
             // Dependency injection.
             services.AddApplication();
             services.AddInfrastructure(Configuration);
             services.AddDomain();
+            services.AddWebApi();
 
             // Configure services.
             services.ConfigureStronglyTypeSettings(Configuration);
@@ -52,8 +54,6 @@ namespace NetClock.WebApi
             {
                 services.ConfigureSwagger();
             }
-
-            services.AddTransient<IValidateParams, ValidateParams>();
 
             // Localization.
             services.AddLocalization(options => options.ResourcesPath = "Resources");
