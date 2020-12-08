@@ -1,4 +1,6 @@
 using System;
+using System.Linq;
+using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using IdentityServer4.EntityFramework.Options;
@@ -6,6 +8,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using NetClock.Application.Common.Interfaces.Common;
+using NetClock.Application.Common.Interfaces.Domain;
 using NetClock.Application.Common.Interfaces.Identity;
 using NetClock.Domain.Common;
 using NetClock.Domain.Entities;
@@ -13,25 +16,28 @@ using NetClock.Domain.Entities.Identity;
 
 namespace NetClock.Infrastructure.Persistence
 {
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplicationDbContext
     {
         private readonly ICurrentUserService _currentUserService;
         private readonly IDateTime _dateTime;
+        private readonly IDomainEventService _domainEventService;
 
         public ApplicationDbContext(
             DbContextOptions<ApplicationDbContext> options,
             IOptions<OperationalStoreOptions> operationalStoreOptions,
             ICurrentUserService currentUserService,
+            IDomainEventService domainEventService,
             IDateTime dateTime)
             : base(options)
         {
             _currentUserService = currentUserService;
+            _domainEventService = domainEventService;
             _dateTime = dateTime;
         }
 
         public DbSet<Schedule> Schedules { get; set; }
 
-        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+        public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new())
         {
             foreach (var entry in ChangeTracker.Entries<AuditableEntity>())
             {
@@ -52,11 +58,41 @@ namespace NetClock.Infrastructure.Persistence
                     case EntityState.Deleted:
                         break;
                     default:
-                        throw new ArgumentOutOfRangeException($@"Estado ""{entry.State}"" no implementado");
+                        throw new ArgumentOutOfRangeException();
                 }
             }
 
-            return base.SaveChangesAsync(cancellationToken);
+            var result = await base.SaveChangesAsync(cancellationToken);
+            await DispatchEvents();
+
+            return result;
+        }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+
+            base.OnModelCreating(builder);
+        }
+
+        private async Task DispatchEvents()
+        {
+            while (true)
+            {
+                var domainEventEntity = ChangeTracker
+                    .Entries<IHasDomainEvent>()
+                    .Select(x => x.Entity.DomainEvents)
+                    .SelectMany(x => x)
+                    .FirstOrDefault(domainEvent => !domainEvent.IsPublished);
+
+                if (domainEventEntity == null)
+                {
+                    break;
+                }
+
+                domainEventEntity.IsPublished = true;
+                await _domainEventService.Publish(domainEventEntity);
+            }
         }
     }
 }

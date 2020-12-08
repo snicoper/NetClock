@@ -39,7 +39,7 @@ namespace NetClock.Application.Common.Behaviours
             }
 
             var requestName = typeof(TRequest).Name;
-            var userId = _currentUserService.Id ?? "0";
+            var userId = _currentUserService.Id ?? string.Empty;
             var userName = _currentUserService.UserName ?? "Anonymous";
 
             _logger.LogWarning(

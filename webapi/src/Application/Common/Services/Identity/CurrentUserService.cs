@@ -11,10 +11,10 @@ namespace NetClock.Application.Common.Services.Identity
         public CurrentUserService(IHttpContextAccessor httpContextAccessor)
         {
             User = httpContextAccessor.HttpContext?.User;
-            Id = httpContextAccessor.HttpContext?.User?.FindFirstValue(ClaimTypes.NameIdentifier);
-            UserName = httpContextAccessor.HttpContext?.User?.FindFirstValue(ClaimTypes.Name);
-            Email = httpContextAccessor.HttpContext?.User?.FindFirstValue(ClaimTypes.Email);
-            Roles = httpContextAccessor.HttpContext?.User?.FindAll(ClaimTypes.Role).Select(r => r.Value).ToList();
+            Id = httpContextAccessor.HttpContext?.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            UserName = httpContextAccessor.HttpContext?.User.FindFirstValue(ClaimTypes.Name);
+            Email = httpContextAccessor.HttpContext?.User.FindFirstValue(ClaimTypes.Email);
+            Roles = httpContextAccessor.HttpContext?.User.FindAll(ClaimTypes.Role).Select(r => r.Value).ToList();
         }
 
         public ClaimsPrincipal User { get; }

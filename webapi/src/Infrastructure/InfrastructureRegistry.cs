@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using NetClock.Application.Common.Interfaces.Common;
 using NetClock.Infrastructure.Persistence;
 
 namespace NetClock.Infrastructure
@@ -16,6 +17,8 @@ namespace NetClock.Infrastructure
 
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseNpgsql(connectionString, b => b.MigrationsAssembly(assembly)));
+
+            services.AddScoped<IApplicationDbContext>(provider => provider.GetService<ApplicationDbContext>());
 
             // DI.
             services.Scan(scan =>

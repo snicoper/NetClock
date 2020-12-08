@@ -16,15 +16,9 @@ namespace NetClock.Application.Common.Exceptions
         public CustomValidationException(IEnumerable<ValidationFailure> failures)
             : this()
         {
-            var failureGroups = failures.GroupBy(e => e.PropertyName, e => e.ErrorMessage);
-
-            foreach (var failureGroup in failureGroups)
-            {
-                var propertyName = failureGroup.Key;
-                var propertyFailures = failureGroup.ToArray();
-
-                Errors.Add(propertyName, propertyFailures);
-            }
+            Errors = failures
+                .GroupBy(e => e.PropertyName, e => e.ErrorMessage)
+                .ToDictionary(failureGroup => failureGroup.Key, failureGroup => failureGroup.ToArray());
         }
 
         public IDictionary<string, string[]> Errors { get; }
