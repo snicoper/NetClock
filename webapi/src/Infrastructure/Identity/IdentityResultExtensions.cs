@@ -2,7 +2,7 @@ using System.Linq;
 using Microsoft.AspNetCore.Identity;
 using NetClock.Application.Common.Models;
 
-namespace NetClock.Application.Common.Extensions
+namespace NetClock.Infrastructure.Identity
 {
     public static class IdentityResultExtensions
     {

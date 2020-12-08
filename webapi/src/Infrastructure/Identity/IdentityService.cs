@@ -10,7 +10,7 @@ using NetClock.Application.Common.Interfaces.Identity;
 using NetClock.Application.Common.Interfaces.Validations;
 using NetClock.Domain.Entities.Identity;
 
-namespace NetClock.Application.Common.Services.Identity
+namespace NetClock.Infrastructure.Identity
 {
     public class IdentityService : IIdentityService
     {
