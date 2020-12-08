@@ -16,6 +16,7 @@ using NetClock.Infrastructure;
 using NetClock.Infrastructure.Persistence;
 using NetClock.WebApi.Extensions.Configure;
 using NetClock.WebApi.Extensions.ConfigureServices;
+using NetClock.WebApi.Validators;
 
 namespace NetClock.WebApi
 {
@@ -103,6 +104,8 @@ namespace NetClock.WebApi
             {
                 services.AddDatabaseDeveloperPageExceptionFilter();
             }
+
+            services.AddTransient<IValidateParams, ValidateParams>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

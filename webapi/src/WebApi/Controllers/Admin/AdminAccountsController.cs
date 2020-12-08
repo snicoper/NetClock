@@ -48,12 +48,14 @@ namespace NetClock.WebApi.Controllers.Admin
             return CreatedAtAction(nameof(GetBySlug), routeValues, applicationUser);
         }
 
-        [HttpPut("update")]
+        [HttpPut("update/{id}")]
         [Authorize(Permissions.AdminAccounts.Update)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<UpdateUserDto>> UpdateAccount(UpdateUserCommand updateAccountCommand)
+        public async Task<ActionResult<UpdateUserDto>> UpdateAccount(string id, UpdateUserCommand updateAccountCommand)
         {
+            ValidateParams.Equals(id, updateAccountCommand.Id);
+
             return await Mediator.Send(updateAccountCommand);
         }
 
