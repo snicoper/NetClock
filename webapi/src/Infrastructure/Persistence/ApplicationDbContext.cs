@@ -39,6 +39,23 @@ namespace NetClock.Infrastructure.Persistence
 
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new())
         {
+            SaveChangeAuditableEntity();
+            SaveChangeApplicationUser();
+            var result = await base.SaveChangesAsync(cancellationToken);
+            await DispatchEvents();
+
+            return result;
+        }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+
+            base.OnModelCreating(builder);
+        }
+
+        private void SaveChangeAuditableEntity()
+        {
             foreach (var entry in ChangeTracker.Entries<AuditableEntity>())
             {
                 switch (entry.State)
@@ -61,18 +78,30 @@ namespace NetClock.Infrastructure.Persistence
                         throw new ArgumentOutOfRangeException();
                 }
             }
-
-            var result = await base.SaveChangesAsync(cancellationToken);
-            await DispatchEvents();
-
-            return result;
         }
 
-        protected override void OnModelCreating(ModelBuilder builder)
+        private void SaveChangeApplicationUser()
         {
-            builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
-
-            base.OnModelCreating(builder);
+            foreach (var entry in ChangeTracker.Entries<ApplicationUser>())
+            {
+                switch (entry.State)
+                {
+                    case EntityState.Added:
+                        entry.Entity.Created = _dateTime.Now;
+                        break;
+                    case EntityState.Modified:
+                        entry.Entity.LastModified = _dateTime.Now;
+                        break;
+                    case EntityState.Detached:
+                        break;
+                    case EntityState.Unchanged:
+                        break;
+                    case EntityState.Deleted:
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+            }
         }
 
         private async Task DispatchEvents()

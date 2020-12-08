@@ -17,7 +17,6 @@ namespace NetClock.Application.Admin.AdminAccounts.Commands.UpdateAccount
         private readonly IStringLocalizer<ApplicationUser> _localizer;
         private readonly ILogger<UpdateUserHandler> _logger;
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly IDateTime _dateTime;
         private readonly IApplicationDbContext _dbContext;
         private readonly IValidationFailureService _validationFailureService;
 
@@ -25,13 +24,11 @@ namespace NetClock.Application.Admin.AdminAccounts.Commands.UpdateAccount
             IStringLocalizer<ApplicationUser> localizer,
             ILogger<UpdateUserHandler> logger,
             UserManager<ApplicationUser> userManager,
-            IDateTime dateTime,
             IValidationFailureService validationFailureService)
         {
             _localizer = localizer;
             _logger = logger;
             _userManager = userManager;
-            _dateTime = dateTime;
             _validationFailureService = validationFailureService;
         }
 
@@ -47,7 +44,6 @@ namespace NetClock.Application.Admin.AdminAccounts.Commands.UpdateAccount
 
             _logger.LogInformation($"Se ha obtenido correctamente el usuario {request.UserName}");
             applicationUser = request.MappingToApplicationUser(applicationUser);
-            applicationUser.LastModified = _dateTime.Now;
             await _userManager.UpdateAsync(applicationUser);
 
             _logger.LogInformation($"Se ha actualizado correctamente el usuario {request.UserName}");
