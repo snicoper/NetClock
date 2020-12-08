@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControlOptions, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { finalize } from 'rxjs/operators';
 
 import { BreadcrumbCollection } from '../../../../components/breadcrumb/BreadcrumbCollection';
 import { FormInputTypes } from '../../../../components/forms/form-input/form-input-types.enum';
-import { SiteUrls } from '../../../../core';
-import { PasswordMustMatch } from '../../../../validators';
+import { siteUrls } from '../../../../core';
+import { BadRequest } from '../../../../types';
+import { passwordMustMatch } from '../../../../validators';
 import { AdminAccountDetailsModel } from '../admin-account-details/admin-account-details.model';
 import { AdminAccountChangePasswordService } from './admin-account-change-password.service';
 import { AdminAccountChangePasswordModel } from './admin-account-changepassword.model';
@@ -20,7 +21,7 @@ import { AdminAccountChangePasswordModel } from './admin-account-changepassword.
 export class AdminAccountChangePasswordComponent implements OnInit {
   breadcrumb = new BreadcrumbCollection();
   form: FormGroup;
-  errors = [];
+  badRequest: BadRequest;
   submitted = false;
   loading = false;
   updating = false;
@@ -51,7 +52,7 @@ export class AdminAccountChangePasswordComponent implements OnInit {
     }
 
     this.updating = true;
-    this.errors = [];
+    this.badRequest = null;
     const model = Object.assign(new AdminAccountChangePasswordModel(), this.form.value);
     model.id = this.user.id;
 
@@ -61,9 +62,11 @@ export class AdminAccountChangePasswordComponent implements OnInit {
       )
       .subscribe(() => {
         this.toastrService.success('Contraseña actualizada con éxito');
-        const url = SiteUrls.replace(SiteUrls.adminAccountsDetails, { slug: this.user.slug });
+        const url = siteUrls.replace(siteUrls.adminAccountsDetails, { slug: this.user.slug });
 
         this.router.navigate([url]);
+      }, (error: BadRequest) => {
+        this.badRequest = error;
       });
   }
 
@@ -80,15 +83,15 @@ export class AdminAccountChangePasswordComponent implements OnInit {
   }
 
   private setBreadcrumb(): void {
-    const urlUserDetails = SiteUrls.replace(SiteUrls.adminAccountsDetails, { slug: this.slug });
+    const urlUserDetails = siteUrls.replace(siteUrls.adminAccountsDetails, { slug: this.slug });
     const fullName = `${this.user.firstName} ${this.user.lastName}`;
 
     this.breadcrumb
-      .add('Inicio', SiteUrls.home, 'fas fa-home')
-      .add('Administración', SiteUrls.admin, 'fas fa-user-shield')
-      .add('Usuarios', SiteUrls.adminAccounts, 'fas fa-users')
+      .add('Inicio', siteUrls.home, 'fas fa-home')
+      .add('Administración', siteUrls.admin, 'fas fa-user-shield')
+      .add('Usuarios', siteUrls.adminAccounts, 'fas fa-users')
       .add(fullName, urlUserDetails, 'fas fa-user')
-      .add('Cambiar contraseña', SiteUrls.adminAccountsCreate, 'fas fa-user-edit', false);
+      .add('Cambiar contraseña', siteUrls.adminAccountsCreate, 'fas fa-user-edit', false);
   }
 
   private buildForm(): void {
@@ -97,7 +100,7 @@ export class AdminAccountChangePasswordComponent implements OnInit {
         confirmPassword: new FormControl('', [Validators.required])
       },
       {
-        validators: PasswordMustMatch('newPassword', 'confirmPassword')
+        validators: passwordMustMatch('newPassword', 'confirmPassword')
       });
   }
 }

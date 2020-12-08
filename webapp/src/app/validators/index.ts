@@ -1,1 +1,1 @@
-export { PasswordMustMatch } from './password-must-match.validator';
+export { passwordMustMatch } from './password-must-match.validator';

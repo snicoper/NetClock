@@ -3,7 +3,7 @@ import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from
 import { ActivatedRoute, Router } from '@angular/router';
 import { finalize } from 'rxjs/operators';
 
-import { SiteUrls } from '../../../core';
+import { siteUrls } from '../../../core';
 import { BadRequest } from '../../../types';
 import { AuthService } from '../login/auth.service';
 import { RecoveryPasswordService } from './recovery-password.service';
@@ -18,7 +18,7 @@ export class RecoveryPasswordComponent implements OnInit {
   loading = false;
   submitted = false;
   errors: BadRequest;
-  siteUrls = SiteUrls;
+  siteUrls = siteUrls;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -28,7 +28,7 @@ export class RecoveryPasswordComponent implements OnInit {
     private authService: AuthService
   ) {
     if (this.authService.currentUserValue) {
-      this.router.navigate([SiteUrls.home]);
+      this.router.navigate([siteUrls.home]);
     }
   }
 
@@ -49,7 +49,7 @@ export class RecoveryPasswordComponent implements OnInit {
     }
 
     this.recoveryPasswordService.recoveryPassword(this.form.value)
-      .pipe(finalize(() => this.router.navigate([SiteUrls.authRecoveryPasswordSuccess])));
+      .pipe(finalize(() => this.router.navigate([siteUrls.authRecoveryPasswordSuccess])));
   }
 
   private buildForm(): void {

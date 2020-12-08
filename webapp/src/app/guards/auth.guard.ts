@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, Router, RouterStateSnapshot } from '@angular/router';
 
-import { SiteUrls } from '../core';
+import { siteUrls } from '../core';
 import { AuthService } from '../pages/auth/login/auth.service';
 
 @Injectable({
@@ -20,7 +20,7 @@ export class AuthGuard implements CanActivate, CanActivateChild {
       return true;
     }
 
-    this.router.navigate([SiteUrls.authLogin], { queryParams: { returnUrl: state.url } });
+    this.router.navigate([siteUrls.authLogin], { queryParams: { returnUrl: state.url } });
 
     return false;
   }

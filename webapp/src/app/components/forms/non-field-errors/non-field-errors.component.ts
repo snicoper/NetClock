@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { BadRequest } from '../../../types/bad-request';
+import { BadRequest } from '../../../types';
 
 @Component({
   selector: 'nc-non-field-errors',

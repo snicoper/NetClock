@@ -3,7 +3,7 @@ import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from
 import { ActivatedRoute, Router } from '@angular/router';
 import { finalize, timeout } from 'rxjs/operators';
 
-import { SiteUrls } from '../../../core';
+import { siteUrls } from '../../../core';
 import { BadRequest } from '../../../types';
 import { AuthService } from './auth.service';
 import { CurrentUserModel } from './current-user.model';
@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
   submitted = false;
   returnUrl = '/';
   badRequest: BadRequest;
-  siteUrls = SiteUrls;
+  siteUrls = siteUrls;
 
   constructor(
     private fb: FormBuilder,
@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
     private authenticationService: AuthService
   ) {
     if (this.authenticationService.currentUserValue) {
-      this.router.navigate([SiteUrls.home]);
+      this.router.navigate([siteUrls.home]);
     }
   }
 

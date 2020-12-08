@@ -1,6 +1,6 @@
 import { OrderType } from '../../../../models';
 
-export const AdminAccountListHeaderConfig = [
+export const adminAccountListHeaderConfig = [
   {
     field: 'userName',
     text: 'Usuario',

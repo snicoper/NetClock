@@ -7,7 +7,7 @@ import { finalize } from 'rxjs/operators';
 
 import { BreadcrumbCollection } from '../../../../components/breadcrumb/BreadcrumbCollection';
 import { FormInputTypes } from '../../../../components/forms/form-input/form-input-types.enum';
-import { SiteUrls } from '../../../../core';
+import { siteUrls } from '../../../../core';
 import { BadRequest } from '../../../../types';
 import { AdminAccountUpdateResultModel } from './admin-account-update-result.model';
 import { AdminAccountUpdateModel } from './admin-account-update.model';
@@ -59,13 +59,13 @@ export class AdminAccountUpdateComponent implements OnInit {
       )
       .subscribe((result: AdminAccountUpdateResultModel) => {
         this.toastrService.success('Usuario editado con éxito');
-        const url = SiteUrls.replace(SiteUrls.adminAccountsDetails, { slug: result.slug });
+        const url = siteUrls.replace(siteUrls.adminAccountsDetails, { slug: result.slug });
         this.router.navigate([url]);
-      }, ((error) => {
+      }, (error) => {
         if (error.status === StatusCodes.BAD_REQUEST) {
           this.badRequest = error.error;
         }
-      }));
+      });
   }
 
   private loadData(): void {
@@ -86,15 +86,15 @@ export class AdminAccountUpdateComponent implements OnInit {
   }
 
   private setBreadcrumb(): void {
-    const urlUserDetails = SiteUrls.replace(SiteUrls.adminAccountsDetails, { slug: this.slug });
+    const urlUserDetails = siteUrls.replace(siteUrls.adminAccountsDetails, { slug: this.slug });
     const fullName = `${this.data.firstName} ${this.data.lastName}`;
 
     this.breadcrumb
-      .add('Inicio', SiteUrls.home, 'fas fa-home')
-      .add('Administración', SiteUrls.admin, 'fas fa-user-shield')
-      .add('Usuarios', SiteUrls.adminAccounts, 'fas fa-users')
+      .add('Inicio', siteUrls.home, 'fas fa-home')
+      .add('Administración', siteUrls.admin, 'fas fa-user-shield')
+      .add('Usuarios', siteUrls.adminAccounts, 'fas fa-users')
       .add(fullName, urlUserDetails, 'fas fa-user')
-      .add('Editar', SiteUrls.adminAccountsCreate, 'fas fa-user-edit', false);
+      .add('Editar', siteUrls.adminAccountsCreate, 'fas fa-user-edit', false);
   }
 
   private buildForm(): void {

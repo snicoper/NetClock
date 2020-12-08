@@ -5,8 +5,8 @@ import { finalize } from 'rxjs/operators';
 
 import { BreadcrumbCollection } from '../../../components/breadcrumb/BreadcrumbCollection';
 import { FormInputTypes } from '../../../components/forms/form-input/form-input-types.enum';
-import { SiteUrls } from '../../../core';
-import { PasswordMustMatch } from '../../../validators';
+import { siteUrls } from '../../../core';
+import { passwordMustMatch } from '../../../validators';
 import { AuthService } from '../../auth/login/auth.service';
 import { ChangePasswordModel } from './change-password.model';
 import { ChangePasswordService } from './change-password.service';
@@ -65,9 +65,9 @@ export class ChangePasswordComponent implements OnInit {
 
   private setBreadcrumb(): void {
     this.breadcrumb
-      .add('Inicio', SiteUrls.home, 'fas fa-home')
-      .add('Perfil', SiteUrls.accountsProfile, 'fas fa-user-cog')
-      .add('Cambiar contraseña', SiteUrls.accountsChangePassword, 'fas fa-user-lock', false);
+      .add('Inicio', siteUrls.home, 'fas fa-home')
+      .add('Perfil', siteUrls.accountsProfile, 'fas fa-user-cog')
+      .add('Cambiar contraseña', siteUrls.accountsChangePassword, 'fas fa-user-lock', false);
   }
 
   private buildForm(): void {
@@ -77,7 +77,7 @@ export class ChangePasswordComponent implements OnInit {
         confirmPassword: new FormControl('', [Validators.required])
       },
       {
-        validators: PasswordMustMatch('newPassword', 'confirmPassword')
+        validators: passwordMustMatch('newPassword', 'confirmPassword')
       });
   }
 }

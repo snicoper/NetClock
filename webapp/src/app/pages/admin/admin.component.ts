@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { BreadcrumbCollection } from '../../components/breadcrumb/BreadcrumbCollection';
-import { SiteUrls } from '../../core';
+import { siteUrls } from '../../core';
 
 @Component({
   selector: 'nc-admin',
@@ -19,7 +19,7 @@ export class AdminComponent implements OnInit {
 
   private setBreadcrumb(): void {
     this.breadcrumb
-      .add('Inicio', SiteUrls.home, 'fas fa-home')
-      .add('Administración', SiteUrls.admin, 'fas fa-user-shield', false);
+      .add('Inicio', siteUrls.home, 'fas fa-home')
+      .add('Administración', siteUrls.admin, 'fas fa-user-shield', false);
   }
 }

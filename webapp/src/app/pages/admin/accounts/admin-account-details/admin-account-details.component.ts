@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { finalize } from 'rxjs/operators';
 
 import { BreadcrumbCollection } from '../../../../components/breadcrumb/BreadcrumbCollection';
-import { SiteUrls } from '../../../../core';
+import { siteUrls } from '../../../../core';
 import { AdminAccountDetailsModel } from './admin-account-details.model';
 import { AdminAccountDetailsService } from './admin-account-details.service';
 
@@ -16,7 +16,7 @@ export class AdminAccountDetailsComponent implements OnInit {
   breadcrumb = new BreadcrumbCollection();
   user: AdminAccountDetailsModel;
   loading = false;
-  siteUrls = SiteUrls;
+  siteUrls = siteUrls;
 
   private readonly userSlug: string;
 
@@ -35,10 +35,10 @@ export class AdminAccountDetailsComponent implements OnInit {
     const fullName = `${this.user.firstName} ${this.user.lastName}`;
 
     this.breadcrumb
-      .add('Inicio', SiteUrls.home, 'fas fa-home')
-      .add('Administración', SiteUrls.admin, 'fas fa-user-shield')
-      .add('Usuarios', SiteUrls.adminAccounts, 'fas fa-users')
-      .add(fullName, SiteUrls.adminAccounts, 'fas fa-user', false);
+      .add('Inicio', siteUrls.home, 'fas fa-home')
+      .add('Administración', siteUrls.admin, 'fas fa-user-shield')
+      .add('Usuarios', siteUrls.adminAccounts, 'fas fa-users')
+      .add(fullName, siteUrls.adminAccounts, 'fas fa-user', false);
   }
 
   private loadUser(): void {

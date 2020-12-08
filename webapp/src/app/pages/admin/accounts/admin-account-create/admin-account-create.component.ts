@@ -7,9 +7,9 @@ import { finalize } from 'rxjs/operators';
 
 import { BreadcrumbCollection } from '../../../../components/breadcrumb/BreadcrumbCollection';
 import { FormInputTypes } from '../../../../components/forms/form-input/form-input-types.enum';
-import { SiteUrls } from '../../../../core';
+import { siteUrls } from '../../../../core';
 import { BadRequest } from '../../../../types';
-import { PasswordMustMatch } from '../../../../validators';
+import { passwordMustMatch } from '../../../../validators';
 import { AdminAccountCreateResult } from './admin-account-create-result.model';
 import { AdminAccountCreateService } from './admin-account-create.service';
 
@@ -51,7 +51,7 @@ export class AdminAccountCreateComponent implements OnInit {
         finalize(() => this.loading = false)
       )
       .subscribe((result: AdminAccountCreateResult) => {
-          const url = SiteUrls.replace(SiteUrls.adminAccountsDetails, { slug: result.slug });
+          const url = siteUrls.replace(siteUrls.adminAccountsDetails, { slug: result.slug });
           this.toastrService.success('Usuario creado con éxito');
           this.router.navigate([url]);
         },
@@ -64,10 +64,10 @@ export class AdminAccountCreateComponent implements OnInit {
 
   private setBreadcrumb(): void {
     this.breadcrumb
-      .add('Inicio', SiteUrls.home, 'fas fa-home')
-      .add('Administración', SiteUrls.admin, 'fas fa-user-shield')
-      .add('Usuarios', SiteUrls.adminAccounts, 'fas fa-users')
-      .add('Nuevo', SiteUrls.adminAccountsCreate, 'fas fa-user-plus', false);
+      .add('Inicio', siteUrls.home, 'fas fa-home')
+      .add('Administración', siteUrls.admin, 'fas fa-user-shield')
+      .add('Usuarios', siteUrls.adminAccounts, 'fas fa-users')
+      .add('Nuevo', siteUrls.adminAccountsCreate, 'fas fa-user-plus', false);
   }
 
   private buildForm(): void {
@@ -81,7 +81,7 @@ export class AdminAccountCreateComponent implements OnInit {
         active: new FormControl(true)
       },
       {
-        validators: PasswordMustMatch('password', 'confirmPassword')
+        validators: passwordMustMatch('password', 'confirmPassword')
       });
   }
 }

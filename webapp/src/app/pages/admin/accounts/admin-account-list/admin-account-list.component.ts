@@ -5,9 +5,9 @@ import { finalize } from 'rxjs/operators';
 
 import { BreadcrumbCollection } from '../../../../components/breadcrumb/BreadcrumbCollection';
 import { TableHeaderConfig } from '../../../../components/tables/table-header/table-header.config';
-import { DebugErrors, SiteUrls } from '../../../../core';
+import { debugErrors, siteUrls } from '../../../../core';
 import { ApiResult } from '../../../../models';
-import { AdminAccountListHeaderConfig } from './admin-account-list-headers.config';
+import { adminAccountListHeaderConfig } from './admin-account-list-headers.config';
 import { AdminAccountListModel } from './admin-account-list.model';
 import { AdminAccountListService } from './admin-account-list.service';
 
@@ -20,7 +20,7 @@ export class AdminAccountListComponent implements OnInit, OnDestroy {
   breadcrumb = new BreadcrumbCollection();
   apiResult: ApiResult<AdminAccountListModel>;
   tableHeaderConfig = new TableHeaderConfig();
-  siteUrls = SiteUrls;
+  siteUrls = siteUrls;
   loading = false;
 
   private destroy$ = new Subject<void>();
@@ -43,7 +43,7 @@ export class AdminAccountListComponent implements OnInit, OnDestroy {
   }
 
   onSelectItem(user: AdminAccountListModel): void {
-    const url = SiteUrls.replace(SiteUrls.adminAccountsDetails, { slug: user.slug });
+    const url = siteUrls.replace(siteUrls.adminAccountsDetails, { slug: user.slug });
     this.router.navigate([url]);
   }
 
@@ -52,14 +52,14 @@ export class AdminAccountListComponent implements OnInit, OnDestroy {
   }
 
   private configureTableHeaders(): void {
-    this.tableHeaderConfig.addRange(AdminAccountListHeaderConfig);
+    this.tableHeaderConfig.addRange(adminAccountListHeaderConfig);
   }
 
   private setBreadcrumb(): void {
     this.breadcrumb
-      .add('Inicio', SiteUrls.home, 'fas fa-home')
-      .add('Administración', SiteUrls.admin, 'fas fa-user-shield')
-      .add('Usuarios', SiteUrls.adminAccounts, 'fas fa-users', false);
+      .add('Inicio', siteUrls.home, 'fas fa-home')
+      .add('Administración', siteUrls.admin, 'fas fa-user-shield')
+      .add('Usuarios', siteUrls.adminAccounts, 'fas fa-users', false);
   }
 
   private loadUsers(): void {
@@ -71,7 +71,7 @@ export class AdminAccountListComponent implements OnInit, OnDestroy {
       .subscribe((result: ApiResult<AdminAccountListModel>) => {
         this.apiResult = result;
       }, (error) => {
-        DebugErrors(error);
+        debugErrors(error);
       });
   }
 }

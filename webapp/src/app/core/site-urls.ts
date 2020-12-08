@@ -4,7 +4,7 @@
  * Importante, en los HTMLs, poner siempre comentario con el valor usado por si se ha de remplazar.
  * <!-- '/admin/accounts/{slug}/details' -->
  */
-export const SiteUrls = {
+export const siteUrls = {
   /** Home. */
   home: '/',
 

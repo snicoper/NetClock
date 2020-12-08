@@ -5,7 +5,7 @@ import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 import { AppConfig } from '../../../app.config';
-import { ApiUrls, SiteUrls } from '../../../core';
+import { ApiUrls, siteUrls } from '../../../core';
 import { ApiRestBaseService } from '../../../services';
 import { CurrentUserModel } from './current-user.model';
 import { LoginModel } from './login.model';
@@ -64,7 +64,7 @@ export class AuthService extends ApiRestBaseService implements OnDestroy {
       () => {
         localStorage.removeItem('currentUser');
         this.currentUserSubject.next(null);
-        this.router.navigate([SiteUrls.authLogin]);
+        this.router.navigate([siteUrls.authLogin]);
       }
     );
   }

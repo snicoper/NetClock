@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 import { BreadcrumbCollection } from '../../../components/breadcrumb/BreadcrumbCollection';
-import { SiteUrls } from '../../../core';
+import { siteUrls } from '../../../core';
 
 @Component({
   selector: 'nc-profile',
@@ -16,7 +16,7 @@ export class ProfileComponent {
 
   private setBreadcrumb(): void {
     this.breadcrumb
-      .add('Inicio', SiteUrls.home, 'fas fa-home')
-      .add('Perfil', SiteUrls.accountsProfile, 'fas fa-user-cog', false);
+      .add('Inicio', siteUrls.home, 'fas fa-home')
+      .add('Perfil', siteUrls.accountsProfile, 'fas fa-user-cog', false);
   }
 }

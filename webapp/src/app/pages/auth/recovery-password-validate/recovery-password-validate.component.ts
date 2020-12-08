@@ -3,9 +3,9 @@ import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
-import { SiteUrls } from '../../../core';
+import { siteUrls } from '../../../core';
 import { BadRequest } from '../../../types';
-import { PasswordMustMatch } from '../../../validators';
+import { passwordMustMatch } from '../../../validators';
 import { RecoveryPasswordValidateService } from './recovery-password-validate.service';
 
 @Component({
@@ -55,7 +55,7 @@ export class RecoveryPasswordValidateComponent {
     this.recoveryPasswordValidateService.recoveryPasswordValidate(this.form.value).subscribe(
       () => {
         this.toastr.success('Contraseña restablecida con éxito');
-        this.router.navigate([SiteUrls.authLogin]);
+        this.router.navigate([siteUrls.authLogin]);
       },
       () => {
         this.errorChangePassword = true;
@@ -71,7 +71,7 @@ export class RecoveryPasswordValidateComponent {
         confirmPassword: new FormControl('', [Validators.required])
       },
       {
-        validators: PasswordMustMatch('password', 'confirmPassword')
+        validators: passwordMustMatch('password', 'confirmPassword')
       });
   }
 }

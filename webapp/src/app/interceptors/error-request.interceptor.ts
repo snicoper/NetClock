@@ -5,7 +5,7 @@ import { StatusCodes } from 'http-status-codes';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
-import { DebugErrors, SiteUrls } from '../core';
+import { debugErrors, siteUrls } from '../core';
 import { AuthService } from '../pages/auth/login/auth.service';
 
 @Injectable()
@@ -17,7 +17,7 @@ export class ErrorRequestInterceptor implements HttpInterceptor {
     return next.handle(request)
       .pipe(
         catchError(error => {
-          DebugErrors(error.error);
+          debugErrors(error.error);
 
           switch (error.status) {
             case StatusCodes.UNAUTHORIZED:
@@ -37,11 +37,11 @@ export class ErrorRequestInterceptor implements HttpInterceptor {
 
   private unauthorizedHandler(): void {
     this.authenticationService.logout();
-    this.router.navigate([SiteUrls.authLogin]);
+    this.router.navigate([siteUrls.authLogin]);
   }
 
   private forbiddenHandler(): void {
-    this.router.navigate([SiteUrls.errorsForbidden]);
+    this.router.navigate([siteUrls.errorsForbidden]);
   }
 
   private errorHandler(): void {
