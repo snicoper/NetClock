@@ -72,6 +72,7 @@ namespace NetClock.Infrastructure.Identity
             // Comprueba si existe un FirstName y LastName iguales en la base de datos.
             var userExists = _userManager.Users.FirstOrDefault(
                 u => u.FirstName == applicationUser.FirstName && u.LastName == applicationUser.LastName);
+
             if (userExists is not null)
             {
                 // Si existe, lanza al excepción para no llegar hacer la consulta ya que daria un 500.

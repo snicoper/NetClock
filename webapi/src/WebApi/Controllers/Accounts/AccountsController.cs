@@ -21,9 +21,9 @@ namespace NetClock.WebApi.Controllers.Accounts
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<string>> Register(RegisterCommand registerCommand)
         {
-            var result = await Mediator.Send(registerCommand);
+            await Mediator.Send(registerCommand);
 
-            return ResponseCreate(result);
+            return StatusCode(StatusCodes.Status201Created);
         }
 
         [AllowAnonymous]
