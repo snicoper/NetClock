@@ -7,8 +7,7 @@ using NetClock.Application.Common.Interfaces.Http;
 
 namespace NetClock.WebApi.Services.Http
 {
-    public class ResponseDataService<TQueryModel, TResultDto>
-        : IResponseDataService<TQueryModel, TResultDto>
+    public class ResponseDataService<TQueryModel, TResultDto> : IResponseDataService<TQueryModel, TResultDto>
         where TQueryModel : class
         where TResultDto : class
     {
