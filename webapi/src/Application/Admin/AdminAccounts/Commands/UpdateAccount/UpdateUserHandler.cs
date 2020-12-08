@@ -1,3 +1,4 @@
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
@@ -75,8 +76,7 @@ namespace NetClock.Application.Admin.AdminAccounts.Commands.UpdateAccount
             }
 
             _logger.LogInformation($"Comprobar si el {nameof(request.Email)} existe en la base de datos.");
-            user = await _userManager.Users.AnyAsync(u =>
-                u.Email.ToLower() == request.Email.ToLower() && u.Id != request.Id);
+            user = await _userManager.Users.AnyAsync(u => u.Email.ToLower() == request.Email.ToLower() && u.Id != request.Id);
 
             if (user)
             {

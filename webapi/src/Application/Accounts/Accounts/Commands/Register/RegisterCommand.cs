@@ -3,7 +3,7 @@ using NetClock.Domain.Entities.Identity;
 
 namespace NetClock.Application.Accounts.Accounts.Commands.Register
 {
-    public class RegisterCommand : IRequest<RegisterDto>
+    public class RegisterCommand : IRequest<string>
     {
         public RegisterCommand(
             string userName,
@@ -35,7 +35,7 @@ namespace NetClock.Application.Accounts.Accounts.Commands.Register
 
         public ApplicationUser MappingToApplicationUser()
         {
-            return new ApplicationUser
+            return new()
             {
                 UserName = UserName,
                 FirstName = FirstName,

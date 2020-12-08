@@ -1,16 +1,19 @@
 using System;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Identity;
+using NetClock.Domain.Common;
 using NetClock.Domain.Extensions;
 
 namespace NetClock.Domain.Entities.Identity
 {
-    public class ApplicationUser : IdentityUser
+    public class ApplicationUser : IdentityUser, IHasDomainEvent
     {
         public ApplicationUser()
         {
             Active = true;
             Created = DateTime.Now;
             LastModified = DateTime.Now;
+            DomainEvents = new List<DomainEvent>();
         }
 
         public string Slug
@@ -28,5 +31,7 @@ namespace NetClock.Domain.Entities.Identity
         public DateTime Created { get; set; }
 
         public DateTime LastModified { get; set; }
+
+        public List<DomainEvent> DomainEvents { get; set; }
     }
 }
