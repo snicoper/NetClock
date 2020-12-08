@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using NetClock.Application.Common.Api;
 using NetClock.Application.Common.Interfaces.Common;
 using NetClock.Application.Localization.Commands.SetCulture;
 

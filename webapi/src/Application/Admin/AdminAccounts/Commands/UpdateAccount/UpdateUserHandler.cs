@@ -6,7 +6,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 using NetClock.Application.Common.Exceptions;
-using NetClock.Application.Common.Interfaces.Common;
 using NetClock.Application.Common.Interfaces.Validations;
 using NetClock.Domain.Entities.Identity;
 
@@ -17,7 +16,6 @@ namespace NetClock.Application.Admin.AdminAccounts.Commands.UpdateAccount
         private readonly IStringLocalizer<ApplicationUser> _localizer;
         private readonly ILogger<UpdateUserHandler> _logger;
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly IApplicationDbContext _dbContext;
         private readonly IValidationFailureService _validationFailureService;
 
         public UpdateUserHandler(

@@ -114,7 +114,7 @@ namespace NetClock.Infrastructure.Persistence
                     .SelectMany(x => x)
                     .FirstOrDefault(domainEvent => !domainEvent.IsPublished);
 
-                if (domainEventEntity == null)
+                if (domainEventEntity is null)
                 {
                     break;
                 }

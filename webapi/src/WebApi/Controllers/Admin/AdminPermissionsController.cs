@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using NetClock.Application.Common.Api;
 
 namespace NetClock.WebApi.Controllers.Admin
 {

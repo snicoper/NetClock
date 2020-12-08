@@ -8,7 +8,6 @@ using NetClock.Application.Accounts.Accounts.Commands.ChangeEmailValidate;
 using NetClock.Application.Accounts.Accounts.Commands.ChangePassword;
 using NetClock.Application.Accounts.Accounts.Commands.Register;
 using NetClock.Application.Accounts.Accounts.Commands.RegisterValidate;
-using NetClock.Application.Common.Api;
 using NetClock.Application.Common.Authorization.Constants;
 
 namespace NetClock.WebApi.Controllers.Accounts

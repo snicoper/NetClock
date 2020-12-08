@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NetClock.Application.Admin.AdminRoles.Queries.GetRol;
 using NetClock.Application.Admin.AdminRoles.Queries.GetRoles;
-using NetClock.Application.Common.Api;
 using NetClock.Application.Common.Authorization.Constants;
 using NetClock.Application.Common.Http;
 
