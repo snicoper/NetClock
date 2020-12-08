@@ -11,6 +11,7 @@ namespace NetClock.Application.Accounts.Accounts.Commands.RegisterValidate
         }
 
         public string UserId { get; }
+
         public string Code { get; }
     }
 }

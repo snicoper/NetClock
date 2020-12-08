@@ -12,7 +12,9 @@ namespace NetClock.Application.Accounts.Auth.Commands.Login
         }
 
         public string UserName { get; }
+
         public string Password { get; }
+
         public bool RememberMe { get; }
     }
 }

@@ -24,11 +24,17 @@ namespace NetClock.Application.Admin.AdminAccounts.Commands.CreateAccount
         }
 
         public string UserName { get; }
+
         public string FirstName { get; }
+
         public string LastName { get; }
+
         public string Email { get; }
+
         public string Password { get; }
+
         public string ConfirmPassword { get; }
+
         public bool Active { get; }
 
         public ApplicationUser MappingToApplicationUser()

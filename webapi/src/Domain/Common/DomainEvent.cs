@@ -16,6 +16,7 @@ namespace NetClock.Domain.Common
         }
 
         public bool IsPublished { get; set; }
+
         public DateTimeOffset DateOccurred { get; }
     }
 }

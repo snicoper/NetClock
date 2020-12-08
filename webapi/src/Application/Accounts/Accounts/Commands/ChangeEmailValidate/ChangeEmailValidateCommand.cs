@@ -12,7 +12,9 @@ namespace NetClock.Application.Accounts.Accounts.Commands.ChangeEmailValidate
         }
 
         public string UserId { get; }
+
         public string NewEmail { get; }
+
         public string Code { get; }
     }
 }

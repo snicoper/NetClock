@@ -11,6 +11,7 @@ namespace NetClock.Application.Accounts.Accounts.Commands.ChangeEmail
         }
 
         public string Id { get; }
+
         public string NewEmail { get; }
     }
 }

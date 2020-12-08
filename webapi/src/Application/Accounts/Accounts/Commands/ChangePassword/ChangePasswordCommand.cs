@@ -13,8 +13,11 @@ namespace NetClock.Application.Accounts.Accounts.Commands.ChangePassword
         }
 
         public string Id { get; }
+
         public string OldPassword { get; }
+
         public string NewPassword { get; }
+
         public string ConfirmPassword { get; }
     }
 }
