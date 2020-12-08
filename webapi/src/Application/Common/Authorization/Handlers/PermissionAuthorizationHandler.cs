@@ -26,7 +26,7 @@ namespace NetClock.Application.Common.Authorization.Handlers
             AuthorizationHandlerContext context,
             PermissionRequirement requirement)
         {
-            if (!context.User.IsAuthenticated() || context.User == null)
+            if (!context.User.IsAuthenticated())
             {
                 return;
             }
