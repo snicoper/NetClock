@@ -47,7 +47,13 @@ namespace NetClock.WebApi
             services.ConfigureAuthentication(Configuration);
             services.ConfigureApiControllers();
             services.ConfigureCors(Environment, DefaultCors);
-            services.ConfigureSwagger();
+
+            if (!Environment.IsProduction())
+            {
+                services.ConfigureSwagger();
+            }
+
+            services.AddTransient<IValidateParams, ValidateParams>();
 
             // Localization.
             services.AddLocalization(options => options.ResourcesPath = "Resources");
@@ -83,12 +89,6 @@ namespace NetClock.WebApi
                 options.ApiVersionReader = new UrlSegmentApiVersionReader();
             });
 
-            // Customise default API behaviour.
-            services.Configure<ApiBehaviorOptions>(options =>
-            {
-                options.SuppressModelStateInvalidFilter = true;
-            });
-
             // Prevents redirection when not authenticated.
             services.ConfigureApplicationCookie(options =>
             {
@@ -104,8 +104,6 @@ namespace NetClock.WebApi
             {
                 services.AddDatabaseDeveloperPageExceptionFilter();
             }
-
-            services.AddTransient<IValidateParams, ValidateParams>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -115,9 +113,14 @@ namespace NetClock.WebApi
             app.UseCors(DefaultCors);
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            app.UseOpenApi();
-            app.UseSwaggerUi3(settings => { settings.Path = string.Empty; });
-            app.UseReDoc(settings => { settings.Path = "/docs"; });
+
+            if (!Environment.IsProduction())
+            {
+                app.UseOpenApi();
+                app.UseSwaggerUi3(settings => { settings.Path = string.Empty; });
+                app.UseReDoc(settings => { settings.Path = "/docs"; });
+            }
+
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
