@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -27,8 +26,8 @@ namespace NetClock.Application.Common.Behaviours
             }
 
             var context = new ValidationContext<TRequest>(request);
-            var validationResults = await Task.WhenAll(_validators.Select(v => v.ValidateAsync(context, cancellationToken)));
-            var failures = validationResults.SelectMany(r => r.Errors).Where(f => f is not null).ToList();
+            var validationResults = await Task.WhenAll(_validators.Select(val => val.ValidateAsync(context, cancellationToken)));
+            var failures = validationResults.SelectMany(val => val.Errors).Where(val => val is not null).ToList();
 
             if (failures.Any())
             {

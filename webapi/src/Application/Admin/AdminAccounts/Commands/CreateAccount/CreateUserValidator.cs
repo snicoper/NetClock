@@ -39,6 +39,7 @@ namespace NetClock.Application.Admin.AdminAccounts.Commands.CreateAccount
 
             RuleFor(v => v.ConfirmPassword)
                 .Equal(v => v.Password)
+                .WithName(localizer["Confirmar contraseña"])
                 .WithMessage(localizer["Las contraseñas deben ser iguales"]);
         }
     }

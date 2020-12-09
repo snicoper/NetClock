@@ -34,7 +34,6 @@ namespace NetClock.Application.Accounts.Accounts.Commands.Register
                 .WithName(localizer["Correo electrónico"]);
 
             RuleFor(v => v.Password)
-                .NotEmpty()
                 .MinimumLength(6)
                 .WithName(localizer["Contraseña"]);
 
