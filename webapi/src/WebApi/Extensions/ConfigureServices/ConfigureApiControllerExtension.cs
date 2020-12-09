@@ -1,4 +1,5 @@
 using System.Globalization;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.Extensions.DependencyInjection;
 using NetClock.Application.Common.Localizations;
@@ -29,6 +30,7 @@ namespace NetClock.WebApi.Extensions.ConfigureServices
                     options.DataAnnotationLocalizerProvider = (type, factory)
                         => factory.Create(typeof(SharedLocalizer));
                 })
+                .AddFluentValidation()
                 .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix);
 
             return services;

@@ -15,6 +15,11 @@ namespace NetClock.Application.Common.Extensions
         {
             return ruleBuilder.MustAsync(async (username, cancellation) =>
                 {
+                    if (string.IsNullOrEmpty(username))
+                    {
+                        return false;
+                    }
+
                     var user = await userManager.FindByNameAsync(username);
 
                     return user is null;
@@ -29,6 +34,11 @@ namespace NetClock.Application.Common.Extensions
         {
             return ruleBuilder.MustAsync(async (email, cancellation) =>
                 {
+                    if (string.IsNullOrEmpty(email))
+                    {
+                        return false;
+                    }
+
                     var user = await userManager.FindByEmailAsync(email);
 
                     return user is null;

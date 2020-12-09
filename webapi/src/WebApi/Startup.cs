@@ -52,7 +52,7 @@ namespace NetClock.WebApi
 
             if (!Environment.IsProduction())
             {
-                services.ConfigureSwagger();
+                services.AddConfigureSwagger();
             }
 
             // Localization.
@@ -79,6 +79,12 @@ namespace NetClock.WebApi
             {
                 // Vistas para emails.
                 options.ViewLocationFormats.Add("~/Views/Emails/{0}.cshtml");
+            });
+
+            // Customise default API behaviour.
+            services.Configure<ApiBehaviorOptions>(options =>
+            {
+                options.SuppressModelStateInvalidFilter = true;
             });
 
             // Api versioning.

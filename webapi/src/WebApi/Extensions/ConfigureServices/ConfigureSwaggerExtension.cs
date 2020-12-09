@@ -7,7 +7,7 @@ namespace NetClock.WebApi.Extensions.ConfigureServices
 {
     public static class ConfigureSwaggerExtension
     {
-        public static IServiceCollection ConfigureSwagger(this IServiceCollection services)
+        public static IServiceCollection AddConfigureSwagger(this IServiceCollection services)
         {
             // Register the Swagger.
             services.AddOpenApiDocument(configure =>
