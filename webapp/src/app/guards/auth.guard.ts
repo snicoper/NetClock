@@ -4,9 +4,7 @@ import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, Router, RouterSt
 import { siteUrls } from '../core';
 import { AuthService } from '../pages/auth/login/auth.service';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class AuthGuard implements CanActivate, CanActivateChild {
   constructor(
     private router: Router,

@@ -64,7 +64,7 @@ namespace NetClock.Application.Accounts.Accounts.Commands.ChangePassword
                 foreach (var error in changePasswordResult.Errors)
                 {
                     _logger.LogWarning($"Usuario {request.Id}, error al cambiar contraseña: {error.Description}");
-                    _validationFailureService.Add(Errors.NonFieldErrors, error.Description);
+                    _validationFailureService.Add(CommonErrors.NonFieldErrors, error.Description);
                 }
 
                 _validationFailureService.RaiseException();

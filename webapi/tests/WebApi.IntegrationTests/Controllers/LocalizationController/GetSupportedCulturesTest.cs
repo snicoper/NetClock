@@ -26,7 +26,7 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.LocalizationController
 
             // Assert
             response.EnsureSuccessStatusCode();
-            responseContent.ShouldBe(Cultures.SupportedCultures.Select(c => c.Name));
+            responseContent.ShouldBe(Cultures.Supported.Select(c => c.Name));
         }
     }
 }

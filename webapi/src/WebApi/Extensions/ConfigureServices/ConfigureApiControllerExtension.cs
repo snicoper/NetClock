@@ -9,7 +9,7 @@ namespace NetClock.WebApi.Extensions.ConfigureServices
 {
     public static class ConfigureApiControllerExtension
     {
-        public static IServiceCollection ConfigureApiControllers(this IServiceCollection services)
+        public static IServiceCollection AddConfigureApiControllers(this IServiceCollection services)
         {
             services
                 .AddControllers(options =>

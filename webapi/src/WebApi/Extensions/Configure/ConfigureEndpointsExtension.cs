@@ -6,7 +6,7 @@ namespace NetClock.WebApi.Extensions.Configure
 {
     public static class ConfigureEndpointsExtension
     {
-        public static void ConfigureEndpoints(this IApplicationBuilder app)
+        public static void UseConfigureEndpoints(this IApplicationBuilder app)
         {
             app.UseEndpoints(endpoints =>
             {

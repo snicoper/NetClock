@@ -44,11 +44,11 @@ namespace NetClock.WebApi
             services.AddWebApi();
 
             // Configure services.
-            services.ConfigureStronglyTypeSettings(Configuration);
-            services.ConfigureIdentity();
-            services.ConfigureAuthentication(Configuration);
-            services.ConfigureApiControllers();
-            services.ConfigureCors(Environment, DefaultCors);
+            services.AddStronglyTypeSettings(Configuration);
+            services.AddConfigureIdentity();
+            services.AddConfigureAuthentication(Configuration);
+            services.AddConfigureApiControllers();
+            services.AddConfigureCors(Environment, DefaultCors);
 
             if (!Environment.IsProduction())
             {
@@ -61,15 +61,16 @@ namespace NetClock.WebApi
             // Configure supported languages.
             services.Configure<RequestLocalizationOptions>(options =>
             {
-                options.SupportedCultures = Cultures.SupportedCultures;
-                options.SupportedUICultures = Cultures.SupportedCultures;
+                options.SupportedCultures = Cultures.Supported;
+                options.SupportedUICultures = Cultures.Supported;
             });
 
             // Routing.
             services.AddRouting(options => { options.LowercaseUrls = true; });
 
             // HealthChecks.
-            services.AddHealthChecks()
+            services
+                .AddHealthChecks()
                 .AddCheck("self", () => HealthCheckResult.Healthy())
                 .AddDbContextCheck<ApplicationDbContext>();
 
@@ -108,8 +109,8 @@ namespace NetClock.WebApi
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            app.ConfigureCulture();
-            app.ConfigureByEnvironment(env);
+            app.UseConfigureCulture();
+            app.UseConfigureByEnvironment(env);
             app.UseCors(DefaultCors);
             app.UseHttpsRedirection();
             app.UseStaticFiles();
@@ -124,7 +125,7 @@ namespace NetClock.WebApi
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
-            app.ConfigureEndpoints();
+            app.UseConfigureEndpoints();
         }
     }
 }

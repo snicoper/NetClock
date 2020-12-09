@@ -39,7 +39,7 @@ namespace NetClock.Application.Accounts.Accounts.Commands.RegisterValidate
             {
                 _logger.LogWarning($"El usuario {request.UserId} no existe en la base de datos");
                 var errorMessage = _localizer["El usuario no existe"];
-                _validationFailureService.AddAndRaiseException(Errors.NonFieldErrors, errorMessage);
+                _validationFailureService.AddAndRaiseException(CommonErrors.NonFieldErrors, errorMessage);
 
                 return Unit.Value;
             }
@@ -50,7 +50,7 @@ namespace NetClock.Application.Accounts.Accounts.Commands.RegisterValidate
             {
                 var message = _localizer["El tiempo de validación ha expirado"];
                 _logger.LogWarning(message);
-                _validationFailureService.AddAndRaiseException(Errors.NonFieldErrors, message);
+                _validationFailureService.AddAndRaiseException(CommonErrors.NonFieldErrors, message);
             }
 
             user.Id = request.UserId;

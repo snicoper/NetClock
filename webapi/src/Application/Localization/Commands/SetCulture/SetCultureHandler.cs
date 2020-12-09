@@ -30,7 +30,7 @@ namespace NetClock.Application.Localization.Commands.SetCulture
 
         public Task<Unit> Handle(SetCultureCommand request, CancellationToken cancellationToken)
         {
-            if (Cultures.SupportedCultures.FirstOrDefault(c => c.Name == request.Culture) is null)
+            if (Cultures.Supported.FirstOrDefault(c => c.Name == request.Culture) is null)
             {
                 var message = _localizer["El lenguaje que intenta cambiar no esta soportado"];
                 _validationFailureService.AddAndRaiseException(nameof(SetCultureCommand.Culture), message);

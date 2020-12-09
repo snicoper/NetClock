@@ -10,7 +10,7 @@ namespace NetClock.WebApi.Extensions.Configure
     {
         private static IApplicationBuilder _application;
 
-        public static void ConfigureByEnvironment(this IApplicationBuilder app, IHostEnvironment environment)
+        public static void UseConfigureByEnvironment(this IApplicationBuilder app, IHostEnvironment environment)
         {
             _application = app;
             var hasConfigure = false;

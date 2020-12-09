@@ -42,7 +42,7 @@ namespace NetClock.Application.Accounts.Accounts.Commands.ChangeEmailValidate
                 foreach (var error in identityResult.Errors)
                 {
                     _logger.LogWarning($"Usuario {request.UserId}, error al validar token: {error.Description}");
-                    _validationFailureService.Add(Errors.NonFieldErrors, error.Description);
+                    _validationFailureService.Add(CommonErrors.NonFieldErrors, error.Description);
                 }
 
                 _validationFailureService.RaiseException();

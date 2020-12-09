@@ -11,7 +11,7 @@ namespace NetClock.WebApi.Extensions.ConfigureServices
         private static IServiceCollection _services;
         private static string _corsName;
 
-        public static IServiceCollection ConfigureCors(
+        public static IServiceCollection AddConfigureCors(
             this IServiceCollection services,
             IWebHostEnvironment environment,
             string corsName)

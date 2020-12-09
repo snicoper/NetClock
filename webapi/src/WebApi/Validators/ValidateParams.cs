@@ -32,7 +32,7 @@ namespace NetClock.WebApi.Validators
             _logger.LogWarning("Los parámetros {ida} y {idb} no parece iguales", ida, idb);
 
             const string error = "Ha ocurrido un error inesperado, inténtelo en unos minutos.";
-            _validation.AddAndRaiseException(Errors.NonFieldErrors, _localizer[error]);
+            _validation.AddAndRaiseException(CommonErrors.NonFieldErrors, _localizer[error]);
 
             return this;
         }

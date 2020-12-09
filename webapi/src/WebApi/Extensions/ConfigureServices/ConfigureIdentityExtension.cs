@@ -8,7 +8,7 @@ namespace NetClock.WebApi.Extensions.ConfigureServices
 {
     public static class ConfigureIdentityExtension
     {
-        public static IServiceCollection ConfigureIdentity(this IServiceCollection services)
+        public static IServiceCollection AddConfigureIdentity(this IServiceCollection services)
         {
             // Identity.
             services

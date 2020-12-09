@@ -100,7 +100,7 @@ namespace NetClock.Infrastructure.Identity
             {
                 var errorMessage = _localizer["Error al crear usuario"];
                 _logger.LogWarning(errorMessage);
-                _validationFailureService.Add(Errors.NonFieldErrors, errorMessage);
+                _validationFailureService.Add(CommonErrors.NonFieldErrors, errorMessage);
             }
         }
     }

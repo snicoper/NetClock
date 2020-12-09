@@ -21,7 +21,7 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.LocalizationController
         {
             // Arrange
             Client.DefaultRequestHeaders.Clear();
-            Client.DefaultRequestHeaders.Add("Accept-Language", Cultures.DefaultCulture.Name);
+            Client.DefaultRequestHeaders.Add("Accept-Language", Cultures.Default.Name);
             Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
             // Act
@@ -30,7 +30,7 @@ namespace NetClock.WebApi.IntegrationTests.Controllers.LocalizationController
 
             // Assert
             response.EnsureSuccessStatusCode();
-            responseContent.ShouldBe(Cultures.DefaultCulture.Name);
+            responseContent.ShouldBe(Cultures.Default.Name);
         }
     }
 }

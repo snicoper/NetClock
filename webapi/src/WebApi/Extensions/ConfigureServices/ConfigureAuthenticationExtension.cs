@@ -9,7 +9,7 @@ namespace NetClock.WebApi.Extensions.ConfigureServices
 {
     public static class ConfigureAuthenticationExtension
     {
-        public static IServiceCollection ConfigureAuthentication(
+        public static IServiceCollection AddConfigureAuthentication(
             this IServiceCollection services,
             IConfiguration configuration)
         {
