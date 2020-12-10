@@ -9,7 +9,7 @@ using NetClock.Application.Common.Configurations;
 using NetClock.Application.Common.Interfaces.Identity;
 using NetClock.Domain.Entities.Identity;
 
-namespace NetClock.WebApi.Services.Identity
+namespace NetClock.Application.Common.Services.Identity
 {
     public class JwtSecurityTokenService : IJwtSecurityTokenService
     {

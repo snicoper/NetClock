@@ -1,6 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 using NetClock.Application.Common.Interfaces.Http;
-using NetClock.WebApi.Services.Http;
+using NetClock.Application.Common.Services.Http;
 using NetClock.WebApi.Validators;
 
 namespace NetClock.WebApi.Extensions.ConfigureServices
