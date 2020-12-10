@@ -34,7 +34,8 @@ namespace NetClock.Application.Accounts.Accounts.Commands.ChangePassword
                 .ForMember(dest => dest.Slug, opt => opt.Ignore())
                 .ForMember(dest => dest.Created, opt => opt.Ignore())
                 .ForMember(dest => dest.LastModified, opt => opt.Ignore())
-                .ForMember(dest => dest.AccessFailedCount, opt => opt.Ignore());
+                .ForMember(dest => dest.AccessFailedCount, opt => opt.Ignore())
+                .ForMember(dest => dest.DomainEvents, opt => opt.Ignore());
 
             profile.CreateMap<ApplicationUser, ChangePasswordDto>()
                 .ForMember(dest => dest.SiteName, opt => opt.Ignore());

@@ -36,7 +36,8 @@ namespace NetClock.Application.Accounts.Accounts.Commands.Register
                 .ForMember(dest => dest.TwoFactorEnabled, opt => opt.Ignore())
                 .ForMember(dest => dest.LockoutEnd, opt => opt.Ignore())
                 .ForMember(dest => dest.LockoutEnabled, opt => opt.Ignore())
-                .ForMember(dest => dest.AccessFailedCount, opt => opt.Ignore());
+                .ForMember(dest => dest.AccessFailedCount, opt => opt.Ignore())
+                .ForMember(dest => dest.DomainEvents, opt => opt.Ignore());
 
             profile.CreateMap<ApplicationUser, RegisterDto>()
                 .ForMember(dest => dest.Callback, opt => opt.Ignore())

@@ -38,7 +38,8 @@ namespace NetClock.Application.Accounts.Auth.Commands.Login
                 .ForMember(dest => dest.TwoFactorEnabled, opt => opt.Ignore())
                 .ForMember(dest => dest.LockoutEnd, opt => opt.Ignore())
                 .ForMember(dest => dest.LockoutEnabled, opt => opt.Ignore())
-                .ForMember(dest => dest.AccessFailedCount, opt => opt.Ignore());
+                .ForMember(dest => dest.AccessFailedCount, opt => opt.Ignore())
+                .ForMember(dest => dest.DomainEvents, opt => opt.Ignore());
 
             profile.CreateMap<ApplicationUser, LoginDto>()
                 .ForMember(dest => dest.FullName, opt => opt.MapFrom(src => $"{src.FirstName} {src.LastName}"))
