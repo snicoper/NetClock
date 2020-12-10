@@ -3,9 +3,9 @@ using NetClock.Domain.Entities.Identity;
 
 namespace NetClock.Domain.Events.Identity
 {
-    public class ApplicationUserChangePasswordEvent : DomainEvent
+    public class ChangePasswordEvent : DomainEvent
     {
-        public ApplicationUserChangePasswordEvent(ApplicationUser applicationUser)
+        public ChangePasswordEvent(ApplicationUser applicationUser)
         {
             ApplicationUser = applicationUser;
         }

@@ -18,7 +18,7 @@ namespace NetClock.Application.Accounts.Accounts.Commands.Register
         public async Task<string> Handle(RegisterCommand request, CancellationToken cancellationToken)
         {
             var applicationUser = request.MappingToApplicationUser();
-            applicationUser.DomainEvents.Add(new ApplicationUserRegisterEvent(applicationUser));
+            applicationUser.DomainEvents.Add(new RegisterEvent(applicationUser));
 
             await _identityService.CreateUserAsync(applicationUser, request.Password);
 

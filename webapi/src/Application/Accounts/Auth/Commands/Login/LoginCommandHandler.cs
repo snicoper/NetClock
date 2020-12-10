@@ -45,25 +45,28 @@ namespace NetClock.Application.Accounts.Auth.Commands.Login
         {
             await _signInManager.SignOutAsync();
             await _httpContextAccessor.HttpContext.SignOutAsync();
-            var user = await GetUserByUserNameOrEmail(request, cancellationToken);
+            var applicationUser = await GetUserByUserNameOrEmail(request, cancellationToken);
 
-            if (user.Active is false)
+            if (applicationUser.Active is false)
             {
                 var error = _localizer["La cuenta no esta activa, por favor habla con un administrador"];
                 _validationFailureService.AddAndRaiseException(CommonErrors.NonFieldErrors, error);
             }
 
-            var result = await _signInManager.PasswordSignInAsync(user.UserName, request.Password, request.RememberMe, false);
+            var result = await _signInManager.PasswordSignInAsync(
+                applicationUser.UserName,
+                request.Password,
+                request.RememberMe, false);
 
             if (!result.Succeeded)
             {
                 InvalidUserNameOrPassword(request);
             }
 
-            var roles = await _userManager.GetRolesAsync(user);
-            var token = _jwtSecurityTokenService.CreateToken(user, roles);
+            var roles = await _userManager.GetRolesAsync(applicationUser);
+            var token = _jwtSecurityTokenService.CreateToken(applicationUser, roles);
 
-            var currentUserDto = _mapper.Map<LoginDto>(user);
+            var currentUserDto = _mapper.Map<LoginDto>(applicationUser);
             currentUserDto.Token = token;
             _logger.LogInformation($"Se ha identificado con éxito {request.UserName}");
 
@@ -72,16 +75,16 @@ namespace NetClock.Application.Accounts.Auth.Commands.Login
 
         private async Task<ApplicationUser> GetUserByUserNameOrEmail(LoginCommand request, CancellationToken cancellationToken)
         {
-            var user = await _userManager
+            var applicationUser = await _userManager
                 .Users
                 .FirstOrDefaultAsync(u => u.UserName == request.UserName || u.Email == request.UserName, cancellationToken);
 
-            if (user is null)
+            if (applicationUser is null)
             {
                 InvalidUserNameOrPassword(request);
             }
 
-            return user;
+            return applicationUser;
         }
 
         private void InvalidUserNameOrPassword(LoginCommand request)

@@ -34,8 +34,8 @@ namespace NetClock.Application.Accounts.Accounts.Commands.RegisterValidate
         public async Task<Unit> Handle(RegisterValidateCommand request, CancellationToken cancellationToken)
         {
             _logger.LogInformation($"Se va a validar el registro para el usuario {request.UserId}");
-            var user = await _userManager.FindByIdAsync(request.UserId);
-            if (user is null)
+            var applicationUser = await _userManager.FindByIdAsync(request.UserId);
+            if (applicationUser is null)
             {
                 _logger.LogWarning($"El usuario {request.UserId} no existe en la base de datos");
                 var errorMessage = _localizer["El usuario no existe"];
@@ -45,7 +45,7 @@ namespace NetClock.Application.Accounts.Accounts.Commands.RegisterValidate
             }
 
             var code = HttpUtility.HtmlDecode(request.Code);
-            var confirmEmailResult = await _userManager.ConfirmEmailAsync(user, code);
+            var confirmEmailResult = await _userManager.ConfirmEmailAsync(applicationUser, code);
             if (!confirmEmailResult.Succeeded)
             {
                 var message = _localizer["El tiempo de validación ha expirado"];
@@ -53,10 +53,10 @@ namespace NetClock.Application.Accounts.Accounts.Commands.RegisterValidate
                 _validationFailureService.AddAndRaiseException(CommonErrors.NonFieldErrors, message);
             }
 
-            user.Id = request.UserId;
-            user.EmailConfirmed = true;
-            await _userManager.UpdateAsync(user);
-            _logger.LogInformation($"Verificación de email para el usuario {user.Id} realizada con éxito");
+            applicationUser.Id = request.UserId;
+            applicationUser.EmailConfirmed = true;
+            await _userManager.UpdateAsync(applicationUser);
+            _logger.LogInformation($"Verificación de email para el usuario {applicationUser.Id} realizada con éxito");
 
             return Unit.Value;
         }

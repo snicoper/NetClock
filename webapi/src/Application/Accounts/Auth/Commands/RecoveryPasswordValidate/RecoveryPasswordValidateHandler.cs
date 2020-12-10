@@ -28,16 +28,16 @@ namespace NetClock.Application.Accounts.Auth.Commands.RecoveryPasswordValidate
         public async Task<Unit> Handle(RecoveryPasswordValidateCommand request, CancellationToken cancellationToken)
         {
             _logger.LogInformation($"Se va a cambiar la contraseña para el usuario {request.UserId}");
-            var user = await _userManager.FindByIdAsync(request.UserId);
+            var applicationUser = await _userManager.FindByIdAsync(request.UserId);
 
-            if (user is null)
+            if (applicationUser is null)
             {
                 _logger.LogWarning($"El usuario {request.UserId} no existe en la base de datos");
                 throw new NotFoundException(nameof(ApplicationUser), nameof(ApplicationUser.Id));
             }
 
             var code = request.Code.Replace(" ", "+");
-            var resetResult = await _userManager.ResetPasswordAsync(user, code, request.Password);
+            var resetResult = await _userManager.ResetPasswordAsync(applicationUser, code, request.Password);
 
             if (!resetResult.Succeeded)
             {
@@ -50,7 +50,7 @@ namespace NetClock.Application.Accounts.Auth.Commands.RecoveryPasswordValidate
                 _validationFailureService.RaiseExceptionIfExistsErrors();
             }
 
-            _logger.LogInformation($"El usuario {user.Id} ha restablecido la contraseña con éxito");
+            _logger.LogInformation($"El usuario {applicationUser.Id} ha restablecido la contraseña con éxito");
 
             return Unit.Value;
         }

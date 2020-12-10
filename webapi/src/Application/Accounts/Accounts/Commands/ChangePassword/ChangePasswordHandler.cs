@@ -38,7 +38,7 @@ namespace NetClock.Application.Accounts.Accounts.Commands.ChangePassword
                 throw new NotFoundException(nameof(ApplicationUser), nameof(request.Id));
             }
 
-            applicationUser.DomainEvents.Add(new ApplicationUserChangePasswordEvent(applicationUser));
+            applicationUser.DomainEvents.Add(new ChangePasswordEvent(applicationUser));
 
             // Cambiar contraseña.
             var changePasswordResult = await _userManager.ChangePasswordAsync(applicationUser, request.OldPassword, request.NewPassword);

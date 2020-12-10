@@ -20,7 +20,7 @@ using NetClock.Domain.Events.Identity;
 
 namespace NetClock.Application.Accounts.Accounts.Commands.Register
 {
-    public class RegisterEventHandler : INotificationHandler<DomainEventNotification<ApplicationUserRegisterEvent>>
+    public class RegisterEventHandler : INotificationHandler<DomainEventNotification<RegisterEvent>>
     {
         private readonly WebApiConfig _webApiConfig;
         private readonly UserManager<ApplicationUser> _userManager;
@@ -49,7 +49,7 @@ namespace NetClock.Application.Accounts.Accounts.Commands.Register
         }
 
         public async Task Handle(
-            DomainEventNotification<ApplicationUserRegisterEvent> notification,
+            DomainEventNotification<RegisterEvent> notification,
             CancellationToken cancellationToken)
         {
             var domainEvent = notification.DomainEvent;

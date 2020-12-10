@@ -39,9 +39,9 @@ namespace NetClock.Infrastructure.Identity
 
         public async Task<string> GetUserNameAsync(string userId)
         {
-            var user = await _userManager.Users.FirstAsync(u => u.Id == userId);
+            var applicationUser = await _userManager.Users.FirstAsync(u => u.Id == userId);
 
-            return user.UserName;
+            return applicationUser.UserName;
         }
 
         public async Task<ApplicationUser> FirstOrDefaultBySlugAsync(string slug)

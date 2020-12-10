@@ -25,11 +25,11 @@ namespace NetClock.Application.Admin.AdminAccounts.Queries.GetBySlug
         public async Task<GetBySlugDto> Handle(GetBySlugQuery request, CancellationToken cancellationToken)
         {
             _logger.LogInformation($"Se va a obtener el usuario {request.Slug}");
-            var user = await _identityService.FirstOrDefaultBySlugAsync(request.Slug);
+            var applicationUser = await _identityService.FirstOrDefaultBySlugAsync(request.Slug);
 
-            if (user is not null)
+            if (applicationUser is not null)
             {
-                return _mapper.Map<GetBySlugDto>(user);
+                return _mapper.Map<GetBySlugDto>(applicationUser);
             }
 
             _logger.LogWarning($"El usuario {request.Slug} no existe en la base de datos");

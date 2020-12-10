@@ -31,8 +31,8 @@ namespace NetClock.Application.Common.Authorization.Handlers
                 return;
             }
 
-            var user = await _userManager.GetUserAsync(context.User);
-            var userRoleNames = await _userManager.GetRolesAsync(user);
+            var applicationUser = await _userManager.GetUserAsync(context.User);
+            var userRoleNames = await _userManager.GetRolesAsync(applicationUser);
             var userRoles = _roleManager.Roles.Where(x => userRoleNames.Contains(x.Name)).ToList();
 
             foreach (var role in userRoles)
