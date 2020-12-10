@@ -16,7 +16,7 @@ using NetClock.Domain.Events.Identity;
 
 namespace NetClock.Application.Accounts.Accounts.Commands.ChangePassword
 {
-    public class ChangePasswordEventHandler : INotificationHandler<DomainEventNotification<ChangePasswordEvent>>
+    public class ChangePasswordEventHandler : INotificationHandler<DomainEventNotification<ApplicationUserChangePasswordEvent>>
     {
         private readonly IEmailService _emailService;
         private readonly ILogger<ChangePasswordHandler> _logger;
@@ -38,7 +38,7 @@ namespace NetClock.Application.Accounts.Accounts.Commands.ChangePassword
             _webApiConfig = options.Value;
         }
 
-        public async Task Handle(DomainEventNotification<ChangePasswordEvent> notification, CancellationToken cancellationToken)
+        public async Task Handle(DomainEventNotification<ApplicationUserChangePasswordEvent> notification, CancellationToken cancellationToken)
         {
             var domainEvent = notification.DomainEvent;
             _logger.LogInformation("Read Domain Event: {DomainEvent}", domainEvent.GetType().Name);
