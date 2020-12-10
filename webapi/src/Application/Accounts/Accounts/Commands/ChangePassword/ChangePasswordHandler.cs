@@ -41,7 +41,9 @@ namespace NetClock.Application.Accounts.Accounts.Commands.ChangePassword
             applicationUser.DomainEvents.Add(new ApplicationUserChangePasswordEvent(applicationUser));
 
             // Cambiar contraseña.
-            var changePasswordResult = await _userManager.ChangePasswordAsync(applicationUser, request.OldPassword, request.NewPassword);
+            var changePasswordResult = await _userManager
+                .ChangePasswordAsync(applicationUser, request.OldPassword, request.NewPassword);
+
             if (!changePasswordResult.Succeeded)
             {
                 foreach (var error in changePasswordResult.Errors)

@@ -22,28 +22,10 @@ namespace NetClock.Application.Accounts.Auth.Commands.Login
 
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<LoginDto, ApplicationUser>()
-                .ForMember(dest => dest.Active, opt => opt.Ignore())
-                .ForMember(dest => dest.Slug, opt => opt.Ignore())
-                .ForMember(dest => dest.Created, opt => opt.Ignore())
-                .ForMember(dest => dest.LastModified, opt => opt.Ignore())
-                .ForMember(dest => dest.NormalizedUserName, opt => opt.Ignore())
-                .ForMember(dest => dest.NormalizedEmail, opt => opt.Ignore())
-                .ForMember(dest => dest.EmailConfirmed, opt => opt.Ignore())
-                .ForMember(dest => dest.PasswordHash, opt => opt.Ignore())
-                .ForMember(dest => dest.SecurityStamp, opt => opt.Ignore())
-                .ForMember(dest => dest.ConcurrencyStamp, opt => opt.Ignore())
-                .ForMember(dest => dest.PhoneNumber, opt => opt.Ignore())
-                .ForMember(dest => dest.PhoneNumberConfirmed, opt => opt.Ignore())
-                .ForMember(dest => dest.TwoFactorEnabled, opt => opt.Ignore())
-                .ForMember(dest => dest.LockoutEnd, opt => opt.Ignore())
-                .ForMember(dest => dest.LockoutEnabled, opt => opt.Ignore())
-                .ForMember(dest => dest.AccessFailedCount, opt => opt.Ignore())
-                .ForMember(dest => dest.DomainEvents, opt => opt.Ignore());
+            profile.CreateMap<LoginDto, ApplicationUser>(MemberList.None);
 
-            profile.CreateMap<ApplicationUser, LoginDto>()
-                .ForMember(dest => dest.FullName, opt => opt.MapFrom(src => $"{src.FirstName} {src.LastName}"))
-                .ForMember(dest => dest.Token, opt => opt.Ignore());
+            profile.CreateMap<ApplicationUser, LoginDto>(MemberList.None)
+                .ForMember(dest => dest.FullName, opt => opt.MapFrom(src => $"{src.FirstName} {src.LastName}"));
         }
     }
 }
