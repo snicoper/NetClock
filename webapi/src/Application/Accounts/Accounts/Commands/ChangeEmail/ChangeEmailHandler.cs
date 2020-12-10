@@ -52,7 +52,7 @@ namespace NetClock.Application.Accounts.Accounts.Commands.ChangeEmail
             }
 
             var code = await _userManager.GenerateChangeEmailTokenAsync(applicationUser, request.NewEmail);
-            var changeEmailViewModel = new ChangeEmailDto
+            var changeEmailDto = new ChangeEmailDto
             {
                 Id = applicationUser.Id,
                 UserName = applicationUser.UserName,
@@ -60,7 +60,7 @@ namespace NetClock.Application.Accounts.Accounts.Commands.ChangeEmail
                 NewEmail = request.NewEmail,
                 CallBack = GenerateCallBack(applicationUser.Id, code, request.NewEmail)
             };
-            await SendEmailNotificationAsync(applicationUser, changeEmailViewModel);
+            await SendEmailNotificationAsync(applicationUser, changeEmailDto);
             _logger.LogInformation($"El usuario {request.Id} ha cambiado el email con éxito");
 
             return Unit.Value;

@@ -40,7 +40,10 @@ namespace NetClock.Application.Accounts.Accounts.Commands.ChangePassword
 
         public async Task Handle(DomainEventNotification<ChangePasswordEvent> notification, CancellationToken cancellationToken)
         {
-            var changePasswordViewModel = _mapper.Map<ChangePasswordDto>(notification.DomainEvent.ApplicationUser);
+            var domainEvent = notification.DomainEvent;
+            _logger.LogInformation("Read Domain Event: {DomainEvent}", domainEvent.GetType().Name);
+
+            var changePasswordViewModel = _mapper.Map<ChangePasswordDto>(domainEvent.ApplicationUser);
             changePasswordViewModel.SiteName = _webApiConfig.SiteName;
             await EmailNotifyChangePasswordAsync(changePasswordViewModel);
         }
