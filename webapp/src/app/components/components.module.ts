@@ -2,9 +2,9 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
-import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 
 import { DirectivesModule } from '../directives/directives.module';
@@ -24,45 +24,45 @@ import { TableComponent } from './tables/table/table.component';
 
 @NgModule({
   declarations: [
-    FooterComponent,
-    FieldErrorComponent,
-    NonFieldErrorsComponent,
     BreadcrumbComponent,
-    PageTitleComponent,
-    PageBaseComponent,
-    SpinnerComponent,
-    SidebarComponent,
-    PaginationComponent,
-    TableHeaderComponent,
     CardComponent,
+    FieldErrorComponent,
+    FooterComponent,
+    FormInputComponent,
+    NonFieldErrorsComponent,
+    PageBaseComponent,
+    PageTitleComponent,
+    PaginationComponent,
+    SidebarComponent,
+    SpinnerComponent,
     TableComponent,
-    FormInputComponent
+    TableHeaderComponent
   ],
   imports: [
-    CommonModule,
-    RouterModule,
-    ReactiveFormsModule,
-    FormsModule,
     BsDropdownModule.forRoot(),
     CollapseModule.forRoot(),
-    TooltipModule.forRoot(),
+    CommonModule,
+    DirectivesModule,
+    FormsModule,
     PerfectScrollbarModule,
-    DirectivesModule
+    ReactiveFormsModule,
+    RouterModule,
+    TooltipModule.forRoot()
   ],
   exports: [
-    FooterComponent,
-    FieldErrorComponent,
-    NonFieldErrorsComponent,
     BreadcrumbComponent,
-    PageTitleComponent,
-    PageBaseComponent,
-    SpinnerComponent,
-    SidebarComponent,
-    PaginationComponent,
-    TableHeaderComponent,
     CardComponent,
+    FieldErrorComponent,
+    FooterComponent,
+    FormInputComponent,
+    NonFieldErrorsComponent,
+    PageBaseComponent,
+    PageTitleComponent,
+    PaginationComponent,
+    SidebarComponent,
+    SpinnerComponent,
     TableComponent,
-    FormInputComponent
+    TableHeaderComponent
   ]
 })
 export class ComponentsModule {

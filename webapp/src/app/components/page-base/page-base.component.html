@@ -1,9 +1,12 @@
 <div class="fade-in">
+  <!-- title -->
   <nc-page-title *ngIf="showPageTitle" [pageTitle]="pageTitle"></nc-page-title>
-  <nc-breadcrumb *ngIf="breadcrumb && breadcrumb.hasItems()"
-                 [breadcrumb]="breadcrumb">
+
+  <!-- breadcrumb -->
+  <nc-breadcrumb *ngIf="breadcrumb && breadcrumb.hasItems()" [breadcrumb]="breadcrumb">
   </nc-breadcrumb>
 
+  <!-- content page -->
   <div [ngClass]="cssContent">
     <ng-content></ng-content>
   </div>

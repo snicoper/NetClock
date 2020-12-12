@@ -1,4 +1,4 @@
-FROM node:latest
+FROM node:14.14.0
 
 # install chrome for protractor tests
 # RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
@@ -8,12 +8,8 @@ FROM node:latest
 # set working directory
 WORKDIR /app
 
-# add `/app/node_modules/.bin` to $PATH
-ENV PATH /app/node_modules/.bin:$PATH
-
 COPY package.json ./
 RUN npm install
-RUN npm install -g @angular/cli
 
 COPY . ./
 

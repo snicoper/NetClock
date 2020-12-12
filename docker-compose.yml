@@ -1,4 +1,4 @@
-version: "3.7"
+version: "3.8"
 
 services:
   reverseproxy:
@@ -8,6 +8,19 @@ services:
     ports:
       - "5101:443"
     restart: always
+
+  postgres_image:
+    image: postgres:12.4
+    ports:
+      - "5433:5432"
+    restart: always
+    volumes:
+      - db_volume:/var/lib/postgresql/data
+      - ./compose/docker/postgresql/NetClock.sql :/docker-entrypoint-initdb.d/NetClock.sql
+    environment:
+      POSTGRES_USER: "snicoper"
+      POSTGRES_PASSWORD: "123456"
+      POSTGRES_DB: "NetClock"
 
   webapi:
     depends_on:
@@ -32,18 +45,6 @@ services:
       - "4210:4200"
     restart: always
 
-  postgres_image:
-    image: postgres:latest
-    ports:
-      - "5433:5432"
-    restart: always
-    volumes:
-      - db_volume:/var/lib/postgresql/data
-      - ./compose/docker/postgresql/NetClock.sql :/docker-entrypoint-initdb.d/NetClock.sql
-    environment:
-      POSTGRES_USER: "snicoper"
-      POSTGRES_PASSWORD: "123456"
-      POSTGRES_DB: "NetClock"
 volumes:
   db_volume:
 
