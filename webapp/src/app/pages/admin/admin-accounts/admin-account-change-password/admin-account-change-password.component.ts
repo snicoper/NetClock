@@ -10,8 +10,8 @@ import { siteUrls } from '../../../../core';
 import { BadRequest } from '../../../../types';
 import { passwordMustMatch } from '../../../../validators';
 import { AdminAccountDetailsModel } from '../admin-account-details/admin-account-details.model';
+import { AdminAccountChangePasswordModel } from './admin-account-change-password.model';
 import { AdminAccountChangePasswordService } from './admin-account-change-password.service';
-import { AdminAccountChangePasswordModel } from './admin-account-changepassword.model';
 
 @Component({
   selector: 'nc-admin-change-user-password',

@@ -6,6 +6,7 @@ import { RecoveryPasswordSuccessComponent } from './recovery-password-success/re
 import { RecoveryPasswordValidateComponent } from './recovery-password-validate/recovery-password-validate.component';
 import { RecoveryPasswordComponent } from './recovery-password/recovery-password.component';
 
+// http://example.com/auth
 const routes: Routes = [
   {
     path: 'login',

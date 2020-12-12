@@ -4,6 +4,7 @@ import { Error404Component } from './pages/errors/error404/error404.component';
 
 import { PagesComponent } from './pages/pages.component';
 
+// http://example.com
 const routes: Routes = [
   {
     /** Paginas con navbar. */

@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { AppConfig } from '../../../../app.config';
 import { ApiUrls } from '../../../../core';
 import { ApiRestBaseService } from '../../../../services';
-import { AdminAccountChangePasswordModel } from './admin-account-changepassword.model';
+import { AdminAccountChangePasswordModel } from './admin-account-change-password.model';
 
 @Injectable()
 export class AdminAccountChangePasswordService extends ApiRestBaseService {

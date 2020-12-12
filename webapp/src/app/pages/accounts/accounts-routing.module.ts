@@ -5,6 +5,7 @@ import { AuthGuard } from '../../guards';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { ProfileComponent } from './profile/profile.component';
 
+// http://example.com/accounts
 const routes: Routes = [
   {
     path: 'profile',
