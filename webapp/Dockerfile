@@ -8,6 +8,8 @@ FROM node:14.14.0
 # set working directory
 WORKDIR /app
 
+ENV NG_CLI_ANALYTICS="false"
+
 COPY package.json ./
 RUN npm install
 
