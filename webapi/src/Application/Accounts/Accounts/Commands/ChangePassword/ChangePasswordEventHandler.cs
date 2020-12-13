@@ -43,7 +43,7 @@ namespace NetClock.Application.Accounts.Accounts.Commands.ChangePassword
             CancellationToken cancellationToken)
         {
             var domainEvent = notification.DomainEvent;
-            _logger.LogInformation("Read Domain Event: {DomainEvent}", domainEvent.GetType().Name);
+            _logger.LogInformation("Read Domain Event: {DomainEvent}.", domainEvent.GetType().Name);
 
             var changePasswordViewModel = _mapper.Map<ChangePasswordDto>(domainEvent.ApplicationUser);
             changePasswordViewModel.SiteName = _webApiConfig.SiteName;
@@ -56,7 +56,7 @@ namespace NetClock.Application.Accounts.Accounts.Commands.ChangePassword
             _emailService.IsHtml = true;
             _emailService.To = new List<MailAddress> { new(changePasswordDto.Email) };
             await _emailService.SendEmailAsync(EmailTemplates.ChangePassword, changePasswordDto);
-            _logger.LogInformation($"Se ha notificado el cambio de contraseña a {changePasswordDto.Email}");
+            _logger.LogInformation("Se ha notificado el cambio de contraseña: {@changePasswordDto}.", changePasswordDto);
         }
     }
 }

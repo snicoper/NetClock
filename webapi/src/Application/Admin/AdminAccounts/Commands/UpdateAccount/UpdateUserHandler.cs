@@ -41,18 +41,18 @@ namespace NetClock.Application.Admin.AdminAccounts.Commands.UpdateAccount
 
             await ValidateDataIfExists(request);
 
-            _logger.LogInformation($"Se ha obtenido correctamente el usuario {request.UserName}");
+            _logger.LogInformation("Se ha obtenido correctamente el usuario {userName}.", request.UserName);
             applicationUser = request.MappingToApplicationUser(applicationUser);
             await _userManager.UpdateAsync(applicationUser);
 
-            _logger.LogInformation($"Se ha actualizado correctamente el usuario {request.UserName}");
+            _logger.LogInformation("Se ha actualizado correctamente el usuario {userName}.", request.UserName);
 
             return new UpdateUserDto(applicationUser.Slug);
         }
 
         private async Task ValidateDataIfExists(UpdateUserCommand request)
         {
-            _logger.LogInformation($"Comprobar si el {nameof(request.UserName)} existe en la base de datos.");
+            _logger.LogInformation("Comprobar si el {userName} existe en la base de datos.", nameof(request.UserName));
             var user = await _userManager
                 .Users
                 .AnyAsync(u => u.UserName.ToLower() == request.UserName.ToLower() && u.Id != request.Id);
@@ -75,7 +75,7 @@ namespace NetClock.Application.Admin.AdminAccounts.Commands.UpdateAccount
                 _validationFailureService.Add(nameof(request.LastName), message);
             }
 
-            _logger.LogInformation($"Comprobar si el {nameof(request.Email)} existe en la base de datos.");
+            _logger.LogInformation("Comprobar si el {email} existe en la base de datos.", nameof(request.Email));
             user = await _userManager.Users.AnyAsync(u => u.Email.ToLower() == request.Email.ToLower() && u.Id != request.Id);
 
             if (user)

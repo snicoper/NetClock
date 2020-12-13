@@ -44,13 +44,13 @@ namespace NetClock.Application.Accounts.Auth.Commands.RecoveryPassword
 
         public async Task<Unit> Handle(RecoveryPasswordCommand request, CancellationToken cancellationToken)
         {
-            _logger.LogInformation($"El usuario {request.Email} va a recuperar el email.");
+            _logger.LogInformation("El usuario {email} va a recuperar el email.", request.Email);
 
             var applicationUser = await _userManager.FindByEmailAsync(request.Email);
 
             if (applicationUser is null)
             {
-                _logger.LogWarning($"El email {request.Email} no existe en la base de datos");
+                _logger.LogWarning("El email {email} no existe en la base de datos.", request.Email);
                 throw new NotFoundException(nameof(ApplicationUser), nameof(ApplicationUser.Email));
             }
 
@@ -62,7 +62,7 @@ namespace NetClock.Application.Accounts.Auth.Commands.RecoveryPassword
             };
 
             await SendEmailNotificationAsync(applicationUser, recoveryPasswordViewModel);
-            _logger.LogInformation($"Se a enviado un email a {request.Email} para recuperar la contraseña");
+            _logger.LogInformation("Se a enviado un email a {email} para recuperar la contraseña.", request.Email);
 
             return Unit.Value;
         }

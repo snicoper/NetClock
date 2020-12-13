@@ -43,11 +43,11 @@ namespace NetClock.Application.Accounts.Accounts.Commands.ChangeEmail
 
         public async Task<Unit> Handle(ChangeEmailCommand request, CancellationToken cancellationToken)
         {
-            _logger.LogInformation($"El usuario {request.Id} va a cambiar de email");
+            _logger.LogInformation("El usuario va a cambiar de email {@request}.", request);
             var applicationUser = await _userManager.FindByIdAsync(request.Id);
             if (applicationUser is null)
             {
-                _logger.LogWarning($"El usuario {request.Id} no se encuentra en la base de datos");
+                _logger.LogWarning("El usuario {id} no se encuentra en la base de datos.", request.Id);
                 throw new NotFoundException(nameof(ApplicationUser), nameof(ApplicationUser.Id));
             }
 
@@ -61,7 +61,7 @@ namespace NetClock.Application.Accounts.Accounts.Commands.ChangeEmail
                 CallBack = GenerateCallBack(applicationUser.Id, code, request.NewEmail)
             };
             await SendEmailNotificationAsync(applicationUser, changeEmailDto);
-            _logger.LogInformation($"El usuario {request.Id} ha cambiado el email con éxito");
+            _logger.LogInformation("El usuario {id} ha cambiado el email con éxito.", request.Id);
 
             return Unit.Value;
         }

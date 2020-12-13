@@ -27,7 +27,7 @@ namespace NetClock.Application.Accounts.Auth.Commands.Logout
 
         public async Task<Unit> Handle(LogoutCommand request, CancellationToken cancellationToken)
         {
-            _logger.LogInformation("El usuario va a desconectarse");
+            _logger.LogInformation("El usuario va a desconectarse.");
 
             await _signInManager.SignOutAsync();
             await _httpContextAccessor.HttpContext.SignOutAsync();

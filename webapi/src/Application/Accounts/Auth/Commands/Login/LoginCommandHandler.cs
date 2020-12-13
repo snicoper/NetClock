@@ -68,7 +68,7 @@ namespace NetClock.Application.Accounts.Auth.Commands.Login
 
             var currentUserDto = _mapper.Map<LoginDto>(applicationUser);
             currentUserDto.Token = token;
-            _logger.LogInformation($"Se ha identificado con éxito {request.UserName}");
+            _logger.LogInformation("Se ha identificado con éxito {UserName}.", request.UserName);
 
             return currentUserDto;
         }
@@ -89,7 +89,7 @@ namespace NetClock.Application.Accounts.Auth.Commands.Login
 
         private void InvalidUserNameOrPassword(LoginCommand request)
         {
-            _logger.LogWarning($"Error al identificarse {request.UserName}");
+            _logger.LogWarning("Error al identificarse {userName}.", request.UserName);
             var errorMessage = _localizer["Nombre de usuario o contraseña no valido"];
             _validationFailureService.AddAndRaiseException(CommonErrors.NonFieldErrors, errorMessage);
         }

@@ -34,12 +34,12 @@ namespace NetClock.Application.Admin.AdminAccounts.Commands.ChangePasswordAccoun
 
         public async Task<Unit> Handle(ChangePasswordAccountCommand request, CancellationToken cancellationToken)
         {
-            _logger.LogInformation($"Usuario {request.Id} va a cambiar la contraseña");
+            _logger.LogInformation("Usuario {id} va a cambiar la contraseña.", request.Id);
             var applicationUser = await _userManager.FindByIdAsync(request.Id);
 
             if (applicationUser is null)
             {
-                _logger.LogWarning($"Usuario {request.Id} intenta cambiar contraseña y no existe");
+                _logger.LogWarning("Usuario {id} intenta cambiar contraseña y no existe.", request.Id);
                 throw new NotFoundException(nameof(ApplicationUser), nameof(request.Id));
             }
 
@@ -54,7 +54,7 @@ namespace NetClock.Application.Admin.AdminAccounts.Commands.ChangePasswordAccoun
 
             applicationUser.PasswordHash = _userManager.PasswordHasher.HashPassword(applicationUser, request.NewPassword);
             await _userManager.UpdateAsync(applicationUser);
-            _logger.LogInformation($"Usuario {request.Id} contraseña cambiada con éxito");
+            _logger.LogInformation("Usuario {id} contraseña cambiada con éxito.", request.Id);
 
             return Unit.Value;
         }

@@ -96,7 +96,7 @@ namespace NetClock.Infrastructure.Services.Emails
             emailMessage.Body = Body;
 
             await smtpClient.SendMailAsync(emailMessage);
-            _logger.LogInformation($"Enviado email a {string.Join(", ", To)}");
+            _logger.LogInformation("Enviado email a {to}.", string.Join(", ", To));
         }
 
         private void Validate()

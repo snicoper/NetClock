@@ -29,12 +29,12 @@ namespace NetClock.Application.Accounts.Accounts.Commands.ChangePassword
 
         public async Task<Unit> Handle(ChangePasswordCommand request, CancellationToken cancellationToken)
         {
-            _logger.LogInformation($"Usuario {request.Id} va a cambiar el password");
+            _logger.LogInformation("Usuario {id} va a cambiar el password.", request.Id);
             var applicationUser = await _userManager.FindByIdAsync(request.Id);
 
             if (applicationUser is null)
             {
-                _logger.LogWarning($"Usuario {request.Id} intenta cambiar contraseña y no existe");
+                _logger.LogWarning("Usuario {id} intenta cambiar contraseña y no existe.", request.Id);
                 throw new NotFoundException(nameof(ApplicationUser), nameof(request.Id));
             }
 
@@ -48,14 +48,14 @@ namespace NetClock.Application.Accounts.Accounts.Commands.ChangePassword
             {
                 foreach (var error in changePasswordResult.Errors)
                 {
-                    _logger.LogWarning($"Usuario {request.Id}, error al cambiar contraseña: {error.Description}");
+                    _logger.LogWarning("Usuario {id}, error al cambiar contraseña: {error}.", request.Id, error.Description);
                     _validationFailureService.Add(CommonErrors.NonFieldErrors, error.Description);
                 }
 
                 _validationFailureService.RaiseException();
             }
 
-            _logger.LogInformation($"El usuario {applicationUser.Id} ha cambiado contraseña con éxito");
+            _logger.LogInformation("El usuario {id} ha cambiado contraseña con éxito.", applicationUser.Id);
 
             return Unit.Value;
         }

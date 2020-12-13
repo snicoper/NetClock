@@ -53,7 +53,7 @@ namespace NetClock.Application.Accounts.Accounts.Commands.Register
             CancellationToken cancellationToken)
         {
             var domainEvent = notification.DomainEvent;
-            _logger.LogInformation("Read Domain Event: {DomainEvent}", domainEvent.GetType().Name);
+            _logger.LogInformation("Read Domain Event: {DomainEvent}.", domainEvent.GetType().Name);
 
             var applicationUser = domainEvent.ApplicationUser;
             var registerViewModel = _mapper.Map<ApplicationUser, RegisterDto>(applicationUser);

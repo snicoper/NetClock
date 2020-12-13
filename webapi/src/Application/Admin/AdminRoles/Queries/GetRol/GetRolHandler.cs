@@ -23,7 +23,7 @@ namespace NetClock.Application.Admin.AdminRoles.Queries.GetRol
 
         public async Task<GetRolDto> Handle(GetRolQuery request, CancellationToken cancellationToken)
         {
-            _logger.LogInformation($"Se va a obtener el rol {request.Id}");
+            _logger.LogInformation("Se va a obtener el rol {id}.", request.Id);
             var rol = await _roleManager.FindByIdAsync(request.Id);
 
             if (rol is not null)
@@ -31,7 +31,7 @@ namespace NetClock.Application.Admin.AdminRoles.Queries.GetRol
                 return _mapper.Map<GetRolDto>(rol);
             }
 
-            _logger.LogWarning($"El rol {request.Id} no existe en la base de datos");
+            _logger.LogWarning("El rol {id} no existe en la base de datos.", request.Id);
             throw new NotFoundException(nameof(IdentityRole), nameof(IdentityRole.Id));
         }
     }

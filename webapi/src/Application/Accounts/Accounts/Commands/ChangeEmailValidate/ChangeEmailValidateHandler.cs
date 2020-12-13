@@ -28,11 +28,11 @@ namespace NetClock.Application.Accounts.Accounts.Commands.ChangeEmailValidate
 
         public async Task<Unit> Handle(ChangeEmailValidateCommand request, CancellationToken cancellationToken)
         {
-            _logger.LogInformation($"Se va a validar el cambio de email para el usuario {request.UserId}");
+            _logger.LogInformation("Se va a validar el cambio de email para el usuario {userId}.", request.UserId);
             var applicationUser = await _userManager.FindByIdAsync(request.UserId);
             if (applicationUser is null)
             {
-                _logger.LogWarning($"El usuario {request.UserId} no existe en la base de datos");
+                _logger.LogWarning("El usuario {serId} no existe en la base de datos.", request.UserId);
                 throw new NotFoundException(nameof(UserManager<ApplicationUser>), nameof(request.UserId));
             }
 
@@ -41,14 +41,14 @@ namespace NetClock.Application.Accounts.Accounts.Commands.ChangeEmailValidate
             {
                 foreach (var error in identityResult.Errors)
                 {
-                    _logger.LogWarning($"Usuario {request.UserId}, error al validar token: {error.Description}");
+                    _logger.LogWarning("Usuario {userId}, error al validar token: {error}.", request.UserId, error.Description);
                     _validationFailureService.Add(CommonErrors.NonFieldErrors, error.Description);
                 }
 
                 _validationFailureService.RaiseException();
             }
 
-            _logger.LogInformation($"El usuario {applicationUser.Id} ha validado con éxito el cambio de email");
+            _logger.LogInformation("El usuario {userId} ha validado con éxito el cambio de email.", applicationUser.Id);
 
             return Unit.Value;
         }

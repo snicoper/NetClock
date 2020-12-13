@@ -33,11 +33,11 @@ namespace NetClock.Application.Accounts.Accounts.Commands.RegisterValidate
 
         public async Task<Unit> Handle(RegisterValidateCommand request, CancellationToken cancellationToken)
         {
-            _logger.LogInformation($"Se va a validar el registro para el usuario {request.UserId}");
+            _logger.LogInformation("Se va a validar el registro para el usuario {id}.", request.UserId);
             var applicationUser = await _userManager.FindByIdAsync(request.UserId);
             if (applicationUser is null)
             {
-                _logger.LogWarning($"El usuario {request.UserId} no existe en la base de datos");
+                _logger.LogWarning("El usuario {id} no existe en la base de datos.", request.UserId);
                 var errorMessage = _localizer["El usuario no existe"];
                 _validationFailureService.AddAndRaiseException(CommonErrors.NonFieldErrors, errorMessage);
 
@@ -56,7 +56,7 @@ namespace NetClock.Application.Accounts.Accounts.Commands.RegisterValidate
             applicationUser.Id = request.UserId;
             applicationUser.EmailConfirmed = true;
             await _userManager.UpdateAsync(applicationUser);
-            _logger.LogInformation($"Verificación de email para el usuario {applicationUser.Id} realizada con éxito");
+            _logger.LogInformation("Verificación de email para el usuario {id} realizada con éxito.", applicationUser.Id);
 
             return Unit.Value;
         }
