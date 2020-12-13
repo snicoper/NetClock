@@ -10,8 +10,12 @@ WORKDIR /app
 
 ENV NG_CLI_ANALYTICS="false"
 
+# add `/app/node_modules/.bin` to $PATH
+ENV PATH /app/node_modules/.bin:$PATH
+
 COPY package.json ./
 RUN npm install
+RUN npm install -g @angular/cli
 
 COPY . ./
 

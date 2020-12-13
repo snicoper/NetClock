@@ -10,14 +10,14 @@ services:
     restart: always
 
   postgres_image:
-    image: postgres:12.4
+    build:
+      context: ./compose/docker/postgresql
+      dockerfile: Dockerfile
     ports:
       - "5433:5432"
     restart: always
-    volumes:
-      - ./compose/docker/postgresql/NetClock.sql:/docker-entrypoint-initdb.d/NetClock.sql
     environment:
-      - POSTGRES_USER=snicoper
+      - POSTGRES_USER=netclock
       - POSTGRES_PASSWORD=123456
       - POSTGRES_DB=NetClock
 
@@ -32,7 +32,6 @@ services:
     restart: always
     environment:
       - ASPNETCORE_ENVIRONMENT=Staging
-      - DefaultConnection="host=postgres_image;port=5433;database=NetClock;username=snicoper;password=123456"
 
   webapp:
     depends_on:
