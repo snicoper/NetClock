@@ -1,5 +1,7 @@
 @import "variables";
 
+$color-icon: '#aaaaaa';
+
 label {
   font-size: 0.9rem;
 }
@@ -11,7 +13,7 @@ label {
 
 .has-icon {
   .has-icon-left {
-    color: #aaa;
+    color: $color-icon;
     display: block;
     height: 2.375rem;
     line-height: 2.375rem;
@@ -27,7 +29,7 @@ label {
   }
 
   .has-icon-right {
-    color: #aaa;
+    color: $color-icon;
     display: block;
     height: 2.375rem;
     line-height: 2.375rem;
