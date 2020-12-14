@@ -1,4 +1,3 @@
-using System;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
@@ -41,18 +40,18 @@ namespace NetClock.Application.Admin.AdminAccounts.Commands.UpdateAccount
 
             await ValidateDataIfExists(request);
 
-            _logger.LogInformation("Se ha obtenido correctamente el usuario {userName}.", request.UserName);
+            _logger.LogInformation("Se ha obtenido correctamente el usuario {@userName}.", request.UserName);
             user = request.MappingToApplicationUser(user);
             await _userManager.UpdateAsync(user);
 
-            _logger.LogInformation("Se ha actualizado correctamente el usuario {userName}.", request.UserName);
+            _logger.LogInformation("Se ha actualizado correctamente el usuario {@userName}.", request.UserName);
 
             return new UpdateUserDto(user.Slug);
         }
 
         private async Task ValidateDataIfExists(UpdateUserCommand request)
         {
-            _logger.LogInformation("Comprobar si el {userName} existe en la base de datos.", nameof(request.UserName));
+            _logger.LogInformation("Comprobar si el {@userName} existe en la base de datos.", request.UserName);
             var user = await _userManager
                 .Users
                 .AnyAsync(u => u.UserName.ToLower() == request.UserName.ToLower() && u.Id != request.Id);
@@ -63,7 +62,9 @@ namespace NetClock.Application.Admin.AdminAccounts.Commands.UpdateAccount
             }
 
             _logger.LogInformation(
-                $"Comprobar si el {nameof(request.FirstName)} y {nameof(request.LastName)} existe en la base de datos.");
+                "Comprobar si el {@firstName} y {@lastName} existe en la base de datos.",
+                request.FirstName,
+                request.LastName);
 
             user = await _userManager.Users.AnyAsync(u => u.FirstName.ToLower() == request.FirstName.ToLower()
                                                           && u.LastName.ToLower() == request.LastName.ToLower()
@@ -75,7 +76,7 @@ namespace NetClock.Application.Admin.AdminAccounts.Commands.UpdateAccount
                 _validationFailure.Add(nameof(request.LastName), message);
             }
 
-            _logger.LogInformation("Comprobar si el {email} existe en la base de datos.", nameof(request.Email));
+            _logger.LogInformation("Comprobar si el {@email} existe en la base de datos.", request.Email);
             user = await _userManager.Users.AnyAsync(u => u.Email.ToLower() == request.Email.ToLower() && u.Id != request.Id);
 
             if (user)
