@@ -1,7 +1,7 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component } from '@angular/core';
 
-import { AppConfig } from '../../app.config';
+import { appConfig } from '../../app.config';
 import { AuthService } from '../../pages/auth/login/auth.service';
 import { SidebarService } from './sidebar.service';
 
@@ -18,7 +18,7 @@ import { SidebarService } from './sidebar.service';
   ]
 })
 export class SidebarComponent {
-  siteName = AppConfig.siteName;
+  siteName = appConfig.siteName;
   menus = [];
 
   constructor(public sidebarService: SidebarService, public authService: AuthService) {

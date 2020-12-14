@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
-
-import { ApiResult } from '../../../models';
+import { ApiResult } from '../../../core/models';
 
 @Component({
   selector: 'nc-table',

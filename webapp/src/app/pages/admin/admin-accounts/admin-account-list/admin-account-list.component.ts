@@ -3,10 +3,10 @@ import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 
-import { BreadcrumbCollection } from '../../../../components/breadcrumb/BreadcrumbCollection';
+import { BreadcrumbCollection } from '../../../../components/breadcrumb/breadcrumb-collection';
 import { TableHeaderConfig } from '../../../../components/tables/table-header/table-header.config';
-import { debugErrors, siteUrls } from '../../../../core';
-import { ApiResult } from '../../../../models';
+import { debugErrors, siteUrls } from '../../../../core/common';
+import { ApiResult } from '../../../../core/models';
 import { adminAccountListHeaderConfig } from './admin-account-list-headers.config';
 import { AdminAccountListModel } from './admin-account-list.model';
 import { AdminAccountListService } from './admin-account-list.service';

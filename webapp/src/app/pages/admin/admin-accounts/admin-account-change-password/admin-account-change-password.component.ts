@@ -4,11 +4,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { finalize } from 'rxjs/operators';
 
-import { BreadcrumbCollection } from '../../../../components/breadcrumb/BreadcrumbCollection';
+import { BreadcrumbCollection } from '../../../../components/breadcrumb/breadcrumb-collection';
 import { FormInputTypes } from '../../../../components/forms/form-input/form-input-types.enum';
-import { siteUrls } from '../../../../core';
-import { BadRequest } from '../../../../types';
-import { passwordMustMatch } from '../../../../validators';
+import { siteUrls } from '../../../../core/common';
+import { BadRequest } from '../../../../core/types';
+import { passwordMustMatch } from '../../../../core/validators';
 import { AdminAccountDetailsModel } from '../admin-account-details/admin-account-details.model';
 import { AdminAccountChangePasswordModel } from './admin-account-change-password.model';
 import { AdminAccountChangePasswordService } from './admin-account-change-password.service';

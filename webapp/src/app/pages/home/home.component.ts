@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
-import { BreadcrumbCollection } from '../../components/breadcrumb/BreadcrumbCollection';
-import { siteUrls } from '../../core';
+import { BreadcrumbCollection } from '../../components/breadcrumb/breadcrumb-collection';
+import { siteUrls } from '../../core/common';
 
 @Component({
   selector: 'nc-home',

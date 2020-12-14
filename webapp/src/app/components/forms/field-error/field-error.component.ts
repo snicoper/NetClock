@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { AbstractControl, FormGroup } from '@angular/forms';
 import { StatusCodes } from 'http-status-codes';
 
-import { BadRequest } from '../../../types';
+import { BadRequest } from '../../../core/types';
 
 @Component({
   selector: 'nc-field-error',

@@ -3,9 +3,9 @@ import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
-import { siteUrls } from '../../../core';
-import { BadRequest } from '../../../types';
-import { passwordMustMatch } from '../../../validators';
+import { siteUrls } from '../../../core/common';
+import { BadRequest } from '../../../core/types';
+import { passwordMustMatch } from '../../../core/validators';
 import { RecoveryPasswordValidateService } from './recovery-password-validate.service';
 
 @Component({

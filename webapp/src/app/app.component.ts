@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { LocalizationService } from './services';
+import { LocalizationService } from './core/services';
 
 @Component({
   selector: 'nc-root',

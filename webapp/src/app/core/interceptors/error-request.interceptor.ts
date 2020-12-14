@@ -5,8 +5,8 @@ import { StatusCodes } from 'http-status-codes';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
-import { debugErrors, siteUrls } from '../core';
-import { AuthService } from '../pages/auth/login/auth.service';
+import { AuthService } from '../../pages/auth/login/auth.service';
+import { debugErrors, siteUrls } from '../common';
 
 @Injectable()
 export class ErrorRequestInterceptor implements HttpInterceptor {

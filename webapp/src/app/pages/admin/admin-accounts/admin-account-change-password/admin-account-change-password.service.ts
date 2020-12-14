@@ -2,16 +2,16 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { AppConfig } from '../../../../app.config';
-import { ApiUrls } from '../../../../core';
-import { ApiRestBaseService } from '../../../../services';
+import { appConfig } from '../../../../app.config';
+import { ApiUrls } from '../../../../core/common';
+import { ApiRestBaseService } from '../../../../core/services';
 import { AdminAccountChangePasswordModel } from './admin-account-change-password.model';
 
 @Injectable()
 export class AdminAccountChangePasswordService extends ApiRestBaseService {
   constructor(protected http: HttpClient) {
     super(http);
-    this.baseUrl = `${AppConfig.baseApiUrl}/${ApiUrls.adminAccounts}`;
+    this.baseUrl = `${appConfig.baseApiUrl}/${ApiUrls.adminAccounts}`;
   }
 
   change(model: AdminAccountChangePasswordModel): Observable<void> {

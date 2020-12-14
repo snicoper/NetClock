@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormGlobals } from '../../../core';
-import { BadRequest } from '../../../types';
+
+import { FormGlobals } from '../../../core/common';
+import { BadRequest } from '../../../core/types';
 
 @Component({
   selector: 'nc-non-field-errors',

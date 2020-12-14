@@ -3,8 +3,8 @@ import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from
 import { ActivatedRoute, Router } from '@angular/router';
 import { finalize, timeout } from 'rxjs/operators';
 
-import { siteUrls } from '../../../core';
-import { BadRequest } from '../../../types';
+import { siteUrls } from '../../../core/common';
+import { BadRequest } from '../../../core/types';
 import { AuthService } from './auth.service';
 import { CurrentUserModel } from './current-user.model';
 

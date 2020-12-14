@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { finalize } from 'rxjs/operators';
 
-import { BreadcrumbCollection } from '../../../../components/breadcrumb/BreadcrumbCollection';
-import { siteUrls } from '../../../../core';
+import { BreadcrumbCollection } from '../../../../components/breadcrumb/breadcrumb-collection';
+import { siteUrls } from '../../../../core/common';
 import { AdminAccountDetailsModel } from './admin-account-details.model';
 import { AdminAccountDetailsService } from './admin-account-details.service';
 

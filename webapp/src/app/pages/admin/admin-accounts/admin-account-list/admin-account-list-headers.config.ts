@@ -1,4 +1,4 @@
-import { OrderType } from '../../../../models';
+import { OrderType } from '../../../../core/models';
 
 export const adminAccountListHeaderConfig = [
   {

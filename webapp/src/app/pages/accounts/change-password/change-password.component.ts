@@ -3,10 +3,10 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { ToastrService } from 'ngx-toastr';
 import { finalize } from 'rxjs/operators';
 
-import { BreadcrumbCollection } from '../../../components/breadcrumb/BreadcrumbCollection';
+import { BreadcrumbCollection } from '../../../components/breadcrumb/breadcrumb-collection';
 import { FormInputTypes } from '../../../components/forms/form-input/form-input-types.enum';
-import { siteUrls } from '../../../core';
-import { passwordMustMatch } from '../../../validators';
+import { siteUrls } from '../../../core/common';
+import { passwordMustMatch } from '../../../core/validators';
 import { AuthService } from '../../auth/login/auth.service';
 import { ChangePasswordModel } from './change-password.model';
 import { ChangePasswordService } from './change-password.service';

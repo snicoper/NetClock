@@ -3,8 +3,8 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { ComponentsModule } from '../../../components/components.module';
-import { DirectivesModule } from '../../../directives/directives.module';
-import { PipesModule } from '../../../pipes/pipes.module';
+import { DirectivesModule } from '../../../core/directives/directives.module';
+import { PipesModule } from '../../../core/pipes/pipes.module';
 import { AdminAccountChangePasswordComponent } from './admin-account-change-password/admin-account-change-password.component';
 import { AdminAccountCreateComponent } from './admin-account-create/admin-account-create.component';
 import { AdminAccountDetailsComponent } from './admin-account-details/admin-account-details.component';

@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 
-import { ApiResult } from '../../models';
+import { ApiResult } from '../../core/models';
 
 @Component({
   selector: 'nc-pagination',

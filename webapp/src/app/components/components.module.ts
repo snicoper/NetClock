@@ -7,7 +7,7 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 
-import { DirectivesModule } from '../directives/directives.module';
+import { DirectivesModule } from '../core/directives/directives.module';
 import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
 import { CardComponent } from './cards/card/card.component';
 import { FooterComponent } from './footer/footer.component';

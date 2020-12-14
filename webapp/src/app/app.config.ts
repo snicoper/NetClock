@@ -1,6 +1,6 @@
 import { environment } from '../environments/environment';
 
-export const AppConfig = {
+export const appConfig = {
   siteName: 'NetClock',
   apiUrl: environment.apiUrl,
   siteUrl: environment.siteUrl,
