@@ -1,7 +1,6 @@
 using FluentValidation;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Localization;
-using NetClock.Application.Common.Extensions;
 using NetClock.Application.Common.Localizations;
 using NetClock.Domain.Entities.Identity;
 
@@ -14,7 +13,6 @@ namespace NetClock.Application.Admin.AdminAccounts.Commands.CreateAccount
             RuleFor(v => v.UserName)
                 .NotEmpty()
                 .MaximumLength(20)
-                .UniqueUserName(userManager, localizer)
                 .WithName(localizer["Nombre de usuario"]);
 
             RuleFor(v => v.FirstName)
@@ -30,7 +28,6 @@ namespace NetClock.Application.Admin.AdminAccounts.Commands.CreateAccount
             RuleFor(v => v.Email)
                 .NotEmpty()
                 .EmailAddress()
-                .UniqueEmail(userManager, localizer)
                 .WithName("Correo electrónico");
 
             RuleFor(v => v.Password)

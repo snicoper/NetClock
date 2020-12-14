@@ -3,8 +3,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
-using NetClock.Application.Admin.AdminAccounts.Commands.CreateAccount;
-using NetClock.Application.Common.Constants;
 using NetClock.Application.Common.Interfaces.Identity;
 using NetClock.Application.Common.Interfaces.Validations;
 using NetClock.Domain.Entities.Identity;
@@ -18,7 +16,7 @@ namespace NetClock.Infrastructure.Identity
         private readonly IPasswordValidator<ApplicationUser> _passwordValidator;
         private readonly IValidationFailureService _validationFailure;
         private readonly IStringLocalizer<ApplicationUser> _localizer;
-        private readonly ILogger<CreateUserHandler> _logger;
+        private readonly ILogger<IdentityService> _logger;
 
         public IdentityService(
             UserManager<ApplicationUser> userManager,
@@ -26,7 +24,7 @@ namespace NetClock.Infrastructure.Identity
             IPasswordValidator<ApplicationUser> passwordValidator,
             IValidationFailureService validationFailure,
             IStringLocalizer<ApplicationUser> localizer,
-            ILogger<CreateUserHandler> logger)
+            ILogger<IdentityService> logger)
         {
             _userManager = userManager;
             _userValidator = userValidator;
@@ -50,45 +48,15 @@ namespace NetClock.Infrastructure.Identity
 
         public async Task<ApplicationUser> CreateUserAsync(ApplicationUser applicationUser, string password)
         {
-            await UserValidationAsync(applicationUser);
-            await PasswordValidationAsync(applicationUser, password);
-            await UserCreateAsync(applicationUser, password);
-            _validationFailure.RaiseExceptionIfExistsErrors();
+            var userCreate = new UserCreate(
+                _userManager,
+                _userValidator,
+                _passwordValidator,
+                _validationFailure,
+                _localizer,
+                _logger);
 
-            return applicationUser;
-        }
-
-        private async Task UserValidationAsync(ApplicationUser applicationUser)
-        {
-            var validUser = await _userValidator.ValidateAsync(_userManager, applicationUser);
-            if (!validUser.Succeeded)
-            {
-                var errorMessage = _localizer["El usuario no es valido."];
-                _logger.LogWarning(errorMessage);
-                _validationFailure.Add(nameof(applicationUser.UserName), errorMessage);
-            }
-        }
-
-        private async Task PasswordValidationAsync(ApplicationUser applicationUser, string password)
-        {
-            var validPassword = await _passwordValidator.ValidateAsync(_userManager, applicationUser, password);
-            if (!validPassword.Succeeded)
-            {
-                var errorMessage = _localizer["La contraseña no es valida."];
-                _logger.LogWarning(errorMessage);
-                _validationFailure.Add("Password", errorMessage);
-            }
-        }
-
-        private async Task UserCreateAsync(ApplicationUser applicationUser, string password)
-        {
-            var createResult = await _userManager.CreateAsync(applicationUser, password);
-            if (!createResult.Succeeded)
-            {
-                var errorMessage = _localizer["Error al crear usuario."];
-                _logger.LogWarning(errorMessage);
-                _validationFailure.Add(CommonErrors.NonFieldErrors, errorMessage);
-            }
+            return await userCreate.CreateAsync(applicationUser, password);
         }
     }
 }
