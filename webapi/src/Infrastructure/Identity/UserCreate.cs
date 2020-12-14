@@ -35,7 +35,7 @@ namespace NetClock.Infrastructure.Identity
 
         public async Task<ApplicationUser> CreateAsync(ApplicationUser applicationUser, string password)
         {
-            await ValidateUserNameAndPassword(applicationUser);
+            await ValidateUserNameAndEmailAsync(applicationUser);
             await UserValidationAsync(applicationUser);
             await PasswordValidationAsync(applicationUser, password);
             await UserCreateAsync(applicationUser, password);
@@ -44,7 +44,7 @@ namespace NetClock.Infrastructure.Identity
             return applicationUser;
         }
 
-        private async Task ValidateUserNameAndPassword(ApplicationUser applicationUser)
+        private async Task ValidateUserNameAndEmailAsync(ApplicationUser applicationUser)
         {
             var user = await _userManager.FindByNameAsync(applicationUser.UserName);
             if (user is not null)
