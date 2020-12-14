@@ -67,7 +67,7 @@ namespace NetClock.Application.Accounts.Accounts.Commands.Register
 
         private async Task SendEmailNotificationAsync(RegisterDto registerDto)
         {
-            _emailService.Subject = _localizer["Confirmación de email en {0}", _webApiConfig.SiteName];
+            _emailService.Subject = _localizer["Confirmación de email en {0}.", _webApiConfig.SiteName];
             _emailService.To.Add(new MailAddress(registerDto.Email));
             _emailService.IsHtml = true;
             await _emailService.SendEmailAsync(EmailTemplates.RegisterUser, registerDto);

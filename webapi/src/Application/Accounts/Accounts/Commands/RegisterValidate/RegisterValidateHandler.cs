@@ -38,7 +38,7 @@ namespace NetClock.Application.Accounts.Accounts.Commands.RegisterValidate
             if (applicationUser is null)
             {
                 _logger.LogWarning("El usuario {id} no existe en la base de datos.", request.UserId);
-                var errorMessage = _localizer["El usuario no existe"];
+                var errorMessage = _localizer["El usuario no existe."];
                 _validationFailureService.AddAndRaiseException(CommonErrors.NonFieldErrors, errorMessage);
 
                 return Unit.Value;
@@ -48,7 +48,7 @@ namespace NetClock.Application.Accounts.Accounts.Commands.RegisterValidate
             var confirmEmailResult = await _userManager.ConfirmEmailAsync(applicationUser, code);
             if (!confirmEmailResult.Succeeded)
             {
-                var message = _localizer["El tiempo de validación ha expirado"];
+                var message = _localizer["El tiempo de validación ha expirado."];
                 _logger.LogWarning(message);
                 _validationFailureService.AddAndRaiseException(CommonErrors.NonFieldErrors, message);
             }

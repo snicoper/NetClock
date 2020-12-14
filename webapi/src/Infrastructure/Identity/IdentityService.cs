@@ -64,7 +64,7 @@ namespace NetClock.Infrastructure.Identity
             var validUser = await _userValidator.ValidateAsync(_userManager, applicationUser);
             if (!validUser.Succeeded)
             {
-                var errorMessage = _localizer["El usuario no es valido"];
+                var errorMessage = _localizer["El usuario no es valido."];
                 _logger.LogWarning(errorMessage);
                 _validationFailureService.Add(nameof(applicationUser.UserName), errorMessage);
             }
@@ -76,7 +76,7 @@ namespace NetClock.Infrastructure.Identity
             if (userExists is not null)
             {
                 // Si existe, lanza al excepción para no llegar hacer la consulta ya que daria un 500.
-                var errorMessage = _localizer["Ya existe un usuario con ese nombre y apellidos"];
+                var errorMessage = _localizer["Ya existe un usuario con ese nombre y apellidos."];
                 _validationFailureService.Add(nameof(applicationUser.FirstName), errorMessage);
                 _validationFailureService.AddAndRaiseException(nameof(applicationUser.LastName), errorMessage);
             }
@@ -87,7 +87,7 @@ namespace NetClock.Infrastructure.Identity
             var validPassword = await _passwordValidator.ValidateAsync(_userManager, applicationUser, password);
             if (!validPassword.Succeeded)
             {
-                var errorMessage = _localizer["La contraseña no es valida"];
+                var errorMessage = _localizer["La contraseña no es valida."];
                 _logger.LogWarning(errorMessage);
                 _validationFailureService.Add("Password", errorMessage);
             }
@@ -98,7 +98,7 @@ namespace NetClock.Infrastructure.Identity
             var createResult = await _userManager.CreateAsync(applicationUser, password);
             if (!createResult.Succeeded)
             {
-                var errorMessage = _localizer["Error al crear usuario"];
+                var errorMessage = _localizer["Error al crear usuario."];
                 _logger.LogWarning(errorMessage);
                 _validationFailureService.Add(CommonErrors.NonFieldErrors, errorMessage);
             }

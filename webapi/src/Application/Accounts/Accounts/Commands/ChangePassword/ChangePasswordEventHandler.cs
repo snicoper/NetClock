@@ -52,7 +52,7 @@ namespace NetClock.Application.Accounts.Accounts.Commands.ChangePassword
 
         private async Task EmailNotifyChangePasswordAsync(ChangePasswordDto changePasswordDto)
         {
-            _emailService.Subject = _localizer["Cambio de contraseña"];
+            _emailService.Subject = _localizer["Cambio de contraseña."];
             _emailService.IsHtml = true;
             _emailService.To = new List<MailAddress> { new(changePasswordDto.Email) };
             await _emailService.SendEmailAsync(EmailTemplates.ChangePassword, changePasswordDto);

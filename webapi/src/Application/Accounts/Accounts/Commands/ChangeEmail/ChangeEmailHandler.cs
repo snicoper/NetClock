@@ -68,7 +68,7 @@ namespace NetClock.Application.Accounts.Accounts.Commands.ChangeEmail
 
         private async Task SendEmailNotificationAsync(ApplicationUser applicationUser, ChangeEmailDto registerDto)
         {
-            _emailService.Subject = _localizer["Confirmación de cambio de email en {0}", _webApiConfig.SiteName];
+            _emailService.Subject = _localizer["Confirmación de cambio de email en {0}.", _webApiConfig.SiteName];
             _emailService.To.Add(new MailAddress(applicationUser.Email));
             _emailService.IsHtml = true;
             await _emailService.SendEmailAsync(EmailTemplates.ChangeEmailConfirmation, registerDto);

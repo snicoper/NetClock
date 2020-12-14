@@ -69,7 +69,7 @@ namespace NetClock.Application.Accounts.Auth.Commands.RecoveryPassword
 
         private async Task SendEmailNotificationAsync(ApplicationUser applicationUser, RecoveryPasswordDto recoveryPasswordDto)
         {
-            _emailService.Subject = _localizer["Confirmación de cambio de email en {0}", _webApiConfig.SiteName];
+            _emailService.Subject = _localizer["Confirmación de cambio de email en {0}.", _webApiConfig.SiteName];
             _emailService.To.Add(new MailAddress(applicationUser.Email));
             _emailService.IsHtml = true;
             await _emailService.SendEmailAsync(EmailTemplates.RecoveryPassword, recoveryPasswordDto);

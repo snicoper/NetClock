@@ -59,7 +59,7 @@ namespace NetClock.Application.Admin.AdminAccounts.Commands.UpdateAccount
 
             if (user)
             {
-                _validationFailureService.Add(nameof(request.UserName), _localizer["Nombre de usuario ya existe"]);
+                _validationFailureService.Add(nameof(request.UserName), _localizer["Nombre de usuario ya existe."]);
             }
 
             _logger.LogInformation(
@@ -70,7 +70,7 @@ namespace NetClock.Application.Admin.AdminAccounts.Commands.UpdateAccount
                                                           && u.Id != request.Id);
             if (user)
             {
-                var message = _localizer["Ya existe un usuario con ese nombre y apellidos"];
+                var message = _localizer["Ya existe un usuario con ese nombre y apellidos."];
                 _validationFailureService.Add(nameof(request.FirstName), message);
                 _validationFailureService.Add(nameof(request.LastName), message);
             }
@@ -80,7 +80,7 @@ namespace NetClock.Application.Admin.AdminAccounts.Commands.UpdateAccount
 
             if (user)
             {
-                var message = _localizer["Ya existe un usuario con ese correo electrónico"];
+                var message = _localizer["Ya existe un usuario con ese correo electrónico."];
                 _validationFailureService.Add(nameof(request.Email), message);
             }
 

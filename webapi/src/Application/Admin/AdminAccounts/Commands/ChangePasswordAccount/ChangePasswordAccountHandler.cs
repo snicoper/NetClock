@@ -47,7 +47,7 @@ namespace NetClock.Application.Admin.AdminAccounts.Commands.ChangePasswordAccoun
 
             if (!validPassword.Succeeded)
             {
-                var errorMessage = _localizer["La contraseña no es valida"];
+                var errorMessage = _localizer["La contraseña no es valida."];
                 _logger.LogWarning(errorMessage);
                 _validationFailureService.Add("Password", errorMessage);
             }

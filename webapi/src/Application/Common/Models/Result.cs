@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -17,7 +18,7 @@ namespace NetClock.Application.Common.Models
 
         public static Result Success()
         {
-            return new(true, new string[] { });
+            return new(true, Array.Empty<string>());
         }
 
         public static Result Failure(IEnumerable<string> errors)

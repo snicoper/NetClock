@@ -49,7 +49,7 @@ namespace NetClock.Application.Accounts.Auth.Commands.Login
 
             if (applicationUser.Active is false)
             {
-                var error = _localizer["La cuenta no esta activa, por favor habla con un administrador"];
+                var error = _localizer["La cuenta no esta activa, por favor habla con un administrador."];
                 _validationFailureService.AddAndRaiseException(CommonErrors.NonFieldErrors, error);
             }
 
@@ -90,7 +90,7 @@ namespace NetClock.Application.Accounts.Auth.Commands.Login
         private void InvalidUserNameOrPassword(LoginCommand request)
         {
             _logger.LogWarning("Error al identificarse {userName}.", request.UserName);
-            var errorMessage = _localizer["Nombre de usuario o contraseña no valido"];
+            var errorMessage = _localizer["Nombre de usuario o contraseña no valido."];
             _validationFailureService.AddAndRaiseException(CommonErrors.NonFieldErrors, errorMessage);
         }
     }

@@ -32,7 +32,7 @@ namespace NetClock.Application.Localization.Commands.SetCulture
         {
             if (Cultures.Supported.FirstOrDefault(c => c.Name == request.Culture) is null)
             {
-                var message = _localizer["El lenguaje que intenta cambiar no esta soportado"];
+                var message = _localizer["El lenguaje que intenta cambiar no esta soportado."];
                 _validationFailureService.AddAndRaiseException(nameof(SetCultureCommand.Culture), message);
             }
 
