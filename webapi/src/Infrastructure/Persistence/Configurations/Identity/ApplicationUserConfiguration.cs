@@ -10,7 +10,6 @@ namespace NetClock.Infrastructure.Persistence.Configurations.Identity
         {
             builder.Ignore(e => e.DomainEvents);
 
-            builder.HasIndex(e => new { e.FirstName, e.LastName }).IsUnique();
             builder.Property(e => e.FirstName).HasMaxLength(50).IsRequired();
             builder.Property(e => e.LastName).HasMaxLength(50).IsRequired();
 

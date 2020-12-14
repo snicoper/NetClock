@@ -66,16 +66,6 @@ namespace NetClock.Application.Admin.AdminAccounts.Commands.UpdateAccount
                 request.FirstName,
                 request.LastName);
 
-            user = await _userManager.Users.AnyAsync(u => u.FirstName.ToLower() == request.FirstName.ToLower()
-                                                          && u.LastName.ToLower() == request.LastName.ToLower()
-                                                          && u.Id != request.Id);
-            if (user)
-            {
-                var message = _localizer["Ya existe un usuario con ese nombre y apellidos."];
-                _validationFailure.Add(nameof(request.FirstName), message);
-                _validationFailure.Add(nameof(request.LastName), message);
-            }
-
             _logger.LogInformation("Comprobar si el {@email} existe en la base de datos.", request.Email);
             user = await _userManager.Users.AnyAsync(u => u.Email.ToLower() == request.Email.ToLower() && u.Id != request.Id);
 

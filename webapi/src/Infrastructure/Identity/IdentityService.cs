@@ -1,4 +1,3 @@
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -67,18 +66,6 @@ namespace NetClock.Infrastructure.Identity
                 var errorMessage = _localizer["El usuario no es valido."];
                 _logger.LogWarning(errorMessage);
                 _validationFailure.Add(nameof(applicationUser.UserName), errorMessage);
-            }
-
-            // Comprueba si existe un FirstName y LastName iguales en la base de datos.
-            var userExists = _userManager.Users.FirstOrDefault(
-                u => u.FirstName == applicationUser.FirstName && u.LastName == applicationUser.LastName);
-
-            if (userExists is not null)
-            {
-                // Si existe, lanza al excepción para no llegar hacer la consulta ya que daria un 500.
-                var errorMessage = _localizer["Ya existe un usuario con ese nombre y apellidos."];
-                _validationFailure.Add(nameof(applicationUser.FirstName), errorMessage);
-                _validationFailure.AddAndRaiseException(nameof(applicationUser.LastName), errorMessage);
             }
         }
 
