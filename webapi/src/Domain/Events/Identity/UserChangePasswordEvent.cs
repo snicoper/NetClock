@@ -10,6 +10,6 @@ namespace NetClock.Domain.Events.Identity
             ApplicationUser = applicationUser;
         }
 
-        public ApplicationUser ApplicationUser { get; set; }
+        public ApplicationUser ApplicationUser { get; }
     }
 }
