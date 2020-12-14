@@ -44,23 +44,23 @@ namespace NetClock.Application.Accounts.Accounts.Commands.ChangeEmail
         public async Task<Unit> Handle(ChangeEmailCommand request, CancellationToken cancellationToken)
         {
             _logger.LogInformation("El usuario va a cambiar de email {@request}.", request);
-            var applicationUser = await _userManager.FindByIdAsync(request.Id);
-            if (applicationUser is null)
+            var user = await _userManager.FindByIdAsync(request.Id);
+            if (user is null)
             {
                 _logger.LogWarning("El usuario {id} no se encuentra en la base de datos.", request.Id);
                 throw new NotFoundException(nameof(ApplicationUser), nameof(ApplicationUser.Id));
             }
 
-            var code = await _userManager.GenerateChangeEmailTokenAsync(applicationUser, request.NewEmail);
+            var code = await _userManager.GenerateChangeEmailTokenAsync(user, request.NewEmail);
             var changeEmailDto = new ChangeEmailDto
             {
-                Id = applicationUser.Id,
-                UserName = applicationUser.UserName,
-                OldEmail = applicationUser.Email,
+                Id = user.Id,
+                UserName = user.UserName,
+                OldEmail = user.Email,
                 NewEmail = request.NewEmail,
-                CallBack = GenerateCallBack(applicationUser.Id, code, request.NewEmail)
+                CallBack = GenerateCallBack(user.Id, code, request.NewEmail)
             };
-            await SendEmailNotificationAsync(applicationUser, changeEmailDto);
+            await SendEmailNotificationAsync(user, changeEmailDto);
             _logger.LogInformation("El usuario {id} ha cambiado el email con éxito.", request.Id);
 
             return Unit.Value;
@@ -76,12 +76,7 @@ namespace NetClock.Application.Accounts.Accounts.Commands.ChangeEmail
 
         private string GenerateCallBack(string id, string code, string newEmail)
         {
-            var queryParams = new Dictionary<string, string>
-                {
-                    ["userId"] = id,
-                    ["code"] = code,
-                    ["newEmail"] = newEmail
-                };
+            var queryParams = new Dictionary<string, string> { ["userId"] = id, ["code"] = code, ["newEmail"] = newEmail };
 
             return _linkGeneratorService.GenerateFrontEnd(UrlsFrontEnd.AccountsRegisterValidateChangeEmail, queryParams);
         }

@@ -20,7 +20,7 @@ using NetClock.Domain.Events.Identity;
 
 namespace NetClock.Application.Accounts.Accounts.Commands.Register
 {
-    public class RegisterEventHandler : INotificationHandler<DomainEventNotification<ApplicationUserRegisterEvent>>
+    public class RegisterEventHandler : INotificationHandler<DomainEventNotification<UserRegisterEvent>>
     {
         private readonly WebApiConfig _webApiConfig;
         private readonly UserManager<ApplicationUser> _userManager;
@@ -48,19 +48,17 @@ namespace NetClock.Application.Accounts.Accounts.Commands.Register
             _mapper = mapper;
         }
 
-        public async Task Handle(
-            DomainEventNotification<ApplicationUserRegisterEvent> notification,
-            CancellationToken cancellationToken)
+        public async Task Handle(DomainEventNotification<UserRegisterEvent> notification, CancellationToken cancellationToken)
         {
             var domainEvent = notification.DomainEvent;
             _logger.LogInformation("Read Domain Event: {DomainEvent}.", domainEvent.GetType().Name);
 
-            var applicationUser = domainEvent.ApplicationUser;
-            var registerViewModel = _mapper.Map<ApplicationUser, RegisterDto>(applicationUser);
+            var user = domainEvent.ApplicationUser;
+            var registerViewModel = _mapper.Map<ApplicationUser, RegisterDto>(user);
 
             // Generar code de validación y enviar email.
-            var code = await _userManager.GenerateEmailConfirmationTokenAsync(applicationUser);
-            registerViewModel.Callback = GenerateCallBack(applicationUser.Id, HttpUtility.HtmlEncode(code));
+            var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+            registerViewModel.Callback = GenerateCallBack(user.Id, HttpUtility.HtmlEncode(code));
             registerViewModel.SiteName = _webApiConfig.SiteName;
             await SendEmailNotificationAsync(registerViewModel);
         }

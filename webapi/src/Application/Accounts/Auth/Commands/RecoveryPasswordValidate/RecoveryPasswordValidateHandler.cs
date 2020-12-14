@@ -13,31 +13,31 @@ namespace NetClock.Application.Accounts.Auth.Commands.RecoveryPasswordValidate
     {
         private readonly ILogger<RecoveryPasswordValidateHandler> _logger;
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly IValidationFailureService _validationFailureService;
+        private readonly IValidationFailureService _validationFailure;
 
         public RecoveryPasswordValidateHandler(
             ILogger<RecoveryPasswordValidateHandler> logger,
             UserManager<ApplicationUser> userManager,
-            IValidationFailureService validationFailureService)
+            IValidationFailureService validationFailure)
         {
             _logger = logger;
             _userManager = userManager;
-            _validationFailureService = validationFailureService;
+            _validationFailure = validationFailure;
         }
 
         public async Task<Unit> Handle(RecoveryPasswordValidateCommand request, CancellationToken cancellationToken)
         {
             _logger.LogInformation("Se va a cambiar la contraseña para el usuario {id}.", request.UserId);
-            var applicationUser = await _userManager.FindByIdAsync(request.UserId);
+            var user = await _userManager.FindByIdAsync(request.UserId);
 
-            if (applicationUser is null)
+            if (user is null)
             {
                 _logger.LogWarning("El usuario {id} no existe en la base de datos.", request.UserId);
                 throw new NotFoundException(nameof(ApplicationUser), nameof(ApplicationUser.Id));
             }
 
             var code = request.Code.Replace(" ", "+");
-            var resetResult = await _userManager.ResetPasswordAsync(applicationUser, code, request.Password);
+            var resetResult = await _userManager.ResetPasswordAsync(user, code, request.Password);
 
             if (!resetResult.Succeeded)
             {
@@ -45,13 +45,13 @@ namespace NetClock.Application.Accounts.Auth.Commands.RecoveryPasswordValidate
                 {
                     _logger.LogWarning("Error al validar contraseña. {@error}.", error);
 
-                    _validationFailureService.Add(nameof(error.Code), error.Description);
+                    _validationFailure.Add(nameof(error.Code), error.Description);
                 }
 
-                _validationFailureService.RaiseExceptionIfExistsErrors();
+                _validationFailure.RaiseExceptionIfExistsErrors();
             }
 
-            _logger.LogInformation("El usuario {id} ha restablecido la contraseña con éxito.", applicationUser.Id);
+            _logger.LogInformation("El usuario {id} ha restablecido la contraseña con éxito.", user.Id);
 
             return Unit.Value;
         }

@@ -39,7 +39,7 @@ namespace NetClock.Application.Admin.AdminAccounts.Commands.CreateAccount
 
         public ApplicationUser MappingToApplicationUser()
         {
-            return new ApplicationUser
+            return new()
             {
                 UserName = UserName,
                 FirstName = FirstName,

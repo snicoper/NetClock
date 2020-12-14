@@ -46,22 +46,22 @@ namespace NetClock.Application.Accounts.Auth.Commands.RecoveryPassword
         {
             _logger.LogInformation("El usuario {email} va a recuperar el email.", request.Email);
 
-            var applicationUser = await _userManager.FindByEmailAsync(request.Email);
+            var user = await _userManager.FindByEmailAsync(request.Email);
 
-            if (applicationUser is null)
+            if (user is null)
             {
                 _logger.LogWarning("El email {email} no existe en la base de datos.", request.Email);
                 throw new NotFoundException(nameof(ApplicationUser), nameof(ApplicationUser.Email));
             }
 
-            var code = await _userManager.GeneratePasswordResetTokenAsync(applicationUser);
+            var code = await _userManager.GeneratePasswordResetTokenAsync(user);
             var recoveryPasswordViewModel = new RecoveryPasswordDto
             {
-                UserName = applicationUser.UserName,
-                CallBack = GenerateCallBack(applicationUser.Id, code)
+                UserName = user.UserName,
+                CallBack = GenerateCallBack(user.Id, code)
             };
 
-            await SendEmailNotificationAsync(applicationUser, recoveryPasswordViewModel);
+            await SendEmailNotificationAsync(user, recoveryPasswordViewModel);
             _logger.LogInformation("Se a enviado un email a {email} para recuperar la contraseña.", request.Email);
 
             return Unit.Value;

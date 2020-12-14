@@ -16,47 +16,47 @@ namespace NetClock.Application.Accounts.Accounts.Commands.RegisterValidate
     {
         private readonly IStringLocalizer<IdentityLocalizer> _localizer;
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly IValidationFailureService _validationFailureService;
+        private readonly IValidationFailureService _validationFailure;
         private readonly ILogger<RegisterValidateHandler> _logger;
 
         public RegisterValidateHandler(
             IStringLocalizer<IdentityLocalizer> localizer,
             UserManager<ApplicationUser> userManager,
-            IValidationFailureService validationFailureService,
+            IValidationFailureService validationFailure,
             ILogger<RegisterValidateHandler> logger)
         {
             _localizer = localizer;
             _userManager = userManager;
-            _validationFailureService = validationFailureService;
+            _validationFailure = validationFailure;
             _logger = logger;
         }
 
         public async Task<Unit> Handle(RegisterValidateCommand request, CancellationToken cancellationToken)
         {
             _logger.LogInformation("Se va a validar el registro para el usuario {id}.", request.UserId);
-            var applicationUser = await _userManager.FindByIdAsync(request.UserId);
-            if (applicationUser is null)
+            var user = await _userManager.FindByIdAsync(request.UserId);
+            if (user is null)
             {
                 _logger.LogWarning("El usuario {id} no existe en la base de datos.", request.UserId);
                 var errorMessage = _localizer["El usuario no existe."];
-                _validationFailureService.AddAndRaiseException(CommonErrors.NonFieldErrors, errorMessage);
+                _validationFailure.AddAndRaiseException(CommonErrors.NonFieldErrors, errorMessage);
 
                 return Unit.Value;
             }
 
             var code = HttpUtility.HtmlDecode(request.Code);
-            var confirmEmailResult = await _userManager.ConfirmEmailAsync(applicationUser, code);
+            var confirmEmailResult = await _userManager.ConfirmEmailAsync(user, code);
             if (!confirmEmailResult.Succeeded)
             {
                 var message = _localizer["El tiempo de validación ha expirado."];
                 _logger.LogWarning(message);
-                _validationFailureService.AddAndRaiseException(CommonErrors.NonFieldErrors, message);
+                _validationFailure.AddAndRaiseException(CommonErrors.NonFieldErrors, message);
             }
 
-            applicationUser.Id = request.UserId;
-            applicationUser.EmailConfirmed = true;
-            await _userManager.UpdateAsync(applicationUser);
-            _logger.LogInformation("Verificación de email para el usuario {id} realizada con éxito.", applicationUser.Id);
+            user.Id = request.UserId;
+            user.EmailConfirmed = true;
+            await _userManager.UpdateAsync(user);
+            _logger.LogInformation("Verificación de email para el usuario {id} realizada con éxito.", user.Id);
 
             return Unit.Value;
         }

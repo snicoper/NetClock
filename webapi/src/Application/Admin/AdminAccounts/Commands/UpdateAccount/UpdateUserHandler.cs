@@ -17,37 +17,37 @@ namespace NetClock.Application.Admin.AdminAccounts.Commands.UpdateAccount
         private readonly IStringLocalizer<ApplicationUser> _localizer;
         private readonly ILogger<UpdateUserHandler> _logger;
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly IValidationFailureService _validationFailureService;
+        private readonly IValidationFailureService _validationFailure;
 
         public UpdateUserHandler(
             IStringLocalizer<ApplicationUser> localizer,
             ILogger<UpdateUserHandler> logger,
             UserManager<ApplicationUser> userManager,
-            IValidationFailureService validationFailureService)
+            IValidationFailureService validationFailure)
         {
             _localizer = localizer;
             _logger = logger;
             _userManager = userManager;
-            _validationFailureService = validationFailureService;
+            _validationFailure = validationFailure;
         }
 
         public async Task<UpdateUserDto> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
         {
-            var applicationUser = await _userManager.FindByIdAsync(request.Id);
-            if (applicationUser is null)
+            var user = await _userManager.FindByIdAsync(request.Id);
+            if (user is null)
             {
-                throw new NotFoundException(nameof(applicationUser), nameof(applicationUser.UserName));
+                throw new NotFoundException(nameof(user), nameof(user.UserName));
             }
 
             await ValidateDataIfExists(request);
 
             _logger.LogInformation("Se ha obtenido correctamente el usuario {userName}.", request.UserName);
-            applicationUser = request.MappingToApplicationUser(applicationUser);
-            await _userManager.UpdateAsync(applicationUser);
+            user = request.MappingToApplicationUser(user);
+            await _userManager.UpdateAsync(user);
 
             _logger.LogInformation("Se ha actualizado correctamente el usuario {userName}.", request.UserName);
 
-            return new UpdateUserDto(applicationUser.Slug);
+            return new UpdateUserDto(user.Slug);
         }
 
         private async Task ValidateDataIfExists(UpdateUserCommand request)
@@ -59,7 +59,7 @@ namespace NetClock.Application.Admin.AdminAccounts.Commands.UpdateAccount
 
             if (user)
             {
-                _validationFailureService.Add(nameof(request.UserName), _localizer["Nombre de usuario ya existe."]);
+                _validationFailure.Add(nameof(request.UserName), _localizer["Nombre de usuario ya existe."]);
             }
 
             _logger.LogInformation(
@@ -71,8 +71,8 @@ namespace NetClock.Application.Admin.AdminAccounts.Commands.UpdateAccount
             if (user)
             {
                 var message = _localizer["Ya existe un usuario con ese nombre y apellidos."];
-                _validationFailureService.Add(nameof(request.FirstName), message);
-                _validationFailureService.Add(nameof(request.LastName), message);
+                _validationFailure.Add(nameof(request.FirstName), message);
+                _validationFailure.Add(nameof(request.LastName), message);
             }
 
             _logger.LogInformation("Comprobar si el {email} existe en la base de datos.", nameof(request.Email));
@@ -81,10 +81,10 @@ namespace NetClock.Application.Admin.AdminAccounts.Commands.UpdateAccount
             if (user)
             {
                 var message = _localizer["Ya existe un usuario con ese correo electrónico."];
-                _validationFailureService.Add(nameof(request.Email), message);
+                _validationFailure.Add(nameof(request.Email), message);
             }
 
-            _validationFailureService.RaiseExceptionIfExistsErrors();
+            _validationFailure.RaiseExceptionIfExistsErrors();
         }
     }
 }

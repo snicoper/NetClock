@@ -20,9 +20,9 @@ namespace NetClock.Application.Common.Extensions
                         return false;
                     }
 
-                    var applicationUser = await userManager.FindByNameAsync(username);
+                    var user = await userManager.FindByNameAsync(username);
 
-                    return applicationUser is null;
+                    return user is null;
                 })
                 .WithMessage(localizer["El nombre de usuario ya esta en uso."]);
         }
@@ -39,9 +39,9 @@ namespace NetClock.Application.Common.Extensions
                         return false;
                     }
 
-                    var applicationUser = await userManager.FindByEmailAsync(email);
+                    var user = await userManager.FindByEmailAsync(email);
 
-                    return applicationUser is null;
+                    return user is null;
                 })
                 .WithMessage(localizer["El email ya esta en uso."]);
         }

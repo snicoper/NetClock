@@ -16,10 +16,10 @@ namespace NetClock.Application.Admin.AdminAccounts.Commands.CreateAccount
 
         public async Task<CreateAccountDto> Handle(CreateAccountCommand request, CancellationToken cancellationToken)
         {
-            var applicationUser = request.MappingToApplicationUser();
-            await _identityService.CreateUserAsync(applicationUser, request.Password);
+            var user = request.MappingToApplicationUser();
+            await _identityService.CreateUserAsync(user, request.Password);
 
-            return new CreateAccountDto(applicationUser.Slug);
+            return new CreateAccountDto(user.Slug);
         }
     }
 }

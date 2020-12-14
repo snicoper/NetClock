@@ -17,7 +17,7 @@ namespace NetClock.Infrastructure.Identity
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IUserValidator<ApplicationUser> _userValidator;
         private readonly IPasswordValidator<ApplicationUser> _passwordValidator;
-        private readonly IValidationFailureService _validationFailureService;
+        private readonly IValidationFailureService _validationFailure;
         private readonly IStringLocalizer<ApplicationUser> _localizer;
         private readonly ILogger<CreateUserHandler> _logger;
 
@@ -25,23 +25,23 @@ namespace NetClock.Infrastructure.Identity
             UserManager<ApplicationUser> userManager,
             IUserValidator<ApplicationUser> userValidator,
             IPasswordValidator<ApplicationUser> passwordValidator,
-            IValidationFailureService validationFailureService,
+            IValidationFailureService validationFailure,
             IStringLocalizer<ApplicationUser> localizer,
             ILogger<CreateUserHandler> logger)
         {
             _userManager = userManager;
             _userValidator = userValidator;
             _passwordValidator = passwordValidator;
-            _validationFailureService = validationFailureService;
+            _validationFailure = validationFailure;
             _localizer = localizer;
             _logger = logger;
         }
 
         public async Task<string> GetUserNameAsync(string userId)
         {
-            var applicationUser = await _userManager.Users.FirstAsync(u => u.Id == userId);
+            var user = await _userManager.Users.FirstAsync(u => u.Id == userId);
 
-            return applicationUser.UserName;
+            return user.UserName;
         }
 
         public async Task<ApplicationUser> FirstOrDefaultBySlugAsync(string slug)
@@ -54,7 +54,7 @@ namespace NetClock.Infrastructure.Identity
             await UserValidationAsync(applicationUser);
             await PasswordValidationAsync(applicationUser, password);
             await UserCreateAsync(applicationUser, password);
-            _validationFailureService.RaiseExceptionIfExistsErrors();
+            _validationFailure.RaiseExceptionIfExistsErrors();
 
             return applicationUser;
         }
@@ -66,7 +66,7 @@ namespace NetClock.Infrastructure.Identity
             {
                 var errorMessage = _localizer["El usuario no es valido."];
                 _logger.LogWarning(errorMessage);
-                _validationFailureService.Add(nameof(applicationUser.UserName), errorMessage);
+                _validationFailure.Add(nameof(applicationUser.UserName), errorMessage);
             }
 
             // Comprueba si existe un FirstName y LastName iguales en la base de datos.
@@ -77,8 +77,8 @@ namespace NetClock.Infrastructure.Identity
             {
                 // Si existe, lanza al excepción para no llegar hacer la consulta ya que daria un 500.
                 var errorMessage = _localizer["Ya existe un usuario con ese nombre y apellidos."];
-                _validationFailureService.Add(nameof(applicationUser.FirstName), errorMessage);
-                _validationFailureService.AddAndRaiseException(nameof(applicationUser.LastName), errorMessage);
+                _validationFailure.Add(nameof(applicationUser.FirstName), errorMessage);
+                _validationFailure.AddAndRaiseException(nameof(applicationUser.LastName), errorMessage);
             }
         }
 
@@ -89,7 +89,7 @@ namespace NetClock.Infrastructure.Identity
             {
                 var errorMessage = _localizer["La contraseña no es valida."];
                 _logger.LogWarning(errorMessage);
-                _validationFailureService.Add("Password", errorMessage);
+                _validationFailure.Add("Password", errorMessage);
             }
         }
 
@@ -100,7 +100,7 @@ namespace NetClock.Infrastructure.Identity
             {
                 var errorMessage = _localizer["Error al crear usuario."];
                 _logger.LogWarning(errorMessage);
-                _validationFailureService.Add(CommonErrors.NonFieldErrors, errorMessage);
+                _validationFailure.Add(CommonErrors.NonFieldErrors, errorMessage);
             }
         }
     }

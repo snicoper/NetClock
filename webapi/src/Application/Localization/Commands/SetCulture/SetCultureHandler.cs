@@ -16,16 +16,16 @@ namespace NetClock.Application.Localization.Commands.SetCulture
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IStringLocalizer<CultureLocalizer> _localizer;
-        private readonly IValidationFailureService _validationFailureService;
+        private readonly IValidationFailureService _validationFailure;
 
         public SetCultureHandler(
             IHttpContextAccessor httpContextAccessor,
             IStringLocalizer<CultureLocalizer> localizer,
-            IValidationFailureService validationFailureService)
+            IValidationFailureService validationFailure)
         {
             _httpContextAccessor = httpContextAccessor;
             _localizer = localizer;
-            _validationFailureService = validationFailureService;
+            _validationFailure = validationFailure;
         }
 
         public Task<Unit> Handle(SetCultureCommand request, CancellationToken cancellationToken)
@@ -33,7 +33,7 @@ namespace NetClock.Application.Localization.Commands.SetCulture
             if (Cultures.Supported.FirstOrDefault(c => c.Name == request.Culture) is null)
             {
                 var message = _localizer["El lenguaje que intenta cambiar no esta soportado."];
-                _validationFailureService.AddAndRaiseException(nameof(SetCultureCommand.Culture), message);
+                _validationFailure.AddAndRaiseException(nameof(SetCultureCommand.Culture), message);
             }
 
             _httpContextAccessor.HttpContext?.Response.Cookies.Append(

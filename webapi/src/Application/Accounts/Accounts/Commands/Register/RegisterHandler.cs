@@ -17,12 +17,13 @@ namespace NetClock.Application.Accounts.Accounts.Commands.Register
 
         public async Task<string> Handle(RegisterCommand request, CancellationToken cancellationToken)
         {
-            var applicationUser = request.MappingToApplicationUser();
-            applicationUser.DomainEvents.Add(new ApplicationUserRegisterEvent(applicationUser));
+            var user = request.MappingToApplicationUser();
 
-            await _identityService.CreateUserAsync(applicationUser, request.Password);
+            user.DomainEvents.Add(new UserRegisterEvent(user));
 
-            return applicationUser.Slug;
+            await _identityService.CreateUserAsync(user, request.Password);
+
+            return user.Slug;
         }
     }
 }

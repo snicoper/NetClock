@@ -42,10 +42,10 @@ namespace NetClock.WebApi.Controllers.Admin
             CreateAccountCommand createAccountCommand,
             ApiVersion version)
         {
-            var applicationUser = await Mediator.Send(createAccountCommand);
-            var routeValues = new { slug = applicationUser.Slug, version = version.ToString() };
+            var user = await Mediator.Send(createAccountCommand);
+            var routeValues = new { slug = user.Slug, version = version.ToString() };
 
-            return CreatedAtAction(nameof(GetBySlug), routeValues, applicationUser);
+            return CreatedAtAction(nameof(GetBySlug), routeValues, user);
         }
 
         [HttpPut("update/{id}")]
