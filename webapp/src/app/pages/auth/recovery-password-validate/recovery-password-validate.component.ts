@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, AbstractControlOptions, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
@@ -64,14 +64,15 @@ export class RecoveryPasswordValidateComponent {
   }
 
   private buildForm(): void {
+    const formOptions: AbstractControlOptions = {
+      validators: () => passwordMustMatch('password', 'confirmPassword')
+    };
+
     this.form = this.fb.group({
         userId: new FormControl(null, [Validators.required]),
         code: new FormControl(null, [Validators.required]),
         password: new FormControl('', [Validators.required]),
         confirmPassword: new FormControl('', [Validators.required])
-      },
-      {
-        validators: passwordMustMatch('password', 'confirmPassword')
-      });
+      }, formOptions);
   }
 }

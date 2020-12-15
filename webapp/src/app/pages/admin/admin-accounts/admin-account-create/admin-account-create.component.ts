@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControlOptions, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { StatusCodes } from 'http-status-codes';
 import { ToastrService } from 'ngx-toastr';
@@ -71,6 +71,10 @@ export class AdminAccountCreateComponent implements OnInit {
   }
 
   private buildForm(): void {
+    const formOptions: AbstractControlOptions = {
+      validators: () => passwordMustMatch('password', 'confirmPassword')
+    };
+
     this.form = this.fb.group({
         userName: new FormControl('', [Validators.required]),
         firstName: new FormControl('', [Validators.required]),
@@ -79,9 +83,6 @@ export class AdminAccountCreateComponent implements OnInit {
         password: new FormControl('', [Validators.required]),
         confirmPassword: new FormControl('', [Validators.required]),
         active: new FormControl(true)
-      },
-      {
-        validators: passwordMustMatch('password', 'confirmPassword')
-      });
+      }, formOptions);
   }
 }

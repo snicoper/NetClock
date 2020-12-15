@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControlOptions, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { finalize } from 'rxjs/operators';
@@ -95,12 +95,13 @@ export class AdminAccountChangePasswordComponent implements OnInit {
   }
 
   private buildForm(): void {
+    const formOptions: AbstractControlOptions = {
+      validators: () => passwordMustMatch('password', 'confirmPassword')
+    };
+
     this.form = this.fb.group({
         newPassword: new FormControl('', [Validators.required]),
         confirmPassword: new FormControl('', [Validators.required])
-      },
-      {
-        validators: passwordMustMatch('newPassword', 'confirmPassword')
-      });
+      }, formOptions);
   }
 }
