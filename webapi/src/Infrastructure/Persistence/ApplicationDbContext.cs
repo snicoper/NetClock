@@ -75,7 +75,7 @@ namespace NetClock.Infrastructure.Persistence
                     case EntityState.Deleted:
                         break;
                     default:
-                        throw new ArgumentOutOfRangeException();
+                        throw new ArgumentOutOfRangeException($"State {entry.State} no valid.");
                 }
             }
         }
@@ -99,7 +99,7 @@ namespace NetClock.Infrastructure.Persistence
                     case EntityState.Deleted:
                         break;
                     default:
-                        throw new ArgumentOutOfRangeException();
+                        throw new ArgumentOutOfRangeException($"State {entry.State} no valid.");
                 }
             }
         }

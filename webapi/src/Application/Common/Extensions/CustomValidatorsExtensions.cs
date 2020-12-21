@@ -6,7 +6,6 @@ using NetClock.Domain.Entities.Identity;
 
 namespace NetClock.Application.Common.Extensions
 {
-    // TODO: Dejar por referencia.
     public static class CustomValidatorsExtensions
     {
         public static IRuleBuilderOptions<T, string> UniqueUserName<T>(

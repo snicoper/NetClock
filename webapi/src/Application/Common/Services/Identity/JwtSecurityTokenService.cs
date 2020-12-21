@@ -38,7 +38,7 @@ namespace NetClock.Application.Common.Services.Identity
             return tokenHandler.WriteToken(token);
         }
 
-        private ClaimsIdentity AddClaimsRoles(ApplicationUser user, IEnumerable<string> roles)
+        private static ClaimsIdentity AddClaimsRoles(ApplicationUser user, IEnumerable<string> roles)
         {
             var claimsIdentity = new ClaimsIdentity();
             claimsIdentity.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.Id));
