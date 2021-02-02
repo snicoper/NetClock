@@ -1,7 +1,9 @@
 using System.Threading;
 using System.Threading.Tasks;
+using Mapster;
 using MediatR;
 using NetClock.Application.Common.Interfaces.Identity;
+using NetClock.Domain.Entities.Identity;
 using NetClock.Domain.Events.Identity;
 
 namespace NetClock.Application.Accounts.Accounts.Commands.Register
@@ -17,8 +19,7 @@ namespace NetClock.Application.Accounts.Accounts.Commands.Register
 
         public async Task<string> Handle(RegisterCommand request, CancellationToken cancellationToken)
         {
-            var user = request.MappingToApplicationUser();
-
+            var user = request.Adapt<ApplicationUser>();
             user.DomainEvents.Add(new UserRegisterEvent(user));
 
             await _identityService.CreateUserAsync(user, request.Password);

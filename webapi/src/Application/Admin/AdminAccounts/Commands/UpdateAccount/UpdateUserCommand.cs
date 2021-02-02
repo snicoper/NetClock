@@ -32,16 +32,5 @@ namespace NetClock.Application.Admin.AdminAccounts.Commands.UpdateAccount
         public string Email { get; }
 
         public bool Active { get; }
-
-        public ApplicationUser MappingToApplicationUser(ApplicationUser applicationUser)
-        {
-            applicationUser.UserName = UserName;
-            applicationUser.FirstName = FirstName;
-            applicationUser.LastName = LastName;
-            applicationUser.Email = Email;
-            applicationUser.Active = Active;
-
-            return applicationUser;
-        }
     }
 }

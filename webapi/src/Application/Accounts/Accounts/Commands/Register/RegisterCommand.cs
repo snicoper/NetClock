@@ -1,3 +1,4 @@
+using Mapster;
 using MediatR;
 using NetClock.Domain.Entities.Identity;
 
@@ -32,16 +33,5 @@ namespace NetClock.Application.Accounts.Accounts.Commands.Register
         public string Password { get; }
 
         public string ConfirmPassword { get; }
-
-        public ApplicationUser MappingToApplicationUser()
-        {
-            return new()
-            {
-                UserName = UserName,
-                FirstName = FirstName,
-                LastName = LastName,
-                Email = Email
-            };
-        }
     }
 }

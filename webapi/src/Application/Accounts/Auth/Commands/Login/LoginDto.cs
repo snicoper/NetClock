@@ -21,7 +21,6 @@ namespace NetClock.Application.Accounts.Auth.Commands.Login
 
         public void Register(TypeAdapterConfig config)
         {
-            config.NewConfig<LoginDto, ApplicationUser>();
             config.NewConfig<ApplicationUser, LoginDto>()
                 .Map(dest => dest.FullName, src => $"{src.FirstName} {src.LastName}");
         }

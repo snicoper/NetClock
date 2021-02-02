@@ -1,7 +1,9 @@
 using System.Threading;
 using System.Threading.Tasks;
+using Mapster;
 using MediatR;
 using NetClock.Application.Common.Interfaces.Identity;
+using NetClock.Domain.Entities.Identity;
 
 namespace NetClock.Application.Admin.AdminAccounts.Commands.CreateAccount
 {
@@ -16,7 +18,7 @@ namespace NetClock.Application.Admin.AdminAccounts.Commands.CreateAccount
 
         public async Task<CreateAccountDto> Handle(CreateAccountCommand request, CancellationToken cancellationToken)
         {
-            var user = request.MappingToApplicationUser();
+            var user = request.Adapt<ApplicationUser>();
             await _identityService.CreateUserAsync(user, request.Password);
 
             return new CreateAccountDto(user.Slug);

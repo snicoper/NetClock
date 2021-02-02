@@ -1,5 +1,4 @@
 using MediatR;
-using NetClock.Domain.Entities.Identity;
 
 namespace NetClock.Application.Admin.AdminAccounts.Commands.CreateAccount
 {
@@ -36,17 +35,5 @@ namespace NetClock.Application.Admin.AdminAccounts.Commands.CreateAccount
         public string ConfirmPassword { get; }
 
         public bool Active { get; }
-
-        public ApplicationUser MappingToApplicationUser()
-        {
-            return new()
-            {
-                UserName = UserName,
-                FirstName = FirstName,
-                LastName = LastName,
-                Email = Email,
-                Active = Active
-            };
-        }
     }
 }

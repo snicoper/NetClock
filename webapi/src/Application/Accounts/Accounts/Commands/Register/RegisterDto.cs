@@ -1,9 +1,6 @@
-using Mapster;
-using NetClock.Domain.Entities.Identity;
-
 namespace NetClock.Application.Accounts.Accounts.Commands.Register
 {
-    public class RegisterDto : IRegister
+    public class RegisterDto
     {
         public string Id { get; set; }
 
@@ -14,11 +11,5 @@ namespace NetClock.Application.Accounts.Accounts.Commands.Register
         public string SiteName { get; set; }
 
         public string Callback { get; set; }
-
-        public void Register(TypeAdapterConfig config)
-        {
-            config.NewConfig<RegisterDto, ApplicationUser>();
-            config.NewConfig<ApplicationUser, RegisterDto>();
-        }
     }
 }

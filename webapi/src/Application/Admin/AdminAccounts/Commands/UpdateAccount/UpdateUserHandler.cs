@@ -1,5 +1,6 @@
 using System.Threading;
 using System.Threading.Tasks;
+using Mapster;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -41,7 +42,7 @@ namespace NetClock.Application.Admin.AdminAccounts.Commands.UpdateAccount
             await ValidateDataIfExists(request);
 
             _logger.LogInformation("Se ha obtenido correctamente el usuario {@userName}.", request.UserName);
-            user = request.MappingToApplicationUser(user);
+            user = request.Adapt(user);
             await _userManager.UpdateAsync(user);
 
             _logger.LogInformation("Se ha actualizado correctamente el usuario {@userName}.", request.UserName);
