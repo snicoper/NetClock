@@ -1,6 +1,6 @@
 using System.Reflection;
-using AutoMapper;
 using FluentValidation;
+using Mapster;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.DependencyInjection;
@@ -20,8 +20,13 @@ namespace NetClock.Application
                     .AsImplementedInterfaces()
                     .WithTransientLifetime());
 
-            services.AddAutoMapper(Assembly.GetExecutingAssembly());
+            // Mapster.
+            TypeAdapterConfig.GlobalSettings.Scan(Assembly.GetExecutingAssembly());
+
+            // FluentValidation.
             services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+
+            // MediatR.
             services.AddMediatR(Assembly.GetExecutingAssembly());
 
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(PerformanceBehaviour<,>));

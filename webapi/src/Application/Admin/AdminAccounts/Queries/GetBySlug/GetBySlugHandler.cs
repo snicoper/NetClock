@@ -1,6 +1,6 @@
 using System.Threading;
 using System.Threading.Tasks;
-using AutoMapper;
+using Mapster;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using NetClock.Application.Common.Exceptions;
@@ -11,13 +11,11 @@ namespace NetClock.Application.Admin.AdminAccounts.Queries.GetBySlug
 {
     public class GetBySlugHandler : IRequestHandler<GetBySlugQuery, GetBySlugDto>
     {
-        private readonly IMapper _mapper;
         private readonly IIdentityService _identityService;
         private readonly ILogger<GetBySlugHandler> _logger;
 
-        public GetBySlugHandler(IMapper mapper, IIdentityService identityService, ILogger<GetBySlugHandler> logger)
+        public GetBySlugHandler(IIdentityService identityService, ILogger<GetBySlugHandler> logger)
         {
-            _mapper = mapper;
             _identityService = identityService;
             _logger = logger;
         }
@@ -29,7 +27,7 @@ namespace NetClock.Application.Admin.AdminAccounts.Queries.GetBySlug
 
             if (user is not null)
             {
-                return _mapper.Map<GetBySlugDto>(user);
+                return user.Adapt<GetBySlugDto>();
             }
 
             _logger.LogWarning("El usuario {slug} no existe en la base de datos.", request.Slug);

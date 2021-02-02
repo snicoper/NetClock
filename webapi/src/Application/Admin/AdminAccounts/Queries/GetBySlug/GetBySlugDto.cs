@@ -1,11 +1,10 @@
 using System;
-using AutoMapper;
-using NetClock.Application.Common.Mappings;
+using Mapster;
 using NetClock.Domain.Entities.Identity;
 
 namespace NetClock.Application.Admin.AdminAccounts.Queries.GetBySlug
 {
-    public class GetBySlugDto : IMapFrom<ApplicationUser>
+    public class GetBySlugDto : IRegister
     {
         public string Id { get; set; }
 
@@ -27,10 +26,10 @@ namespace NetClock.Application.Admin.AdminAccounts.Queries.GetBySlug
 
         public DateTime LastModified { get; set; }
 
-        public void Mapping(Profile profile)
+        public void Register(TypeAdapterConfig config)
         {
-            profile.CreateMap<ApplicationUser, GetBySlugDto>()
-                .ForMember(dest => dest.FullName, m => m.MapFrom(src => $"{src.FirstName} {src.LastName}"));
+            config.NewConfig<ApplicationUser, GetBySlugDto>()
+                .Map(dest => dest.FullName, src => $"{src.FirstName} {src.LastName}");
         }
     }
 }

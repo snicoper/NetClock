@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using AutoMapper;
-using AutoMapper.QueryableExtensions;
+using Mapster;
 using Microsoft.EntityFrameworkCore;
 using NetClock.Application.Common.Http.Filter;
 using NetClock.Application.Common.Http.OrderBy;
@@ -27,7 +26,6 @@ namespace NetClock.Application.Common.Http
         public static async Task<ResponseData<TDto>> CreateAsync<TEntity>(
             IQueryable<TEntity> source,
             RequestData request,
-            IMapper mapper,
             CancellationToken cancellationToken)
             where TEntity : class
         {
@@ -38,7 +36,7 @@ namespace NetClock.Application.Common.Http
                 .Skip((request.PageNumber - 1) * request.PageSize)
                 .Take(request.PageSize)
                 .AsNoTracking()
-                .ProjectTo<TDto>(mapper.ConfigurationProvider)
+                .ProjectToType<TDto>()
                 .ToListAsync(cancellationToken);
 
             return CreateResponseDataFromResult(request, items, totalItems);

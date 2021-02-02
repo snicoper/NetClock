@@ -1,6 +1,6 @@
 using System.Threading;
 using System.Threading.Tasks;
-using AutoMapper;
+using Mapster;
 using MediatR;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
@@ -18,7 +18,6 @@ namespace NetClock.Application.Accounts.Auth.Commands.Login
 {
     public class LoginCommandHandler : IRequestHandler<LoginCommand, LoginDto>
     {
-        private readonly IMapper _mapper;
         private readonly IStringLocalizer<IdentityLocalizer> _localizer;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IJwtSecurityTokenService _jwtSecurityTokenService;
@@ -28,7 +27,6 @@ namespace NetClock.Application.Accounts.Auth.Commands.Login
         private readonly ILogger<LoginCommandHandler> _logger;
 
         public LoginCommandHandler(
-            IMapper mapper,
             IStringLocalizer<IdentityLocalizer> localizer,
             IHttpContextAccessor httpContextAccessor,
             IJwtSecurityTokenService jwtSecurityTokenService,
@@ -37,7 +35,6 @@ namespace NetClock.Application.Accounts.Auth.Commands.Login
             IValidationFailureService validationFailure,
             ILogger<LoginCommandHandler> logger)
         {
-            _mapper = mapper;
             _localizer = localizer;
             _httpContextAccessor = httpContextAccessor;
             _jwtSecurityTokenService = jwtSecurityTokenService;
@@ -63,13 +60,13 @@ namespace NetClock.Application.Accounts.Auth.Commands.Login
 
             if (!result.Succeeded)
             {
-                InvalidUserNameOrPassword(request);
+                RaiseInvalidUserNameOrPassword(request);
             }
 
             var roles = await _userManager.GetRolesAsync(user);
             var token = _jwtSecurityTokenService.CreateToken(user, roles);
 
-            var currentUserDto = _mapper.Map<LoginDto>(user);
+            var currentUserDto = user.Adapt<LoginDto>();
             currentUserDto.Token = token;
             _logger.LogInformation("Se ha identificado con éxito {UserName}.", request.UserName);
 
@@ -84,13 +81,13 @@ namespace NetClock.Application.Accounts.Auth.Commands.Login
 
             if (user is null)
             {
-                InvalidUserNameOrPassword(request);
+                RaiseInvalidUserNameOrPassword(request);
             }
 
             return user;
         }
 
-        private void InvalidUserNameOrPassword(LoginCommand request)
+        private void RaiseInvalidUserNameOrPassword(LoginCommand request)
         {
             _logger.LogWarning("Error al identificarse {userName}.", request.UserName);
             var errorMessage = _localizer["Nombre de usuario o contraseña no valido."];

@@ -1,22 +1,17 @@
-using AutoMapper;
+using Mapster;
 using Microsoft.AspNetCore.Identity;
-using NetClock.Application.Common.Mappings;
 
 namespace NetClock.Application.Admin.AdminRoles.Queries.GetRoles
 {
-    public class GetRolesDto : IMapFrom<IdentityRole>
+    public class GetRolesDto : IRegister
     {
         public string Id { get; set; }
 
         public string Name { get; set; }
 
-        public void Mapping(Profile profile)
+        public void Register(TypeAdapterConfig config)
         {
-            profile.CreateMap<IdentityRole, GetRolesDto>();
-
-            profile.CreateMap<GetRolesDto, IdentityRole>()
-                .ForMember(dest => dest.ConcurrencyStamp, opt => opt.Ignore())
-                .ForMember(dest => dest.NormalizedName, opt => opt.Ignore());
+            config.NewConfig<GetRolesDto, IdentityRole>();
         }
     }
 }

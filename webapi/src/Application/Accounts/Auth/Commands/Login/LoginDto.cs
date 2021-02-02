@@ -1,10 +1,9 @@
-using AutoMapper;
-using NetClock.Application.Common.Mappings;
+using Mapster;
 using NetClock.Domain.Entities.Identity;
 
 namespace NetClock.Application.Accounts.Auth.Commands.Login
 {
-    public class LoginDto : IMapFrom<ApplicationUser>
+    public class LoginDto : IRegister
     {
         public string Id { get; set; }
 
@@ -20,12 +19,11 @@ namespace NetClock.Application.Accounts.Auth.Commands.Login
 
         public string Token { get; set; }
 
-        public void Mapping(Profile profile)
+        public void Register(TypeAdapterConfig config)
         {
-            profile.CreateMap<LoginDto, ApplicationUser>(MemberList.None);
-
-            profile.CreateMap<ApplicationUser, LoginDto>(MemberList.None)
-                .ForMember(dest => dest.FullName, opt => opt.MapFrom(src => $"{src.FirstName} {src.LastName}"));
+            config.NewConfig<LoginDto, ApplicationUser>();
+            config.NewConfig<ApplicationUser, LoginDto>()
+                .Map(dest => dest.FullName, src => $"{src.FirstName} {src.LastName}");
         }
     }
 }

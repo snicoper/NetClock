@@ -3,7 +3,7 @@ using System.Net.Mail;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
-using AutoMapper;
+using Mapster;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Localization;
@@ -28,7 +28,6 @@ namespace NetClock.Application.Accounts.Accounts.Commands.Register
         private readonly IStringLocalizer<IdentityLocalizer> _localizer;
         private readonly IEmailService _emailService;
         private readonly ILinkGeneratorService _linkGeneratorService;
-        private readonly IMapper _mapper;
 
         public RegisterEventHandler(
             UserManager<ApplicationUser> userManager,
@@ -36,8 +35,7 @@ namespace NetClock.Application.Accounts.Accounts.Commands.Register
             ILogger<RegisterEventHandler> logger,
             IStringLocalizer<IdentityLocalizer> localizer,
             IEmailService emailService,
-            ILinkGeneratorService linkGeneratorService,
-            IMapper mapper)
+            ILinkGeneratorService linkGeneratorService)
         {
             _webApiConfig = options.Value;
             _userManager = userManager;
@@ -45,7 +43,6 @@ namespace NetClock.Application.Accounts.Accounts.Commands.Register
             _localizer = localizer;
             _emailService = emailService;
             _linkGeneratorService = linkGeneratorService;
-            _mapper = mapper;
         }
 
         public async Task Handle(DomainEventNotification<UserRegisterEvent> notification, CancellationToken cancellationToken)
@@ -54,7 +51,7 @@ namespace NetClock.Application.Accounts.Accounts.Commands.Register
             _logger.LogInformation("Read Domain Event: {DomainEvent}.", domainEvent.GetType().Name);
 
             var user = domainEvent.ApplicationUser;
-            var registerViewModel = _mapper.Map<ApplicationUser, RegisterDto>(user);
+            var registerViewModel = user.Adapt<ApplicationUser, RegisterDto>();
 
             // Generar code de validación y enviar email.
             var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);

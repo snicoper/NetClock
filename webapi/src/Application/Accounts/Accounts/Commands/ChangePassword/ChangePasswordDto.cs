@@ -1,10 +1,9 @@
-using AutoMapper;
-using NetClock.Application.Common.Mappings;
+using Mapster;
 using NetClock.Domain.Entities.Identity;
 
 namespace NetClock.Application.Accounts.Accounts.Commands.ChangePassword
 {
-    public class ChangePasswordDto : IMapFrom<ApplicationUser>
+    public class ChangePasswordDto : IRegister
     {
         public string Id { get; set; }
 
@@ -14,11 +13,10 @@ namespace NetClock.Application.Accounts.Accounts.Commands.ChangePassword
 
         public string SiteName { get; set; }
 
-        public void Mapping(Profile profile)
+        public void Register(TypeAdapterConfig config)
         {
-            profile.CreateMap<ChangePasswordDto, ApplicationUser>(MemberList.None);
-
-            profile.CreateMap<ApplicationUser, ChangePasswordDto>(MemberList.None);
+            config.NewConfig<ChangePasswordDto, ApplicationUser>();
+            config.NewConfig<ApplicationUser, ChangePasswordDto>();
         }
     }
 }

@@ -1,11 +1,10 @@
 using System;
-using AutoMapper;
-using NetClock.Application.Common.Mappings;
+using Mapster;
 using NetClock.Domain.Entities.Identity;
 
 namespace NetClock.Application.Admin.AdminAccounts.Queries.GetAccounts
 {
-    public class GetAccountsDto : IMapFrom<ApplicationUser>
+    public class GetAccountsDto : IRegister
     {
         public string UserName { get; set; }
 
@@ -19,10 +18,10 @@ namespace NetClock.Application.Admin.AdminAccounts.Queries.GetAccounts
 
         public DateTime Created { get; set; }
 
-        public void Mapping(Profile profile)
+        public void Register(TypeAdapterConfig config)
         {
-            profile.CreateMap<ApplicationUser, GetAccountsDto>()
-                .ForMember(dest => dest.FullName, m => m.MapFrom(src => $"{src.FirstName} {src.LastName}"));
+            config.NewConfig<ApplicationUser, GetAccountsDto>()
+                .Map(dest => dest.FullName, src => $"{src.FirstName} {src.LastName}");
         }
     }
 }

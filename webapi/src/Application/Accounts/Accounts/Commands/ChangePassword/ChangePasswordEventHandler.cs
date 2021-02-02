@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Net.Mail;
 using System.Threading;
 using System.Threading.Tasks;
-using AutoMapper;
+using Mapster;
 using MediatR;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
@@ -21,20 +21,17 @@ namespace NetClock.Application.Accounts.Accounts.Commands.ChangePassword
         private readonly IEmailService _emailService;
         private readonly ILogger<ChangePasswordHandler> _logger;
         private readonly IStringLocalizer<IdentityLocalizer> _localizer;
-        private readonly IMapper _mapper;
         private readonly WebApiConfig _webApiConfig;
 
         public ChangePasswordEventHandler(
             IStringLocalizer<IdentityLocalizer> localizer,
             ILogger<ChangePasswordHandler> logger,
             IEmailService emailService,
-            IMapper mapper,
             IOptions<WebApiConfig> options)
         {
             _localizer = localizer;
             _logger = logger;
             _emailService = emailService;
-            _mapper = mapper;
             _webApiConfig = options.Value;
         }
 
@@ -45,7 +42,7 @@ namespace NetClock.Application.Accounts.Accounts.Commands.ChangePassword
             var domainEvent = notification.DomainEvent;
             _logger.LogInformation("Read Domain Event: {DomainEvent}.", domainEvent.GetType().Name);
 
-            var changePasswordViewModel = _mapper.Map<ChangePasswordDto>(domainEvent.ApplicationUser);
+            var changePasswordViewModel = domainEvent.ApplicationUser.Adapt<ChangePasswordDto>();
             changePasswordViewModel.SiteName = _webApiConfig.SiteName;
             await EmailNotifyChangePasswordAsync(changePasswordViewModel);
         }
