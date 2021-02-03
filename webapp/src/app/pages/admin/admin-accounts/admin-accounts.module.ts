@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-
 import { ComponentsModule } from '../../../components/components.module';
 import { DirectivesModule } from '../../../core/directives/directives.module';
 import { PipesModule } from '../../../core/pipes/pipes.module';

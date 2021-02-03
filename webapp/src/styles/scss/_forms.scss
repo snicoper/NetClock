@@ -1,6 +1,6 @@
 @import "variables";
 
-$color-icon: '#aaaaaa';
+$color-icon: "#aaaaaa";
 
 label {
   font-size: 0.9rem;
@@ -23,7 +23,7 @@ label {
     width: 2.375rem;
     z-index: 4;
 
-    +.form-control {
+    + .form-control {
       padding-left: 2.375rem;
     }
   }
@@ -40,7 +40,7 @@ label {
     width: 2.375rem;
     z-index: 4;
 
-    +.form-control {
+    + .form-control {
       padding-right: 2.375rem;
     }
   }

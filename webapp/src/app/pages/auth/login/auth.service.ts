@@ -3,7 +3,6 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-
 import { appConfig } from '../../../app.config';
 import { ApiUrls, siteUrls } from '../../../core/common';
 import { ApiRestBaseService } from '../../../core/services';

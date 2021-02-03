@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { finalize } from 'rxjs/operators';
-
 import { BreadcrumbCollection } from '../../../../components/breadcrumb/breadcrumb-collection';
 import { siteUrls } from '../../../../core/common';
 import { AdminAccountDetailsModel } from './admin-account-details.model';

@@ -1,5 +1,4 @@
 import { Component, HostListener } from '@angular/core';
-
 import { SidebarService } from '../components/sidebar/sidebar.service';
 
 @Component({

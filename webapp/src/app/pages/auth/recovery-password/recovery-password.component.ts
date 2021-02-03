@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { finalize } from 'rxjs/operators';
-
 import { siteUrls } from '../../../core/common';
 import { BadRequest } from '../../../core/types';
 import { AuthService } from '../login/auth.service';

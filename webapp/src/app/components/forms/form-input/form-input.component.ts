@@ -1,8 +1,8 @@
 import { Component, forwardRef, Input } from '@angular/core';
 import { ControlValueAccessor, FormGroup, NG_VALUE_ACCESSOR } from '@angular/forms';
-
 import { BadRequest } from '../../../core/types';
 import { FormInputTypes } from './form-input-types.enum';
+
 
 @Component({
   selector: 'nc-form-input',

@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { AbstractControl, AbstractControlOptions, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-
 import { siteUrls } from '../../../core/common';
 import { BadRequest } from '../../../core/types';
 import { passwordMustMatch } from '../../../core/validators';

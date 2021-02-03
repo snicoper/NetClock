@@ -1,6 +1,5 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component } from '@angular/core';
-
 import { appConfig } from '../../app.config';
 import { AuthService } from '../../pages/auth/login/auth.service';
 import { SidebarService } from './sidebar.service';

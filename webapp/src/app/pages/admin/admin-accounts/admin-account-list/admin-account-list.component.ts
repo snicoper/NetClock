@@ -2,7 +2,6 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { finalize } from 'rxjs/operators';
-
 import { BreadcrumbCollection } from '../../../../components/breadcrumb/breadcrumb-collection';
 import { TableHeaderConfig } from '../../../../components/tables/table-header/table-header.config';
 import { debugErrors, siteUrls } from '../../../../core/common';

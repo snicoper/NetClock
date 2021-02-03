@@ -1,3 +1,9 @@
-.fade-in { @include fade-in-variant(0.4s); }
-.fade-in-fast { @include fade-in-variant(0.2s); }
-.fade-in-slow { @include fade-in-variant(0.8s); }
+.fade-in {
+  @include fade-in-variant(0.4s);
+}
+.fade-in-fast {
+  @include fade-in-variant(0.2s);
+}
+.fade-in-slow {
+  @include fade-in-variant(0.8s);
+}

@@ -1,5 +1,4 @@
 import { Component, Input } from '@angular/core';
-
 import { SidebarService } from '../sidebar/sidebar.service';
 import { BreadcrumbCollection } from './breadcrumb-collection';
 
