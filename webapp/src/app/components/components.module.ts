@@ -6,11 +6,11 @@ import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
-
 import { DirectivesModule } from '../core/directives/directives.module';
 import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
 import { CardComponent } from './cards/card/card.component';
 import { FooterComponent } from './footer/footer.component';
+import { BtnSubmitFormComponent } from './forms/btn-submit-form/btn-submit-form.component';
 import { FieldErrorComponent } from './forms/field-error/field-error.component';
 import { FormInputComponent } from './forms/form-input/form-input.component';
 import { NonFieldErrorsComponent } from './forms/non-field-errors/non-field-errors.component';
@@ -26,6 +26,7 @@ import { TableComponent } from './tables/table/table.component';
   declarations: [
     BreadcrumbComponent,
     CardComponent,
+    BtnSubmitFormComponent,
     FieldErrorComponent,
     FooterComponent,
     FormInputComponent,
@@ -56,6 +57,7 @@ import { TableComponent } from './tables/table/table.component';
     FooterComponent,
     FormInputComponent,
     NonFieldErrorsComponent,
+    BtnSubmitFormComponent,
     PageBaseComponent,
     PageTitleComponent,
     PaginationComponent,

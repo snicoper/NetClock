@@ -5,6 +5,7 @@ import { finalize } from 'rxjs/operators';
 import { BreadcrumbCollection } from '../../../components/breadcrumb/breadcrumb-collection';
 import { FormInputTypes } from '../../../components/forms/form-input/form-input-types.enum';
 import { siteUrls } from '../../../core/common';
+import { BadRequest } from '../../../core/types';
 import { passwordMustMatch } from '../../../core/validators';
 import { AuthService } from '../../auth/login/auth.service';
 import { ChangePasswordModel } from './change-password.model';
@@ -18,7 +19,7 @@ import { ChangePasswordService } from './change-password.service';
 export class ChangePasswordComponent implements OnInit {
   breadcrumb = new BreadcrumbCollection();
   form: FormGroup;
-  errors = [];
+  badRequest: BadRequest;
   submitted = false;
   loading = false;
   formTypes = FormInputTypes;
@@ -38,7 +39,7 @@ export class ChangePasswordComponent implements OnInit {
 
   onSubmit(): void {
     this.submitted = true;
-    this.errors = [];
+    this.badRequest = null;
 
     if (this.form.invalid) {
       return;
@@ -57,7 +58,7 @@ export class ChangePasswordComponent implements OnInit {
           this.authService.logout();
         },
         (errors: any) => {
-          this.errors = errors.error;
+          this.badRequest = errors.error;
         }
       );
   }
