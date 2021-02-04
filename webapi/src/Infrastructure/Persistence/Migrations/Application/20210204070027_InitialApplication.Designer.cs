@@ -10,7 +10,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace NetClock.Infrastructure.Persistence.Migrations.Application
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20201214205452_InitialApplication")]
+    [Migration("20210204070027_InitialApplication")]
     partial class InitialApplication
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -351,10 +351,9 @@ namespace NetClock.Infrastructure.Persistence.Migrations.Application
 
             modelBuilder.Entity("NetClock.Domain.Entities.Schedule", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .UseIdentityByDefaultColumn();
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime>("Created")
                         .HasColumnType("timestamp without time zone");

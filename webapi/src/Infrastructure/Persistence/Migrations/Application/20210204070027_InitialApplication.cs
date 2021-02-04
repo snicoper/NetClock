@@ -96,8 +96,7 @@ namespace NetClock.Infrastructure.Persistence.Migrations.Application
                 name: "Schedules",
                 columns: table => new
                 {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
                     TimeStart = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     TimeFinish = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     TimeTotal = table.Column<TimeSpan>(type: "interval", nullable: false),

@@ -5,7 +5,12 @@ namespace NetClock.Domain.Entities
 {
     public class Schedule : AuditableEntity
     {
-        public long Id { get; set; }
+        public Schedule()
+        {
+            Id = Guid.NewGuid();
+        }
+
+        public Guid Id { get; set; }
 
         public DateTime TimeStart { get; set; }
 
