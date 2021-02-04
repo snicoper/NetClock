@@ -65,12 +65,10 @@
 
       <div class="row">
         <div class="col-12">
-          <button [disabled]="updating" class="btn btn-primary" type="submit">
-            <span *ngIf="updating">
-              <span class="fas fa-circle-notch fa-spin"></span>
-            </span>
-            Editar usuario
-          </button>
+          <nc-btn-loading [loading]="loading"
+                          btnText="Editar usuario"
+                          spinnerLoadingText="Editando usuario">
+          </nc-btn-loading>
         </div>
       </div>
     </form>

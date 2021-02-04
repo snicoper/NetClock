@@ -12,9 +12,9 @@ export class SpinnerComponent implements OnInit {
   /** Color del spinner, por defecto: 'text-primary'. */
   @Input() color = 'text-primary';
   /** Clases css extra para el spinner. */
-  @Input() extraCss = '';
+  @Input() extraCss: string;
   /** Texto mostrado a la derecha del spinner. */
-  @Input() text = '';
+  @Input() text: string;
   /** Tamaño en px del spinner, por defecto 40px. */
   @Input() size = 40;
 

@@ -2,5 +2,9 @@
   <div [ngClass]="[color, extraCss]" [style]="style" class="spinner-border" role="status">
     <span class="sr-only">Loading...</span>
   </div>
+
+  <span *ngIf="text" class="ml-2">
+    {{text}}
+  </span>
   <ng-content></ng-content>
 </div>
