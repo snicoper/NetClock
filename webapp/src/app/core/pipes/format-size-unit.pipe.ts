@@ -1,5 +1,4 @@
 import { Pipe, PipeTransform } from '@angular/core';
-
 import { Utils } from '../common';
 
 /** Pasar bytes a una medida legible según el size. */

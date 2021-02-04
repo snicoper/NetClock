@@ -3,7 +3,6 @@ import { ControlValueAccessor, FormGroup, NG_VALUE_ACCESSOR } from '@angular/for
 import { BadRequest } from '../../../core/types';
 import { FormInputTypes } from './form-input-types.enum';
 
-
 @Component({
   selector: 'nc-form-input',
   templateUrl: './form-input.component.html',
@@ -34,10 +33,10 @@ export class FormInputComponent implements ControlValueAccessor {
   }
 
   onChange = (_: any) => {
-  }
+  };
 
   onTouch = () => {
-  }
+  };
 
   writeValue(value: any): void {
     if (value !== undefined) {
@@ -67,6 +66,10 @@ export class FormInputComponent implements ControlValueAccessor {
   isInvalid(): boolean {
     const control = this.form.get(this.fieldName);
 
-    return this.submitted && control.invalid || this.badRequest && this.badRequest.errors && this.fieldName in this.badRequest.errors;
+    return this.submitted
+      && control.invalid
+      || this.badRequest
+      && this.badRequest.errors
+      && this.fieldName in this.badRequest.errors;
   }
 }

@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-
 import { ApiResult } from '../models';
 
 export abstract class ApiRestBaseService {

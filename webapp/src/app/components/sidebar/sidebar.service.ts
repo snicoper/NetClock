@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { SidebarMenuItemsModel } from './sidebar-menu-items.model';
+import { sidebarMenuItemsModel } from './sidebar-menu-items.model';
 
 @Injectable({ providedIn: 'root' })
 export class SidebarService {
@@ -8,7 +8,7 @@ export class SidebarService {
 
   constructor() {
     const sidebar = this.loadFromLocalStorage();
-    this.menus = sidebar ? sidebar : SidebarMenuItemsModel;
+    this.menus = sidebar ? sidebar : sidebarMenuItemsModel;
   }
 
   activeMenu(title: string): void {

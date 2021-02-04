@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-
 import { BreadcrumbCollection } from '../../components/breadcrumb/breadcrumb-collection';
 import { siteUrls } from '../../core/common';
 

@@ -1,11 +1,11 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-
-import { ApiResult, ApiResultItemOrderBy, OrderType } from '../../../core/models';
+import { ApiResult, ApiResultItemOrderBy, OrderTypes } from '../../../core/models';
 import { ITableHeaderField } from './table-header-field.interface';
 import { TableHeaderConfig } from './table-header.config';
 
+
 @Component({
-  // tslint:disable-next-line:component-selector
+  // eslint-disable-next-line @angular-eslint/component-selector
   selector: '[ncTableHeader]',
   templateUrl: './table-header.component.html',
   styleUrls: ['./table-header.component.scss']
@@ -16,7 +16,7 @@ export class TableHeaderComponent<T> {
 
   @Output() clickOrdering = new EventEmitter<void>();
 
-  orderings = OrderType;
+  orderings = OrderTypes;
 
   onClickFilter(header: ITableHeaderField): void {
   }
@@ -25,14 +25,14 @@ export class TableHeaderComponent<T> {
     this.removeOrderItemIfExists(header);
 
     switch (header.orderType) {
-      case OrderType.none:
-        header.orderType = OrderType.ascending;
+      case OrderTypes.none:
+        header.orderType = OrderTypes.ascending;
         break;
-      case OrderType.ascending:
-        header.orderType = OrderType.descending;
+      case OrderTypes.ascending:
+        header.orderType = OrderTypes.descending;
         break;
       default:
-        header.orderType = OrderType.none;
+        header.orderType = OrderTypes.none;
     }
 
     this.updateOrderItem(header);

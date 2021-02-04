@@ -35,7 +35,7 @@ export const siteUrls = {
    * @param url Una de las propiedades.
    * @param args Remplaza el {key} por el value de.
    */
-  replace(url: string, args: object): string {
+  replace: (url: string, args: Record<string, string>) => {
     const keys = Object.keys(args);
     const values = Object.values(args);
 

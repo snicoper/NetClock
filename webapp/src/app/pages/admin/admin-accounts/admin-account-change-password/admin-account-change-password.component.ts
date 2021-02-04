@@ -3,7 +3,6 @@ import { AbstractControlOptions, FormBuilder, FormControl, FormGroup, Validators
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { finalize } from 'rxjs/operators';
-
 import { BreadcrumbCollection } from '../../../../components/breadcrumb/breadcrumb-collection';
 import { FormInputTypes } from '../../../../components/forms/form-input/form-input-types.enum';
 import { siteUrls } from '../../../../core/common';

@@ -1,4 +1,4 @@
-export const SidebarMenuItemsModel = [
+export const sidebarMenuItemsModel = [
   // {
   //   title: '- Administración',
   //   type: 'header'

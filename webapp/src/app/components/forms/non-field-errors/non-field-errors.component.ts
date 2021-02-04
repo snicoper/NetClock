@@ -16,6 +16,6 @@ export class NonFieldErrorsComponent implements OnInit {
   }
 
   get hasErrors(): boolean {
-    return this.badRequest && this.badRequest.errors && FormGlobals.NonFieldErrors in this.badRequest.errors;
+    return this.badRequest && this.badRequest.errors && FormGlobals.nonFieldErrors in this.badRequest.errors;
   }
 }

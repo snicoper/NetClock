@@ -1,34 +1,34 @@
-import { OrderType } from '../../../../core/models';
+import { OrderTypes } from '../../../../core/models';
 
 export const adminAccountListHeaderConfig = [
   {
     field: 'userName',
     text: 'Usuario',
-    orderType: OrderType.none,
+    orderType: OrderTypes.none,
     sortable: true
   },
   {
     field: 'fullName',
     text: 'Nombre',
     sortable: false,
-    orderType: OrderType.none
+    orderType: OrderTypes.none
   },
   {
     field: 'email',
     text: 'Email',
-    orderType: OrderType.none,
+    orderType: OrderTypes.none,
     sortable: true
   },
   {
     field: 'created',
     text: 'Fecha de registro',
-    orderType: OrderType.none,
+    orderType: OrderTypes.none,
     sortable: true
   },
   {
     field: 'active',
     text: 'Activo',
-    orderType: OrderType.none,
+    orderType: OrderTypes.none,
     sortable: true
   }
 ];

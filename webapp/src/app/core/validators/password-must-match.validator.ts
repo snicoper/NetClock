@@ -1,8 +1,7 @@
 import { FormGroup } from '@angular/forms';
 
 /** Custom validator to check that two fields match. */
-export function passwordMustMatch(controlName: string, matchingControlName: string) {
-  return (formGroup: FormGroup) => {
+export const passwordMustMatch = (controlName: string, matchingControlName: string) => (formGroup: FormGroup) => {
     const control = formGroup.controls[controlName];
     const matchingControl = formGroup.controls[matchingControlName];
 
@@ -16,4 +15,3 @@ export function passwordMustMatch(controlName: string, matchingControlName: stri
       matchingControl.setErrors(null);
     }
   };
-}

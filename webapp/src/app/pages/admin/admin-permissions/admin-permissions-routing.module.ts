@@ -8,7 +8,7 @@ const routes: Routes = [
     component: AdminAccountListComponent,
     data: { title: 'Lista de usuarios' }
   }
-]
+];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

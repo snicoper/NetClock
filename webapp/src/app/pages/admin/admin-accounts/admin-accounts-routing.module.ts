@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-
 import { AdminAccountChangePasswordComponent } from './admin-account-change-password/admin-account-change-password.component';
 import { AdminAccountCreateComponent } from './admin-account-create/admin-account-create.component';
 import { AdminAccountDetailsComponent } from './admin-account-details/admin-account-details.component';

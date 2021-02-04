@@ -3,7 +3,6 @@ import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { appConfig } from '../../app.config';
 
-
 /** Establece el titulo de la pagina (pestaña del navegador). */
 @Component({
   selector: 'nc-page-title',

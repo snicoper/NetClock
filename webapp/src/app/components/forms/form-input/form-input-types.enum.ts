@@ -1,6 +1,7 @@
+// eslint-disable-next-line no-shadow
 export enum FormInputTypes {
   text = 'text',
-  number = 'number',
+  numberr = 'number',
   password = 'password',
   email = 'email',
   radio = 'radio',

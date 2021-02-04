@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { StatusCodes } from 'http-status-codes';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-
 import { ApiResultItemFilter, ApiResultItemOrderBy } from '../models';
 
 /** Comprueba si es un ApiResult y deserializa filters. */

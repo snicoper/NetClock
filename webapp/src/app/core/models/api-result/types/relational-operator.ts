@@ -1,4 +1,5 @@
-export enum RelationalOperator {
+// eslint-disable-next-line no-shadow
+export enum RelationalOperators {
   equalTo = 'eq',
   notEqualTo = 'ne',
   greaterThan = 'gt',
