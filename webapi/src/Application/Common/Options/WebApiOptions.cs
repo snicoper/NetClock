@@ -1,6 +1,6 @@
-namespace NetClock.Application.Common.Configurations
+namespace NetClock.Application.Common.Options
 {
-    public class WebApiConfig
+    public class WebApiOptions
     {
         public string SiteName { get; set; }
 

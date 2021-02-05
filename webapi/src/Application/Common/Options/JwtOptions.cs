@@ -1,6 +1,6 @@
-namespace NetClock.Application.Common.Configurations
+namespace NetClock.Application.Common.Options
 {
-    public class JwtConfig
+    public class JwtOptions
     {
         public string Secret { get; set; }
 

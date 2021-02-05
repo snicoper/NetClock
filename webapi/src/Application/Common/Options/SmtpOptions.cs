@@ -1,6 +1,6 @@
-namespace NetClock.Application.Common.Configurations
+namespace NetClock.Application.Common.Options
 {
-    public class SmtpConfig
+    public class SmtpOptions
     {
         public string DefaultFrom { get; set; }
 

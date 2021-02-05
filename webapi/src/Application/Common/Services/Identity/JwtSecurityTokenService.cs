@@ -5,31 +5,31 @@ using System.Security.Claims;
 using System.Text;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using NetClock.Application.Common.Configurations;
 using NetClock.Application.Common.Interfaces.Identity;
+using NetClock.Application.Common.Options;
 using NetClock.Domain.Entities.Identity;
 
 namespace NetClock.Application.Common.Services.Identity
 {
     public class JwtSecurityTokenService : IJwtSecurityTokenService
     {
-        private readonly JwtConfig _jwtConfig;
+        private readonly JwtOptions _jwtOptions;
 
-        public JwtSecurityTokenService(IOptions<JwtConfig> appSettings)
+        public JwtSecurityTokenService(IOptions<JwtOptions> appSettings)
         {
-            _jwtConfig = appSettings.Value;
+            _jwtOptions = appSettings.Value;
         }
 
         public string CreateToken(ApplicationUser user, IEnumerable<string> roles)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(_jwtConfig.Secret);
+            var key = Encoding.ASCII.GetBytes(_jwtOptions.Secret);
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Audience = _jwtConfig.ValidAudience,
-                Issuer = _jwtConfig.ValidIssuer,
+                Audience = _jwtOptions.ValidAudience,
+                Issuer = _jwtOptions.ValidIssuer,
                 Subject = AddClaimsRoles(user, roles),
-                Expires = DateTime.UtcNow.AddHours(_jwtConfig.ExpiryMinutes),
+                Expires = DateTime.UtcNow.AddHours(_jwtOptions.ExpiryMinutes),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
 

@@ -7,11 +7,11 @@ using MediatR;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using NetClock.Application.Common.Configurations;
 using NetClock.Application.Common.Constants;
 using NetClock.Application.Common.Interfaces.Emails;
 using NetClock.Application.Common.Localizations;
 using NetClock.Application.Common.Models;
+using NetClock.Application.Common.Options;
 using NetClock.Domain.Events.Identity;
 
 namespace NetClock.Application.Accounts.Accounts.Commands.ChangePassword
@@ -21,18 +21,18 @@ namespace NetClock.Application.Accounts.Accounts.Commands.ChangePassword
         private readonly IEmailService _emailService;
         private readonly ILogger<ChangePasswordHandler> _logger;
         private readonly IStringLocalizer<IdentityLocalizer> _localizer;
-        private readonly WebApiConfig _webApiConfig;
+        private readonly WebApiOptions _webApiOptions;
 
         public ChangePasswordEventHandler(
             IStringLocalizer<IdentityLocalizer> localizer,
             ILogger<ChangePasswordHandler> logger,
             IEmailService emailService,
-            IOptions<WebApiConfig> options)
+            IOptions<WebApiOptions> options)
         {
             _localizer = localizer;
             _logger = logger;
             _emailService = emailService;
-            _webApiConfig = options.Value;
+            _webApiOptions = options.Value;
         }
 
         public async Task Handle(
@@ -43,7 +43,7 @@ namespace NetClock.Application.Accounts.Accounts.Commands.ChangePassword
             _logger.LogInformation("Read Domain Event: {DomainEvent}.", domainEvent.GetType().Name);
 
             var changePasswordViewModel = domainEvent.ApplicationUser.Adapt<ChangePasswordDto>();
-            changePasswordViewModel.SiteName = _webApiConfig.SiteName;
+            changePasswordViewModel.SiteName = _webApiOptions.SiteName;
             await EmailNotifyChangePasswordAsync(changePasswordViewModel);
         }
 

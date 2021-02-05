@@ -1,6 +1,6 @@
-namespace NetClock.Application.Common.Configurations
+namespace NetClock.Application.Common.Options
 {
-    public class WebAppConfig
+    public class WebAppOptions
     {
         public string Scheme { get; set; }
 

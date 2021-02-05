@@ -2,23 +2,23 @@ using System.Collections.Generic;
 using System.Text;
 using System.Web;
 using Microsoft.Extensions.Options;
-using NetClock.Application.Common.Configurations;
 using NetClock.Application.Common.Interfaces.Common;
+using NetClock.Application.Common.Options;
 
 namespace NetClock.Infrastructure.Services.Common
 {
     public class LinkGeneratorService : ILinkGeneratorService
     {
-        private readonly WebAppConfig _webAppConfig;
+        private readonly WebAppOptions _webAppOptions;
 
-        public LinkGeneratorService(IOptions<WebAppConfig> options)
+        public LinkGeneratorService(IOptions<WebAppOptions> options)
         {
-            _webAppConfig = options.Value;
+            _webAppOptions = options.Value;
         }
 
         public string GenerateFrontEnd(string path)
         {
-            return $"{_webAppConfig.Scheme}://{_webAppConfig.Host}/{path}";
+            return $"{_webAppOptions.Scheme}://{_webAppOptions.Host}/{path}";
         }
 
         public string GenerateFrontEnd(string path, Dictionary<string, string> queryParams, bool encodeParams = true)

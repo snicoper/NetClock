@@ -7,12 +7,12 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using NetClock.Application.Common.Configurations;
 using NetClock.Application.Common.Constants;
 using NetClock.Application.Common.Exceptions;
 using NetClock.Application.Common.Interfaces.Common;
 using NetClock.Application.Common.Interfaces.Emails;
 using NetClock.Application.Common.Localizations;
+using NetClock.Application.Common.Options;
 using NetClock.Domain.Entities.Identity;
 
 namespace NetClock.Application.Accounts.Auth.Commands.RecoveryPassword
@@ -24,14 +24,14 @@ namespace NetClock.Application.Accounts.Auth.Commands.RecoveryPassword
         private readonly ILinkGeneratorService _linkGeneratorService;
         private readonly ILogger<RecoveryPasswordHandler> _logger;
         private readonly IEmailService _emailService;
-        private readonly WebApiConfig _webApiConfig;
+        private readonly WebApiOptions _webApiOptions;
 
         public RecoveryPasswordHandler(
             IStringLocalizer<IdentityLocalizer> localizer,
             UserManager<ApplicationUser> userManager,
             ILinkGeneratorService linkGeneratorService,
             ILogger<RecoveryPasswordHandler> logger,
-            IOptions<WebApiConfig> options,
+            IOptions<WebApiOptions> options,
             IEmailService emailService)
         {
             _localizer = localizer;
@@ -39,7 +39,7 @@ namespace NetClock.Application.Accounts.Auth.Commands.RecoveryPassword
             _linkGeneratorService = linkGeneratorService;
             _logger = logger;
             _emailService = emailService;
-            _webApiConfig = options.Value;
+            _webApiOptions = options.Value;
         }
 
         public async Task<Unit> Handle(RecoveryPasswordCommand request, CancellationToken cancellationToken)
@@ -69,7 +69,7 @@ namespace NetClock.Application.Accounts.Auth.Commands.RecoveryPassword
 
         private async Task SendEmailNotificationAsync(ApplicationUser applicationUser, RecoveryPasswordDto recoveryPasswordDto)
         {
-            _emailService.Subject = _localizer["Confirmación de cambio de email en {0}.", _webApiConfig.SiteName];
+            _emailService.Subject = _localizer["Confirmación de cambio de email en {0}.", _webApiOptions.SiteName];
             _emailService.To.Add(new MailAddress(applicationUser.Email));
             _emailService.IsHtml = true;
             await _emailService.SendEmailAsync(EmailTemplates.RecoveryPassword, recoveryPasswordDto);

@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
-using NetClock.Application.Common.Configurations;
+using NetClock.Application.Common.Options;
 
 namespace NetClock.WebApi.Extensions.ConfigureServices
 {
@@ -14,7 +14,7 @@ namespace NetClock.WebApi.Extensions.ConfigureServices
             IConfiguration configuration)
         {
             var appSettingsSection = configuration.GetSection("Jwt");
-            var jwtConfig = appSettingsSection.Get<JwtConfig>();
+            var jwtConfig = appSettingsSection.Get<JwtOptions>();
             var key = Encoding.ASCII.GetBytes(jwtConfig.Secret);
 
             services

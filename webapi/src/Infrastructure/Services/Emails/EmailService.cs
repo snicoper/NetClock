@@ -9,27 +9,27 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using NetClock.Application.Common.Configurations;
 using NetClock.Application.Common.Constants;
 using NetClock.Application.Common.Interfaces.Emails;
 using NetClock.Application.Common.Interfaces.Views;
+using NetClock.Application.Common.Options;
 
 namespace NetClock.Infrastructure.Services.Emails
 {
     public class EmailService : IEmailService
     {
-        private readonly SmtpConfig _smtpConfig;
+        private readonly SmtpOptions _smtpOptions;
         private readonly ILogger<EmailService> _logger;
         private readonly IViewRenderService _viewRenderService;
         private readonly IWebHostEnvironment _environment;
 
         public EmailService(
-            IOptions<SmtpConfig> appSettings,
+            IOptions<SmtpOptions> appSettings,
             ILogger<EmailService> logger,
             IViewRenderService viewRenderService,
             IWebHostEnvironment environment)
         {
-            _smtpConfig = appSettings.Value;
+            _smtpOptions = appSettings.Value;
             _logger = logger;
             _viewRenderService = viewRenderService;
             _environment = environment;
@@ -63,7 +63,7 @@ namespace NetClock.Infrastructure.Services.Emails
         public async Task SendEmailAsync()
         {
             Validate();
-            From ??= new MailAddress(_smtpConfig.DefaultFrom);
+            From ??= new MailAddress(_smtpOptions.DefaultFrom);
 
             if (_environment.IsDevelopment() || _environment.IsEnvironment(CommonConstants.Test))
             {
@@ -75,14 +75,14 @@ namespace NetClock.Infrastructure.Services.Emails
             using var smtpClient = new SmtpClient();
             var credentials = new NetworkCredential
             {
-                UserName = _smtpConfig.UserName,
-                Password = _smtpConfig.Password
+                UserName = _smtpOptions.UserName,
+                Password = _smtpOptions.Password
             };
 
             smtpClient.Credentials = credentials;
-            smtpClient.Host = _smtpConfig.Host;
-            smtpClient.Port = _smtpConfig.Port;
-            smtpClient.EnableSsl = _smtpConfig.EnableSsl;
+            smtpClient.Host = _smtpOptions.Host;
+            smtpClient.Port = _smtpOptions.Port;
+            smtpClient.EnableSsl = _smtpOptions.EnableSsl;
 
             using var emailMessage = new MailMessage();
             foreach (var emailTo in To)
