@@ -4,7 +4,7 @@
 .arrow {
   position: relative;
   top: 1px;
-  transition: all .3s ease-in-out;
+  transition: all 0.3s ease-in-out;
 
   &.rotate {
     transform: rotate(180deg);
@@ -12,7 +12,7 @@
 }
 
 .opacity3 {
-  opacity: .3;
+  opacity: 0.3;
 }
 
 th {

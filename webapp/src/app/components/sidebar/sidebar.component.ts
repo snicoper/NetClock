@@ -30,7 +30,7 @@ export class SidebarComponent {
 
   toggle(currentMenu): void {
     if (currentMenu.type === 'dropdown') {
-      this.menus.forEach(element => {
+      this.menus.forEach((element) => {
         if (element === currentMenu) {
           currentMenu.active = !currentMenu.active;
         } else {

@@ -55,26 +55,27 @@ export class AdminAccountChangePasswordComponent implements OnInit {
     const model = Object.assign(new AdminAccountChangePasswordModel(), this.form.value);
     model.id = this.user.id;
 
-    this.adminUserChangePasswordService.change(model)
-      .pipe(
-        finalize(() => this.updating = false)
-      )
-      .subscribe(() => {
-        this.toastrService.success('Contraseña actualizada con éxito');
-        const url = siteUrls.replace(siteUrls.adminAccountsDetails, { slug: this.user.slug });
+    this.adminUserChangePasswordService
+      .change(model)
+      .pipe(finalize(() => (this.updating = false)))
+      .subscribe(
+        () => {
+          this.toastrService.success('Contraseña actualizada con éxito');
+          const url = siteUrls.replace(siteUrls.adminAccountsDetails, { slug: this.user.slug });
 
-        this.router.navigate([url]);
-      }, (error: BadRequest) => {
-        this.badRequest = error;
-      });
+          this.router.navigate([url]);
+        },
+        (error: BadRequest) => {
+          this.badRequest = error;
+        }
+      );
   }
 
   private loadUser(): void {
     this.loading = true;
-    this.adminUserChangePasswordService.getBy(this.slug)
-      .pipe(
-        finalize(() => this.loading = false)
-      )
+    this.adminUserChangePasswordService
+      .getBy(this.slug)
+      .pipe(finalize(() => (this.loading = false)))
       .subscribe((result: AdminAccountDetailsModel) => {
         this.user = result;
         this.setBreadcrumb();
@@ -98,9 +99,12 @@ export class AdminAccountChangePasswordComponent implements OnInit {
       validators: () => passwordMustMatch('password', 'confirmPassword')
     };
 
-    this.form = this.fb.group({
+    this.form = this.fb.group(
+      {
         newPassword: new FormControl('', [Validators.required]),
         confirmPassword: new FormControl('', [Validators.required])
-      }, formOptions);
+      },
+      formOptions
+    );
   }
 }

@@ -7,15 +7,7 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
 import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
-  declarations: [
-    ProfileComponent,
-    ChangePasswordComponent
-  ],
-  imports: [
-    AccountsRoutingModule,
-    CommonModule,
-    ComponentsModule,
-    ReactiveFormsModule
-  ]
+  declarations: [ProfileComponent, ChangePasswordComponent],
+  imports: [AccountsRoutingModule, CommonModule, ComponentsModule, ReactiveFormsModule]
 })
 export class AccountsModule {}

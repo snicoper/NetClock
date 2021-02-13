@@ -15,32 +15,36 @@
               <span class="fas fa-filter"></span>
             </button>
           </div>
-        </div><!-- end toolbar -->
+        </div>
+        <!-- end toolbar -->
 
         <nc-table [apiResult]="apiResult" [loading]="loading">
           <thead ncThead>
-            <tr ncTableHeader
-                [tableHeaderConfig]="tableHeaderConfig"
-                [apiResult]="apiResult"
-                (clickOrdering)="onReloadData()">
-            </tr>
+            <tr
+              ncTableHeader
+              [tableHeaderConfig]="tableHeaderConfig"
+              [apiResult]="apiResult"
+              (clickOrdering)="onReloadData()"
+            ></tr>
           </thead>
 
           <tbody ncTbody *ngIf="apiResult">
             <tr *ngFor="let user of apiResult.items" (click)="onSelectItem(user)" class="cursor-pointer">
-              <td>{{user.userName}}</td>
-              <td>{{user.fullName}}</td>
-              <td>{{user.email}}</td>
-              <td>{{user.created | date: 'dd/MM/yyyy'}}</td>
+              <td>{{ user.userName }}</td>
+              <td>{{ user.fullName }}</td>
+              <td>{{ user.email }}</td>
+              <td>{{ user.created | date: "dd/MM/yyyy" }}</td>
               <td [innerHTML]="user.active | iconBoolean"></td>
             </tr>
           </tbody>
         </nc-table>
 
-        <nc-pagination *ngIf="apiResult"
-                       [apiResult]="apiResult"
-                       (changePage)="onReloadData()"
-                       (changePageListNumber)="onReloadData()">
+        <nc-pagination
+          *ngIf="apiResult"
+          [apiResult]="apiResult"
+          (changePage)="onReloadData()"
+          (changePageListNumber)="onReloadData()"
+        >
         </nc-pagination>
       </nc-card>
     </div>

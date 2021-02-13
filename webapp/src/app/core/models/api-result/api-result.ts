@@ -21,7 +21,12 @@ export class ApiResult<T> {
     this.cleanOrders();
   }
 
-  addFilter(propertyName: string, operator: RelationalOperators, value: string, concat = LogicalOperators.none): ApiResult<T> {
+  addFilter(
+    propertyName: string,
+    operator: RelationalOperators,
+    value: string,
+    concat = LogicalOperators.none
+  ): ApiResult<T> {
     const filter = new ApiResultItemFilter(propertyName, operator, value, concat);
     this.filters.push(filter);
 

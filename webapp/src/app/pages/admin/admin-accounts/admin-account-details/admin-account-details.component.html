@@ -1,9 +1,9 @@
 <nc-page-base [breadcrumb]="breadcrumb">
   <nc-card *ngIf="user" [loading]="loading" [spinnerSize]="100">
-    <h1 ncCardTitle>Detalles {{user.userName}}</h1>
+    <h1 ncCardTitle>Detalles {{ user.userName }}</h1>
 
-    <pre class="mt-5">
-{{user | json}}
+    <pre class="mt-5"
+      >{{ user | json }}
     </pre>
 
     <!-- '/admin/accounts/{slug}/update' -->
@@ -11,7 +11,10 @@
       Editar usuario
     </a>
 
-    <a [routerLink]="[siteUrls.replace(siteUrls.adminAccountsChangePassword, { slug: user.slug })]" class="btn btn-primary ml-2">
+    <a
+      [routerLink]="[siteUrls.replace(siteUrls.adminAccountsChangePassword, { slug: user.slug })]"
+      class="btn btn-primary ml-2"
+    >
       Cambiar contraseña
     </a>
 

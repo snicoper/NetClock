@@ -3,7 +3,6 @@ import { AbstractControl, FormGroup } from '@angular/forms';
 import { StatusCodes } from 'http-status-codes';
 import { BadRequest } from '../../../core/types';
 
-
 @Component({
   selector: 'nc-field-error',
   templateUrl: './field-error.component.html'
@@ -22,16 +21,14 @@ export class FieldErrorComponent implements OnInit {
   }
 
   formHasErrors(): boolean {
-    return this.submitted
-      && this.form
-      && this.form.dirty
-      || this.form.touched
-      && this.form[this.fieldName]
-      && this.form[this.fieldName].errors;
+    return (
+      (this.submitted && this.form && this.form.dirty) ||
+      (this.form.touched && this.form[this.fieldName] && this.form[this.fieldName].errors)
+    );
   }
 
   controlHasErrors(): boolean {
-    return !!(this.control && this.control.dirty && this.control.errors || this.submitted && this.control.errors);
+    return !!((this.control && this.control.dirty && this.control.errors) || (this.submitted && this.control.errors));
   }
 
   getBadRequestErrors(): string[] {

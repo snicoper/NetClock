@@ -1,12 +1,11 @@
-<div [ngClass]="{'table-responsive': tableResponsive}">
+<div [ngClass]="{ 'table-responsive': tableResponsive }">
   <table [ngClass]="tableCss" class="table">
     <ng-content select="[ncThead]"></ng-content>
 
     <ng-container *ngIf="apiResult && !loading">
       <!-- table content -->
-      <ng-container *ngIf="apiResult.items.length">
-        <ng-content select="[ncTbody]"></ng-content>
-      </ng-container><!-- end table content -->
+      <ng-container *ngIf="apiResult.items.length"> <ng-content select="[ncTbody]"></ng-content></ng-container>
+      <!-- end table content -->
 
       <!-- no data -->
       <ng-container *ngIf="!apiResult.items.length">
@@ -17,7 +16,8 @@
             </td>
           </tr>
         </tbody>
-      </ng-container><!-- end no data -->
+      </ng-container>
+      <!-- end no data -->
     </ng-container>
 
     <!-- spinner loading data -->
@@ -29,7 +29,8 @@
           </td>
         </tr>
       </tbody>
-    </ng-container><!-- end spinner loading data -->
+    </ng-container>
+    <!-- end spinner loading data -->
 
     <ng-content select="[ncTfoot]"></ng-content>
   </table>

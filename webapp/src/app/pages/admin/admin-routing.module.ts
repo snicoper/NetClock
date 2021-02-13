@@ -16,11 +16,11 @@ const routes: Routes = [
       },
       {
         path: 'accounts',
-        loadChildren: () => import('./admin-accounts/admin-accounts.module').then(m => m.AdminAccountsModule)
+        loadChildren: () => import('./admin-accounts/admin-accounts.module').then((m) => m.AdminAccountsModule)
       },
       {
         path: 'permissions',
-        loadChildren: () => import('./admin-permissions/admin-permissions.module').then(m => m.AdminPermissionsModule)
+        loadChildren: () => import('./admin-permissions/admin-permissions.module').then((m) => m.AdminPermissionsModule)
       }
     ]
   }
@@ -30,5 +30,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class AdminRoutingModule {
-}
+export class AdminRoutingModule {}

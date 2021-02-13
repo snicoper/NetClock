@@ -29,8 +29,7 @@ export class ChangePasswordComponent implements OnInit {
     private changePasswordService: ChangePasswordService,
     private authService: AuthService,
     private toastrService: ToastrService
-  ) {
-  }
+  ) {}
 
   ngOnInit(): void {
     this.setBreadcrumb();
@@ -49,11 +48,11 @@ export class ChangePasswordComponent implements OnInit {
     const changePasswordModel = Object.assign(new ChangePasswordModel(), this.form.value) as ChangePasswordModel;
     changePasswordModel.id = this.authService.currentUserValue.id;
 
-    this.changePasswordService.change(changePasswordModel)
-      .pipe(
-        finalize(() => this.loading = false)
-      )
-      .subscribe(() => {
+    this.changePasswordService
+      .change(changePasswordModel)
+      .pipe(finalize(() => (this.loading = false)))
+      .subscribe(
+        () => {
           this.toastrService.success('Contraseña cambiada con éxito.');
           this.authService.logout();
         },
@@ -75,10 +74,13 @@ export class ChangePasswordComponent implements OnInit {
       validators: () => passwordMustMatch('password', 'newPassword')
     };
 
-    this.form = this.fb.group({
+    this.form = this.fb.group(
+      {
         oldPassword: new FormControl('', [Validators.required]),
         newPassword: new FormControl('', [Validators.required]),
         confirmPassword: new FormControl('', [Validators.required])
-      }, formOptions);
+      },
+      formOptions
+    );
   }
 }

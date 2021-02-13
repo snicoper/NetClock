@@ -3,8 +3,7 @@
   <nc-page-title *ngIf="showPageTitle" [pageTitle]="pageTitle"></nc-page-title>
 
   <!-- breadcrumb -->
-  <nc-breadcrumb *ngIf="breadcrumb && breadcrumb.hasItems()" [breadcrumb]="breadcrumb">
-  </nc-breadcrumb>
+  <nc-breadcrumb *ngIf="breadcrumb && breadcrumb.hasItems()" [breadcrumb]="breadcrumb"> </nc-breadcrumb>
 
   <!-- content page -->
   <div [ngClass]="cssContent">

@@ -2,7 +2,6 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormGlobals } from '../../../core/common';
 import { BadRequest } from '../../../core/types';
 
-
 @Component({
   selector: 'nc-non-field-errors',
   templateUrl: './non-field-errors.component.html'
@@ -12,8 +11,7 @@ export class NonFieldErrorsComponent implements OnInit {
 
   formGlobals = FormGlobals;
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   get hasErrors(): boolean {
     return this.badRequest && this.badRequest.errors && FormGlobals.nonFieldErrors in this.badRequest.errors;

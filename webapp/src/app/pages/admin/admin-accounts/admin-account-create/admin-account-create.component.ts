@@ -30,8 +30,7 @@ export class AdminAccountCreateComponent implements OnInit {
     private adminUserCreateService: AdminAccountCreateService,
     private router: Router,
     private toastrService: ToastrService
-  ) {
-  }
+  ) {}
 
   ngOnInit(): void {
     this.setBreadcrumb();
@@ -45,20 +44,21 @@ export class AdminAccountCreateComponent implements OnInit {
     }
 
     this.loading = true;
-    this.adminUserCreateService.create(this.form.value)
-      .pipe(
-        finalize(() => this.loading = false)
-      )
-      .subscribe((result: AdminAccountCreateResult) => {
+    this.adminUserCreateService
+      .create(this.form.value)
+      .pipe(finalize(() => (this.loading = false)))
+      .subscribe(
+        (result: AdminAccountCreateResult) => {
           const url = siteUrls.replace(siteUrls.adminAccountsDetails, { slug: result.slug });
           this.toastrService.success('Usuario creado con éxito');
           this.router.navigate([url]);
         },
-        ((error) => {
+        (error) => {
           if (error.status === StatusCodes.BAD_REQUEST) {
             this.badRequest = error.error;
           }
-        }));
+        }
+      );
   }
 
   private setBreadcrumb(): void {
@@ -74,7 +74,8 @@ export class AdminAccountCreateComponent implements OnInit {
       validators: () => passwordMustMatch('password', 'confirmPassword')
     };
 
-    this.form = this.fb.group({
+    this.form = this.fb.group(
+      {
         userName: new FormControl('', [Validators.required]),
         firstName: new FormControl('', [Validators.required]),
         lastName: new FormControl('', [Validators.required]),
@@ -82,6 +83,8 @@ export class AdminAccountCreateComponent implements OnInit {
         password: new FormControl('', [Validators.required]),
         confirmPassword: new FormControl('', [Validators.required]),
         active: new FormControl(true)
-      }, formOptions);
+      },
+      formOptions
+    );
   }
 }

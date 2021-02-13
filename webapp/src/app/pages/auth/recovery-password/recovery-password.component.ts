@@ -47,7 +47,8 @@ export class RecoveryPasswordComponent implements OnInit {
       return;
     }
 
-    this.recoveryPasswordService.recoveryPassword(this.form.value)
+    this.recoveryPasswordService
+      .recoveryPassword(this.form.value)
       .pipe(finalize(() => this.router.navigate([siteUrls.authRecoveryPasswordSuccess])));
   }
 

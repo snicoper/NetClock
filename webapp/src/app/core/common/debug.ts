@@ -7,7 +7,7 @@ export const debugErrors = (...errors: string[]): void => {
   }
 };
 
-export const raiseError =(message: string): void => {
+export const raiseError = (message: string): void => {
   if (appConfig.isDebug === true) {
     throw new Error(message);
   }

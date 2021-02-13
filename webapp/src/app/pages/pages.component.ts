@@ -7,8 +7,7 @@ import { SidebarService } from '../components/sidebar/sidebar.service';
   styleUrls: ['./pages.component.scss']
 })
 export class PagesComponent {
-  constructor(private sidebarService: SidebarService) {
-  }
+  constructor(private sidebarService: SidebarService) {}
 
   // TODO: Mejorar el ocultar.
   @HostListener('window:resize', ['$event'])

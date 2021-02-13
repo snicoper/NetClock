@@ -52,36 +52,40 @@ export class AdminAccountUpdateComponent implements OnInit {
     this.updating = true;
     this.data = Object.assign(this.data, this.form.value);
 
-    this.adminUserUpdateService.update(this.data)
-      .pipe(
-        finalize(() => this.updating = false)
-      )
-      .subscribe((result: AdminAccountUpdateResultModel) => {
-        this.toastrService.success('Usuario editado con éxito');
-        const url = siteUrls.replace(siteUrls.adminAccountsDetails, { slug: result.slug });
-        this.router.navigate([url]);
-      }, (error) => {
-        if (error.status === StatusCodes.BAD_REQUEST) {
-          this.badRequest = error.error;
+    this.adminUserUpdateService
+      .update(this.data)
+      .pipe(finalize(() => (this.updating = false)))
+      .subscribe(
+        (result: AdminAccountUpdateResultModel) => {
+          this.toastrService.success('Usuario editado con éxito');
+          const url = siteUrls.replace(siteUrls.adminAccountsDetails, { slug: result.slug });
+          this.router.navigate([url]);
+        },
+        (error) => {
+          if (error.status === StatusCodes.BAD_REQUEST) {
+            this.badRequest = error.error;
+          }
         }
-      });
+      );
   }
 
   private loadData(): void {
     this.loading = true;
-    this.adminUserUpdateService.getBy(this.slug)
-      .pipe(
-        finalize(() => this.loading = false)
-      )
-      .subscribe((result: AdminAccountUpdateModel) => {
-        this.data = result;
-        this.setBreadcrumb();
-        this.buildForm();
-      }, (errors) => {
-        if (errors.status === StatusCodes.NOT_FOUND) {
-          this.accountNotFound = true;
+    this.adminUserUpdateService
+      .getBy(this.slug)
+      .pipe(finalize(() => (this.loading = false)))
+      .subscribe(
+        (result: AdminAccountUpdateModel) => {
+          this.data = result;
+          this.setBreadcrumb();
+          this.buildForm();
+        },
+        (errors) => {
+          if (errors.status === StatusCodes.NOT_FOUND) {
+            this.accountNotFound = true;
+          }
         }
-      });
+      );
   }
 
   private setBreadcrumb(): void {

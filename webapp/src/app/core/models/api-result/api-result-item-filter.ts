@@ -7,7 +7,12 @@ export class ApiResultItemFilter {
   value: string;
   logicalOperator: LogicalOperators;
 
-  constructor(propertyName: string, operator: RelationalOperators, value: string, logicalOperator = LogicalOperators.none) {
+  constructor(
+    propertyName: string,
+    operator: RelationalOperators,
+    value: string,
+    logicalOperator = LogicalOperators.none
+  ) {
     this.propertyName = propertyName;
     this.relationalOperator = operator;
     this.value = value;

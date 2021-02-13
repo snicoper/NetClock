@@ -16,14 +16,6 @@ import { RecoveryPasswordComponent } from './recovery-password/recovery-password
     RecoveryPasswordSuccessComponent,
     RecoveryPasswordValidateComponent
   ],
-  imports: [
-    CommonModule,
-    AuthRoutingModule,
-    ReactiveFormsModule,
-    FormsModule,
-    HttpClientModule,
-    ComponentsModule
-  ]
+  imports: [CommonModule, AuthRoutingModule, ReactiveFormsModule, FormsModule, HttpClientModule, ComponentsModule]
 })
-export class AuthModule {
-}
+export class AuthModule {}

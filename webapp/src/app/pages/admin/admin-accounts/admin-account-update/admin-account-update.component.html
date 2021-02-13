@@ -9,47 +9,55 @@
 
       <div class="row">
         <div class="col-12">
-          <nc-form-input formControlName="userName"
-                         fieldName="userName"
-                         label="Nombre de usuario"
-                         [form]="form"
-                         [badRequest]="badRequest"
-                         [submitted]="submitted">
+          <nc-form-input
+            formControlName="userName"
+            fieldName="userName"
+            label="Nombre de usuario"
+            [form]="form"
+            [badRequest]="badRequest"
+            [submitted]="submitted"
+          >
           </nc-form-input>
         </div>
       </div>
 
       <div class="row">
         <div class="col-12 col-md-6 form-group">
-          <nc-form-input formControlName="firstName"
-                         fieldName="firstName"
-                         label="Nombre"
-                         [form]="form"
-                         [badRequest]="badRequest"
-                         [submitted]="submitted">
+          <nc-form-input
+            formControlName="firstName"
+            fieldName="firstName"
+            label="Nombre"
+            [form]="form"
+            [badRequest]="badRequest"
+            [submitted]="submitted"
+          >
           </nc-form-input>
         </div>
 
         <div class="col-12 col-md-6 form-group">
-          <nc-form-input formControlName="lastName"
-                         fieldName="lastName"
-                         label="Apellidos"
-                         [form]="form"
-                         [badRequest]="badRequest"
-                         [submitted]="submitted">
+          <nc-form-input
+            formControlName="lastName"
+            fieldName="lastName"
+            label="Apellidos"
+            [form]="form"
+            [badRequest]="badRequest"
+            [submitted]="submitted"
+          >
           </nc-form-input>
         </div>
       </div>
 
       <div class="row">
         <div class="col-md-6 form-group">
-          <nc-form-input formControlName="email"
-                         fieldName="email"
-                         label="Correo electrónico"
-                         [form]="form"
-                         [badRequest]="badRequest"
-                         [submitted]="submitted"
-                         [inputType]="formTypes.email">
+          <nc-form-input
+            formControlName="email"
+            fieldName="email"
+            label="Correo electrónico"
+            [form]="form"
+            [badRequest]="badRequest"
+            [submitted]="submitted"
+            [inputType]="formTypes.email"
+          >
           </nc-form-input>
         </div>
       </div>
@@ -57,7 +65,7 @@
       <div class="row">
         <div class="col-12 form-group">
           <div class="custom-control custom-checkbox">
-            <input formControlName="active" class="custom-control-input" id="active" type="checkbox">
+            <input formControlName="active" class="custom-control-input" id="active" type="checkbox" />
             <label class="custom-control-label" for="active">Activo</label>
           </div>
         </div>
@@ -65,9 +73,7 @@
 
       <div class="row">
         <div class="col-12">
-          <nc-btn-loading [loading]="loading"
-                          btnText="Editar usuario"
-                          spinnerLoadingText="Editando usuario">
+          <nc-btn-loading [loading]="loading" btnText="Editar usuario" spinnerLoadingText="Editando usuario">
           </nc-btn-loading>
         </div>
       </div>

@@ -1,5 +1,12 @@
 import { Component } from '@angular/core';
-import { AbstractControl, AbstractControlOptions, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  AbstractControlOptions,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators
+} from '@angular/forms';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { siteUrls } from '../../../core/common';
@@ -11,7 +18,6 @@ import { RecoveryPasswordValidateService } from './recovery-password-validate.se
   selector: 'nc-recovery-password-validate',
   templateUrl: './recovery-password-validate.component.html',
   providers: [RecoveryPasswordValidateService]
-
 })
 export class RecoveryPasswordValidateComponent {
   form: FormGroup;
@@ -28,14 +34,12 @@ export class RecoveryPasswordValidateComponent {
     private recoveryPasswordValidateService: RecoveryPasswordValidateService
   ) {
     this.buildForm();
-    this.route.queryParamMap.subscribe(
-      (params: ParamMap) => {
-        this.form.patchValue({
-          userId: params.get('userId'),
-          code: params.get('code')
-        });
-      }
-    );
+    this.route.queryParamMap.subscribe((params: ParamMap) => {
+      this.form.patchValue({
+        userId: params.get('userId'),
+        code: params.get('code')
+      });
+    });
   }
 
   control(fieldName: string): AbstractControl {
@@ -67,11 +71,14 @@ export class RecoveryPasswordValidateComponent {
       validators: () => passwordMustMatch('password', 'confirmPassword')
     };
 
-    this.form = this.fb.group({
+    this.form = this.fb.group(
+      {
         userId: new FormControl(null, [Validators.required]),
         code: new FormControl(null, [Validators.required]),
         password: new FormControl('', [Validators.required]),
         confirmPassword: new FormControl('', [Validators.required])
-      }, formOptions);
+      },
+      formOptions
+    );
   }
 }

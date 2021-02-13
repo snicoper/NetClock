@@ -1,12 +1,14 @@
 <button [disabled]="loading" [class]="btnClass" [type]="btnType">
   <span *ngIf="!loading">
-    {{btnText}}
+    {{ btnText }}
   </span>
 
-  <nc-spinner [loading]="loading"
-              [extraCss]="spinnerClass"
-              [text]="spinnerLoadingText"
-              [color]="spinnerColor"
-              [size]="spinnerSize">
+  <nc-spinner
+    [loading]="loading"
+    [extraCss]="spinnerClass"
+    [text]="spinnerLoadingText"
+    [color]="spinnerColor"
+    [size]="spinnerSize"
+  >
   </nc-spinner>
 </button>

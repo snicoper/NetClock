@@ -10,8 +10,7 @@ import { BreadcrumbCollection } from './breadcrumb-collection';
 export class BreadcrumbComponent {
   @Input() breadcrumb: BreadcrumbCollection;
 
-  constructor(private sidebarService: SidebarService) {
-  }
+  constructor(private sidebarService: SidebarService) {}
 
   toggleSidebar(): void {
     this.sidebarService.toggle();

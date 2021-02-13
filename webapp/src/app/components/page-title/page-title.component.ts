@@ -11,8 +11,7 @@ import { appConfig } from '../../app.config';
 export class PageTitleComponent implements OnInit {
   @Input() pageTitle: string;
 
-  constructor(private route: ActivatedRoute, private title: Title) {
-  }
+  constructor(private route: ActivatedRoute, private title: Title) {}
 
   ngOnInit(): void {
     if (this.pageTitle) {

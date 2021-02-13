@@ -3,7 +3,6 @@ import { ApiResult, ApiResultItemOrderBy, OrderTypes } from '../../../core/model
 import { ITableHeaderField } from './table-header-field.interface';
 import { TableHeaderConfig } from './table-header.config';
 
-
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector
   selector: '[ncTableHeader]',
@@ -18,8 +17,7 @@ export class TableHeaderComponent<T> {
 
   orderings = OrderTypes;
 
-  onClickFilter(header: ITableHeaderField): void {
-  }
+  onClickFilter(header: ITableHeaderField): void {}
 
   onClickOrder(header: ITableHeaderField): void {
     this.removeOrderItemIfExists(header);

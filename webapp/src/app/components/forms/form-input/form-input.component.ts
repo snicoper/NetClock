@@ -32,11 +32,9 @@ export class FormInputComponent implements ControlValueAccessor {
     this.id = Math.random().toString();
   }
 
-  onChange = (_: any) => {
-  };
+  onChange = (_: any) => {};
 
-  onTouch = () => {
-  };
+  onTouch = () => {};
 
   writeValue(value: any): void {
     if (value !== undefined) {
@@ -66,10 +64,9 @@ export class FormInputComponent implements ControlValueAccessor {
   isInvalid(): boolean {
     const control = this.form.get(this.fieldName);
 
-    return this.submitted
-      && control.invalid
-      || this.badRequest
-      && this.badRequest.errors
-      && this.fieldName in this.badRequest.errors;
+    return (
+      (this.submitted && control.invalid) ||
+      (this.badRequest && this.badRequest.errors && this.fieldName in this.badRequest.errors)
+    );
   }
 }

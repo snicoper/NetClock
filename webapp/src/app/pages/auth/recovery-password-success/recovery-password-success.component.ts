@@ -4,5 +4,4 @@ import { Component } from '@angular/core';
   selector: 'nc-recovery-password-success',
   templateUrl: './recovery-password-success.component.html'
 })
-export class RecoveryPasswordSuccessComponent {
-}
+export class RecoveryPasswordSuccessComponent {}

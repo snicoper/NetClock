@@ -5,17 +5,8 @@ import { IconBooleanPipe } from './icon-boolean.pipe';
 import { TruncatePipe } from './truncate.pipe';
 
 @NgModule({
-  declarations: [
-    FormatSizeUnitPipe,
-    TruncatePipe,
-    IconBooleanPipe
-  ],
-  exports: [
-    IconBooleanPipe
-  ],
-  imports: [
-    CommonModule
-  ]
+  declarations: [FormatSizeUnitPipe, TruncatePipe, IconBooleanPipe],
+  exports: [IconBooleanPipe],
+  imports: [CommonModule]
 })
-export class PipesModule {
-}
+export class PipesModule {}

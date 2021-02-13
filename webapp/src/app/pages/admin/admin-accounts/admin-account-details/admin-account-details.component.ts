@@ -19,10 +19,7 @@ export class AdminAccountDetailsComponent implements OnInit {
 
   private readonly userSlug: string;
 
-  constructor(
-    private adminUserDetailsService: AdminAccountDetailsService,
-    private route: ActivatedRoute
-  ) {
+  constructor(private adminUserDetailsService: AdminAccountDetailsService, private route: ActivatedRoute) {
     this.userSlug = this.route.snapshot.paramMap.get('slug');
   }
 
@@ -42,10 +39,9 @@ export class AdminAccountDetailsComponent implements OnInit {
 
   private loadUser(): void {
     this.loading = true;
-    this.adminUserDetailsService.getBy(this.userSlug)
-      .pipe(
-        finalize(() => this.loading = false)
-      )
+    this.adminUserDetailsService
+      .getBy(this.userSlug)
+      .pipe(finalize(() => (this.loading = false)))
       .subscribe((result: AdminAccountDetailsModel) => {
         this.user = result;
         this.setBreadcrumb();

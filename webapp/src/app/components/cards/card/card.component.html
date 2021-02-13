@@ -11,7 +11,8 @@
       <p class="card-text">
         <ng-content></ng-content>
       </p>
-    </ng-container><!-- end main content -->
+    </ng-container>
+    <!-- end main content -->
 
     <ng-template #loadingData>
       <nc-spinner [loading]="loading" [size]="spinnerSize"></nc-spinner>
@@ -20,4 +21,3 @@
 
   <ng-content select="[ncCardFooter]" class="card-footer text-muted"></ng-content>
 </div>
-

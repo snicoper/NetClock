@@ -4,19 +4,17 @@
       <span class="fas fa-bars"></span>
     </li>
 
-    <li *ngFor="let bread of breadcrumb.getItems()"
-        [ngClass]="{'active': bread.active}"
-        class="breadcrumb-item small">
+    <li *ngFor="let bread of breadcrumb.getItems()" [ngClass]="{ active: bread.active }" class="breadcrumb-item small">
       <a *ngIf="bread.active" [routerLink]="bread.link">
         <span *ngIf="bread.icon" class="icon is-small">
           <span [ngClass]="bread.icon" aria-hidden="true"></span>
         </span>
-        {{bread.text}}
+        {{ bread.text }}
       </a>
 
       <span *ngIf="!bread.active" class="text-muted">
         <span [ngClass]="bread.icon" aria-hidden="true"></span>
-        {{bread.text}}
+        {{ bread.text }}
       </span>
     </li>
   </ol>

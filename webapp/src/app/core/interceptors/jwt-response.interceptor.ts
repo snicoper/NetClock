@@ -5,8 +5,7 @@ import { AuthService } from '../../pages/auth/login/auth.service';
 
 @Injectable()
 export class JwtResponseInterceptor implements HttpInterceptor {
-  constructor(private authenticationService: AuthService) {
-  }
+  constructor(private authenticationService: AuthService) {}
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     // Add authorization header with jwt token if available.

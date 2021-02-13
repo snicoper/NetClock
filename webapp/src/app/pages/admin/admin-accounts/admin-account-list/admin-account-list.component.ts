@@ -24,11 +24,7 @@ export class AdminAccountListComponent implements OnInit, OnDestroy {
 
   private destroy$ = new Subject<void>();
 
-  constructor(
-    private router: Router,
-    private adminUserListService: AdminAccountListService
-  ) {
-  }
+  constructor(private router: Router, private adminUserListService: AdminAccountListService) {}
 
   ngOnInit(): void {
     this.configureTableHeaders();
@@ -63,14 +59,16 @@ export class AdminAccountListComponent implements OnInit, OnDestroy {
 
   private loadUsers(): void {
     this.loading = true;
-    this.adminUserListService.getAllPaginated(this.apiResult)
-      .pipe(
-        finalize(() => this.loading = false)
-      )
-      .subscribe((result: ApiResult<AdminAccountListModel>) => {
-        this.apiResult = result;
-      }, (error) => {
-        debugErrors(error);
-      });
+    this.adminUserListService
+      .getAllPaginated(this.apiResult)
+      .pipe(finalize(() => (this.loading = false)))
+      .subscribe(
+        (result: ApiResult<AdminAccountListModel>) => {
+          this.apiResult = result;
+        },
+        (error) => {
+          debugErrors(error);
+        }
+      );
   }
 }

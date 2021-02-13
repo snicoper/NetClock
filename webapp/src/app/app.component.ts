@@ -6,9 +6,7 @@ import { LocalizationService } from './core/services';
   templateUrl: './app.component.html'
 })
 export class AppComponent {
-  constructor(
-    private localizationService: LocalizationService
-  ) {
+  constructor(private localizationService: LocalizationService) {
     this.localizationService.initialize();
   }
 }

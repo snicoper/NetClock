@@ -59,13 +59,11 @@ export class AuthService extends ApiRestBaseService implements OnDestroy {
   logout(): void {
     const url = `${this.baseUrl}/logout`;
 
-    this.http.post<void>(url, null).subscribe(
-      () => {
-        localStorage.removeItem('currentUser');
-        this.currentUserSubject.next(null);
-        this.router.navigate([siteUrls.authLogin]);
-      }
-    );
+    this.http.post<void>(url, null).subscribe(() => {
+      localStorage.removeItem('currentUser');
+      this.currentUserSubject.next(null);
+      this.router.navigate([siteUrls.authLogin]);
+    });
   }
 
   private decodeToken(token: string): any {

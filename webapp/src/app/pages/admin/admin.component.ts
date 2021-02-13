@@ -13,8 +13,7 @@ export class AdminComponent implements OnInit {
     this.setBreadcrumb();
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   private setBreadcrumb(): void {
     this.breadcrumb

@@ -5,8 +5,7 @@ import { LocalizationService } from '../services';
 
 @Injectable()
 export class LocalizationResponseInterceptor implements HttpInterceptor {
-  constructor(private localizationService: LocalizationService) {
-  }
+  constructor(private localizationService: LocalizationService) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     // Culture.

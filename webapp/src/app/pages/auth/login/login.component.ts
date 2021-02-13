@@ -51,10 +51,11 @@ export class LoginComponent implements OnInit {
     }
 
     this.loading = true;
-    this.authenticationService.login(this.form.value)
+    this.authenticationService
+      .login(this.form.value)
       .pipe(
         timeout(5000),
-        finalize(() => this.loading = false)
+        finalize(() => (this.loading = false))
       )
       .subscribe(
         (user: CurrentUserModel) => {

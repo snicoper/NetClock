@@ -12,8 +12,7 @@ export class LocalizationService {
   private currentCultureSubject$ = new BehaviorSubject<string>(null);
   private timezoneSubject$ = new BehaviorSubject<string>(null);
 
-  constructor(@Inject(DOCUMENT) private document: Document) {
-  }
+  constructor(@Inject(DOCUMENT) private document: Document) {}
 
   /** Observable de cultura. */
   get culture(): Observable<string> {

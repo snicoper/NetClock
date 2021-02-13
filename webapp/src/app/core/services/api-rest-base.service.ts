@@ -5,8 +5,7 @@ import { ApiResult } from '../models';
 export abstract class ApiRestBaseService {
   protected baseUrl: string;
 
-  protected constructor(protected http: HttpClient) {
-  }
+  protected constructor(protected http: HttpClient) {}
 
   getAllPaginated<TModel>(apiResult: ApiResult<TModel>): Observable<ApiResult<TModel>> {
     const url = `${this.baseUrl}?${this.prepareQueryParams(apiResult)}`;

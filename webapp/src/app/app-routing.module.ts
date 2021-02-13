@@ -12,19 +12,19 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        loadChildren: () => import('./pages/home/home.module').then(m => m.HomeModule)
+        loadChildren: () => import('./pages/home/home.module').then((m) => m.HomeModule)
       },
       {
         path: 'accounts',
-        loadChildren: () => import('./pages/accounts/accounts.module').then(m => m.AccountsModule)
+        loadChildren: () => import('./pages/accounts/accounts.module').then((m) => m.AccountsModule)
       },
       {
         path: 'admin',
-        loadChildren: () => import('./pages/admin/admin.module').then(m => m.AdminModule)
+        loadChildren: () => import('./pages/admin/admin.module').then((m) => m.AdminModule)
       },
       {
         path: 'errors',
-        loadChildren: () => import('./pages/errors/errors.module').then(m => m.ErrorsModule)
+        loadChildren: () => import('./pages/errors/errors.module').then((m) => m.ErrorsModule)
       }
     ]
   },
@@ -32,7 +32,7 @@ const routes: Routes = [
   /** Paginas sin navbar. */
   {
     path: 'auth',
-    loadChildren: () => import('./pages/auth/auth.module').then(m => m.AuthModule)
+    loadChildren: () => import('./pages/auth/auth.module').then((m) => m.AuthModule)
   },
   {
     path: 'error/404',
@@ -50,5 +50,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes, { scrollPositionRestoration: 'enabled', relativeLinkResolution: 'legacy' })],
   exports: [RouterModule]
 })
-export class AppRoutingModule {
-}
+export class AppRoutingModule {}

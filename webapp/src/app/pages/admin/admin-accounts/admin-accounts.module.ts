@@ -28,5 +28,4 @@ import { AdminAccountsRoutingModule } from './admin-accounts-routing.module';
     ReactiveFormsModule
   ]
 })
-export class AdminAccountsModule {
-}
+export class AdminAccountsModule {}
