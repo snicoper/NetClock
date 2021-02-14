@@ -1,18 +1,11 @@
 {
   "root": true,
-  "ignorePatterns": [
-    "projects/**/*"
-  ],
+  "ignorePatterns": ["projects/**/*"],
   "overrides": [
     {
-      "files": [
-        "*.ts"
-      ],
+      "files": ["*.ts"],
       "parserOptions": {
-        "project": [
-          "tsconfig.json",
-          "e2e/tsconfig.json"
-        ],
+        "project": ["tsconfig.json", "e2e/tsconfig.json"],
         "createDefaultProgram": true
       },
       "extends": [
@@ -45,28 +38,13 @@
         ],
         "@typescript-eslint/no-param-reassign": "off",
         "@typescript-eslint/no-require-imports": "error",
-        "arrow-parens": [
-          "off",
-          "always"
-        ],
+        "arrow-parens": ["off", "always"],
         "comma-dangle": "error",
-        "eqeqeq": [
-          "error",
-          "always"
-        ],
+        "eqeqeq": ["error", "always"],
         "import/order": "off",
-        "linebreak-style": [
-          "error",
-          "unix"
-        ],
-        "max-classes-per-file": [
-          "error",
-          1
-        ],
-        "max-lines": [
-          "error",
-          500
-        ],
+        "linebreak-style": ["error", "unix"],
+        "max-classes-per-file": ["error", 1],
+        "max-lines": ["error", 500],
         "no-duplicate-imports": "error",
         "no-irregular-whitespace": "error",
         "no-multiple-empty-lines": "error",
@@ -78,19 +56,12 @@
         ],
         "no-redeclare": "error",
         "no-useless-constructor": "off",
-        "space-before-function-paren": [
-          "error",
-          "never"
-        ]
+        "space-before-function-paren": ["error", "never"]
       }
     },
     {
-      "files": [
-        "*.html"
-      ],
-      "extends": [
-        "plugin:@angular-eslint/template/recommended"
-      ],
+      "files": ["*.html"],
+      "extends": ["plugin:@angular-eslint/template/recommended"],
       "rules": {}
     }
   ]

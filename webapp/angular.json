@@ -17,9 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "allowedCommonJsDependencies": [
-              "moment-timezone"
-            ],
+            "allowedCommonJsDependencies": ["moment-timezone"],
             "outputPath": "dist/net-clock",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -35,14 +33,9 @@
                 "output": "assets/fonts/font-awesome"
               }
             ],
-            "styles": [
-              "src/styles.scss",
-              "node_modules/ngx-toastr/toastr.css"
-            ],
+            "styles": ["src/styles.scss", "node_modules/ngx-toastr/toastr.css"],
             "stylePreprocessorOptions": {
-              "includePaths": [
-                "src/styles/scss"
-              ]
+              "includePaths": ["src/styles/scss"]
             },
             "scripts": []
           },
@@ -111,23 +104,15 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
-            "styles": [
-              "src/styles.scss"
-            ],
+            "assets": ["src/favicon.ico", "src/assets"],
+            "styles": ["src/styles.scss"],
             "scripts": []
           }
         },
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "lintFilePatterns": [
-              "src/**/*.ts",
-              "src/**/*.html"
-            ]
+            "lintFilePatterns": ["src/**/*.ts", "src/**/*.html"]
           }
         },
         "e2e": {

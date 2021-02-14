@@ -67,5 +67,4 @@ import { TableComponent } from './tables/table/table.component';
     TableHeaderComponent
   ]
 })
-export class ComponentsModule {
-}
+export class ComponentsModule {}
