@@ -18,6 +18,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <AdditionalFiles Include="$(SolutionDir)stylecop.json" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="StyleCopRules.ruleset">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
