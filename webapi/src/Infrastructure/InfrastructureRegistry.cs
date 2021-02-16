@@ -9,7 +9,9 @@ namespace NetClock.Infrastructure
 {
     public static class InfrastructureRegistry
     {
-        public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddInfrastructure(
+            this IServiceCollection services,
+            IConfiguration configuration)
         {
             services.Scan(scan =>
                 scan.FromCallingAssembly()

@@ -18,12 +18,12 @@ namespace NetClock.Application.Common.Models
 
         public static Result Success()
         {
-            return new(true, Array.Empty<string>());
+            return new (true, Array.Empty<string>());
         }
 
         public static Result Failure(IEnumerable<string> errors)
         {
-            return new(false, errors);
+            return new (false, errors);
         }
     }
 }

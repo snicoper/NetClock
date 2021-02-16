@@ -68,7 +68,8 @@ namespace NetClock.Application.Admin.AdminAccounts.Commands.UpdateAccount
                 request.LastName);
 
             _logger.LogInformation("Comprobar si el {@email} existe en la base de datos.", request.Email);
-            user = await _userManager.Users.AnyAsync(u => u.Email.ToLower() == request.Email.ToLower() && u.Id != request.Id);
+            user = await _userManager.Users.AnyAsync(u =>
+                u.Email.ToLower() == request.Email.ToLower() && u.Id != request.Id);
 
             if (user)
             {

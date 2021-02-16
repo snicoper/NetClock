@@ -17,6 +17,7 @@ namespace NetClock.WebApi.Controllers
 
         protected IMediator Mediator => _mediator ??= HttpContext.RequestServices.GetRequiredService<IMediator>();
 
-        protected IValidateParams ValidateParams => _validateParams ??= HttpContext.RequestServices.GetRequiredService<IValidateParams>();
+        protected IValidateParams ValidateParams =>
+            _validateParams ??= HttpContext.RequestServices.GetRequiredService<IValidateParams>();
     }
 }

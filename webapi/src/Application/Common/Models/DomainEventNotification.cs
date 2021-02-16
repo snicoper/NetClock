@@ -3,7 +3,8 @@ using NetClock.Domain.Common;
 
 namespace NetClock.Application.Common.Models
 {
-    public class DomainEventNotification<TDomainEvent> : INotification where TDomainEvent : DomainEvent
+    public class DomainEventNotification<TDomainEvent> : INotification
+        where TDomainEvent : DomainEvent
     {
         public DomainEventNotification(TDomainEvent domainEvent)
         {

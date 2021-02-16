@@ -18,7 +18,10 @@ namespace NetClock.Application.Common.Behaviours
             _validators = validators;
         }
 
-        public async Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate<TResponse> next)
+        public async Task<TResponse> Handle(
+            TRequest request,
+            CancellationToken cancellationToken,
+            RequestHandlerDelegate<TResponse> next)
         {
             if (!_validators.Any())
             {
@@ -26,7 +29,8 @@ namespace NetClock.Application.Common.Behaviours
             }
 
             var context = new ValidationContext<TRequest>(request);
-            var validationResults = await Task.WhenAll(_validators.Select(val => val.ValidateAsync(context, cancellationToken)));
+            var validationResults =
+                await Task.WhenAll(_validators.Select(val => val.ValidateAsync(context, cancellationToken)));
             var failures = validationResults.SelectMany(val => val.Errors).Where(val => val is not null).ToList();
 
             if (failures.Any())

@@ -6,7 +6,9 @@ namespace NetClock.WebApi.Extensions.ConfigureServices
 {
     public static class ConfigureTypedSettingsExtension
     {
-        public static IServiceCollection AddStronglyTypeSettings(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddStronglyTypeSettings(
+            this IServiceCollection services,
+            IConfiguration configuration)
         {
             // Configure strongly typed settings objects.
             services.Configure<JwtOptions>(configuration.GetSection("Jwt"));

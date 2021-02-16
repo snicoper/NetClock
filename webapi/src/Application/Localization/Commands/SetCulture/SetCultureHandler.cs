@@ -39,8 +39,7 @@ namespace NetClock.Application.Localization.Commands.SetCulture
             _httpContextAccessor.HttpContext?.Response.Cookies.Append(
                 CookieRequestCultureProvider.DefaultCookieName,
                 CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(request.Culture)),
-                new CookieOptions { Expires = DateTimeOffset.UtcNow.AddYears(1) }
-            );
+                new CookieOptions { Expires = DateTimeOffset.UtcNow.AddYears(1) });
 
             return Unit.Task;
         }

@@ -35,9 +35,10 @@ namespace NetClock.Infrastructure.Persistence
         }
 
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
+
         public DbSet<Schedule> Schedules { get; set; }
 
-        public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new())
+        public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new ())
         {
             SaveChangeAuditableEntity();
             SaveChangeApplicationUser();

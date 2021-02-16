@@ -49,7 +49,7 @@ namespace NetClock.Infrastructure.Services.Emails
         /// <summary>
         /// Envía un email con un template.
         /// </summary>
-        /// <param name="viewName">Vista cshtml</param>
+        /// <param name="viewName">Vista cshtml.</param>
         /// <param name="model">Modelo de datos para la vista.</param>
         public async Task SendEmailAsync<TModel>(string viewName, TModel model)
         {

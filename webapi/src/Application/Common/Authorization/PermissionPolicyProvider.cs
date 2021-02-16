@@ -9,12 +9,12 @@ namespace NetClock.Application.Common.Authorization
     // https://www.zehntec.com/blog/permission-based-authorization-in-asp-net-core/.
     internal class PermissionPolicyProvider : IAuthorizationPolicyProvider
     {
-        private DefaultAuthorizationPolicyProvider FallbackPolicyProvider { get; }
-
         public PermissionPolicyProvider(IOptions<AuthorizationOptions> options)
         {
             FallbackPolicyProvider = new DefaultAuthorizationPolicyProvider(options);
         }
+
+        private DefaultAuthorizationPolicyProvider FallbackPolicyProvider { get; }
 
         public Task<AuthorizationPolicy> GetDefaultPolicyAsync()
         {
