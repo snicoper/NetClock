@@ -50,7 +50,6 @@ namespace NetClock.Application.Common.Authorization.Handlers
                 }
 
                 context.Succeed(requirement);
-
                 return;
             }
         }

@@ -4,6 +4,7 @@
     <TargetFramework>net5.0</TargetFramework>
     <RootNamespace>NetClock.Application</RootNamespace>
     <AssemblyName>NetClock.Application</AssemblyName>
+    <CodeAnalysisRuleSet>$(SolutionDir)StyleCopRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
 
   <ItemGroup>
@@ -14,11 +15,23 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.DynamicLinq" Version="3.2.6" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="5.0.0" />
     <PackageReference Include="Scrutor" Version="3.3.0" />
+    <PackageReference Include="StyleCop.Analyzers" Version="1.1.118" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Domain\Domain.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <AdditionalFiles Include="$(SolutionDir)StyleCopRules.ruleset" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="StyleCop.ruleset">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 
   <PropertyGroup>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>

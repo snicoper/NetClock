@@ -4,11 +4,23 @@
     <TargetFramework>net5.0</TargetFramework>
     <RootNamespace>NetClock.Domain</RootNamespace>
     <AssemblyName>NetClock.Domain</AssemblyName>
+    <CodeAnalysisRuleSet>$(SolutionDir)StyleCopRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.ApiAuthorization.IdentityServer" Version="5.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.0" />
+    <PackageReference Include="StyleCop.Analyzers" Version="1.1.118" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AdditionalFiles Include="$(SolutionDir)StyleCopRules.ruleset" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="StyleCopRules.ruleset">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
   <PropertyGroup>

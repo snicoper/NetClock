@@ -51,9 +51,11 @@ namespace NetClock.Application.Accounts.Accounts.Commands.ChangePassword
         {
             _emailService.Subject = _localizer["Cambio de contraseña."];
             _emailService.IsHtml = true;
-            _emailService.To = new List<MailAddress> { new(changePasswordDto.Email) };
+            _emailService.To = new List<MailAddress> { new (changePasswordDto.Email) };
             await _emailService.SendEmailAsync(EmailTemplates.ChangePassword, changePasswordDto);
-            _logger.LogInformation("Se ha notificado el cambio de contraseña: {@changePasswordDto}.", changePasswordDto);
+            _logger.LogInformation(
+                "Se ha notificado el cambio de contraseña: {@changePasswordDto}.",
+                changePasswordDto);
         }
     }
 }

@@ -6,6 +6,7 @@
     <RootNamespace>NetClock.WebApi</RootNamespace>
     <AssemblyName>NetClock.WebApi</AssemblyName>
     <UserSecretsId>aspnet-netclock-6c9ba5ff-19f7-4984-bfc9-281d3df753c2</UserSecretsId>
+    <CodeAnalysisRuleSet>$(SolutionDir)StyleCopRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
 
   <ItemGroup>
@@ -16,6 +17,7 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.0" />
     <PackageReference Include="Serilog.AspNetCore" Version="3.4.0" />
     <PackageReference Include="Serilog.Sinks.Console" Version="3.1.1" />
+    <PackageReference Include="StyleCop.Analyzers" Version="1.1.118" />
   </ItemGroup>
 
   <ItemGroup>
@@ -32,7 +34,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Services" />
+    <AdditionalFiles Include="$(SolutionDir)StyleCopRules.ruleset" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="StyleCopRules.ruleset">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
   <Target Name="NSwag" AfterTargets="Build" Condition="'$(Configuration)' == 'Debug'">
