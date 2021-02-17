@@ -6,7 +6,7 @@ namespace NetClock.WebApi.Extensions.ConfigureServices
 {
     public static class ConfigureTypedSettingsExtension
     {
-        public static IServiceCollection AddStronglyTypeSettings(
+        public static IServiceCollection AddCustomOptions(
             this IServiceCollection services,
             IConfiguration configuration)
         {

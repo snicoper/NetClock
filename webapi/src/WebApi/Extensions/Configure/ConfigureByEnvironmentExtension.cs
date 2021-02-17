@@ -8,51 +8,49 @@ namespace NetClock.WebApi.Extensions.Configure
 {
     public static class ConfigureByEnvironmentExtension
     {
-        private static IApplicationBuilder _application;
+        private static IApplicationBuilder _app;
 
         public static void UseConfigureByEnvironment(this IApplicationBuilder app, IHostEnvironment environment)
         {
-            _application = app;
-            var hasConfigure = false;
+            _app = app;
 
             if (environment.IsProduction())
             {
-                hasConfigure = true;
                 ConfigureProduction();
+
+                return;
             }
 
             if (environment.IsStaging())
             {
-                hasConfigure = true;
                 ConfigureStaging();
+
+                return;
             }
 
             if (environment.IsDevelopment())
             {
-                hasConfigure = true;
                 ConfigureDevelopment();
+
+                return;
             }
 
-            if (environment.IsEnvironment(CommonConstants.Test))
-            {
-                hasConfigure = true;
-                ConfigureTest();
-            }
-
-            if (hasConfigure is false)
+            if (!environment.IsEnvironment(CommonConstants.Test))
             {
                 throw new NotImplementedException();
             }
+
+            ConfigureTest();
         }
 
         private static void ConfigureProduction()
         {
-            _application.UseForwardedHeaders(new ForwardedHeadersOptions
+            _app.UseForwardedHeaders(new ForwardedHeadersOptions
             {
                 ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
             });
 
-            _application.UseHsts();
+            _app.UseHsts();
         }
 
         private static void ConfigureStaging()
@@ -62,7 +60,10 @@ namespace NetClock.WebApi.Extensions.Configure
 
         private static void ConfigureDevelopment()
         {
-            _application.UseDeveloperExceptionPage();
+            _app.UseOpenApi();
+            _app.UseSwaggerUi3(settings => { settings.Path = string.Empty; });
+            _app.UseReDoc(settings => { settings.Path = "/docs"; });
+            _app.UseDeveloperExceptionPage();
         }
 
         private static void ConfigureTest()

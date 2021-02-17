@@ -38,17 +38,15 @@ namespace NetClock.WebApi
             services.AddHttpContextAccessor();
 
             // Dependency injection.
-            services.AddApplication();
-            services.AddInfrastructure(Configuration);
-            services.AddDomain();
-            services.AddWebApi();
-
-            // Configure services.
-            services.AddStronglyTypeSettings(Configuration);
-            services.AddConfigureIdentity();
-            services.AddConfigureAuthentication(Configuration);
-            services.AddConfigureApiControllers();
-            services.AddConfigureCors(Environment, DefaultCors);
+            services.AddApplication()
+                .AddInfrastructure(Configuration)
+                .AddDomain()
+                .AddWebApi()
+                .AddCustomOptions(Configuration)
+                .AddConfigureIdentity()
+                .AddConfigureAuthentication(Configuration)
+                .AddConfigureApiControllers()
+                .AddConfigureCors(Environment, DefaultCors);
 
             if (!Environment.IsProduction())
             {
@@ -120,14 +118,6 @@ namespace NetClock.WebApi
             app.UseCors(DefaultCors);
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
-            if (!Environment.IsProduction())
-            {
-                app.UseOpenApi();
-                app.UseSwaggerUi3(settings => { settings.Path = string.Empty; });
-                app.UseReDoc(settings => { settings.Path = "/docs"; });
-            }
-
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
